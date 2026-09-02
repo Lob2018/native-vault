@@ -44,8 +44,7 @@ public final class CrossPlatformVaultLoader {
         if (libraryName.contains("/") || libraryName.endsWith(".so.0") || libraryName.toLowerCase(Locale.ROOT).endsWith(".dll")) {
             lookup = SymbolLookup.libraryLookup(libraryName, Arena.global());
         } else if (libraryName.equalsIgnoreCase("Advapi32")) {
-            String libraryFile = libraryName.toLowerCase(Locale.ROOT).endsWith(".dll") ? libraryName : libraryName + ".dll";
-            lookup = SymbolLookup.libraryLookup(libraryFile, Arena.global());
+            lookup = SymbolLookup.libraryLookup(libraryName + ".dll", Arena.global());
         } else {
             lookup = LINKER.defaultLookup();
         }
