@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="native-vault">
+    <output-path>$PROJECT_DIR$/out/artifacts/native_vault</output-path>
+    <root id="archive" name="native-vault.jar">
+      <element id="module-output" name="native-vault" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,354 @@
+package fr.softsf.vault;
+
+import fr.softsf.vault.exception.NativeVaultException;
+import fr.softsf.vault.spi.VaultStrategy;
+import org.apache.commons.lang3.StringUtils;
+
+import java.lang.foreign.Arena;
+import java.lang.foreign.MemorySegment;
+import java.lang.foreign.ValueLayout;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
+
+/**
+ * Facade class managing native credential operations using the FFM API with secure char[] handling for both keys and secrets, static validation, and logging.
+ */
+public final class NativeVault implements AutoCloseable {
+    private static final System.Logger LOGGER = System.getLogger(NativeVault.class.getName());
+    private static final VaultStrategy STRATEGY = VaultStrategy.detect();
+    private static final boolean USABLE;
+    private static final String INIT_ERROR_MESSAGE;
+
+    static {
+        boolean initialized = false;
+        String errorMsg = null;
+        try (Arena tempArena = Arena.ofConfined()) {
+            char[] testKey = new char[]{'v', 'a', 'u', 'l', 't', '-', 't', 'e', 's', 't'};
+            char[] testValue = new char[]{'t', 'e', 's', 't', 'e', 'd'};
+            MemorySegment testSegment = allocateSegment(tempArena, testValue);
+            boolean stored = STRATEGY.store(testKey, testSegment, tempArena);
+            boolean exists = STRATEGY.exists(testKey);
+            Optional<MemorySegment> retrieved = STRATEGY.retrieve(testKey, tempArena);
+            boolean deleted = STRATEGY.delete(testKey);
+            Arrays.fill(testKey, '\0');
+            Arrays.fill(testValue, '\0');
+            initialized = stored && exists && retrieved.isPresent() && deleted;
+            if (!initialized) {
+                errorMsg = "Initial CRUD verification failed.";
+            }
+        } catch (Throwable t) {//NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
+            errorMsg = t.getMessage();
+        }
+        USABLE = initialized;
+        INIT_ERROR_MESSAGE = errorMsg;
+        if (USABLE) {
+            LOGGER.log(System.Logger.Level.INFO, "Native vault successfully initialized with strategy: {0}", STRATEGY.getClass().getSimpleName());
+        } else {
+            LOGGER.log(System.Logger.Level.ERROR, "Native vault initialization failed: {0}", INIT_ERROR_MESSAGE);
+        }
+    }
+
+    private final Arena arena;
+
+    /**
+     * Initializes a new instance of the native vault facade.
+     */
+    public NativeVault() {
+        ensureUsable();
+        this.arena = Arena.ofConfined();
+    }
+
+    /**
+     * Checks if the native credential store is operational.
+     *
+     * @return true if usable, false otherwise
+     */
+    public static boolean isUsable() {
+        return USABLE;
+    }
+
+    /**
+     * Ensures that the native vault is usable before performing operations.
+     *
+     * @throws UnsupportedOperationException if the vault is not operational
+     */
+    private static void ensureUsable() {
+        if (!USABLE) {
+            LOGGER.log(System.Logger.Level.ERROR, "Attempted to use unusable native vault: {0}", INIT_ERROR_MESSAGE);
+            throw new UnsupportedOperationException("Native vault is not usable: " + INIT_ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Stores a secret securely in the native credential store using string parameters.
+     *
+     * @param key    the credential identifier
+     * @param secret the secret value to store
+     * @throws IllegalArgumentException if {@code key} or {@code secret} is blank
+     * @throws NativeVaultException if an error occurs while storing the secret
+     */
+    public void setSecret(String key, String secret) {
+        if (StringUtils.isBlank(key)) {
+            throw new IllegalArgumentException("Key cannot be null or blank");
+        }
+        if (StringUtils.isBlank(secret)) {
+            throw new IllegalArgumentException("Secret cannot be null or blank");
+        }
+        ensureUsable();
+        char[] keyChars = key.toCharArray();
+        char[] secretChars = secret.toCharArray();
+        try {
+            setSecret(keyChars, secretChars);
+        } finally {
+            Arrays.fill(keyChars, '\0');
+            Arrays.fill(secretChars, '\0');
+        }
+    }
+
+    /**
+     * Stores a secret securely in the native credential store using character array parameters.
+     *
+     * @param key    the credential identifier character array
+     * @param secret the secret value character array to store
+     * @throws IllegalArgumentException if {@code key} or {@code secret} is null or empty
+     * @throws NativeVaultException if an error occurs while storing the secret
+     */
+    public void setSecret(char[] key, char[] secret) {
+        if (key == null || key.length == 0) {
+            throw new IllegalArgumentException("Key cannot be null or empty");
+        }
+        if (secret == null || secret.length == 0) {
+            throw new IllegalArgumentException("Secret cannot be null or empty");
+        }
+        ensureUsable();
+        MemorySegment segment = allocateSegment(arena, secret);
+        try {
+            boolean success = STRATEGY.store(key, segment, arena);
+            if (success) {
+                LOGGER.log(System.Logger.Level.DEBUG, "Secret stored successfully.");
+            } else {
+                LOGGER.log(System.Logger.Level.ERROR, "Failed to store secret in native store.");
+            }
+        } catch (Throwable t) {//NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
+            LOGGER.log(System.Logger.Level.ERROR, "Failed to store secret with exception: {0}", t.getMessage());
+            throw new NativeVaultException("Failed to store secret in native store", t);
+        } finally {
+            zeroFill(segment);
+        }
+    }
+
+    /**
+     * Retrieves a secret from the native credential store using a string key.
+     *
+     * @param key the credential identifier
+     * @return an optional containing the secret character array if found
+     * @throws IllegalArgumentException if {@code key} is blank
+     * @throws NativeVaultException if an error occurs while retrieving the secret
+     */
+    public Optional<char[]> getSecret(String key) {
+        if (StringUtils.isBlank(key)) {
+            throw new IllegalArgumentException("Key cannot be null or blank");
+        }
+        ensureUsable();
+        char[] keyChars = key.toCharArray();
+        try {
+            return getSecret(keyChars);
+        } finally {
+            Arrays.fill(keyChars, '\0');
+        }
+    }
+
+    /**
+     * Retrieves a secret from the native credential store using a character array key.
+     *
+     * @param key the credential identifier character array
+     * @return an optional containing the secret character array if found
+     * @throws IllegalArgumentException if {@code key} is null or empty
+     * @throws NativeVaultException if an error occurs while retrieving the secret
+     */
+    public Optional<char[]> getSecret(char[] key) {
+        if (key == null || key.length == 0) {
+            throw new IllegalArgumentException("Key cannot be null or empty");
+        }
+        ensureUsable();
+        try {
+            Optional<MemorySegment> segmentOpt = STRATEGY.retrieve(key, arena);
+            if (segmentOpt.isEmpty()) {
+                LOGGER.log(System.Logger.Level.DEBUG, "Secret not found.");
+                return Optional.empty();
+            }
+            return segmentOpt.map(segment -> {
+                try {
+                    byte[] bytes = segment.toArray(ValueLayout.JAVA_BYTE);
+                    CharBuffer charBuffer = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(bytes));
+                    char[] chars = new char[charBuffer.remaining()];
+                    charBuffer.get(chars);
+                    Arrays.fill(bytes, (byte) 0);
+                    LOGGER.log(System.Logger.Level.DEBUG, "Secret retrieved successfully.");
+                    return chars;
+                } finally {
+                    zeroFill(segment);
+                }
+            });
+        } catch (Throwable t) {//NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
+            LOGGER.log(System.Logger.Level.ERROR, "Failed to retrieve secret with exception: {0}", t.getMessage());
+            throw new NativeVaultException("Failed to retrieve secret from native store", t);
+        }
+    }
+
+    /**
+     * Deletes a secret from the native credential store using a string key.
+     *
+     * @param key the credential identifier
+     * @throws IllegalArgumentException if {@code key} is blank
+     * @throws NativeVaultException if an error occurs while removing the secret
+     */
+    public void removeSecret(String key) {
+        if (StringUtils.isBlank(key)) {
+            throw new IllegalArgumentException("Key cannot be null or blank");
+        }
+        ensureUsable();
+        char[] keyChars = key.toCharArray();
+        try {
+            removeSecret(keyChars);
+        } finally {
+            Arrays.fill(keyChars, '\0');
+        }
+    }
+
+    /**
+     * Deletes a secret from the native credential store using a character array key.
+     *
+     * @param key the credential identifier character array
+     * @throws IllegalArgumentException if {@code key} is null or empty
+     * @throws NativeVaultException if an error occurs while removing the secret
+     */
+    public void removeSecret(char[] key) {
+        if (key == null || key.length == 0) {
+            throw new IllegalArgumentException("Key cannot be null or empty");
+        }
+        ensureUsable();
+        try {
+            boolean success = STRATEGY.delete(key);
+            if (success) {
+                LOGGER.log(System.Logger.Level.DEBUG, "Secret removed successfully.");
+            } else {
+                LOGGER.log(System.Logger.Level.ERROR, "Failed to remove secret from native store.");
+            }
+        } catch (Throwable t) {//NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
+            LOGGER.log(System.Logger.Level.ERROR, "Failed to remove secret with exception: {0}", t.getMessage());
+            throw new NativeVaultException("Failed to remove secret from native store", t);
+        }
+    }
+
+    /**
+     * Checks if a secret exists in the native credential store using a string key.
+     *
+     * @param key the credential identifier
+     * @return true if the secret exists, false otherwise
+     * @throws IllegalArgumentException if {@code key} is blank
+     * @throws NativeVaultException if an error occurs while checking existence
+     */
+    public boolean hasSecret(String key) {
+        if (StringUtils.isBlank(key)) {
+            throw new IllegalArgumentException("Key cannot be null or blank");
+        }
+        ensureUsable();
+        char[] keyChars = key.toCharArray();
+        try {
+            return hasSecret(keyChars);
+        } finally {
+            Arrays.fill(keyChars, '\0');
+        }
+    }
+
+    /**
+     * Checks if a secret exists in the native credential store using a character array key.
+     *
+     * @param key the credential identifier character array
+     * @return true if the secret exists, false otherwise
+     * @throws IllegalArgumentException if {@code key} is null or empty
+     * @throws NativeVaultException if an error occurs while checking existence
+     */
+    public boolean hasSecret(char[] key) {
+        if (key == null || key.length == 0) {
+            throw new IllegalArgumentException("Key cannot be null or empty");
+        }
+        ensureUsable();
+        try {
+            boolean exists = STRATEGY.exists(key);
+            LOGGER.log(System.Logger.Level.DEBUG, "Existence check result: {0}", exists);
+            return exists;
+        } catch (Throwable t) {//NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
+            LOGGER.log(System.Logger.Level.ERROR, "Failed to check secret existence with exception: {0}", t.getMessage());
+            throw new NativeVaultException("Failed to check secret existence in native store", t);
+        }
+    }
+
+    /**
+     * Allocates a memory segment from a character array and encodes it to UTF-8.
+     *
+     * @param arena the memory arena
+     * @param data  the character array data
+     * @return the allocated memory segment
+     * @throws IllegalArgumentException if {@code arena} is null or {@code data} is null or empty
+     */
+    private static MemorySegment allocateSegment(Arena arena, char[] data) {
+        if (Objects.isNull(arena)) {
+            throw new IllegalArgumentException("Arena cannot be null or empty");
+        }
+        if (data == null || data.length == 0) {
+            throw new IllegalArgumentException("Data cannot be null or empty");
+        }
+        ByteBuffer byteBuffer = StandardCharsets.UTF_8.encode(CharBuffer.wrap(data));
+        MemorySegment segment = arena.allocate(byteBuffer.remaining());
+        segment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
+        byteBuffer.position(0);
+        while (byteBuffer.hasRemaining()) {
+            byteBuffer.put((byte) 0);
+        }
+        return segment;
+    }
+
+    /**
+     * Overwrites the specified memory segment with zeros to ensure security.
+     *
+     * @param segment the memory segment to clear
+     * @throws IllegalArgumentException if {@code segment} is null
+     */
+    private void zeroFill(MemorySegment segment) {
+        if (Objects.isNull(segment)) {
+            throw new IllegalArgumentException("Segment cannot be null or empty");
+        }
+        segment.fill((byte) 0);
+        LOGGER.log(System.Logger.Level.DEBUG, "Overwrite the memory segment with 0.");
+    }
+
+    /**
+     * Closes the native vault arena, releasing associated native memory resources.
+     */
+    @Override
+    public void close() {
+        arena.close();
+        LOGGER.log(System.Logger.Level.DEBUG, "Native vault arena closed.");
+    }
+}
