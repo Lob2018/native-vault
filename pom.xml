@@ -79,10 +79,33 @@
                 <version>3.5.2</version>
                 <configuration>
                     <argLine>
+                        @{jacoco.argLine}
                         --enable-native-access=ALL-UNNAMED
-                        --add-opens fr.softsf.vault/fr.softsf.vault=org.junit.platform.commons
                     </argLine>
                 </configuration>
+            </plugin>
+            <!-- JaCoCo plugin for code coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.15</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <propertyName>jacoco.argLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <phase>test</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

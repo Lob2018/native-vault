@@ -15,45 +15,11 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Facade class managing native credential operations using the FFM API with secure char[] handling for both keys and secrets, static validation, and logging.
+ * Facade class managing native credential operations using the FFM API with secure char[] handling for both keys and secrets, dynamic strategy detection, and logging.
  */
 public final class NativeVault implements AutoCloseable {
     private static final System.Logger LOGGER = System.getLogger(NativeVault.class.getName());
     private static final VaultStrategy STRATEGY = VaultStrategy.detect();
-    private static final boolean USABLE;
-    private static final String INIT_ERROR_MESSAGE;
-
-    static {
-        boolean initialized = false;
-        String errorMsg = null;
-        try (Arena tempArena = Arena.ofConfined()) {
-            char[] testKey = new char[]{'v', 'a', 'u', 'l', 't', '-', 't', 'e', 's', 't'};
-            char[] testValue = new char[]{'t', 'e', 's', 't', 'e', 'd'};
-            MemorySegment testSegment = allocateSegment(tempArena, testValue);
-            boolean stored = STRATEGY.store(testKey, testSegment, tempArena);
-            boolean exists = STRATEGY.exists(testKey);
-            Optional<MemorySegment> retrieved = STRATEGY.retrieve(testKey, tempArena);
-            boolean deleted = STRATEGY.delete(testKey);
-            Arrays.fill(testKey, '\0');
-            Arrays.fill(testValue, '\0');
-            initialized = stored && exists && retrieved.isPresent() && deleted;
-            if (!initialized) {
-                errorMsg = "Initial CRUD verification failed.";
-            }
-        } catch (Throwable t) {//NOSONAR
-            if (t instanceof Error error) {
-                throw error;
-            }
-            errorMsg = t.getMessage();
-        }
-        USABLE = initialized;
-        INIT_ERROR_MESSAGE = errorMsg;
-        if (USABLE) {
-            LOGGER.log(System.Logger.Level.INFO, "Native vault successfully initialized with strategy: {0}", STRATEGY.getClass().getSimpleName());
-        } else {
-            LOGGER.log(System.Logger.Level.ERROR, "Native vault initialization failed: {0}", INIT_ERROR_MESSAGE);
-        }
-    }
 
     private final Arena arena;
 
@@ -66,23 +32,52 @@ public final class NativeVault implements AutoCloseable {
     }
 
     /**
-     * Checks if the native credential store is operational.
-     *
-     * @return true if usable, false otherwise
+     * Holder class providing thread-safe lazy execution of the integrity check.
      */
-    public static boolean isUsable() {
-        return USABLE;
+    private static final class IntegrityHolder {
+        private static final boolean VERIFIED = executeIntegrityCheck();
+        private static boolean executeIntegrityCheck() {
+            if (STRATEGY == null) {
+                return false;
+            }
+            char[] testKey = ("vault-test-" + System.currentTimeMillis() + "-" + Thread.currentThread().threadId()).toCharArray();
+            char[] testValue = {'t', 'e', 's', 't'};
+            try (Arena tempArena = Arena.ofConfined()) {
+                MemorySegment segment = allocateSegment(tempArena, testValue);
+                boolean stored = STRATEGY.store(testKey, segment, tempArena);
+                boolean exists = STRATEGY.exists(testKey);
+                Optional<MemorySegment> retrieved = STRATEGY.retrieve(testKey, tempArena);
+                boolean deleted = STRATEGY.delete(testKey);
+                return stored && exists && retrieved.isPresent() && deleted;
+            } catch (Throwable t) { //NOSONAR
+                if (t instanceof Error error) {
+                    throw error;
+                }
+                LOGGER.log(System.Logger.Level.ERROR, "Integrity check failed with exception: {0}", t.getMessage(), t);
+                return false;
+            } finally {
+                Arrays.fill(testKey, '\0');
+                Arrays.fill(testValue, '\0');
+            }
+        }
     }
 
     /**
-     * Ensures that the native vault is usable before performing operations.
+     * Checks if a native vault strategy is available and verified.
      *
-     * @throws UnsupportedOperationException if the vault is not operational
+     * @return true if a strategy is detected and operational, false otherwise
+     */
+    public static boolean isUsable() {
+        return STRATEGY != null && IntegrityHolder.VERIFIED;
+    }
+
+    /**
+     * Ensures that a strategy is available before performing operations.
      */
     private static void ensureUsable() {
-        if (!USABLE) {
-            LOGGER.log(System.Logger.Level.ERROR, "Attempted to use unusable native vault: {0}", INIT_ERROR_MESSAGE);
-            throw new UnsupportedOperationException("Native vault is not usable: " + INIT_ERROR_MESSAGE);
+        if (!isUsable()) {
+            LOGGER.log(System.Logger.Level.ERROR, "Attempted to use unusable native vault: Strategy not detected or integrity check failed.");
+            throw new NativeVaultException("Native vault is not usable: Strategy not detected or integrity check failed.", null);
         }
     }
 

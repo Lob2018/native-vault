@@ -83,7 +83,10 @@ public final class WindowsCredentialManagerStrategy implements VaultStrategy {
                 LOGGER.log(System.Logger.Level.ERROR, "CredWriteW failed with error code: {0}", errorCode);
             }
             return status != 0;
-        } catch (Throwable t) {
+        } catch (Throwable t) {//NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
             LOGGER.log(System.Logger.Level.ERROR, "Exception during store: {0}", t.getMessage(), t);
             return false;
         }
@@ -107,7 +110,10 @@ public final class WindowsCredentialManagerStrategy implements VaultStrategy {
                 return Optional.of(secretCopy);
             }
             return Optional.empty();
-        } catch (Throwable t) {
+        } catch (Throwable t) {//NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
             LOGGER.log(System.Logger.Level.ERROR, "Exception during retrieve: {0}", t.getMessage(), t);
             return Optional.empty();
         }
@@ -120,7 +126,10 @@ public final class WindowsCredentialManagerStrategy implements VaultStrategy {
             MemorySegment targetNameSegment = arena.allocateFrom(keyStr, StandardCharsets.UTF_16LE);
             int status = (int) DELETE_HANDLE.invokeExact(targetNameSegment, CRED_TYPE_GENERIC, 0);
             return status != 0;
-        } catch (Throwable t) {
+        } catch (Throwable t) {//NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
             LOGGER.log(System.Logger.Level.ERROR, "Exception during delete: {0}", t.getMessage(), t);
             return false;
         }
@@ -139,7 +148,11 @@ public final class WindowsCredentialManagerStrategy implements VaultStrategy {
                 return true;
             }
             return false;
-        } catch (Throwable _) {
+        } catch (Throwable t) {//NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
+            LOGGER.log(System.Logger.Level.ERROR, "Exception during exists check: {0}", t.getMessage(), t);
             return false;
         }
     }
