@@ -46,7 +46,7 @@ class NativeVaultTest {
         String key = "test-key-str";
         String secret = "test-secret-str";
         try {
-            vault.setSecret(key, secret);
+            assertTrue(vault.setSecret(key, secret));
             assertTrue(vault.hasSecret(key));
 
             Optional<char[]> retrieved = vault.getSecret(key);
@@ -65,7 +65,7 @@ class NativeVaultTest {
         char[] key = new char[]{'t', 'e', 's', 't', '-', 'k', 'e', 'y', '-', 'c', 'h', 'a', 'r'};
         char[] secret = new char[]{'s', 'e', 'c', 'r', 'e', 't'};
         try {
-            vault.setSecret(key, secret);
+            assertTrue(vault.setSecret(key, secret));
             assertTrue(vault.hasSecret(key));
 
             Optional<char[]> retrieved = vault.getSecret(key);
@@ -85,6 +85,7 @@ class NativeVaultTest {
         assertFalse(vault.hasSecret(key));
         Optional<char[]> retrieved = vault.getSecret(key);
         assertTrue(retrieved.isEmpty());
+        assertFalse(vault.removeSecret(key));
     }
 
     /**
@@ -94,9 +95,9 @@ class NativeVaultTest {
     void givenStoredSecret_whenRemoveSecret_thenSecretIsDeleted() {
         String key = "test-remove-key";
         String secret = "secret-to-remove";
-        vault.setSecret(key, secret);
+        assertTrue(vault.setSecret(key, secret));
         assertTrue(vault.hasSecret(key));
-        vault.removeSecret(key);
+        assertTrue(vault.removeSecret(key));
         assertFalse(vault.hasSecret(key));
     }
 
@@ -108,7 +109,7 @@ class NativeVaultTest {
         assertThrows(IllegalArgumentException.class, () -> vault.setSecret("", "secret"));
         assertThrows(IllegalArgumentException.class, () -> vault.setSecret("key", ""));
         assertThrows(IllegalArgumentException.class, () -> vault.getSecret("  "));
-        assertThrows(IllegalArgumentException.class, () -> vault.removeSecret((String)null));
+        assertThrows(IllegalArgumentException.class, () -> vault.removeSecret((String) null));
         assertThrows(IllegalArgumentException.class, () -> vault.removeSecret((char[]) null));
         assertThrows(IllegalArgumentException.class, () -> vault.hasSecret(""));
     }
