@@ -1,4 +1,4 @@
-package fr.softsf.vault.spi;
+package fr.softsf.vault.strategy;
 
 import fr.softsf.vault.internal.CrossPlatformVaultLoader;
 
@@ -15,8 +15,7 @@ import java.util.Optional;
 /**
  * Windows Credential Manager implementation of the VaultStrategy interface utilizing the FFM API with proper segment reinterpretation.
  */
-public final class WindowsCredentialManagerStrategy implements VaultStrategy {
-    private static final System.Logger LOGGER = System.getLogger(WindowsCredentialManagerStrategy.class.getName());
+final class WindowsCredentialManagerStrategy implements VaultStrategy {
     private static final String LIB_NAME = "Advapi32";
     private static final int CRED_TYPE_GENERIC = 1;
     private static final int CRED_PERSIST_LOCAL_MACHINE = 2;
@@ -43,20 +42,18 @@ public final class WindowsCredentialManagerStrategy implements VaultStrategy {
     private static final MethodHandle READ_HANDLE;
     private static final MethodHandle DELETE_HANDLE;
     private static final MethodHandle CRED_FREE_HANDLE;
-    private static final MethodHandle GET_LAST_ERROR_HANDLE;
 
     static {
         WRITE_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(LIB_NAME, "CredWriteW", FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.JAVA_INT));
         READ_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(LIB_NAME, "CredReadW", FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT, ValueLayout.ADDRESS));
         DELETE_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(LIB_NAME, "CredDeleteW", FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT));
         CRED_FREE_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(LIB_NAME, "CredFree", FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
-        GET_LAST_ERROR_HANDLE = CrossPlatformVaultLoader.loadNativeFunction("Kernel32", "GetLastError", FunctionDescriptor.of(ValueLayout.JAVA_INT));
     }
 
     /**
      * Initializes a new instance of the WindowsCredentialManagerStrategy.
      */
-    public WindowsCredentialManagerStrategy() {
+    WindowsCredentialManagerStrategy() {
         // Stateless implementation; native method handles are loaded statically.
     }
 
@@ -78,16 +75,11 @@ public final class WindowsCredentialManagerStrategy implements VaultStrategy {
             credentialSegment.set(ValueLayout.ADDRESS, CREDENTIAL_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("TargetAlias")), MemorySegment.NULL);
             credentialSegment.set(ValueLayout.ADDRESS, CREDENTIAL_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("UserName")), MemorySegment.NULL);
             int status = (int) WRITE_HANDLE.invokeExact(credentialSegment, 0);
-            if (status == 0) {
-                int errorCode = (int) GET_LAST_ERROR_HANDLE.invokeExact();
-                LOGGER.log(System.Logger.Level.ERROR, "CredWriteW failed with error code: {0}", errorCode);
-            }
             return status != 0;
         } catch (Throwable t) {//NOSONAR
             if (t instanceof Error error) {
                 throw error;
             }
-            LOGGER.log(System.Logger.Level.ERROR, "Exception during store: {0}", t.getMessage(), t);
             return false;
         }
     }
@@ -114,7 +106,6 @@ public final class WindowsCredentialManagerStrategy implements VaultStrategy {
             if (t instanceof Error error) {
                 throw error;
             }
-            LOGGER.log(System.Logger.Level.ERROR, "Exception during retrieve: {0}", t.getMessage(), t);
             return Optional.empty();
         }
     }
@@ -130,7 +121,6 @@ public final class WindowsCredentialManagerStrategy implements VaultStrategy {
             if (t instanceof Error error) {
                 throw error;
             }
-            LOGGER.log(System.Logger.Level.ERROR, "Exception during delete: {0}", t.getMessage(), t);
             return false;
         }
     }
@@ -152,7 +142,6 @@ public final class WindowsCredentialManagerStrategy implements VaultStrategy {
             if (t instanceof Error error) {
                 throw error;
             }
-            LOGGER.log(System.Logger.Level.ERROR, "Exception during exists check: {0}", t.getMessage(), t);
             return false;
         }
     }

@@ -1,4 +1,4 @@
-package fr.softsf.vault.spi;
+package fr.softsf.vault.strategy;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
@@ -8,7 +8,6 @@ import java.util.Optional;
  * Polymorphic strategy interface for OS-native credential store operations using character arrays for keys and boolean confirmations.
  */
 public sealed interface VaultStrategy permits MacKeychainStrategy, LinuxKeyringStrategy, WindowsCredentialManagerStrategy {
-    System.Logger LOGGER = System.getLogger(VaultStrategy.class.getName());
 
     /**
      * Stores a secret in the native credential store.
@@ -45,26 +44,19 @@ public sealed interface VaultStrategy permits MacKeychainStrategy, LinuxKeyringS
      */
     boolean exists(char[] key);
 
+    /**
+     * Detects and returns the appropriate native vault strategy based on the operating system.
+     *
+     * @return the matching vault strategy
+     * @throws UnsupportedOperationException if the operating system is not supported
+     */
     static VaultStrategy detect() {
         String os = System.getProperty("os.name").toLowerCase(java.util.Locale.ROOT);
-        LOGGER.log(System.Logger.Level.DEBUG, "Detecting OS environment: {0}", os);
         return switch (os) {
-            case String s when s.contains("win") -> {
-                LOGGER.log(System.Logger.Level.INFO, "Selected Windows Credential Manager strategy.");
-                yield new WindowsCredentialManagerStrategy();
-            }
-            case String s when s.contains("mac") -> {
-                LOGGER.log(System.Logger.Level.INFO, "Selected macOS Keychain strategy.");
-                yield new MacKeychainStrategy();
-            }
-            case String s when s.contains("nix") || s.contains("nux") -> {
-                LOGGER.log(System.Logger.Level.INFO, "Selected Linux Keyring strategy.");
-                yield new LinuxKeyringStrategy();
-            }
-            default -> {
-                LOGGER.log(System.Logger.Level.ERROR, "Unsupported operating system detected: {0}", os);
-                throw new UnsupportedOperationException("Unsupported operating system: " + os);
-            }
+            case String s when s.contains("win") -> new WindowsCredentialManagerStrategy();
+            case String s when s.contains("mac") -> new MacKeychainStrategy();
+            case String s when s.contains("nix") || s.contains("nux") -> new LinuxKeyringStrategy();
+            default -> throw new UnsupportedOperationException("Unsupported operating system: " + os);
         };
     }
 }

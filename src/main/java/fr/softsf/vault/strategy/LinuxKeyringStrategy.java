@@ -1,4 +1,4 @@
-package fr.softsf.vault.spi;
+package fr.softsf.vault.strategy;
 
 import fr.softsf.vault.internal.CrossPlatformVaultLoader;
 
@@ -13,24 +13,27 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 /**
- * Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with boolean confirmation signatures.
+ * Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper memory cleanup and error handling.
  */
-public final class LinuxKeyringStrategy implements VaultStrategy {
+final class LinuxKeyringStrategy implements VaultStrategy {
     private static final String LIB_NAME = "libsecret-1.so.0";
+    private static final String GLIB_LIB_NAME = "libglib-2.0.so.0";
     private static final MethodHandle STORE_HANDLE;
     private static final MethodHandle LOOKUP_HANDLE;
     private static final MethodHandle CLEAR_HANDLE;
+    private static final MethodHandle G_FREE_HANDLE;
 
     static {
         STORE_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(LIB_NAME, "secret_password_store_sync", FunctionDescriptor.of(ValueLayout.JAVA_BOOLEAN, ValueLayout.ADDRESS, ValueLayout.ADDRESS, ValueLayout.ADDRESS, ValueLayout.ADDRESS, ValueLayout.ADDRESS, ValueLayout.ADDRESS, ValueLayout.ADDRESS));
         LOOKUP_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(LIB_NAME, "secret_password_lookup_sync", FunctionDescriptor.of(ValueLayout.ADDRESS, ValueLayout.ADDRESS, ValueLayout.ADDRESS, ValueLayout.ADDRESS, ValueLayout.ADDRESS));
         CLEAR_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(LIB_NAME, "secret_password_clear_sync", FunctionDescriptor.of(ValueLayout.JAVA_BOOLEAN, ValueLayout.ADDRESS, ValueLayout.ADDRESS, ValueLayout.ADDRESS, ValueLayout.ADDRESS, ValueLayout.ADDRESS));
+        G_FREE_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(GLIB_LIB_NAME, "g_free", FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
     }
 
     /**
      * Initializes a new instance of the LinuxKeyringStrategy.
      */
-    public LinuxKeyringStrategy() {
+    LinuxKeyringStrategy() {
         // Stateless implementation; native method handles are loaded statically.
     }
 
@@ -49,7 +52,10 @@ public final class LinuxKeyringStrategy implements VaultStrategy {
                     MemorySegment.NULL,
                     MemorySegment.NULL
             );
-        } catch (Throwable _) {
+        } catch (Throwable t) { //NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
             return false;
         }
     }
@@ -69,8 +75,15 @@ public final class LinuxKeyringStrategy implements VaultStrategy {
             if (result.equals(MemorySegment.NULL)) {
                 return Optional.empty();
             }
-            return Optional.of(result);
-        } catch (Throwable _) {
+            long stringLen = result.reinterpret(Long.MAX_VALUE).getString(0, StandardCharsets.UTF_8).getBytes(StandardCharsets.UTF_8).length;
+            MemorySegment secretCopy = arena.allocate(stringLen);
+            secretCopy.copyFrom(result.reinterpret(stringLen).asSlice(0, stringLen));
+            G_FREE_HANDLE.invokeExact(result);
+            return Optional.of(secretCopy);
+        } catch (Throwable t) { //NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
             return Optional.empty();
         }
     }
@@ -88,7 +101,10 @@ public final class LinuxKeyringStrategy implements VaultStrategy {
                     MemorySegment.NULL,
                     MemorySegment.NULL
             );
-        } catch (Throwable _) {
+        } catch (Throwable t) { //NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
             return false;
         }
     }
@@ -105,8 +121,15 @@ public final class LinuxKeyringStrategy implements VaultStrategy {
                     MemorySegment.NULL,
                     MemorySegment.NULL
             );
-            return !result.equals(MemorySegment.NULL);
-        } catch (Throwable _) {
+            if (result.equals(MemorySegment.NULL)) {
+                return false;
+            }
+            G_FREE_HANDLE.invokeExact(result);
+            return true;
+        } catch (Throwable t) { //NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
             return false;
         }
     }

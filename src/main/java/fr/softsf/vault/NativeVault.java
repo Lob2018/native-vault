@@ -1,7 +1,8 @@
+
 package fr.softsf.vault;
 
 import fr.softsf.vault.exception.NativeVaultException;
-import fr.softsf.vault.spi.VaultStrategy;
+import fr.softsf.vault.strategy.VaultStrategy;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.foreign.Arena;
@@ -18,7 +19,6 @@ import java.util.Optional;
  * Facade class managing native credential operations using the FFM API with secure char[] handling for both keys and secrets, dynamic strategy detection, and logging.
  */
 public final class NativeVault implements AutoCloseable {
-    private static final System.Logger LOGGER = System.getLogger(NativeVault.class.getName());
     private static final VaultStrategy STRATEGY = VaultStrategy.detect();
 
     private final Arena arena;
@@ -37,9 +37,6 @@ public final class NativeVault implements AutoCloseable {
     private static final class IntegrityHolder {
         private static final boolean VERIFIED = executeIntegrityCheck();
         private static boolean executeIntegrityCheck() {
-            if (STRATEGY == null) {
-                return false;
-            }
             char[] testKey = ("vault-test-" + System.currentTimeMillis() + "-" + Thread.currentThread().threadId()).toCharArray();
             char[] testValue = {'t', 'e', 's', 't'};
             try (Arena tempArena = Arena.ofConfined()) {
@@ -53,7 +50,6 @@ public final class NativeVault implements AutoCloseable {
                 if (t instanceof Error error) {
                     throw error;
                 }
-                LOGGER.log(System.Logger.Level.ERROR, "Integrity check failed with exception: {0}", t.getMessage(), t);
                 return false;
             } finally {
                 Arrays.fill(testKey, '\0');
@@ -68,7 +64,7 @@ public final class NativeVault implements AutoCloseable {
      * @return true if a strategy is detected and operational, false otherwise
      */
     public static boolean isUsable() {
-        return STRATEGY != null && IntegrityHolder.VERIFIED;
+        return IntegrityHolder.VERIFIED;
     }
 
     /**
@@ -76,7 +72,6 @@ public final class NativeVault implements AutoCloseable {
      */
     private static void ensureUsable() {
         if (!isUsable()) {
-            LOGGER.log(System.Logger.Level.ERROR, "Attempted to use unusable native vault: Strategy not detected or integrity check failed.");
             throw new NativeVaultException("Native vault is not usable: Strategy not detected or integrity check failed.", null);
         }
     }
@@ -86,10 +81,11 @@ public final class NativeVault implements AutoCloseable {
      *
      * @param key    the credential identifier
      * @param secret the secret value to store
+     * @return true if the secret was successfully stored, false otherwise
      * @throws IllegalArgumentException if {@code key} or {@code secret} is blank
      * @throws NativeVaultException if an error occurs while storing the secret
      */
-    public void setSecret(String key, String secret) {
+    public boolean setSecret(String key, String secret) {
         if (StringUtils.isBlank(key)) {
             throw new IllegalArgumentException("Key cannot be null or blank");
         }
@@ -100,7 +96,7 @@ public final class NativeVault implements AutoCloseable {
         char[] keyChars = key.toCharArray();
         char[] secretChars = secret.toCharArray();
         try {
-            setSecret(keyChars, secretChars);
+            return setSecret(keyChars, secretChars);
         } finally {
             Arrays.fill(keyChars, '\0');
             Arrays.fill(secretChars, '\0');
@@ -112,10 +108,11 @@ public final class NativeVault implements AutoCloseable {
      *
      * @param key    the credential identifier character array
      * @param secret the secret value character array to store
+     * @return true if the secret was successfully stored, false otherwise
      * @throws IllegalArgumentException if {@code key} or {@code secret} is null or empty
      * @throws NativeVaultException if an error occurs while storing the secret
      */
-    public void setSecret(char[] key, char[] secret) {
+    public boolean setSecret(char[] key, char[] secret) {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException("Key cannot be null or empty");
         }
@@ -125,17 +122,11 @@ public final class NativeVault implements AutoCloseable {
         ensureUsable();
         MemorySegment segment = allocateSegment(arena, secret);
         try {
-            boolean success = STRATEGY.store(key, segment, arena);
-            if (success) {
-                LOGGER.log(System.Logger.Level.DEBUG, "Secret stored successfully.");
-            } else {
-                LOGGER.log(System.Logger.Level.ERROR, "Failed to store secret in native store.");
-            }
+            return STRATEGY.store(key, segment, arena);
         } catch (Throwable t) {//NOSONAR
             if (t instanceof Error error) {
                 throw error;
             }
-            LOGGER.log(System.Logger.Level.ERROR, "Failed to store secret with exception: {0}", t.getMessage());
             throw new NativeVaultException("Failed to store secret in native store", t);
         } finally {
             zeroFill(segment);
@@ -179,7 +170,6 @@ public final class NativeVault implements AutoCloseable {
         try {
             Optional<MemorySegment> segmentOpt = STRATEGY.retrieve(key, arena);
             if (segmentOpt.isEmpty()) {
-                LOGGER.log(System.Logger.Level.DEBUG, "Secret not found.");
                 return Optional.empty();
             }
             return segmentOpt.map(segment -> {
@@ -189,7 +179,6 @@ public final class NativeVault implements AutoCloseable {
                     char[] chars = new char[charBuffer.remaining()];
                     charBuffer.get(chars);
                     Arrays.fill(bytes, (byte) 0);
-                    LOGGER.log(System.Logger.Level.DEBUG, "Secret retrieved successfully.");
                     return chars;
                 } finally {
                     zeroFill(segment);
@@ -199,7 +188,6 @@ public final class NativeVault implements AutoCloseable {
             if (t instanceof Error error) {
                 throw error;
             }
-            LOGGER.log(System.Logger.Level.ERROR, "Failed to retrieve secret with exception: {0}", t.getMessage());
             throw new NativeVaultException("Failed to retrieve secret from native store", t);
         }
     }
@@ -208,17 +196,18 @@ public final class NativeVault implements AutoCloseable {
      * Deletes a secret from the native credential store using a string key.
      *
      * @param key the credential identifier
+     * @return true if the secret was successfully removed, false otherwise
      * @throws IllegalArgumentException if {@code key} is blank
      * @throws NativeVaultException if an error occurs while removing the secret
      */
-    public void removeSecret(String key) {
+    public boolean removeSecret(String key) {
         if (StringUtils.isBlank(key)) {
             throw new IllegalArgumentException("Key cannot be null or blank");
         }
         ensureUsable();
         char[] keyChars = key.toCharArray();
         try {
-            removeSecret(keyChars);
+            return removeSecret(keyChars);
         } finally {
             Arrays.fill(keyChars, '\0');
         }
@@ -228,26 +217,21 @@ public final class NativeVault implements AutoCloseable {
      * Deletes a secret from the native credential store using a character array key.
      *
      * @param key the credential identifier character array
+     * @return true if the secret was successfully removed, false otherwise
      * @throws IllegalArgumentException if {@code key} is null or empty
      * @throws NativeVaultException if an error occurs while removing the secret
      */
-    public void removeSecret(char[] key) {
+    public boolean removeSecret(char[] key) {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException("Key cannot be null or empty");
         }
         ensureUsable();
         try {
-            boolean success = STRATEGY.delete(key);
-            if (success) {
-                LOGGER.log(System.Logger.Level.DEBUG, "Secret removed successfully.");
-            } else {
-                LOGGER.log(System.Logger.Level.ERROR, "Failed to remove secret from native store.");
-            }
+            return STRATEGY.delete(key);
         } catch (Throwable t) {//NOSONAR
             if (t instanceof Error error) {
                 throw error;
             }
-            LOGGER.log(System.Logger.Level.ERROR, "Failed to remove secret with exception: {0}", t.getMessage());
             throw new NativeVaultException("Failed to remove secret from native store", t);
         }
     }
@@ -287,14 +271,11 @@ public final class NativeVault implements AutoCloseable {
         }
         ensureUsable();
         try {
-            boolean exists = STRATEGY.exists(key);
-            LOGGER.log(System.Logger.Level.DEBUG, "Existence check result: {0}", exists);
-            return exists;
+            return STRATEGY.exists(key);
         } catch (Throwable t) {//NOSONAR
             if (t instanceof Error error) {
                 throw error;
             }
-            LOGGER.log(System.Logger.Level.ERROR, "Failed to check secret existence with exception: {0}", t.getMessage());
             throw new NativeVaultException("Failed to check secret existence in native store", t);
         }
     }
@@ -335,7 +316,6 @@ public final class NativeVault implements AutoCloseable {
             throw new IllegalArgumentException("Segment cannot be null or empty");
         }
         segment.fill((byte) 0);
-        LOGGER.log(System.Logger.Level.DEBUG, "Overwrite the memory segment with 0.");
     }
 
     /**
@@ -344,6 +324,5 @@ public final class NativeVault implements AutoCloseable {
     @Override
     public void close() {
         arena.close();
-        LOGGER.log(System.Logger.Level.DEBUG, "Native vault arena closed.");
     }
 }
