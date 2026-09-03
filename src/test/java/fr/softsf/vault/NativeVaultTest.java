@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -34,6 +35,7 @@ class NativeVaultTest {
     @AfterEach
     void tearDown() {
         if (vault != null) {
+            vault.removeSecret(NativeVault.INTEGRITY_TEST_KEY);
             vault.close();
         }
     }
@@ -43,18 +45,13 @@ class NativeVaultTest {
      */
     @Test
     void givenStringKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved() {
-        String key = "test-key-str";
         String secret = "test-secret-str";
-        try {
-            assertTrue(vault.setSecret(key, secret));
-            assertTrue(vault.hasSecret(key));
-
-            Optional<char[]> retrieved = vault.getSecret(key);
-            assertTrue(retrieved.isPresent());
-            assertArrayEquals(secret.toCharArray(), retrieved.get());
-        } finally {
-            vault.removeSecret(key);
-        }
+        assertTrue(vault.setSecret(NativeVault.INTEGRITY_TEST_KEY, secret));
+        assertTrue(vault.hasSecret(NativeVault.INTEGRITY_TEST_KEY));
+        Optional<char[]> retrieved = vault.getSecret(NativeVault.INTEGRITY_TEST_KEY);
+        assertTrue(retrieved.isPresent());
+        assertArrayEquals(secret.toCharArray(), retrieved.get());
+        Arrays.fill(retrieved.get(), '\0');
     }
 
     /**
@@ -62,17 +59,18 @@ class NativeVaultTest {
      */
     @Test
     void givenCharArrayKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved() {
-        char[] key = new char[]{'t', 'e', 's', 't', '-', 'k', 'e', 'y', '-', 'c', 'h', 'a', 'r'};
+        char[] key = NativeVault.getIntegrityTestKeyChar();
         char[] secret = new char[]{'s', 'e', 'c', 'r', 'e', 't'};
         try {
             assertTrue(vault.setSecret(key, secret));
             assertTrue(vault.hasSecret(key));
-
             Optional<char[]> retrieved = vault.getSecret(key);
             assertTrue(retrieved.isPresent());
             assertArrayEquals(secret, retrieved.get());
+            Arrays.fill(retrieved.get(), '\0');
         } finally {
-            vault.removeSecret(key);
+            Arrays.fill(key, '\0');
+            Arrays.fill(secret, '\0');
         }
     }
 
@@ -81,11 +79,15 @@ class NativeVaultTest {
      */
     @Test
     void givenNonExistentKey_whenGetOrHasSecret_thenEmptyOrFalseIsReturned() {
-        char[] key = new char[]{'n', 'o', 'n', '-', 'e', 'x', 'i', 's', 't'};
-        assertFalse(vault.hasSecret(key));
-        Optional<char[]> retrieved = vault.getSecret(key);
-        assertTrue(retrieved.isEmpty());
-        assertFalse(vault.removeSecret(key));
+        char[] key = NativeVault.getIntegrityTestKeyChar();
+        try {
+            assertFalse(vault.hasSecret(key));
+            Optional<char[]> retrieved = vault.getSecret(key);
+            assertTrue(retrieved.isEmpty());
+            assertFalse(vault.removeSecret(key));
+        } finally {
+            Arrays.fill(key, '\0');
+        }
     }
 
     /**
@@ -93,12 +95,11 @@ class NativeVaultTest {
      */
     @Test
     void givenStoredSecret_whenRemoveSecret_thenSecretIsDeleted() {
-        String key = "test-remove-key";
         String secret = "secret-to-remove";
-        assertTrue(vault.setSecret(key, secret));
-        assertTrue(vault.hasSecret(key));
-        assertTrue(vault.removeSecret(key));
-        assertFalse(vault.hasSecret(key));
+        assertTrue(vault.setSecret(NativeVault.INTEGRITY_TEST_KEY, secret));
+        assertTrue(vault.hasSecret(NativeVault.INTEGRITY_TEST_KEY));
+        assertTrue(vault.removeSecret(NativeVault.INTEGRITY_TEST_KEY));
+        assertFalse(vault.hasSecret(NativeVault.INTEGRITY_TEST_KEY));
     }
 
     /**

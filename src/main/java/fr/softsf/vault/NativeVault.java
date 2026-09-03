@@ -19,6 +19,10 @@ import java.util.Optional;
  * Facade class managing native credential operations using the FFM API with secure char[] handling for both keys and secrets, dynamic strategy detection, and logging.
  */
 public final class NativeVault implements AutoCloseable {
+    static final String INTEGRITY_TEST_KEY = "fr.softsf.vault.integrity.check.key";
+    static char[] getIntegrityTestKeyChar() {
+        return INTEGRITY_TEST_KEY.toCharArray();
+    }
     private static final VaultStrategy STRATEGY = VaultStrategy.detect();
 
     private final Arena arena;
@@ -37,7 +41,7 @@ public final class NativeVault implements AutoCloseable {
     private static final class IntegrityHolder {
         private static final boolean VERIFIED = executeIntegrityCheck();
         private static boolean executeIntegrityCheck() {
-            char[] testKey = ("vault-test-" + System.currentTimeMillis() + "-" + Thread.currentThread().threadId()).toCharArray();
+            char[] testKey = getIntegrityTestKeyChar();
             char[] testValue = {'t', 'e', 's', 't'};
             try (Arena tempArena = Arena.ofConfined()) {
                 MemorySegment segment = allocateSegment(tempArena, testValue);
