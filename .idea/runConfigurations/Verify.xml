@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Package" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="Verify" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -12,7 +12,7 @@
           <option name="goals">
             <list>
               <option value="clean" />
-              <option value="package" />
+              <option value="verify" />
             </list>
           </option>
           <option name="multimoduleDir" />
