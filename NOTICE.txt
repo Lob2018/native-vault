@@ -1,0 +1,10 @@
+NOTICES
+
+This repository incorporates material as listed below or described in the code.
+
+NativeVault - Copyright © 2026-present SOFT64.FR Lob2018
+Licensed under the GNU General Public License v3.0 (GPL-3.0).
+
+This product is conceptually inspired by credential-secure-storage-for-java (https://github.com/microsoft/credential-secure-storage-for-java).
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the MIT License.
