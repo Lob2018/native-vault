@@ -1,3 +1,8 @@
+/*
+ * NativeVault - Copyright © 2026-present SOFT64.FR Lob2018
+ * Licensed under the GNU General Public License v3.0 (GPL-3.0).
+ * See the full license at: https://github.com/Lob2018/native-vault/blob/main/LICENSE
+ */
 package fr.softsf.vault.strategy;
 
 import java.lang.foreign.Arena;
@@ -5,9 +10,11 @@ import java.lang.foreign.MemorySegment;
 import java.util.Optional;
 
 /**
- * Polymorphic strategy interface for OS-native credential store operations using character arrays for keys and boolean confirmations.
+ * Polymorphic strategy interface for OS-native credential store operations using character arrays
+ * for keys and boolean confirmations.
  */
-public sealed interface VaultStrategy permits MacKeychainStrategy, LinuxKeyringStrategy, WindowsCredentialManagerStrategy {
+public sealed interface VaultStrategy
+        permits MacKeychainStrategy, LinuxKeyringStrategy, WindowsCredentialManagerStrategy {
 
     /**
      * Stores a secret in the native credential store.
@@ -56,7 +63,8 @@ public sealed interface VaultStrategy permits MacKeychainStrategy, LinuxKeyringS
             case String s when s.contains("win") -> new WindowsCredentialManagerStrategy();
             case String s when s.contains("mac") -> new MacKeychainStrategy();
             case String s when s.contains("nix") || s.contains("nux") -> new LinuxKeyringStrategy();
-            default -> throw new UnsupportedOperationException("Unsupported operating system: " + os);
+            default ->
+                    throw new UnsupportedOperationException("Unsupported operating system: " + os);
         };
     }
 }

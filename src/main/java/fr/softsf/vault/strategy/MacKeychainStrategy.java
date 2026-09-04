@@ -1,6 +1,9 @@
+/*
+ * NativeVault - Copyright © 2026-present SOFT64.FR Lob2018
+ * Licensed under the GNU General Public License v3.0 (GPL-3.0).
+ * See the full license at: https://github.com/Lob2018/native-vault/blob/main/LICENSE
+ */
 package fr.softsf.vault.strategy;
-
-import fr.softsf.vault.internal.CrossPlatformVaultLoader;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
@@ -12,12 +15,17 @@ import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
+import fr.softsf.vault.internal.CrossPlatformVaultLoader;
+
 /**
- * macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper memory cleanup and error handling.
+ * macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper
+ * memory cleanup and error handling.
  */
 final class MacKeychainStrategy implements VaultStrategy {
-    private static final String LIB_PATH = "/System/Library/Frameworks/Security.framework/Security"; // NOSONAR
-    private static final String CF_LIB_PATH = "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"; // NOSONAR
+    private static final String LIB_PATH =
+            "/System/Library/Frameworks/Security.framework/Security"; // NOSONAR
+    private static final String CF_LIB_PATH =
+            "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"; // NOSONAR
     private static final MethodHandle ADD_HANDLE;
     private static final MethodHandle UPDATE_HANDLE;
     private static final MethodHandle COPY_HANDLE;
@@ -25,16 +33,35 @@ final class MacKeychainStrategy implements VaultStrategy {
     private static final MethodHandle CF_RELEASE_HANDLE;
 
     static {
-        ADD_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(LIB_PATH, "SecItemAdd", FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.ADDRESS));
-        UPDATE_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(LIB_PATH, "SecItemUpdate", FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.ADDRESS));
-        COPY_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(LIB_PATH, "SecItemCopyMatching", FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.ADDRESS));
-        DELETE_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(LIB_PATH, "SecItemDelete", FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS));
-        CF_RELEASE_HANDLE = CrossPlatformVaultLoader.loadNativeFunction(CF_LIB_PATH, "CFRelease", FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
+        ADD_HANDLE =
+                CrossPlatformVaultLoader.loadNativeFunction(
+                        LIB_PATH,
+                        "SecItemAdd",
+                        FunctionDescriptor.of(
+                                ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.ADDRESS));
+        UPDATE_HANDLE =
+                CrossPlatformVaultLoader.loadNativeFunction(
+                        LIB_PATH,
+                        "SecItemUpdate",
+                        FunctionDescriptor.of(
+                                ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.ADDRESS));
+        COPY_HANDLE =
+                CrossPlatformVaultLoader.loadNativeFunction(
+                        LIB_PATH,
+                        "SecItemCopyMatching",
+                        FunctionDescriptor.of(
+                                ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.ADDRESS));
+        DELETE_HANDLE =
+                CrossPlatformVaultLoader.loadNativeFunction(
+                        LIB_PATH,
+                        "SecItemDelete",
+                        FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS));
+        CF_RELEASE_HANDLE =
+                CrossPlatformVaultLoader.loadNativeFunction(
+                        CF_LIB_PATH, "CFRelease", FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
     }
 
-    /**
-     * Initializes a new instance of the MacKeychainStrategy.
-     */
+    /** Initializes a new instance of the MacKeychainStrategy. */
     MacKeychainStrategy() {
         // Stateless implementation; native method handles are loaded statically.
     }
@@ -50,7 +77,7 @@ final class MacKeychainStrategy implements VaultStrategy {
                 return (int) UPDATE_HANDLE.invokeExact(keySegment, secretData) == 0;
             }
             return status == 0;
-        } catch (Throwable t) { //NOSONAR
+        } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
             }
@@ -73,12 +100,17 @@ final class MacKeychainStrategy implements VaultStrategy {
             if (nativePtr.equals(MemorySegment.NULL)) {
                 return Optional.empty();
             }
-            long size = nativePtr.reinterpret(Long.MAX_VALUE).getString(0, StandardCharsets.UTF_8).getBytes(StandardCharsets.UTF_8).length;
+            long size =
+                    nativePtr
+                            .reinterpret(Long.MAX_VALUE)
+                            .getString(0, StandardCharsets.UTF_8)
+                            .getBytes(StandardCharsets.UTF_8)
+                            .length;
             MemorySegment secretCopy = arena.allocate(size);
             secretCopy.copyFrom(nativePtr.reinterpret(size).asSlice(0, size));
             CF_RELEASE_HANDLE.invokeExact(nativePtr);
             return Optional.of(secretCopy);
-        } catch (Throwable t) { //NOSONAR
+        } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
             }
@@ -93,7 +125,7 @@ final class MacKeychainStrategy implements VaultStrategy {
             MemorySegment keySegment = arena.allocate(byteBuffer.remaining());
             keySegment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
             return (int) DELETE_HANDLE.invokeExact(keySegment) == 0;
-        } catch (Throwable t) { //NOSONAR
+        } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
             }
@@ -117,7 +149,7 @@ final class MacKeychainStrategy implements VaultStrategy {
                 }
             }
             return false;
-        } catch (Throwable t) { //NOSONAR
+        } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
             }

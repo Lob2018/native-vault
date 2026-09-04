@@ -1,11 +1,16 @@
+/*
+ * NativeVault - Copyright © 2026-present SOFT64.FR Lob2018
+ * Licensed under the GNU General Public License v3.0 (GPL-3.0).
+ * See the full license at: https://github.com/Lob2018/native-vault/blob/main/LICENSE
+ */
 package fr.softsf.vault;
+
+import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,25 +18,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-/**
- * Unit tests for NativeVault lifecycle and CRUD operations using Given-When-Then convention.
- */
+/** Unit tests for NativeVault lifecycle and CRUD operations using Given-When-Then convention. */
 class NativeVaultTest {
 
     private NativeVault vault;
 
-    /**
-     * Sets up the test environment before each test execution.
-     */
+    /** Sets up the test environment before each test execution. */
     @BeforeEach
     void setUp() {
         assumeTrue(NativeVault.isUsable(), "Native vault is not operational on this platform.");
         vault = new NativeVault();
     }
 
-    /**
-     * Cleans up the test environment after each test execution.
-     */
+    /** Cleans up the test environment after each test execution. */
     @AfterEach
     void tearDown() {
         if (vault != null) {
@@ -40,9 +39,7 @@ class NativeVaultTest {
         }
     }
 
-    /**
-     * Tests storing and retrieving secrets using string parameters.
-     */
+    /** Tests storing and retrieving secrets using string parameters. */
     @Test
     void givenStringKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved() {
         String secret = "test-secret-str";
@@ -54,13 +51,11 @@ class NativeVaultTest {
         Arrays.fill(retrieved.get(), '\0');
     }
 
-    /**
-     * Tests storing and retrieving secrets using character array parameters.
-     */
+    /** Tests storing and retrieving secrets using character array parameters. */
     @Test
     void givenCharArrayKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved() {
         char[] key = NativeVault.getIntegrityTestKeyChar();
-        char[] secret = new char[]{'s', 'e', 'c', 'r', 'e', 't'};
+        char[] secret = new char[] {'s', 'e', 'c', 'r', 'e', 't'};
         try {
             assertTrue(vault.setSecret(key, secret));
             assertTrue(vault.hasSecret(key));
@@ -74,9 +69,7 @@ class NativeVaultTest {
         }
     }
 
-    /**
-     * Tests behavior when querying a non-existent secret.
-     */
+    /** Tests behavior when querying a non-existent secret. */
     @Test
     void givenNonExistentKey_whenGetOrHasSecret_thenEmptyOrFalseIsReturned() {
         char[] key = NativeVault.getIntegrityTestKeyChar();
@@ -90,9 +83,7 @@ class NativeVaultTest {
         }
     }
 
-    /**
-     * Tests removing a stored secret successfully.
-     */
+    /** Tests removing a stored secret successfully. */
     @Test
     void givenStoredSecret_whenRemoveSecret_thenSecretIsDeleted() {
         String secret = "secret-to-remove";
@@ -102,9 +93,7 @@ class NativeVaultTest {
         assertFalse(vault.hasSecret(NativeVault.INTEGRITY_TEST_KEY));
     }
 
-    /**
-     * Tests invalid string inputs throwing IllegalArgumentException.
-     */
+    /** Tests invalid string inputs throwing IllegalArgumentException. */
     @Test
     void givenBlankStringInputs_whenMethodsCalled_thenIllegalArgumentExceptionIsThrown() {
         assertThrows(IllegalArgumentException.class, () -> vault.setSecret("", "secret"));
@@ -115,14 +104,14 @@ class NativeVaultTest {
         assertThrows(IllegalArgumentException.class, () -> vault.hasSecret(""));
     }
 
-    /**
-     * Tests invalid character array inputs throwing IllegalArgumentException.
-     */
+    /** Tests invalid character array inputs throwing IllegalArgumentException. */
     @Test
     void givenNullOrEmptyCharArrayInputs_whenMethodsCalled_thenIllegalArgumentExceptionIsThrown() {
         char[] emptyArray = new char[0];
-        assertThrows(IllegalArgumentException.class, () -> vault.setSecret(emptyArray, new char[]{'s'}));
-        assertThrows(IllegalArgumentException.class, () -> vault.setSecret(new char[]{'k'}, null));
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> vault.setSecret(emptyArray, new char[] {'s'}));
+        assertThrows(IllegalArgumentException.class, () -> vault.setSecret(new char[] {'k'}, null));
         assertThrows(IllegalArgumentException.class, () -> vault.getSecret(emptyArray));
         assertThrows(IllegalArgumentException.class, () -> vault.removeSecret((char[]) null));
         assertThrows(IllegalArgumentException.class, () -> vault.hasSecret(emptyArray));

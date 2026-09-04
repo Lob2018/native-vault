@@ -1,9 +1,9 @@
-
+/*
+ * NativeVault - Copyright © 2026-present SOFT64.FR Lob2018
+ * Licensed under the GNU General Public License v3.0 (GPL-3.0).
+ * See the full license at: https://github.com/Lob2018/native-vault/blob/main/LICENSE
+ */
 package fr.softsf.vault;
-
-import fr.softsf.vault.exception.NativeVaultException;
-import fr.softsf.vault.strategy.VaultStrategy;
-import org.apache.commons.lang3.StringUtils;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
@@ -15,31 +15,36 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
+
+import fr.softsf.vault.exception.NativeVaultException;
+import fr.softsf.vault.strategy.VaultStrategy;
+
 /**
- * Facade class managing native credential operations using the FFM API with secure char[] handling for both keys and secrets, dynamic strategy detection, and logging.
+ * Facade class managing native credential operations using the FFM API with secure char[] handling
+ * for both keys and secrets, dynamic strategy detection, and logging.
  */
 public final class NativeVault implements AutoCloseable {
     static final String INTEGRITY_TEST_KEY = "fr.softsf.vault.integrity.check.key";
+
     static char[] getIntegrityTestKeyChar() {
         return INTEGRITY_TEST_KEY.toCharArray();
     }
+
     private static final VaultStrategy STRATEGY = VaultStrategy.detect();
 
     private final Arena arena;
 
-    /**
-     * Initializes a new instance of the native vault facade.
-     */
+    /** Initializes a new instance of the native vault facade. */
     public NativeVault() {
         ensureUsable();
         this.arena = Arena.ofConfined();
     }
 
-    /**
-     * Holder class providing thread-safe lazy execution of the integrity check.
-     */
+    /** Holder class providing thread-safe lazy execution of the integrity check. */
     private static final class IntegrityHolder {
         private static final boolean VERIFIED = executeIntegrityCheck();
+
         private static boolean executeIntegrityCheck() {
             char[] testKey = getIntegrityTestKeyChar();
             char[] testValue = {'t', 'e', 's', 't'};
@@ -50,7 +55,7 @@ public final class NativeVault implements AutoCloseable {
                 Optional<MemorySegment> retrieved = STRATEGY.retrieve(testKey, tempArena);
                 boolean deleted = STRATEGY.delete(testKey);
                 return stored && exists && retrieved.isPresent() && deleted;
-            } catch (Throwable t) { //NOSONAR
+            } catch (Throwable t) { // NOSONAR
                 if (t instanceof Error error) {
                     throw error;
                 }
@@ -71,12 +76,12 @@ public final class NativeVault implements AutoCloseable {
         return IntegrityHolder.VERIFIED;
     }
 
-    /**
-     * Ensures that a strategy is available before performing operations.
-     */
+    /** Ensures that a strategy is available before performing operations. */
     private static void ensureUsable() {
         if (!isUsable()) {
-            throw new NativeVaultException("Native vault is not usable: Strategy not detected or integrity check failed.", null);
+            throw new NativeVaultException(
+                    "Native vault is not usable: Strategy not detected or integrity check failed.",
+                    null);
         }
     }
 
@@ -84,7 +89,7 @@ public final class NativeVault implements AutoCloseable {
      * Stores or updates a secret securely in the native credential store using string parameters.
      * This operation acts as an upsert: if the key already exists, its value is overwritten.
      *
-     * @param key    the credential identifier
+     * @param key the credential identifier
      * @param secret the secret value to store
      * @return true if the secret was successfully stored, false otherwise
      * @throws IllegalArgumentException if {@code key} or {@code secret} is blank
@@ -109,10 +114,11 @@ public final class NativeVault implements AutoCloseable {
     }
 
     /**
-     * Stores or updates a secret securely in the native credential store using character array parameters.
-     * This operation acts as an upsert: if the key already exists, its value is overwritten.
+     * Stores or updates a secret securely in the native credential store using character array
+     * parameters. This operation acts as an upsert: if the key already exists, its value is
+     * overwritten.
      *
-     * @param key    the credential identifier character array
+     * @param key the credential identifier character array
      * @param secret the secret value character array to store
      * @return true if the secret was successfully stored, false otherwise
      * @throws IllegalArgumentException if {@code key} or {@code secret} is null or empty
@@ -129,7 +135,7 @@ public final class NativeVault implements AutoCloseable {
         MemorySegment segment = allocateSegment(arena, secret);
         try {
             return STRATEGY.store(key, segment, arena);
-        } catch (Throwable t) {//NOSONAR
+        } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
             }
@@ -178,19 +184,21 @@ public final class NativeVault implements AutoCloseable {
             if (segmentOpt.isEmpty()) {
                 return Optional.empty();
             }
-            return segmentOpt.map(segment -> {
-                try {
-                    byte[] bytes = segment.toArray(ValueLayout.JAVA_BYTE);
-                    CharBuffer charBuffer = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(bytes));
-                    char[] chars = new char[charBuffer.remaining()];
-                    charBuffer.get(chars);
-                    Arrays.fill(bytes, (byte) 0);
-                    return chars;
-                } finally {
-                    zeroFill(segment);
-                }
-            });
-        } catch (Throwable t) {//NOSONAR
+            return segmentOpt.map(
+                    segment -> {
+                        try {
+                            byte[] bytes = segment.toArray(ValueLayout.JAVA_BYTE);
+                            CharBuffer charBuffer =
+                                    StandardCharsets.UTF_8.decode(ByteBuffer.wrap(bytes));
+                            char[] chars = new char[charBuffer.remaining()];
+                            charBuffer.get(chars);
+                            Arrays.fill(bytes, (byte) 0);
+                            return chars;
+                        } finally {
+                            zeroFill(segment);
+                        }
+                    });
+        } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
             }
@@ -234,7 +242,7 @@ public final class NativeVault implements AutoCloseable {
         ensureUsable();
         try {
             return STRATEGY.delete(key);
-        } catch (Throwable t) {//NOSONAR
+        } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
             }
@@ -278,7 +286,7 @@ public final class NativeVault implements AutoCloseable {
         ensureUsable();
         try {
             return STRATEGY.exists(key);
-        } catch (Throwable t) {//NOSONAR
+        } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
             }
@@ -290,7 +298,7 @@ public final class NativeVault implements AutoCloseable {
      * Allocates a memory segment from a character array and encodes it to UTF-8.
      *
      * @param arena the memory arena
-     * @param data  the character array data
+     * @param data the character array data
      * @return the allocated memory segment
      * @throws IllegalArgumentException if {@code arena} is null or {@code data} is null or empty
      */
@@ -324,9 +332,7 @@ public final class NativeVault implements AutoCloseable {
         segment.fill((byte) 0);
     }
 
-    /**
-     * Closes the native vault arena, releasing associated native memory resources.
-     */
+    /** Closes the native vault arena, releasing associated native memory resources. */
     @Override
     public void close() {
         arena.close();
