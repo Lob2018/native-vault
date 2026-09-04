@@ -81,7 +81,8 @@ public final class NativeVault implements AutoCloseable {
     }
 
     /**
-     * Stores a secret securely in the native credential store using string parameters.
+     * Stores or updates a secret securely in the native credential store using string parameters.
+     * This operation acts as an upsert: if the key already exists, its value is overwritten.
      *
      * @param key    the credential identifier
      * @param secret the secret value to store
@@ -108,7 +109,8 @@ public final class NativeVault implements AutoCloseable {
     }
 
     /**
-     * Stores a secret securely in the native credential store using character array parameters.
+     * Stores or updates a secret securely in the native credential store using character array parameters.
+     * This operation acts as an upsert: if the key already exists, its value is overwritten.
      *
      * @param key    the credential identifier character array
      * @param secret the secret value character array to store

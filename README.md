@@ -34,7 +34,7 @@ Here is sample code showing how to use the vault:
 // Check if the native vault is operational on the current platform before proceeding
 if (NativeVault.isUsable()) {
     try (NativeVault vault = new NativeVault()) {
-        // Write action: returns true if successfully stored, false otherwise
+        // Write action (upsert: creates or overwrites): returns true if successfully stored, false otherwise
         boolean stored = vault.setSecret("my-unique-identifier", "my-critical-secret");
         // Existence check action: returns true if the secret exists, false otherwise
         boolean exists = vault.hasSecret("my-unique-identifier");
