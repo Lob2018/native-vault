@@ -21,7 +21,8 @@ Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this li
 | Key-Value Credentials (`char[]` or `String`) | Yes | Yes | Yes |
 # How to use this library
 
-Maven is the preferred way to reference this library.
+> [!WARNING]
+> **Key Collision Risk**: OS keychains lack namespace isolation. Use unique package-prefixed keys (e.g., `fr.softsf.myapp.uniquekey`) to prevent cross-application overwrites.
 
 ```xml
 <dependency>
@@ -37,17 +38,19 @@ Here is sample code showing how to use the vault:
 // Check if the native vault is operational on the current platform before proceeding
 if (NativeVault.isUsable()) {
     try (NativeVault vault = new NativeVault()) {
+        // Unique package-prefixed key to avoid OS keychain collisions
+        String uniqueExampleKey = "fr.softsf.myapp.uniquekey";
         // Write action (upsert: creates or overwrites): returns true if successfully stored, false otherwise
-        boolean stored = vault.setSecret("my-unique-identifier", "my-critical-secret");
+        boolean stored = vault.setSecret(uniqueExampleKey, "my-critical-secret");
         // Existence check action: returns true if the secret exists, false otherwise
-        boolean exists = vault.hasSecret("my-unique-identifier");
+        boolean exists = vault.hasSecret(uniqueExampleKey);
         // Read action: returns Optional<char[]>
-        vault.getSecret("my-unique-identifier").ifPresent(secret -> {
+        vault.getSecret(uniqueExampleKey).ifPresent(secret -> {
             // Process secret...
             java.util.Arrays.fill(secret, '\0'); // Mandatory memory cleanup
         });
         // Deletion action: returns true if successfully removed, false otherwise
-        boolean removed = vault.removeSecret("my-unique-identifier");
+        boolean removed = vault.removeSecret(uniqueExampleKey);
     }
 } else {
     // Handle platform unavailability
