@@ -1,5 +1,10 @@
 # NativeVault
 
+![Status](https://img.shields.io/badge/status-in%20development-yellow)
+
+> [!WARNING]
+> This project is currently under active development. APIs are subject to change, and it is not yet recommended for production use.
+
 Unified Java interface for secure credential storage backed by native operating system managers.
 
 Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this library provides a **zero-JNI/JNA** solution featuring strict memory hygiene (`char[]` sanitation via `Arrays.fill`). It is conceptually inspired by [Microsoft's credential-secure-storage-for-java](https://github.com/microsoft/credential-secure-storage-for-java).
