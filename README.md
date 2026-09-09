@@ -60,7 +60,7 @@ if (NativeVault.isUsable()) {
 
 # How to build
 
-1. JDK 22+ (required for the FFM API)
+1. JDK 25+ (required for the FFM API)
 2. Maven 3.8+
 3. `mvn clean verify`
 
