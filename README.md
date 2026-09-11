@@ -35,26 +35,31 @@ Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this li
 Here is sample code showing how to use the vault:
 
 ```java
-// Check if the native vault is operational on the current platform before proceeding
-if (NativeVault.isUsable()) {
-    try (NativeVault vault = new NativeVault()) {
-        // Unique package-prefixed key to avoid OS keychain collisions
-        String uniqueExampleKey = "fr.softsf.myapp.uniquekey";
-        // Write action (upsert: creates or overwrites): returns true if successfully stored, false otherwise
-        boolean stored = vault.setSecret(uniqueExampleKey, "my-critical-secret");
-        // Existence check action: returns true if the secret exists, false otherwise
-        boolean exists = vault.hasSecret(uniqueExampleKey);
-        // Read action: returns Optional<char[]>
-        vault.getSecret(uniqueExampleKey).ifPresent(secret -> {
-            // Process secret...
-            java.util.Arrays.fill(secret, '\0'); // Mandatory memory cleanup
-        });
-        // Deletion action: returns true if successfully removed, false otherwise
-        boolean removed = vault.removeSecret(uniqueExampleKey);
+try {
+    // Check if the native vault is operational on the current platform before proceeding
+    if (NativeVault.isUsable()) {
+        try (NativeVault vault = new NativeVault()) {
+            // Unique package-prefixed key to avoid OS keychain collisions
+            String uniqueExampleKey = "fr.softsf.myapp.uniquekey";
+            // Write action (upsert: creates or overwrites): returns true if successfully stored, false otherwise
+            boolean stored = vault.setSecret(uniqueExampleKey, "my-critical-secret");
+            // Existence check action: returns true if the secret exists, false otherwise
+            boolean exists = vault.hasSecret(uniqueExampleKey);
+            // Read action: returns Optional<char[]>
+            vault.getSecret(uniqueExampleKey).ifPresent(secret -> {
+                // Process secret...
+                java.util.Arrays.fill(secret, '\0'); // Mandatory memory cleanup
+            });
+            // Deletion action: returns true if successfully removed, false otherwise
+            boolean removed = vault.removeSecret(uniqueExampleKey);
+        }
+    } else {
+        // Handle platform unavailability
+        System.err.println("Native vault is not operational on this platform.");
     }
-} else {
-    // Handle platform unavailability
-    System.err.println("Native vault is not operational on this platform.");
+} catch (Throwable t) {
+    // Handle initialization or execution failures safely
+    System.err.println("Failed to initialize or use native vault: " + t.getMessage());
 }
 ```
 

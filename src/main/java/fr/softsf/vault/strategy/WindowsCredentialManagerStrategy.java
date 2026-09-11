@@ -50,34 +50,43 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
     private static final MethodHandle CRED_FREE_HANDLE;
 
     static {
-        WRITE_HANDLE =
-                CrossPlatformVaultLoader.loadNativeFunction(
-                        LIB_NAME,
-                        "CredWriteW",
-                        FunctionDescriptor.of(
-                                ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.JAVA_INT));
-        READ_HANDLE =
-                CrossPlatformVaultLoader.loadNativeFunction(
-                        LIB_NAME,
-                        "CredReadW",
-                        FunctionDescriptor.of(
-                                ValueLayout.JAVA_INT,
-                                ValueLayout.ADDRESS,
-                                ValueLayout.JAVA_INT,
-                                ValueLayout.JAVA_INT,
-                                ValueLayout.ADDRESS));
-        DELETE_HANDLE =
-                CrossPlatformVaultLoader.loadNativeFunction(
-                        LIB_NAME,
-                        "CredDeleteW",
-                        FunctionDescriptor.of(
-                                ValueLayout.JAVA_INT,
-                                ValueLayout.ADDRESS,
-                                ValueLayout.JAVA_INT,
-                                ValueLayout.JAVA_INT));
-        CRED_FREE_HANDLE =
-                CrossPlatformVaultLoader.loadNativeFunction(
-                        LIB_NAME, "CredFree", FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
+        try {
+            WRITE_HANDLE =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            LIB_NAME,
+                            "CredWriteW",
+                            FunctionDescriptor.of(
+                                    ValueLayout.JAVA_INT,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.JAVA_INT));
+            READ_HANDLE =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            LIB_NAME,
+                            "CredReadW",
+                            FunctionDescriptor.of(
+                                    ValueLayout.JAVA_INT,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.JAVA_INT,
+                                    ValueLayout.JAVA_INT,
+                                    ValueLayout.ADDRESS));
+            DELETE_HANDLE =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            LIB_NAME,
+                            "CredDeleteW",
+                            FunctionDescriptor.of(
+                                    ValueLayout.JAVA_INT,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.JAVA_INT,
+                                    ValueLayout.JAVA_INT));
+            CRED_FREE_HANDLE =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            LIB_NAME, "CredFree", FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
+        } catch (Throwable t) { // NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
+            throw new ExceptionInInitializerError(t);
+        }
     }
 
     /** Initializes a new instance of the WindowsCredentialManagerStrategy. */

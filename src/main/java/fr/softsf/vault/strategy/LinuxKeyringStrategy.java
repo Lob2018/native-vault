@@ -30,13 +30,14 @@ final class LinuxKeyringStrategy implements VaultStrategy {
                     ValueLayout.ADDRESS.withName("name"),
                     ValueLayout.JAVA_INT.withName("type"),
                     MemoryLayout.paddingLayout(4));
+    public static final String ATTRIBUTES = "attributes";
     private static final MemoryLayout SECRET_SCHEMA_LAYOUT =
             MemoryLayout.structLayout(
                     ValueLayout.ADDRESS.withName("name"),
                     ValueLayout.JAVA_INT.withName("flags"),
                     MemoryLayout.paddingLayout(4),
                     MemoryLayout.sequenceLayout(32, SECRET_SCHEMA_ATTRIBUTE_LAYOUT)
-                            .withName("attributes"),
+                            .withName(ATTRIBUTES),
                     MemoryLayout.sequenceLayout(7, ValueLayout.ADDRESS).withName("reserved"));
     private static final MemorySegment SCHEMA_SEGMENT;
     private static final MethodHandle STORE_HANDLE;
@@ -61,14 +62,14 @@ final class LinuxKeyringStrategy implements VaultStrategy {
                     0);
             long attr0Offset =
                     SECRET_SCHEMA_LAYOUT.byteOffset(
-                            MemoryLayout.PathElement.groupElement("attributes"),
+                            MemoryLayout.PathElement.groupElement(ATTRIBUTES),
                             MemoryLayout.PathElement.sequenceElement(0));
             SCHEMA_SEGMENT.set(ValueLayout.ADDRESS, attr0Offset, attrNameSegment);
             SCHEMA_SEGMENT.set(
                     ValueLayout.JAVA_INT, attr0Offset + ValueLayout.ADDRESS.byteSize(), 0);
             long attr1Offset =
                     SECRET_SCHEMA_LAYOUT.byteOffset(
-                            MemoryLayout.PathElement.groupElement("attributes"),
+                            MemoryLayout.PathElement.groupElement(ATTRIBUTES),
                             MemoryLayout.PathElement.sequenceElement(1));
             SCHEMA_SEGMENT.set(ValueLayout.ADDRESS, attr1Offset, MemorySegment.NULL);
             SCHEMA_SEGMENT.set(
@@ -117,7 +118,10 @@ final class LinuxKeyringStrategy implements VaultStrategy {
                             GLIB_LIB_NAME,
                             "g_free",
                             FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
-        } catch (Throwable t) {
+        } catch (Throwable t) { // NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
             throw new ExceptionInInitializerError(t);
         }
     }

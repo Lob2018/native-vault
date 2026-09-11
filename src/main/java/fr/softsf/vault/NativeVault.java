@@ -70,6 +70,10 @@ public final class NativeVault implements AutoCloseable {
     /**
      * Checks if a native vault strategy is available and verified.
      *
+     * <p><strong>Note:</strong> Because this method triggers the static initialization of native
+     * linkages, callers must wrap interactions and availability checks in a {@code try-catch
+     * (Throwable)} block to handle potential initialization errors safely.
+     *
      * @return true if a strategy is detected and operational, false otherwise
      */
     public static boolean isUsable() {
