@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['removesecret_0',['removesecret',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a10f9ce8ca17b9b16473b938999954eb6',1,'fr.softsf.vault.NativeVault.removeSecret(String key)'],['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a46bdeb1670ffe2770f1bb44650767b8d',1,'fr.softsf.vault.NativeVault.removeSecret(char[] key)']]],
+  ['retrieve_1',['retrieve',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a656bd585c130a75daadbcbfa230cd343',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.retrieve()'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#aa3af7c0f91fcb0cd0174324b94e73fb4',1,'fr.softsf.vault.strategy.MacKeychainStrategy.retrieve()'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#af6743765a1e47f0328b0f8d09ff78a8b',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.retrieve(char[] key, Arena arena)'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#af6743765a1e47f0328b0f8d09ff78a8b',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.retrieve(char[] key, Arena arena)']]]
+];

@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['de_20nativevault_0',['Documentation de NativeVault',['../index.html',1,'']]],
+  ['delete_1',['delete',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#ad993c6402de356e8dc0e018cc0347dcf',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.delete()'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a1989bdc67eaa88e3ed723823acda43b1',1,'fr.softsf.vault.strategy.MacKeychainStrategy.delete()'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a1c72ebe5f2798e1286c353a4bd05c2ff',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.delete(char[] key)'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a1c72ebe5f2798e1286c353a4bd05c2ff',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.delete(char[] key)']]],
+  ['delete_5fhandle_2',['delete_handle',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a4eb80a199f8c178814fac85ae70a8840',1,'fr.softsf.vault.strategy.MacKeychainStrategy.DELETE_HANDLE'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#aa824826e295be6014cb9ddfb544104e7',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.DELETE_HANDLE']]],
+  ['detect_3',['detect',['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a3075bd146512baed0f6f75e922bab233',1,'fr::softsf::vault::strategy::WindowsCredentialManagerStrategy']]],
+  ['documentation_20de_20nativevault_4',['Documentation de NativeVault',['../index.html',1,'']]]
+];

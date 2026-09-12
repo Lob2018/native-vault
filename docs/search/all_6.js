@@ -1,0 +1,13 @@
+var searchData=
+[
+  ['g_5ffree_5fhandle_0',['G_FREE_HANDLE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#abcb52c077876210105b969ab124b91c7',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]],
+  ['getintegritytestkeychar_1',['getIntegrityTestKeyChar',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#ac75c10b9d5b77e2145ac637ad1058c97',1,'fr::softsf::vault::NativeVault']]],
+  ['getsecret_2',['getsecret',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a76d43cd1cf9e98e077ca433a55fb15df',1,'fr.softsf.vault.NativeVault.getSecret(String key)'],['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a041d9c30b7e2f6050440240cc952cd55',1,'fr.softsf.vault.NativeVault.getSecret(char[] key)']]],
+  ['givenblankstringinputs_5fwhenmethodscalled_5fthenillegalargumentexceptionisthrown_3',['givenBlankStringInputs_whenMethodsCalled_thenIllegalArgumentExceptionIsThrown',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#ad42f9e4b80851fb2ca359b124446b811',1,'fr::softsf::vault::NativeVaultTest']]],
+  ['givenchararraykeyandsecret_5fwhensetandgetsecret_5fthensecretisretrieved_4',['givenCharArrayKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a5bb112e88f7a18ed19886c24a22ab08d',1,'fr::softsf::vault::NativeVaultTest']]],
+  ['givennonexistentkey_5fwhengetorhassecret_5fthenemptyorfalseisreturned_5',['givenNonExistentKey_whenGetOrHasSecret_thenEmptyOrFalseIsReturned',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a87e1be21b1780454570e3a8706b8f8ea',1,'fr::softsf::vault::NativeVaultTest']]],
+  ['givennulloremptychararrayinputs_5fwhenmethodscalled_5fthenillegalargumentexceptionisthrown_6',['givenNullOrEmptyCharArrayInputs_whenMethodsCalled_thenIllegalArgumentExceptionIsThrown',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a05c7ab7e6554d32efa5336052fbd739d',1,'fr::softsf::vault::NativeVaultTest']]],
+  ['givenstoredsecret_5fwhenremovesecret_5fthensecretisdeleted_7',['givenStoredSecret_whenRemoveSecret_thenSecretIsDeleted',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a26cbfaedd49028c2c19633b5aabc8bba',1,'fr::softsf::vault::NativeVaultTest']]],
+  ['givenstringkeyandsecret_5fwhensetandgetsecret_5fthensecretisretrieved_8',['givenStringKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a6c06fc1535785d079b94e93de2cd8986',1,'fr::softsf::vault::NativeVaultTest']]],
+  ['glib_5flib_5fname_9',['GLIB_LIB_NAME',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#acfde77ad49e90379be6d23f6b617a576',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]]
+];

@@ -1,0 +1,6 @@
+<map id="fr.softsf.vault.strategy.LinuxKeyringStrategy.store" name="fr.softsf.vault.strategy.LinuxKeyringStrategy.store">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,201,69"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a9af02b8d6b95ef402b5e7a7ab4446843" title="Allocates and populates a memory segment for the given key using the provided arena." alt="" coords="249,29,493,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,47,236,47,236,52,202,52"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="322,30,319,20,327,10,344,5,371,3,402,5,419,13,417,18,401,11,371,8,345,10,330,15,324,21,327,28"/>
+</map>

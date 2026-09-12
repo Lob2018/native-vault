@@ -1,0 +1,5 @@
+<map id="fr.softsf.vault.NativeVault.ensureUsable" name="fr.softsf.vault.NativeVault.ensureUsable">
+<area shape="rect" id="Node000001" title="Ensures that a strategy is available before performing operations." alt="" coords="5,5,240,45"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a4e57889465882f72de42a1922e8ad3c6" title="Checks if a native vault strategy is available and verified." alt="" coords="288,5,491,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,23,274,23,274,28,240,28"/>
+</map>

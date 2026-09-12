@@ -1,0 +1,17 @@
+This product includes software, licensed under:
+
+===
+
+## MIT License
+
+* Microsoft Credential Secure Storage for Java
+[https://github.com/microsoft/credential-secure-storage-for-java](https://github.com/microsoft/credential-secure-storage-for-java)
+Copyright (c) Microsoft Corporation.
+This product includes architectural concepts and design patterns inspired by Microsoft's credential-secure-storage-for-java.
+Original source: [https://github.com/microsoft/credential-secure-storage-for-java](https://github.com/microsoft/credential-secure-storage-for-java)
+Usage under MIT License.
+The original conceptual design has been adapted and reimplemented using the Foreign Function & Memory (FFM) API (Project Panama) for NativeVault.
+
+Modifications made: Lob2018 - Concepts based on and adapted from Microsoft's Java credential storage solution, reimplemented via zero-JNI/JNA FFM mechanisms for NativeVault in 2026.
+
+===

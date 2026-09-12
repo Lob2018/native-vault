@@ -1,0 +1,14 @@
+/**
+ * @mainpage Documentation de NativeVault
+ *
+ * # 🔒 NativeVault
+ *
+ * Unified Java interface for secure credential storage backed by native operating system managers.
+ * Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this library provides a **zero-JNI/JNA** solution featuring strict memory hygiene (`char[]` sanitation via `Arrays.fill`).
+ * It is conceptually inspired by [Microsoft's credential-secure-storage-for-java](https://github.com/microsoft/credential-secure-storage-for-java).
+ *
+ *
+ * \section Liens_utiles Liens utiles
+ * - [GitHub](https://github.com/Lob2018/native-vault)
+ * - [Documentation](https://lob2018.github.io/native-vault/)
+ */

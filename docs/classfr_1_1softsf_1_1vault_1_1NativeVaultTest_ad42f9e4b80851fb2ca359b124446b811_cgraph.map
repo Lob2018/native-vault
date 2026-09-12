@@ -1,0 +1,22 @@
+<map id="fr.softsf.vault.NativeVaultTest.givenBlankStringInputs_whenMethodsCalled_thenIllegalArgumentExceptionIsThrown" name="fr.softsf.vault.NativeVaultTest.givenBlankStringInputs_whenMethodsCalled_thenIllegalArgumentExceptionIsThrown">
+<area shape="rect" id="Node000001" title="Tests invalid string inputs throwing IllegalArgumentException." alt="" coords="5,147,307,216"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a76d43cd1cf9e98e077ca433a55fb15df" title="Retrieves a secret from the native credential store using a string key." alt="" coords="369,29,581,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,144,282,110,354,79,377,71,378,76,356,84,284,115,219,149"/>
+<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a749f572dec5d3a6f0bf3fffe4566d0e8" title="Checks if a secret exists in the native credential store using a string key." alt="" coords="368,117,583,157"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="306,158,354,151,355,157,307,163"/>
+<area shape="rect" id="Node000006" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a10f9ce8ca17b9b16473b938999954eb6" title="Deletes a secret from the native credential store using a string key." alt="" coords="355,205,596,245"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="307,199,342,204,341,210,306,205"/>
+<area shape="rect" id="Node000007" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a552245265cbad2a517317635ba750f0a" title="Stores or updates a secret securely in the native credential store using string parameters." alt="" coords="370,293,581,333"/>
+<area shape="poly" id="edge11_Node000001_Node000007" title=" " alt="" coords="242,214,414,286,412,290,240,218"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="423,30,419,20,428,10,447,5,475,3,508,5,526,13,524,18,507,11,475,8,448,10,431,15,425,21,428,28"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="644,161,879,201"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="564,67,597,79,665,114,723,151,720,156,662,119,595,84,562,72"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a4e57889465882f72de42a1922e8ad3c6" title="Checks if a native vault strategy is available and verified." alt="" coords="927,161,1129,201"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="879,179,913,179,913,184,879,184"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="583,151,631,159,630,164,583,156"/>
+<area shape="poly" id="edge7_Node000005_Node000005" title=" " alt="" coords="423,118,419,108,428,98,447,93,475,91,508,93,526,101,524,106,507,99,475,96,448,98,431,103,425,109,428,116"/>
+<area shape="poly" id="edge9_Node000006_Node000003" title=" " alt="" coords="596,204,630,199,631,204,596,209"/>
+<area shape="poly" id="edge10_Node000006_Node000006" title=" " alt="" coords="423,206,419,196,428,186,447,181,475,179,508,181,526,189,524,194,507,187,475,184,448,186,431,191,425,197,428,204"/>
+<area shape="poly" id="edge12_Node000007_Node000003" title=" " alt="" coords="519,291,704,205,706,209,521,296"/>
+<area shape="poly" id="edge13_Node000007_Node000007" title=" " alt="" coords="423,294,419,284,428,274,447,269,475,267,508,269,526,277,524,282,507,275,475,272,448,274,431,279,425,285,428,292"/>
+</map>

@@ -1,0 +1,27 @@
+var interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy =
+[
+    [ "WindowsCredentialManagerStrategy", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#afddd2a571845476d29187abf5746f47d", null ],
+    [ "[static initializer]", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ac30fd5614fdee5fa926c5690e980c120", null ],
+    [ "delete", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a1c72ebe5f2798e1286c353a4bd05c2ff", null ],
+    [ "delete", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a1c72ebe5f2798e1286c353a4bd05c2ff", null ],
+    [ "detect", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a3075bd146512baed0f6f75e922bab233", null ],
+    [ "exists", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a71702c3d011105fa23ecd899ba1d02eb", null ],
+    [ "exists", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a71702c3d011105fa23ecd899ba1d02eb", null ],
+    [ "retrieve", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#af6743765a1e47f0328b0f8d09ff78a8b", null ],
+    [ "retrieve", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#af6743765a1e47f0328b0f8d09ff78a8b", null ],
+    [ "store", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a90baade8f2a0cd00270842d36508f102", null ],
+    [ "store", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a90baade8f2a0cd00270842d36508f102", null ],
+    [ "ARENA_CANNOT_BE_NULL", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a56dbd0dd576ff773260dff5812c051f8", null ],
+    [ "CRED_FREE_HANDLE", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#acf461eb0347f35f927261e57126e20ae", null ],
+    [ "CRED_PERSIST_LOCAL_MACHINE", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a16c4c83b77b68c0cc5c08c5626839d3a", null ],
+    [ "CRED_TYPE_GENERIC", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a73053330e93bd392294eb8521d8bc660", null ],
+    [ "CREDENTIAL_BLOB", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a1c841b3cd859af11dfa74e01eb2069fd", null ],
+    [ "CREDENTIAL_BLOB_SIZE", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ac6dd0b93f51c237a6743225132436d3f", null ],
+    [ "CREDENTIAL_LAYOUT", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#abc945b0d6d3ba4bd445212d0b84de1b6", null ],
+    [ "DELETE_HANDLE", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#aa824826e295be6014cb9ddfb544104e7", null ],
+    [ "KEY_CANNOT_BE_NULL_OR_EMPTY", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ae31b39a7d3c981e055e79edb188f4fc7", null ],
+    [ "LIB_NAME", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a33c57fb53c19ef132b703626589c349c", null ],
+    [ "READ_HANDLE", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#abfd523706e12a4461fdcad3c6c786386", null ],
+    [ "SECRET_DATA_CANNOT_BE_NULL", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#aeabd50e23240db6e89e171e726faf8f0", null ],
+    [ "WRITE_HANDLE", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#aebf776b5428d7400b88980dd79746143", null ]
+];

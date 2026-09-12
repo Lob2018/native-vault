@@ -1,0 +1,12 @@
+<map id="fr.softsf.vault.NativeVaultTest.tearDown" name="fr.softsf.vault.NativeVaultTest.tearDown">
+<area shape="rect" id="Node000001" title="Cleans up the test environment after each test execution." alt="" coords="5,39,192,79"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#aa4d935008350e27f66b040d2eaa807ab" title="Closes the native vault arena, releasing associated native memory resources." alt="" coords="248,5,473,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,42,266,30,267,35,193,47"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a10f9ce8ca17b9b16473b938999954eb6" title="Deletes a secret from the native credential store using a string key." alt="" coords="240,79,481,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="193,71,227,76,226,81,192,76"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="312,80,309,70,317,60,334,55,361,53,391,56,407,63,405,68,390,61,361,58,335,60,320,65,314,71,317,78"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="529,79,764,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="481,97,516,97,516,102,481,102"/>
+<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a4e57889465882f72de42a1922e8ad3c6" title="Checks if a native vault strategy is available and verified." alt="" coords="812,79,1015,119"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="764,97,798,97,798,102,764,102"/>
+</map>
