@@ -20,6 +20,9 @@ import fr.softsf.vault.internal.CrossPlatformVaultLoader;
 /**
  * Windows Credential Manager implementation of the VaultStrategy interface utilizing the FFM API
  * with proper segment reinterpretation.
+ *
+ * @see <a href="https://learn.microsoft.com/en-us/windows/win32/api/wincred/">Wincred.h Win32 API
+ *     Reference</a>
  */
 final class WindowsCredentialManagerStrategy implements VaultStrategy {
     private static final String LIB_NAME = "Advapi32";

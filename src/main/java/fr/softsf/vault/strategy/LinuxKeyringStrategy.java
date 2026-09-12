@@ -21,6 +21,10 @@ import fr.softsf.vault.internal.CrossPlatformVaultLoader;
 /**
  * Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper
  * memory cleanup and error handling.
+ *
+ * @see <a href="https://gnome.pages.gitlab.gnome.org/libsecret/index.html">Libsecret API
+ *     Reference</a>
+ * @see <a href="https://docs.gtk.org/glib/">GLib Reference Manual</a>
  */
 final class LinuxKeyringStrategy implements VaultStrategy {
     private static final String LIB_NAME = "libsecret-1.so.0";
