@@ -13,6 +13,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Optional;
 
 import fr.softsf.vault.internal.CrossPlatformVaultLoader;
@@ -51,6 +52,9 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
     private static final MethodHandle READ_HANDLE;
     private static final MethodHandle DELETE_HANDLE;
     private static final MethodHandle CRED_FREE_HANDLE;
+    public static final String KEY_CANNOT_BE_NULL_OR_EMPTY = "Key cannot be null or empty";
+    public static final String SECRET_DATA_CANNOT_BE_NULL = "secretData cannot be null";
+    public static final String ARENA_CANNOT_BE_NULL = "arena cannot be null";
 
     static {
         try {
@@ -99,6 +103,11 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
 
     @Override
     public boolean store(char[] key, MemorySegment secretData, Arena arena) {
+        if (key == null || key.length == 0) {
+            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
+        }
+        Objects.requireNonNull(secretData, SECRET_DATA_CANNOT_BE_NULL);
+        Objects.requireNonNull(arena, ARENA_CANNOT_BE_NULL);
         try {
             String keyStr = new String(key) + "\0";
             MemorySegment targetNameSegment = arena.allocateFrom(keyStr, StandardCharsets.UTF_16LE);
@@ -165,6 +174,10 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
 
     @Override
     public Optional<MemorySegment> retrieve(char[] key, Arena arena) {
+        if (key == null || key.length == 0) {
+            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
+        }
+        Objects.requireNonNull(arena, ARENA_CANNOT_BE_NULL);
         try {
             String keyStr = new String(key) + "\0";
             MemorySegment targetNameSegment = arena.allocateFrom(keyStr, StandardCharsets.UTF_16LE);
@@ -203,6 +216,9 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
 
     @Override
     public boolean delete(char[] key) {
+        if (key == null || key.length == 0) {
+            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
+        }
         try (Arena arena = Arena.ofConfined()) {
             String keyStr = new String(key) + "\0";
             MemorySegment targetNameSegment = arena.allocateFrom(keyStr, StandardCharsets.UTF_16LE);
@@ -218,6 +234,9 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
 
     @Override
     public boolean exists(char[] key) {
+        if (key == null || key.length == 0) {
+            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
+        }
         try (Arena arena = Arena.ofConfined()) {
             String keyStr = new String(key) + "\0";
             MemorySegment targetNameSegment = arena.allocateFrom(keyStr, StandardCharsets.UTF_16LE);

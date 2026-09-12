@@ -23,6 +23,8 @@ public sealed interface VaultStrategy
      * @param secretData the memory segment containing the secret data
      * @param arena the memory arena managing the segment
      * @return true if stored successfully, false otherwise
+     * @throws IllegalArgumentException if {@code key} is null or empty
+     * @throws NullPointerException if {@code secretData} or {@code arena} is null
      */
     boolean store(char[] key, MemorySegment secretData, Arena arena);
 
@@ -32,6 +34,8 @@ public sealed interface VaultStrategy
      * @param key the credential identifier character array
      * @param arena the memory arena for allocation
      * @return an optional containing the memory segment of the secret if found
+     * @throws IllegalArgumentException if {@code key} is null or empty
+     * @throws NullPointerException if {@code arena} is null
      */
     Optional<MemorySegment> retrieve(char[] key, Arena arena);
 
@@ -40,6 +44,7 @@ public sealed interface VaultStrategy
      *
      * @param key the credential identifier character array
      * @return true if deleted successfully, false otherwise
+     * @throws IllegalArgumentException if {@code key} is null or empty
      */
     boolean delete(char[] key);
 
@@ -48,6 +53,7 @@ public sealed interface VaultStrategy
      *
      * @param key the credential identifier character array
      * @return true if the secret exists, false otherwise
+     * @throws IllegalArgumentException if {@code key} is null or empty
      */
     boolean exists(char[] key);
 
