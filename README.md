@@ -12,6 +12,8 @@ Unified Java interface for secure credential storage backed by native operating 
 
 Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this library provides a **zero-JNI/JNA** solution featuring strict memory hygiene (`char[]` sanitation via `Arrays.fill`). It is conceptually inspired by [Microsoft's credential-secure-storage-for-java](https://github.com/microsoft/credential-secure-storage-for-java).
 
+# [Online Javadoc](https://lob2018.github.io/native-vault/)
+
 # What this library provides
 
 ### Available Secure Storage Providers:
