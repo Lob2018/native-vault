@@ -244,6 +244,13 @@ try (NativeVault vault = new NativeVault()) {<br/>
 </div><div class="memdoc">
 
 <p>Initializes a new instance of the native vault facade. </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">NativeVaultException</td><td>if the strategy integrity check fails </td></tr>
+    <tr><td class="paramname">UnsupportedOperationException</td><td>if the operating system is not supported </td></tr>
+  </table>
+  </dd>
+</dl>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -300,7 +307,8 @@ try (NativeVault vault = new NativeVault()) {<br/>
 <dl class="section return"><dt>Returns</dt><dd>the allocated memory segment </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">arena</code> is null or <code class="JavaDocCode">data</code> is null or empty </td></tr>
+    <tr><td class="paramname">NullPointerException</td><td>if <code class="JavaDocCode">arena</code> is null </td></tr>
+    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">data</code> is null or empty </td></tr>
   </table>
   </dd>
 </dl>
@@ -800,7 +808,7 @@ try (NativeVault vault = new NativeVault()) {<br/>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">segment</code> is null </td></tr>
+    <tr><td class="paramname">NullPointerException</td><td>if <code class="JavaDocCode">segment</code> is null </td></tr>
   </table>
   </dd>
 </dl>
@@ -883,7 +891,7 @@ try (NativeVault vault = new NativeVault()) {<br/>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>fr</b></li><li class="navelem"><b>softsf</b></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault.html">vault</a></li><li class="navelem"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html">NativeVault</a></li>
-    <li class="footer">Generated on Sun Sep 13 2026 15:07:41 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Sun Sep 13 2026 16:05:19 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

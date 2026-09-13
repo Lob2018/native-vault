@@ -208,7 +208,9 @@ Static Private Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>the method handle for the native function </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">libraryName</code> is blank, <code class="JavaDocCode">functionName</code> is blank, or <code class="JavaDocCode">descriptor</code> is null </td></tr>
+    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">libraryName</code> is blank or <code class="JavaDocCode">functionName</code> is blank </td></tr>
+    <tr><td class="paramname">NullPointerException</td><td>if <code class="JavaDocCode">descriptor</code> is null </td></tr>
+    <tr><td class="paramname">UnsatisfiedLinkError</td><td>if the native function cannot be found or loaded </td></tr>
   </table>
   </dd>
 </dl>
@@ -247,7 +249,7 @@ Static Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>fr</b></li><li class="navelem"><b>softsf</b></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault.html">vault</a></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault_1_1internal.html">internal</a></li><li class="navelem"><a class="el" href="classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html">CrossPlatformVaultLoader</a></li>
-    <li class="footer">Generated on Sun Sep 13 2026 15:07:41 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Sun Sep 13 2026 16:05:19 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>
