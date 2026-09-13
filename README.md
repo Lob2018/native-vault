@@ -11,7 +11,7 @@
 > [!NOTE]
 > **Target Environment**: Designed exclusively for **desktop applications** interacting with active user session secret stores. Incompatible with **headless servers**, system services, or isolated containers.
 
-**Unified Java interface for secure credential storage backed by active user session operating system managers.**
+**Unified Java library interface for secure credential storage backed by active user session operating system managers.**
 
 Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this library provides a **zero-JNI/JNA** solution featuring strict memory hygiene (`char[]` sanitation via `Arrays.fill`). It is conceptually inspired by [Microsoft's credential-secure-storage-for-java](https://github.com/microsoft/credential-secure-storage-for-java).
 
