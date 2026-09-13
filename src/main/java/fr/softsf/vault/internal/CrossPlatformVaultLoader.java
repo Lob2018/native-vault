@@ -29,8 +29,10 @@ public final class CrossPlatformVaultLoader {
      * @param functionName the function name
      * @param descriptor the function descriptor
      * @return the method handle for the native function
-     * @throws IllegalArgumentException if {@code libraryName} is blank, {@code functionName} is
-     *     blank, or {@code descriptor} is null
+     * @throws IllegalArgumentException if {@code libraryName} is blank or {@code functionName} is
+     *     blank
+     * @throws NullPointerException if {@code descriptor} is null
+     * @throws UnsatisfiedLinkError if the native function cannot be found or loaded
      */
     public static MethodHandle loadNativeFunction(
             String libraryName, String functionName, FunctionDescriptor descriptor) {
@@ -40,9 +42,7 @@ public final class CrossPlatformVaultLoader {
         if (StringUtils.isBlank(functionName)) {
             throw new IllegalArgumentException("FunctionName must not be blank");
         }
-        if (Objects.isNull(descriptor)) {
-            throw new IllegalArgumentException("Descriptor must not be null");
-        }
+        Objects.requireNonNull(descriptor, "descriptor cannot be null");
         SymbolLookup lookup;
         if (libraryName.contains("/")
                 || libraryName.endsWith(".so.0")

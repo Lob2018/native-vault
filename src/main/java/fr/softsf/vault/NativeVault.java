@@ -67,7 +67,12 @@ public final class NativeVault implements AutoCloseable {
 
     private final Arena arena;
 
-    /** Initializes a new instance of the native vault facade. */
+    /**
+     * Initializes a new instance of the native vault facade.
+     *
+     * @throws NativeVaultException if the strategy integrity check fails
+     * @throws UnsupportedOperationException if the operating system is not supported
+     */
     public NativeVault() {
         ensureUsable();
         this.arena = Arena.ofConfined();
@@ -336,12 +341,11 @@ public final class NativeVault implements AutoCloseable {
      * @param arena the memory arena
      * @param data the character array data
      * @return the allocated memory segment
-     * @throws IllegalArgumentException if {@code arena} is null or {@code data} is null or empty
+     * @throws NullPointerException if {@code arena} is null
+     * @throws IllegalArgumentException if {@code data} is null or empty
      */
     private static MemorySegment allocateSegment(Arena arena, char[] data) {
-        if (Objects.isNull(arena)) {
-            throw new IllegalArgumentException("Arena cannot be null or empty");
-        }
+        Objects.requireNonNull(arena, "Arena cannot be null");
         if (data == null || data.length == 0) {
             throw new IllegalArgumentException("Data cannot be null or empty");
         }
@@ -359,12 +363,10 @@ public final class NativeVault implements AutoCloseable {
      * Overwrites the specified memory segment with zeros to ensure security.
      *
      * @param segment the memory segment to clear
-     * @throws IllegalArgumentException if {@code segment} is null
+     * @throws NullPointerException if {@code segment} is null
      */
     private void zeroFill(MemorySegment segment) {
-        if (Objects.isNull(segment)) {
-            throw new IllegalArgumentException("Segment cannot be null or empty");
-        }
+        Objects.requireNonNull(segment, "Segment cannot be null");
         segment.fill((byte) 0);
     }
 
