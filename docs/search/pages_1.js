@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nativevault_0',['Documentation de NativeVault',['../index.html',1,'']]]
+  ['🔐_20nativevault_0',['🔐 NativeVault',['../index.html',1,'']]]
 ];
