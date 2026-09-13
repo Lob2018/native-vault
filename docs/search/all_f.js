@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['teardown_0',['tearDown',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a649e7a0d1c4f2ed4a6e0e1473d6388b7',1,'fr::softsf::vault::NativeVaultTest']]],
-  ['testexceptionconstructorandproperties_1',['testExceptionConstructorAndProperties',['../classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest.html#af6607e5fdd30f9b61d62a487c41d18fb',1,'fr::softsf::vault::NativeVaultExceptionTest']]]
+  ['read_5fhandle_0',['READ_HANDLE',['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#abfd523706e12a4461fdcad3c6c786386',1,'fr::softsf::vault::strategy::WindowsCredentialManagerStrategy']]],
+  ['readme_2emd_1',['README.md',['../README_8md.html',1,'']]],
+  ['removesecret_2',['removesecret',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a10f9ce8ca17b9b16473b938999954eb6',1,'fr.softsf.vault.NativeVault.removeSecret(String key)'],['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a46bdeb1670ffe2770f1bb44650767b8d',1,'fr.softsf.vault.NativeVault.removeSecret(char[] key)']]],
+  ['retrieve_3',['retrieve',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a656bd585c130a75daadbcbfa230cd343',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.retrieve()'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#aa3af7c0f91fcb0cd0174324b94e73fb4',1,'fr.softsf.vault.strategy.MacKeychainStrategy.retrieve()'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#af6743765a1e47f0328b0f8d09ff78a8b',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.retrieve(char[] key, Arena arena)'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#af6743765a1e47f0328b0f8d09ff78a8b',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.retrieve(char[] key, Arena arena)']]]
 ];

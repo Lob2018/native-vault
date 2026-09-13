@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('classfr_1_1softsf_1_1vault_1_1NativeVa
 </div><!--header-->
 <div class="contents">
 
-<p>Facade class managing native credential operations using the FFM API with secure char[] handling for both keys and secrets, dynamic strategy detection, and logging.  
+<p>Zero-JNI/JNA facade class managing native credential operations via the Project Panama Foreign Function &amp; Memory (FFM) API.  
  <a href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#details">More...</a></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for fr.softsf.vault.NativeVault:</div>
@@ -202,8 +202,32 @@ Static Private Attributes</h2></td></tr>
 <tr class="separator:a0f43944943b29e04a02ffee7f4ab34da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Facade class managing native credential operations using the FFM API with secure char[] handling for both keys and secrets, dynamic strategy detection, and logging. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<div class="textblock"><p>Zero-JNI/JNA facade class managing native credential operations via the Project Panama Foreign Function &amp; Memory (FFM) API. </p>
+<p>Designed exclusively for active user session secret stores in desktop applications, featuring strict memory hygiene via <code class="JavaDocCode">char[]</code> buffers and dynamic strategy detection.</p>
+<p>Instances must be used within a <b>try-with-resources</b> block. Keys and secrets must be managed as mutable <code class="JavaDocCode">char[]</code> buffers and explicitly zero-filled (<code class="JavaDocCode">Arrays.fill(...,<br/>
+'\0')</code>) in a <code class="JavaDocCode">finally</code> block to guarantee heap memory hygiene.</p>
+<p>Interactions must be wrapped in a corresponding <b>catch (Exception | LinkageError)</b> block to safely handle native linkage initialization and execution errors.</p>
+<p><b>Usage Example:</b></p>
+<pre><code class="JavaDocCode"><br/>
+// Unique package-prefixed key to avoid OS keychain collisions<br/>
+char[] uniqueExampleKey = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.', 'm', 'y', 'a', 'p', 'p', '.', 'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};<br/>
+// The secret to store<br/>
+char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l', '-', 's', 'e', 'c', 'r', 'e', 't'};<br/>
+try (NativeVault vault = new NativeVault()) {<br/>
+    boolean stored = vault.setSecret(uniqueExampleKey, secret);<br/>
+    boolean exists = vault.hasSecret(uniqueExampleKey);<br/>
+    vault.getSecret(uniqueExampleKey).ifPresent(retrieved -&gt; {<br/>
+        // Process secret...<br/>
+        java.util.Arrays.fill(retrieved, '\0');<br/>
+    });<br/>
+    boolean removed = vault.removeSecret(uniqueExampleKey);<br/>
+} catch (Exception | LinkageError e) {<br/>
+    System.err.println("Failed to initialize or use native vault: " + e.getMessage());<br/>
+} finally {<br/>
+    java.util.Arrays.fill(uniqueExampleKey, '\0');<br/>
+    java.util.Arrays.fill(secret, '\0');<br/>
+}<br/>
+</code></pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae9eaabb4c71bb7760c4d422b727eaf78" name="ae9eaabb4c71bb7760c4d422b727eaf78"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae9eaabb4c71bb7760c4d422b727eaf78">&#9670;&#160;</a></span>NativeVault()</h2>
 
@@ -859,7 +883,7 @@ Static Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>fr</b></li><li class="navelem"><b>softsf</b></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault.html">vault</a></li><li class="navelem"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html">NativeVault</a></li>
-    <li class="footer">Generated on Sat Sep 12 2026 20:51:30 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Sun Sep 13 2026 13:56:42 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

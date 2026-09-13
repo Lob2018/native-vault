@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="Node000000" title=" " alt="" coords="5,5,121,31"/>
-<area shape="rect" id="Node000001" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html" title="Facade class managing native credential operations using the FFM API with secure char[] handling for ..." alt="" coords="169,5,356,31"/>
+<area shape="rect" id="Node000001" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html" title="Zero&#45;JNI/JNA facade class managing native credential operations via the Project Panama Foreign Functi..." alt="" coords="169,5,356,31"/>
 <area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="135,15,169,15,169,21,135,21"/>
 </map>

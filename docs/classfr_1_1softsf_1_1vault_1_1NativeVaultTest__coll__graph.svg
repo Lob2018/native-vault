@@ -98,7 +98,7 @@ var sectionId = 'dynsection-0';
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html" target="_top" xlink:title="Facade class managing native credential operations using the FFM API with secure char[] handling for ...">
+<g id="a_Node000002"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html" target="_top" xlink:title="Zero&#45;JNI/JNA facade class managing native credential operations via the Project Panama Foreign Functi...">
 <polygon fill="white" stroke="transparent" points="200,-765 31,-765 31,-333 200,-333 200,-765"/>
 <text text-anchor="start" x="54" y="-753" font-family="Helvetica,sans-Serif" font-size="10.00">fr.softsf.vault.NativeVault</text>
 <text text-anchor="start" x="35.5" y="-738" font-family="Helvetica,sans-Serif" font-size="10.00">~</text>

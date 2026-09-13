@@ -1,6 +1,11 @@
 var searchData=
 [
-  ['read_5fhandle_0',['READ_HANDLE',['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#abfd523706e12a4461fdcad3c6c786386',1,'fr::softsf::vault::strategy::WindowsCredentialManagerStrategy']]],
-  ['removesecret_1',['removesecret',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a10f9ce8ca17b9b16473b938999954eb6',1,'fr.softsf.vault.NativeVault.removeSecret(String key)'],['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a46bdeb1670ffe2770f1bb44650767b8d',1,'fr.softsf.vault.NativeVault.removeSecret(char[] key)']]],
-  ['retrieve_2',['retrieve',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a656bd585c130a75daadbcbfa230cd343',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.retrieve()'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#aa3af7c0f91fcb0cd0174324b94e73fb4',1,'fr.softsf.vault.strategy.MacKeychainStrategy.retrieve()'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#af6743765a1e47f0328b0f8d09ff78a8b',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.retrieve(char[] key, Arena arena)'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#af6743765a1e47f0328b0f8d09ff78a8b',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.retrieve(char[] key, Arena arena)']]]
+  ['nativevault_0',['nativevault',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html',1,'fr.softsf.vault.NativeVault'],['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#ae9eaabb4c71bb7760c4d422b727eaf78',1,'fr.softsf.vault.NativeVault.NativeVault()'],['../index.html',1,'NativeVault']]],
+  ['nativevault_2ejava_1',['NativeVault.java',['../NativeVault_8java.html',1,'']]],
+  ['nativevaultexception_2',['nativevaultexception',['../classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html',1,'fr.softsf.vault.exception.NativeVaultException'],['../classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html#a594fb584d4010147c70fb0e60159c2fb',1,'fr.softsf.vault.exception.NativeVaultException.NativeVaultException()']]],
+  ['nativevaultexception_2ejava_3',['NativeVaultException.java',['../NativeVaultException_8java.html',1,'']]],
+  ['nativevaultexceptiontest_4',['NativeVaultExceptionTest',['../classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest.html',1,'fr::softsf::vault']]],
+  ['nativevaultexceptiontest_2ejava_5',['NativeVaultExceptionTest.java',['../NativeVaultExceptionTest_8java.html',1,'']]],
+  ['nativevaulttest_6',['NativeVaultTest',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html',1,'fr::softsf::vault']]],
+  ['nativevaulttest_2ejava_7',['NativeVaultTest.java',['../NativeVaultTest_8java.html',1,'']]]
 ];

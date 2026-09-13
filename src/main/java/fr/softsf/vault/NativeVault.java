@@ -21,8 +21,40 @@ import fr.softsf.vault.exception.NativeVaultException;
 import fr.softsf.vault.strategy.VaultStrategy;
 
 /**
- * Facade class managing native credential operations using the FFM API with secure char[] handling
- * for both keys and secrets, dynamic strategy detection, and logging.
+ * Zero-JNI/JNA facade class managing native credential operations via the Project Panama Foreign
+ * Function & Memory (FFM) API. Designed exclusively for active user session secret stores in
+ * desktop applications, featuring strict memory hygiene via {@code char[]} buffers and dynamic
+ * strategy detection.
+ *
+ * <p>Instances must be used within a <b>try-with-resources</b> block. Keys and secrets must be
+ * managed as mutable {@code char[]} buffers and explicitly zero-filled ({@code Arrays.fill(...,
+ * '\0')}) in a {@code finally} block to guarantee heap memory hygiene.
+ *
+ * <p>Interactions must be wrapped in a corresponding <b>catch (Exception | LinkageError)</b> block
+ * to safely handle native linkage initialization and execution errors.
+ *
+ * <p><strong>Usage Example:</strong>
+ *
+ * <pre>{@code
+ * // Unique package-prefixed key to avoid OS keychain collisions
+ * char[] uniqueExampleKey = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.', 'm', 'y', 'a', 'p', 'p', '.', 'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};
+ * // The secret to store
+ * char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l', '-', 's', 'e', 'c', 'r', 'e', 't'};
+ * try (NativeVault vault = new NativeVault()) {
+ *     boolean stored = vault.setSecret(uniqueExampleKey, secret);
+ *     boolean exists = vault.hasSecret(uniqueExampleKey);
+ *     vault.getSecret(uniqueExampleKey).ifPresent(retrieved -> {
+ *         // Process secret...
+ *         java.util.Arrays.fill(retrieved, '\0');
+ *     });
+ *     boolean removed = vault.removeSecret(uniqueExampleKey);
+ * } catch (Exception | LinkageError e) {
+ *     System.err.println("Failed to initialize or use native vault: " + e.getMessage());
+ * } finally {
+ *     java.util.Arrays.fill(uniqueExampleKey, '\0');
+ *     java.util.Arrays.fill(secret, '\0');
+ * }
+ * }</pre>
  */
 public final class NativeVault implements AutoCloseable {
     static final String INTEGRITY_TEST_KEY = "fr.softsf.vault.integrity.check.key";

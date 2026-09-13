@@ -1,6 +1,9 @@
 # NativeVault
 
-![Status](https://img.shields.io/badge/status-in%20development-yellow)
+![Status](https://img.shields.io/badge/status-in%20development-yellow)<br>
+
+[![Online Javadoc](https://img.shields.io/badge/Docs-🔗_Online_JavaDoc-0D47A1?style=for-the-badge)](https://lob2018.github.io/native-vault/)
+
 
 > [!WARNING]
 > This project is currently under active development. APIs are subject to change, and it is not yet recommended for production use.
@@ -8,11 +11,9 @@
 > [!NOTE]
 > **Target Environment**: Designed exclusively for **desktop applications** interacting with active user session secret stores. Incompatible with **headless servers**, system services, or isolated containers.
 
-Unified Java interface for secure credential storage backed by native operating system managers.
+**Unified Java interface for secure credential storage backed by active user session operating system managers.**
 
 Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this library provides a **zero-JNI/JNA** solution featuring strict memory hygiene (`char[]` sanitation via `Arrays.fill`). It is conceptually inspired by [Microsoft's credential-secure-storage-for-java](https://github.com/microsoft/credential-secure-storage-for-java).
-
-# [Online Javadoc](https://lob2018.github.io/native-vault/)
 
 # What this library provides
 
@@ -37,31 +38,28 @@ Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this li
 Here is sample code showing how to use the vault:
 
 ```java
-try {
-    // Check if the native vault is operational on the current platform before proceeding
-    if (NativeVault.isUsable()) {
-        try (NativeVault vault = new NativeVault()) {
-            // Unique package-prefixed key to avoid OS keychain collisions
-            String uniqueExampleKey = "fr.softsf.myapp.uniquekey";
-            // Write action (upsert: creates or overwrites): returns true if successfully stored, false otherwise
-            boolean stored = vault.setSecret(uniqueExampleKey, "my-critical-secret");
-            // Existence check action: returns true if the secret exists, false otherwise
-            boolean exists = vault.hasSecret(uniqueExampleKey);
-            // Read action: returns Optional<char[]>
-            vault.getSecret(uniqueExampleKey).ifPresent(secret -> {
-                // Process secret...
-                java.util.Arrays.fill(secret, '\0'); // Mandatory memory cleanup
-            });
-            // Deletion action: returns true if successfully removed, false otherwise
-            boolean removed = vault.removeSecret(uniqueExampleKey);
-        }
-    } else {
-        // Handle platform unavailability
-        System.err.println("Native vault is not operational on this platform.");
-    }
-} catch (Throwable t) {
+// Unique package-prefixed key to avoid OS keychain collisions
+char[] uniqueExampleKey = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.', 'm', 'y', 'a', 'p', 'p', '.', 'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};
+// The secret to store
+char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l', '-', 's', 'e', 'c', 'r', 'e', 't'};
+try (NativeVault vault = new NativeVault()) {
+    // Write action (upsert: creates or overwrites): returns true if successfully stored, false otherwise
+    boolean stored = vault.setSecret(uniqueExampleKey, secret);
+    // Existence check action: returns true if the secret exists, false otherwise
+    boolean exists = vault.hasSecret(uniqueExampleKey);
+    // Read action: returns Optional<char[]>
+    vault.getSecret(uniqueExampleKey).ifPresent(retrieved -> {
+        // Process secret...
+        java.util.Arrays.fill(retrieved, '\0'); // Mandatory memory cleanup
+    });
+    // Deletion action: returns true if successfully removed, false otherwise
+    boolean removed = vault.removeSecret(uniqueExampleKey);
+} catch (Exception | LinkageError e) {
     // Handle initialization or execution failures safely
-    System.err.println("Failed to initialize or use native vault: " + t.getMessage());
+    System.err.println("Failed to initialize or use native vault: " + e.getMessage());
+} finally {
+    java.util.Arrays.fill(uniqueExampleKey, '\0'); // Mandatory cleanup for key buffer
+    java.util.Arrays.fill(secret, '\0'); // Mandatory cleanup for secret buffer
 }
 ```
 

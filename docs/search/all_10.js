@@ -1,5 +1,14 @@
 var searchData=
 [
-  ['update_5fhandle_0',['UPDATE_HANDLE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#acf217640be92bd4d10436377a41cbee3',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
-  ['utiles_1',['Liens utiles',['../index.html#Liens_utiles',1,'']]]
+  ['schema_5fsegment_0',['SCHEMA_SEGMENT',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#aad872d2cbb0a74242273bf0ede996967',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]],
+  ['secret_5fdata_5fcannot_5fbe_5fnull_1',['SECRET_DATA_CANNOT_BE_NULL',['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#aeabd50e23240db6e89e171e726faf8f0',1,'fr::softsf::vault::strategy::WindowsCredentialManagerStrategy']]],
+  ['secret_5fschema_5fattribute_5flayout_2',['SECRET_SCHEMA_ATTRIBUTE_LAYOUT',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a01f19ddf0bab41b21d34f93f17506865',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]],
+  ['secret_5fschema_5flayout_3',['SECRET_SCHEMA_LAYOUT',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a32e8eecbbcb031ee629ac4f800094c30',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]],
+  ['secure_20storage_20providers_3a_4',['Available Secure Storage Providers:',['../index.html#autotoc_md2',1,'']]],
+  ['setsecret_5',['setsecret',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a552245265cbad2a517317635ba750f0a',1,'fr.softsf.vault.NativeVault.setSecret(String key, String secret)'],['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#ae8e94d0dcf1d55a0072197025e127972',1,'fr.softsf.vault.NativeVault.setSecret(char[] key, char[] secret)']]],
+  ['setup_6',['setUp',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a76abe5df5e26a047676b4f305c760348',1,'fr::softsf::vault::NativeVaultTest']]],
+  ['storage_20providers_3a_7',['Available Secure Storage Providers:',['../index.html#autotoc_md2',1,'']]],
+  ['store_8',['store',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a7339819b76f26404832f02e30afe32e4',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.store()'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a926aa592dc1e41ccd7cd8302d170001a',1,'fr.softsf.vault.strategy.MacKeychainStrategy.store()'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a90baade8f2a0cd00270842d36508f102',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.store(char[] key, MemorySegment secretData, Arena arena)'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a90baade8f2a0cd00270842d36508f102',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.store(char[] key, MemorySegment secretData, Arena arena)']]],
+  ['store_5fhandle_9',['STORE_HANDLE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a7c3b6ae15b97323d135035c75aea186c',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]],
+  ['strategy_10',['STRATEGY',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a0f43944943b29e04a02ffee7f4ab34da',1,'fr::softsf::vault::NativeVault']]]
 ];

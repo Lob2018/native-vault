@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['key_0',['KEY',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a04bb31c1c2ee8a4ec91338beb6a76bc8',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]],
-  ['key_5fcannot_5fbe_5fnull_5for_5fempty_1',['key_cannot_be_null_or_empty',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a9da3fadf93fed11c0ccdaf8b8140a5cb',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.KEY_CANNOT_BE_NULL_OR_EMPTY'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ae31b39a7d3c981e055e79edb188f4fc7',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.KEY_CANNOT_BE_NULL_OR_EMPTY']]],
-  ['keysegment_2',['keySegment',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a9af02b8d6b95ef402b5e7a7ab4446843',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]]
+  ['integrity_5ftest_5fkey_0',['INTEGRITY_TEST_KEY',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#ab0b42828c66a5d70eb059cbda3bf2309',1,'fr::softsf::vault::NativeVault']]],
+  ['integrityholder_1',['IntegrityHolder',['../classfr_1_1softsf_1_1vault_1_1NativeVault_1_1IntegrityHolder.html',1,'fr::softsf::vault::NativeVault']]],
+  ['isusable_2',['isUsable',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a4e57889465882f72de42a1922e8ad3c6',1,'fr::softsf::vault::NativeVault']]]
 ];

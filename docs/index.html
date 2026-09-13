@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>NativeVault: Documentation de NativeVault</title>
+<title>NativeVault: NativeVault</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,25 +89,82 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Documentation de NativeVault </div></div>
+  <div class="headertitle"><div class="title">NativeVault </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md0"></a>
-🔒 NativeVault</h1>
-<p>Unified Java interface for secure credential storage backed by native operating system managers. Powered by the Foreign Function &amp; Memory (FFM) API (<b>Project Panama</b>), this library provides a <b>zero-JNI/JNA</b> solution featuring strict memory hygiene (<code>char[]</code> sanitation via <code>Arrays.fill</code>). It is conceptually inspired by <a href="https://github.com/microsoft/credential-secure-storage-for-java" target="_blank">Microsoft's credential-secure-storage-for-java</a>.</p>
-<h1><a class="anchor" id="Liens_utiles"></a>
-Liens utiles</h1>
-<ul>
-<li><a href="https://github.com/Lob2018/native-vault" target="_blank">GitHub</a></li>
-<li><a href="https://lob2018.github.io/native-vault/" target="_blank">Documentation</a> </li>
-</ul>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> <img src="https://img.shields.io/badge/status-in%20development-yellow" alt="Status" class="inline"/><br  />
+</p>
+<p><a href="https://lob2018.github.io/native-vault/" target="_blank"><img src="https://img.shields.io/badge/Docs-🔗_Online_JavaDoc-0D47A1?style=for-the-badge" alt="Online Javadoc" class="inline"/></a></p>
+<blockquote class="doxtable">
+<p>&zwj;[!WARNING] This project is currently under active development. APIs are subject to change, and it is not yet recommended for production use. </p>
+</blockquote>
+<blockquote class="doxtable">
+<p>&zwj;[!NOTE] <b>Target Environment</b>: Designed exclusively for <b>desktop applications</b> interacting with active user session secret stores. Incompatible with <b>headless servers</b>, system services, or isolated containers. </p>
+</blockquote>
+<p><b>Unified Java interface for secure credential storage backed by active user session operating system managers.</b></p>
+<p>Powered by the Foreign Function &amp; Memory (FFM) API (<b>Project Panama</b>), this library provides a <b>zero-JNI/JNA</b> solution featuring strict memory hygiene (<code>char[]</code> sanitation via <code>Arrays.fill</code>). It is conceptually inspired by <a href="https://github.com/microsoft/credential-secure-storage-for-java" target="_blank">Microsoft's credential-secure-storage-for-java</a>.</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+What this library provides</h1>
+<h3><a class="anchor" id="autotoc_md2"></a>
+Available Secure Storage Providers:</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Secret Type / Operation   </th><th class="markdownTableHeadNone">Windows (Credential Manager)   </th><th class="markdownTableHeadNone">Linux (GNOME Keyring / Libsecret)   </th><th class="markdownTableHeadNone">macOS (Keychain)    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Key-Value Credentials (<code>char[]</code> or <code>String</code>)   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td></tr>
+</table>
+<h1><a class="anchor" id="autotoc_md3"></a>
+How to use this library</h1>
+<blockquote class="doxtable">
+<p>&zwj;[!WARNING] <b>Key Collision Risk</b>: OS keychains lack namespace isolation. Use unique package-prefixed keys (e.g., <code>fr.softsf.myapp.uniquekey</code>) to prevent cross-application overwrites. </p>
+</blockquote>
+<div class="fragment"><div class="line">&lt;<span class="keywordtype">dependency</span>&gt;</div>
+<div class="line">    &lt;<span class="keywordtype">groupId</span>&gt;<span class="keyword">fr.softsf</span>&lt;/<span class="keywordtype">groupId</span>&gt;</div>
+<div class="line">    &lt;<span class="keywordtype">artifactId</span>&gt;<span class="keyword">native-vault</span>&lt;/<span class="keywordtype">artifactId</span>&gt;</div>
+<div class="line">    &lt;<span class="keywordtype">version</span>&gt;1.0.0&lt;/<span class="keywordtype">version</span>&gt;</div>
+<div class="line">&lt;/<span class="keywordtype">dependency</span>&gt;</div>
+</div><!-- fragment --><p>Here is sample code showing how to use the vault:</p>
+<div class="fragment"><div class="line"><span class="comment">// Unique package-prefixed key to avoid OS keychain collisions</span></div>
+<div class="line"><span class="keywordtype">char</span>[] uniqueExampleKey = {<span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;o&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;y&#39;</span>, <span class="charliteral">&#39;a&#39;</span>, <span class="charliteral">&#39;p&#39;</span>, <span class="charliteral">&#39;p&#39;</span>, <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;u&#39;</span>, <span class="charliteral">&#39;n&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;q&#39;</span>, <span class="charliteral">&#39;u&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;k&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;y&#39;</span>};</div>
+<div class="line"><span class="comment">// The secret to store</span></div>
+<div class="line"><span class="keywordtype">char</span>[] secret = {<span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;y&#39;</span>, <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;a&#39;</span>, <span class="charliteral">&#39;l&#39;</span>, <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;t&#39;</span>};</div>
+<div class="line"><span class="keywordflow">try</span> (NativeVault <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a> = <span class="keyword">new</span> NativeVault()) {</div>
+<div class="line">    <span class="comment">// Write action (upsert: creates or overwrites): returns true if successfully stored, false otherwise</span></div>
+<div class="line">    <span class="keywordtype">boolean</span> stored = <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.setSecret(uniqueExampleKey, secret);</div>
+<div class="line">    <span class="comment">// Existence check action: returns true if the secret exists, false otherwise</span></div>
+<div class="line">    <span class="keywordtype">boolean</span> exists = <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.hasSecret(uniqueExampleKey);</div>
+<div class="line">    <span class="comment">// Read action: returns Optional&lt;char[]&gt;</span></div>
+<div class="line">    <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.getSecret(uniqueExampleKey).ifPresent(retrieved -&gt; {</div>
+<div class="line">        <span class="comment">// Process secret...</span></div>
+<div class="line">        java.util.Arrays.fill(retrieved, <span class="charliteral">&#39;\0&#39;</span>); <span class="comment">// Mandatory memory cleanup</span></div>
+<div class="line">    });</div>
+<div class="line">    <span class="comment">// Deletion action: returns true if successfully removed, false otherwise</span></div>
+<div class="line">    <span class="keywordtype">boolean</span> removed = <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.removeSecret(uniqueExampleKey);</div>
+<div class="line">} <span class="keywordflow">catch</span> (Exception | LinkageError e) {</div>
+<div class="line">    <span class="comment">// Handle initialization or execution failures safely</span></div>
+<div class="line">    System.err.println(<span class="stringliteral">&quot;Failed to initialize or use native vault: &quot;</span> + e.getMessage());</div>
+<div class="line">} <span class="keywordflow">finally</span> {</div>
+<div class="line">    java.util.Arrays.fill(uniqueExampleKey, <span class="charliteral">&#39;\0&#39;</span>); <span class="comment">// Mandatory cleanup for key buffer</span></div>
+<div class="line">    java.util.Arrays.fill(secret, <span class="charliteral">&#39;\0&#39;</span>); <span class="comment">// Mandatory cleanup for secret buffer</span></div>
+<div class="line">}</div>
+<div class="ttc" id="amodule-info_8java_html_ae3ed66f35d55de965e4dd7bc5d7fddfd"><div class="ttname"><a href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a></div><div class="ttdeci">module fr.softsf. vault</div><div class="ttdef"><b>Definition</b> module-info.java:1</div></div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
+How to build</h1>
+<ol type="1">
+<li>JDK 25+ (required for the FFM API)</li>
+<li>Maven 3.8+</li>
+<li><code>mvn clean verify</code></li>
+</ol>
+<h1><a class="anchor" id="autotoc_md5"></a>
+License</h1>
+<p>This project is licensed under the terms of the GNU General Public License v3.0 (GPLv3). See the [LICENSE](LICENSE) file for details. See the <a href="NOTICE.txt" target="_blank">NOTICE.txt</a> file for required notices and attributions. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sat Sep 12 2026 20:51:30 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Sun Sep 13 2026 13:56:42 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>
