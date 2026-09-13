@@ -19,9 +19,11 @@ Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this li
 
 ### Available Secure Storage Providers:
 
-| Secret Type / Operation | Windows (Credential Manager) | Linux (GNOME Keyring / Libsecret) | macOS (Keychain) |
+| Secret Type / Operation | Windows (Credential Manager)* | Linux (GNOME Keyring / Libsecret)* | macOS (Keychain)* |
 | --- | --- | --- | --- |
 | Key-Value Credentials (`char[]` or `String`) | Yes | Yes | Yes |
+<i>*Requires an active desktop session.</i>
+
 # How to use this library
 
 > [!WARNING]
