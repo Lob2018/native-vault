@@ -1,0 +1,9 @@
+<map id="fr.softsf.vault.NativeVault.[static initializer]" name="fr.softsf.vault.NativeVault.[static initializer]">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,37,196,77"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a1129581ab9d0c26021bf92f3eb1d0d9a" title="Executes the native vault integrity check sequence." alt="" coords="244,37,487,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,55,230,55,230,60,196,60"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a40c6e55f55bbd3670d4b2d87b62bcabb" title="Allocates a memory segment from a character array and encodes it to UTF&#45;8." alt="" coords="535,5,777,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="486,41,521,38,521,43,487,47"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ac75c10b9d5b77e2145ac637ad1058c97" title=" " alt="" coords="550,69,762,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="487,68,537,74,536,79,486,73"/>
+</map>

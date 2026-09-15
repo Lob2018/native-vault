@@ -7,6 +7,7 @@ var interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrate
     [ "detect", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a3075bd146512baed0f6f75e922bab233", null ],
     [ "exists", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a71702c3d011105fa23ecd899ba1d02eb", null ],
     [ "exists", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a71702c3d011105fa23ecd899ba1d02eb", null ],
+    [ "keySegment", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a42aa5b0b2d44a40634fa73e594dfe41a", null ],
     [ "retrieve", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#af6743765a1e47f0328b0f8d09ff78a8b", null ],
     [ "retrieve", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#af6743765a1e47f0328b0f8d09ff78a8b", null ],
     [ "store", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a90baade8f2a0cd00270842d36508f102", null ],

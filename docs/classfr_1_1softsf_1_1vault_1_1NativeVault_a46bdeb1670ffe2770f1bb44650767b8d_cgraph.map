@@ -2,6 +2,4 @@
 <area shape="rect" id="Node000001" title="Deletes a secret from the native credential store using a character array key." alt="" coords="5,5,247,45"/>
 <area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="295,5,529,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="247,23,281,23,281,28,247,28"/>
-<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a4e57889465882f72de42a1922e8ad3c6" title="Checks if a native vault strategy is available and verified." alt="" coords="577,5,780,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="530,23,564,23,564,28,530,28"/>
 </map>

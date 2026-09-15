@@ -46,7 +46,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 851;
+var viewWidth = 663;
 var viewHeight = 254;
 var sectionId = 'dynsection-1';
 </script>
@@ -85,67 +85,67 @@ var sectionId = 'dynsection-1';
 </a>
 </g>
 </g>
-<!-- Node5 -->
-<g id="Node000005" class="node">
-<title>Node5</title>
-<g id="a_Node000005"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a749f572dec5d3a6f0bf3fffe4566d0e8" target="_top" xlink:title="Checks if a secret exists in the native credential store using a string key.">
+<!-- Node4 -->
+<g id="Node000004" class="node">
+<title>Node4</title>
+<g id="a_Node000004"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a749f572dec5d3a6f0bf3fffe4566d0e8" target="_top" xlink:title="Checks if a secret exists in the native credential store using a string key.">
 <polygon fill="white" stroke="#666666" points="433,-162 272,-162 272,-132 433,-132 433,-162"/>
 <text text-anchor="start" x="280" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">fr.softsf.vault.NativeVault.has</text>
 <text text-anchor="middle" x="352.5" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">Secret</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node5 -->
-<g id="edge5_Node000001_Node000005" class="edge">
-<title>Node1&#45;&gt;Node5</title>
-<g id="a_edge5_Node000001_Node000005"><a xlink:title=" ">
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge4_Node000001_Node000004" class="edge">
+<title>Node1&#45;&gt;Node4</title>
+<g id="a_edge4_Node000001_Node000004"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M226.14,-129.58C238.03,-131.23 250.01,-132.9 261.6,-134.51"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="261.29,-138 271.67,-135.91 262.25,-131.07 261.29,-138"/>
 </a>
 </g>
 </g>
-<!-- Node6 -->
-<g id="Node000006" class="node">
-<title>Node6</title>
-<g id="a_Node000006"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a10f9ce8ca17b9b16473b938999954eb6" target="_top" xlink:title="Deletes a secret from the native credential store using a string key.">
+<!-- Node5 -->
+<g id="Node000005" class="node">
+<title>Node5</title>
+<g id="a_Node000005"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a10f9ce8ca17b9b16473b938999954eb6" target="_top" xlink:title="Deletes a secret from the native credential store using a string key.">
 <polygon fill="white" stroke="#666666" points="443,-96 262,-96 262,-66 443,-66 443,-96"/>
 <text text-anchor="start" x="270" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">fr.softsf.vault.NativeVault.remove</text>
 <text text-anchor="middle" x="352.5" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">Secret</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node6 -->
-<g id="edge8_Node000001_Node000006" class="edge">
-<title>Node1&#45;&gt;Node6</title>
-<g id="a_edge8_Node000001_Node000006"><a xlink:title=" ">
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge7_Node000001_Node000005" class="edge">
+<title>Node1&#45;&gt;Node5</title>
+<g id="a_edge7_Node000001_Node000005"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M226.14,-98.42C234.78,-97.22 243.45,-96.01 252,-94.83"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="252.53,-98.29 261.95,-93.44 251.57,-91.35 252.53,-98.29"/>
 </a>
 </g>
 </g>
-<!-- Node7 -->
-<g id="Node000007" class="node">
-<title>Node7</title>
-<g id="a_Node000007"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a552245265cbad2a517317635ba750f0a" target="_top" xlink:title="Stores or updates a secret securely in the native credential store using string parameters.">
+<!-- Node6 -->
+<g id="Node000006" class="node">
+<title>Node6</title>
+<g id="a_Node000006"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a552245265cbad2a517317635ba750f0a" target="_top" xlink:title="Stores or updates a secret securely in the native credential store using string parameters.">
 <polygon fill="white" stroke="#666666" points="431.5,-30 273.5,-30 273.5,0 431.5,0 431.5,-30"/>
 <text text-anchor="start" x="281.5" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">fr.softsf.vault.NativeVault.set</text>
 <text text-anchor="middle" x="352.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Secret</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node7 -->
-<g id="edge11_Node000001_Node000007" class="edge">
-<title>Node1&#45;&gt;Node7</title>
-<g id="a_edge11_Node000001_Node000007"><a xlink:title=" ">
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge10_Node000001_Node000006" class="edge">
+<title>Node1&#45;&gt;Node6</title>
+<g id="a_edge10_Node000001_Node000006"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M176.4,-87.99C217.02,-71.06 269.1,-49.35 305.87,-34.02"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="307.46,-37.15 315.34,-30.07 304.76,-30.69 307.46,-37.15"/>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node2 -->
-<g id="edge4_Node000002_Node000002" class="edge">
+<g id="edge3_Node000002_Node000002" class="edge">
 <title>Node2&#45;&gt;Node2</title>
-<g id="a_edge4_Node000002_Node000002"><a xlink:title=" ">
+<g id="a_edge3_Node000002_Node000002"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M314.88,-228.28C306.52,-237.41 319.06,-246 352.5,-246 372.35,-246 384.84,-242.97 389.96,-238.6"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="393.46,-238.33 390.12,-228.28 386.46,-238.22 393.46,-238.33"/>
 </a>
@@ -170,74 +170,55 @@ var sectionId = 'dynsection-1';
 </a>
 </g>
 </g>
-<!-- Node4 -->
-<g id="Node000004" class="node">
-<title>Node4</title>
-<g id="a_Node000004"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a4e57889465882f72de42a1922e8ad3c6" target="_top" xlink:title="Checks if a native vault strategy is available and verified.">
-<polygon fill="white" stroke="#666666" points="843,-129 691,-129 691,-99 843,-99 843,-129"/>
-<text text-anchor="start" x="699" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">fr.softsf.vault.NativeVault.is</text>
-<text text-anchor="middle" x="767" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00">Usable</text>
-</a>
-</g>
-</g>
-<!-- Node3&#45;&gt;Node4 -->
-<g id="edge3_Node000003_Node000004" class="edge">
-<title>Node3&#45;&gt;Node4</title>
-<g id="a_edge3_Node000003_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M655.13,-114C663.62,-114 672.22,-114 680.68,-114"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="680.92,-117.5 690.92,-114 680.92,-110.5 680.92,-117.5"/>
-</a>
-</g>
-</g>
-<!-- Node5&#45;&gt;Node3 -->
-<g id="edge6_Node000005_Node000003" class="edge">
-<title>Node5&#45;&gt;Node3</title>
-<g id="a_edge6_Node000005_Node000003"><a xlink:title=" ">
+<!-- Node4&#45;&gt;Node3 -->
+<g id="edge5_Node000004_Node000003" class="edge">
+<title>Node4&#45;&gt;Node3</title>
+<g id="a_edge5_Node000004_Node000003"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M433.23,-134.62C444.82,-132.82 456.87,-130.95 468.76,-129.1"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="469.35,-132.55 478.7,-127.56 468.28,-125.63 469.35,-132.55"/>
 </a>
 </g>
 </g>
-<!-- Node5&#45;&gt;Node5 -->
-<g id="edge7_Node000005_Node000005" class="edge">
-<title>Node5&#45;&gt;Node5</title>
-<g id="a_edge7_Node000005_Node000005"><a xlink:title=" ">
+<!-- Node4&#45;&gt;Node4 -->
+<g id="edge6_Node000004_Node000004" class="edge">
+<title>Node4&#45;&gt;Node4</title>
+<g id="a_edge6_Node000004_Node000004"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M314.88,-162.28C306.52,-171.41 319.06,-180 352.5,-180 372.35,-180 384.84,-176.97 389.96,-172.6"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="393.46,-172.33 390.12,-162.28 386.46,-172.22 393.46,-172.33"/>
 </a>
 </g>
 </g>
-<!-- Node6&#45;&gt;Node3 -->
-<g id="edge9_Node000006_Node000003" class="edge">
-<title>Node6&#45;&gt;Node3</title>
-<g id="a_edge9_Node000006_Node000003"><a xlink:title=" ">
+<!-- Node5&#45;&gt;Node3 -->
+<g id="edge8_Node000005_Node000003" class="edge">
+<title>Node5&#45;&gt;Node3</title>
+<g id="a_edge8_Node000005_Node000003"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M443,-94.9C451.56,-96.23 460.27,-97.58 468.9,-98.92"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="468.56,-102.41 478.98,-100.49 469.63,-95.49 468.56,-102.41"/>
 </a>
 </g>
 </g>
-<!-- Node6&#45;&gt;Node6 -->
-<g id="edge10_Node000006_Node000006" class="edge">
-<title>Node6&#45;&gt;Node6</title>
-<g id="a_edge10_Node000006_Node000006"><a xlink:title=" ">
+<!-- Node5&#45;&gt;Node5 -->
+<g id="edge9_Node000005_Node000005" class="edge">
+<title>Node5&#45;&gt;Node5</title>
+<g id="a_edge9_Node000005_Node000005"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M314.88,-96.28C306.52,-105.41 319.06,-114 352.5,-114 372.35,-114 384.84,-110.97 389.96,-106.6"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="393.46,-106.33 390.12,-96.28 386.46,-106.22 393.46,-106.33"/>
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node3 -->
-<g id="edge12_Node000007_Node000003" class="edge">
-<title>Node7&#45;&gt;Node3</title>
-<g id="a_edge12_Node000007_Node000003"><a xlink:title=" ">
+<!-- Node6&#45;&gt;Node3 -->
+<g id="edge11_Node000006_Node000003" class="edge">
+<title>Node6&#45;&gt;Node3</title>
+<g id="a_edge11_Node000006_Node000003"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M385.77,-30.04C422.94,-47.35 484.07,-75.83 524.68,-94.75"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="523.23,-97.93 533.77,-98.99 526.18,-91.59 523.23,-97.93"/>
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node7 -->
-<g id="edge13_Node000007_Node000007" class="edge">
-<title>Node7&#45;&gt;Node7</title>
-<g id="a_edge13_Node000007_Node000007"><a xlink:title=" ">
+<!-- Node6&#45;&gt;Node6 -->
+<g id="edge12_Node000006_Node000006" class="edge">
+<title>Node6&#45;&gt;Node6</title>
+<g id="a_edge12_Node000006_Node000006"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M314.88,-30.28C306.52,-39.41 319.06,-48 352.5,-48 372.35,-48 384.84,-44.97 389.96,-40.6"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="393.46,-40.33 390.12,-30.28 386.46,-40.22 393.46,-40.33"/>
 </a>

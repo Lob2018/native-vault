@@ -1,0 +1,7 @@
+<map id="fr.softsf.vault.NativeVault.executeIntegrityCheck" name="fr.softsf.vault.NativeVault.executeIntegrityCheck">
+<area shape="rect" id="Node000001" title="Executes the native vault integrity check sequence." alt="" coords="5,37,248,77"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a40c6e55f55bbd3670d4b2d87b62bcabb" title="Allocates a memory segment from a character array and encodes it to UTF&#45;8." alt="" coords="296,5,539,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,41,282,38,283,43,248,47"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ac75c10b9d5b77e2145ac637ad1058c97" title=" " alt="" coords="311,69,523,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="248,68,298,74,297,79,248,73"/>
+</map>

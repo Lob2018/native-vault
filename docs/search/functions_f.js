@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['windowscredentialmanagerstrategy_0',['WindowsCredentialManagerStrategy',['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#afddd2a571845476d29187abf5746f47d',1,'fr::softsf::vault::strategy::WindowsCredentialManagerStrategy']]]
+  ['zerofill_0',['zeroFill',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a040f448e0276c0c3fac0f145b16f9110',1,'fr::softsf::vault::NativeVault']]]
 ];

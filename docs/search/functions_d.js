@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['setsecret_0',['setsecret',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a552245265cbad2a517317635ba750f0a',1,'fr.softsf.vault.NativeVault.setSecret(String key, String secret)'],['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#ae8e94d0dcf1d55a0072197025e127972',1,'fr.softsf.vault.NativeVault.setSecret(char[] key, char[] secret)']]],
-  ['setup_1',['setUp',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a76abe5df5e26a047676b4f305c760348',1,'fr::softsf::vault::NativeVaultTest']]],
-  ['store_2',['store',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a7339819b76f26404832f02e30afe32e4',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.store()'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a926aa592dc1e41ccd7cd8302d170001a',1,'fr.softsf.vault.strategy.MacKeychainStrategy.store()'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a90baade8f2a0cd00270842d36508f102',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.store(char[] key, MemorySegment secretData, Arena arena)'],['../interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a90baade8f2a0cd00270842d36508f102',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.store(char[] key, MemorySegment secretData, Arena arena)']]]
+  ['teardown_0',['tearDown',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a649e7a0d1c4f2ed4a6e0e1473d6388b7',1,'fr::softsf::vault::NativeVaultTest']]],
+  ['testexceptionconstructorandproperties_1',['testExceptionConstructorAndProperties',['../classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest.html#af6607e5fdd30f9b61d62a487c41d18fb',1,'fr::softsf::vault::NativeVaultExceptionTest']]]
 ];

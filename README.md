@@ -57,7 +57,7 @@ try (NativeVault vault = new NativeVault()) {
     });
     // Deletion action: returns true if successfully removed, false otherwise
     boolean removed = vault.removeSecret(uniqueExampleKey);
-} catch (Exception | LinkageError e) {
+} catch (NativeVaultException | LinkageError e) {
     // Handle initialization or execution failures safely
     System.err.println("Failed to initialize or use native vault: " + e.getMessage());
 } finally {

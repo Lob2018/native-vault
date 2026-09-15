@@ -1,8 +1,6 @@
 <map id="fr.softsf.vault.NativeVault.setSecret" name="fr.softsf.vault.NativeVault.setSecret">
 <area shape="rect" id="Node000001" title="Stores or updates a secret securely in the native credential store using string parameters." alt="" coords="5,29,216,69"/>
-<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="61,30,58,20,66,10,84,5,111,3,142,5,159,13,157,18,141,11,111,8,85,10,69,15,63,21,66,28"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="61,30,58,20,66,10,84,5,111,3,142,5,159,13,157,18,141,11,111,8,85,10,69,15,63,21,66,28"/>
 <area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="264,29,499,69"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,47,251,47,251,52,216,52"/>
-<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a4e57889465882f72de42a1922e8ad3c6" title="Checks if a native vault strategy is available and verified." alt="" coords="547,29,749,69"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="499,47,533,47,533,52,499,52"/>
 </map>

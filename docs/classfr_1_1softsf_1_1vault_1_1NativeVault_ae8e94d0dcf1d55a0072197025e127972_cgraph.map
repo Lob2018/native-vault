@@ -4,8 +4,6 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,67,285,46,286,51,198,72"/>
 <area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="268,69,503,109"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="216,87,254,87,254,92,216,92"/>
-<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a040f448e0276c0c3fac0f145b16f9110" title="Overwrites the specified memory segment with zeros to ensure security." alt="" coords="266,134,505,159"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="208,107,311,129,310,134,207,112"/>
-<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a4e57889465882f72de42a1922e8ad3c6" title="Checks if a native vault strategy is available and verified." alt="" coords="555,69,757,109"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="503,87,541,87,541,92,503,92"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a040f448e0276c0c3fac0f145b16f9110" title="Overwrites the specified memory segment with zeros to ensure security." alt="" coords="266,134,505,159"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="208,107,311,129,310,134,207,112"/>
 </map>

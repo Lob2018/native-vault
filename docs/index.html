@@ -141,7 +141,7 @@ How to use this library</h1>
 <div class="line">    });</div>
 <div class="line">    <span class="comment">// Deletion action: returns true if successfully removed, false otherwise</span></div>
 <div class="line">    <span class="keywordtype">boolean</span> removed = <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.removeSecret(uniqueExampleKey);</div>
-<div class="line">} <span class="keywordflow">catch</span> (Exception | LinkageError e) {</div>
+<div class="line">} <span class="keywordflow">catch</span> (NativeVaultException | LinkageError e) {</div>
 <div class="line">    <span class="comment">// Handle initialization or execution failures safely</span></div>
 <div class="line">    System.err.println(<span class="stringliteral">&quot;Failed to initialize or use native vault: &quot;</span> + e.getMessage());</div>
 <div class="line">} <span class="keywordflow">finally</span> {</div>
@@ -165,7 +165,7 @@ License</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Sep 13 2026 16:05:19 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Tue Sep 15 2026 18:03:22 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>
