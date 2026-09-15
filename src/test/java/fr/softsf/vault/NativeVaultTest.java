@@ -12,11 +12,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import fr.softsf.vault.exception.NativeVaultException;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /** Unit tests for NativeVault lifecycle and CRUD operations using Given-When-Then convention. */
 class NativeVaultTest {
@@ -25,14 +26,13 @@ class NativeVaultTest {
 
     /** Sets up the test environment before each test execution. */
     @BeforeEach
-    void setUp() {
-        assumeTrue(NativeVault.isUsable(), "Native vault is not operational on this platform.");
+    void setUp() throws NativeVaultException {
         vault = new NativeVault();
     }
 
     /** Cleans up the test environment after each test execution. */
     @AfterEach
-    void tearDown() {
+    void tearDown() throws NativeVaultException {
         if (vault != null) {
             vault.removeSecret(NativeVault.INTEGRITY_TEST_KEY);
             vault.close();
@@ -41,7 +41,8 @@ class NativeVaultTest {
 
     /** Tests storing and retrieving secrets using string parameters. */
     @Test
-    void givenStringKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved() {
+    void givenStringKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved()
+            throws NativeVaultException {
         String secret = "test-secret-str";
         assertTrue(vault.setSecret(NativeVault.INTEGRITY_TEST_KEY, secret));
         assertTrue(vault.hasSecret(NativeVault.INTEGRITY_TEST_KEY));
@@ -53,7 +54,8 @@ class NativeVaultTest {
 
     /** Tests storing and retrieving secrets using character array parameters. */
     @Test
-    void givenCharArrayKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved() {
+    void givenCharArrayKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved()
+            throws NativeVaultException {
         char[] key = NativeVault.getIntegrityTestKeyChar();
         char[] secret = new char[] {'s', 'e', 'c', 'r', 'e', 't'};
         try {
@@ -78,6 +80,8 @@ class NativeVaultTest {
             Optional<char[]> retrieved = vault.getSecret(key);
             assertTrue(retrieved.isEmpty());
             assertFalse(vault.removeSecret(key));
+        } catch (NativeVaultException e) {
+            throw new RuntimeException(e);
         } finally {
             Arrays.fill(key, '\0');
         }
@@ -85,7 +89,7 @@ class NativeVaultTest {
 
     /** Tests removing a stored secret successfully. */
     @Test
-    void givenStoredSecret_whenRemoveSecret_thenSecretIsDeleted() {
+    void givenStoredSecret_whenRemoveSecret_thenSecretIsDeleted() throws NativeVaultException {
         String secret = "secret-to-remove";
         assertTrue(vault.setSecret(NativeVault.INTEGRITY_TEST_KEY, secret));
         assertTrue(vault.hasSecret(NativeVault.INTEGRITY_TEST_KEY));

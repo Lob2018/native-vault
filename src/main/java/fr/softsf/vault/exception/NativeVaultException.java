@@ -6,8 +6,7 @@
 package fr.softsf.vault.exception;
 
 /** Exception thrown when a native vault operation fails. */
-public class NativeVaultException extends RuntimeException {
-
+public class NativeVaultException extends Exception {
     /**
      * Constructs a new native vault exception with the specified detail message and cause.
      *

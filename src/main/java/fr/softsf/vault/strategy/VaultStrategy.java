@@ -9,6 +9,8 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.util.Optional;
 
+import fr.softsf.vault.exception.NativeVaultException;
+
 /**
  * Polymorphic strategy interface for OS-native credential store operations using character arrays
  * for keys and boolean confirmations.
@@ -25,8 +27,9 @@ public sealed interface VaultStrategy
      * @return true if stored successfully, false otherwise
      * @throws IllegalArgumentException if {@code key} is null or empty
      * @throws NullPointerException if {@code secretData} or {@code arena} is null
+     * @throws NativeVaultException if a native system error occurs during execution
      */
-    boolean store(char[] key, MemorySegment secretData, Arena arena);
+    boolean store(char[] key, MemorySegment secretData, Arena arena) throws NativeVaultException;
 
     /**
      * Retrieves a secret from the native credential store.
@@ -36,8 +39,9 @@ public sealed interface VaultStrategy
      * @return an optional containing the memory segment of the secret if found
      * @throws IllegalArgumentException if {@code key} is null or empty
      * @throws NullPointerException if {@code arena} is null
+     * @throws NativeVaultException if a native system error occurs during execution
      */
-    Optional<MemorySegment> retrieve(char[] key, Arena arena);
+    Optional<MemorySegment> retrieve(char[] key, Arena arena) throws NativeVaultException;
 
     /**
      * Deletes a secret from the native credential store.
@@ -45,8 +49,9 @@ public sealed interface VaultStrategy
      * @param key the credential identifier character array
      * @return true if deleted successfully, false otherwise
      * @throws IllegalArgumentException if {@code key} is null or empty
+     * @throws NativeVaultException if a native system error occurs during execution
      */
-    boolean delete(char[] key);
+    boolean delete(char[] key) throws NativeVaultException;
 
     /**
      * Checks if a secret exists in the native credential store.
@@ -54,8 +59,9 @@ public sealed interface VaultStrategy
      * @param key the credential identifier character array
      * @return true if the secret exists, false otherwise
      * @throws IllegalArgumentException if {@code key} is null or empty
+     * @throws NativeVaultException if a native system error occurs during execution
      */
-    boolean exists(char[] key);
+    boolean exists(char[] key) throws NativeVaultException;
 
     /**
      * Detects and returns the appropriate native vault strategy based on the operating system.

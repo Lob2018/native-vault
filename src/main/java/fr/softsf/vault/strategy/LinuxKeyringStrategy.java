@@ -14,9 +14,11 @@ import java.lang.invoke.MethodHandle;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
+import fr.softsf.vault.exception.NativeVaultException;
 import fr.softsf.vault.internal.CrossPlatformVaultLoader;
 
 /**
@@ -155,11 +157,16 @@ final class LinuxKeyringStrategy implements VaultStrategy {
         ByteBuffer byteBuffer = StandardCharsets.UTF_8.encode(CharBuffer.wrap(key));
         MemorySegment keySegment = arena.allocate(byteBuffer.remaining());
         keySegment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
+        byteBuffer.position(0);
+        while (byteBuffer.hasRemaining()) {
+            byteBuffer.put((byte) 0);
+        }
         return keySegment;
     }
 
     @Override
-    public boolean store(char[] key, MemorySegment secretData, Arena arena) {
+    public boolean store(char[] key, MemorySegment secretData, Arena arena)
+            throws NativeVaultException {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
@@ -184,16 +191,16 @@ final class LinuxKeyringStrategy implements VaultStrategy {
                             attrKeySeg,
                             keySegment,
                             MemorySegment.NULL);
-        } catch (Throwable t) { // NOSONAR
+        } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
-            return false;
+            throw new NativeVaultException("Failed to store secret in Linux Keyring", t);
         }
     }
 
     @Override
-    public Optional<MemorySegment> retrieve(char[] key, Arena arena) {
+    public Optional<MemorySegment> retrieve(char[] key, Arena arena) throws NativeVaultException {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
@@ -216,20 +223,24 @@ final class LinuxKeyringStrategy implements VaultStrategy {
             MemorySegment boundedResult = result.reinterpret(Long.MAX_VALUE);
             String password = boundedResult.getString(0, StandardCharsets.UTF_8);
             byte[] passwordBytes = password.getBytes(StandardCharsets.UTF_8);
-            MemorySegment secretCopy = arena.allocate(passwordBytes.length);
-            secretCopy.copyFrom(MemorySegment.ofArray(passwordBytes));
-            G_FREE_HANDLE.invokeExact(result);
-            return Optional.of(secretCopy);
-        } catch (Throwable t) { // NOSONAR
+            try {
+                MemorySegment secretCopy = arena.allocate(passwordBytes.length);
+                secretCopy.copyFrom(MemorySegment.ofArray(passwordBytes));
+                return Optional.of(secretCopy);
+            } finally {
+                Arrays.fill(passwordBytes, (byte) 0);
+                G_FREE_HANDLE.invokeExact(result);
+            }
+        } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
-            return Optional.empty();
+            throw new NativeVaultException("Failed to retrieve secret from Linux Keyring", t);
         }
     }
 
     @Override
-    public boolean delete(char[] key) {
+    public boolean delete(char[] key) throws NativeVaultException {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
@@ -244,16 +255,16 @@ final class LinuxKeyringStrategy implements VaultStrategy {
                             attrKeySeg,
                             keySegment,
                             MemorySegment.NULL);
-        } catch (Throwable t) { // NOSONAR
+        } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
-            return false;
+            throw new NativeVaultException("Failed to delete secret from Linux Keyring", t);
         }
     }
 
     @Override
-    public boolean exists(char[] key) {
+    public boolean exists(char[] key) throws NativeVaultException {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
@@ -274,11 +285,11 @@ final class LinuxKeyringStrategy implements VaultStrategy {
             }
             G_FREE_HANDLE.invokeExact(result);
             return true;
-        } catch (Throwable t) { // NOSONAR
+        } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
-            return false;
+            throw new NativeVaultException("Failed to check secret existence in Linux Keyring", t);
         }
     }
 }
