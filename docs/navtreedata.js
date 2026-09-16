@@ -51,7 +51,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"CrossPlatformVaultLoader_8java.html"
+"AbstractVaultStrategy_8java.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

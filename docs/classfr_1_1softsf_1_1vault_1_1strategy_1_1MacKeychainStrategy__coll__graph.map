@@ -1,5 +1,11 @@
 <map id="fr.softsf.vault.strategy.MacKeychainStrategy" name="fr.softsf.vault.strategy.MacKeychainStrategy">
-<area shape="rect" id="Node000001" title="macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper memory..." alt="" coords="5,119,232,629"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="67,5,170,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,84,121,119,116,119,116,84"/>
+<area shape="rect" id="Node000001" title="macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper memory..." alt="" coords="345,1132,571,1643"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html" title="Sealed polymorphic strategy interface defining OS&#45;native credential store contracts using character a..." alt="" coords="331,801,585,1084"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="461,1098,461,1132,455,1132,455,1098"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,339,292,419"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="168,432,222,579,261,667,307,752,339,800,334,803,302,755,257,669,217,581,163,433"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html" title="Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper memory ..." alt="" coords="317,62,599,697"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="461,711,461,801,455,801,455,711"/>
+<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html" title="Windows Credential Manager implementation of the VaultStrategy interface utilizing the FFM API with p..." alt="" coords="624,5,876,753"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="620,744,614,755,583,803,578,800,609,752,615,741"/>
 </map>

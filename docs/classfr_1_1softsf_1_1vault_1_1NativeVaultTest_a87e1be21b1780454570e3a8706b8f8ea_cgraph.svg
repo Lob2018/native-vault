@@ -48,7 +48,7 @@
 <script type="application/ecmascript">
 var viewWidth = 658;
 var viewHeight = 236;
-var sectionId = 'dynsection-3';
+var sectionId = 'dynsection-4';
 </script>
 <script type="application/ecmascript" xlink:href="svg.min.js"/>
 <svg id="graph" class="graph">
@@ -69,7 +69,7 @@ var sectionId = 'dynsection-3';
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#ac75c10b9d5b77e2145ac637ad1058c97" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#ac75c10b9d5b77e2145ac637ad1058c97" target="_top" xlink:title="Returns the integrity test key character array.">
 <polygon fill="white" stroke="#666666" points="427,-228 268,-228 268,-198 427,-198 427,-228"/>
 <text text-anchor="start" x="276" y="-216" font-family="Helvetica,sans-Serif" font-size="10.00">fr.softsf.vault.NativeVault.get</text>
 <text text-anchor="middle" x="347.5" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">IntegrityTestKeyChar</text>

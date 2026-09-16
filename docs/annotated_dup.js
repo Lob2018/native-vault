@@ -10,9 +10,10 @@ var annotated_dup =
             [ "CrossPlatformVaultLoader", "classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html", "classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader" ]
           ] ],
           [ "strategy", "namespacefr_1_1softsf_1_1vault_1_1strategy.html", [
+            [ "AbstractVaultStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html", "classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" ],
             [ "LinuxKeyringStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html", "classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy" ],
             [ "MacKeychainStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html", "classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy" ],
-            [ "WindowsCredentialManagerStrategy", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" ]
+            [ "WindowsCredentialManagerStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html", "classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" ]
           ] ],
           [ "NativeVault", "classfr_1_1softsf_1_1vault_1_1NativeVault.html", "classfr_1_1softsf_1_1vault_1_1NativeVault" ],
           [ "NativeVaultExceptionTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest.html", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest" ],

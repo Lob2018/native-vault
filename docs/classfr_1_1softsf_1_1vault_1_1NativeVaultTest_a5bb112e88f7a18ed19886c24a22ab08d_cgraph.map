@@ -1,6 +1,6 @@
 <map id="fr.softsf.vault.NativeVaultTest.givenCharArrayKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved" name="fr.softsf.vault.NativeVaultTest.givenCharArrayKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved">
 <area shape="rect" id="Node000001" title="Tests storing and retrieving secrets using character array parameters." alt="" coords="5,130,331,185"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ac75c10b9d5b77e2145ac637ad1058c97" title=" " alt="" coords="380,5,592,45"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ac75c10b9d5b77e2145ac637ad1058c97" title="Returns the integrity test key character array." alt="" coords="380,5,592,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,127,294,91,378,55,399,47,401,52,380,60,296,96,222,132"/>
 <area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a76d43cd1cf9e98e077ca433a55fb15df" title="Retrieves a secret from the native credential store using a string key." alt="" coords="380,93,592,133"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="330,132,366,127,367,132,331,137"/>

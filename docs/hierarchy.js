@@ -4,12 +4,18 @@ var hierarchy =
     [ "Exception", null, [
       [ "fr.softsf.vault.exception.NativeVaultException", "classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html", null ]
     ] ],
+    [ "fr.softsf.vault.strategy.LinuxKeyringStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html", [
+      [ "fr.softsf.vault.strategy.AbstractVaultStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html", [
+        [ "fr.softsf.vault.strategy.MacKeychainStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html", null ]
+      ] ]
+    ] ],
     [ "fr.softsf.vault.NativeVault", "classfr_1_1softsf_1_1vault_1_1NativeVault.html", null ],
     [ "fr.softsf.vault.NativeVaultExceptionTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest.html", null ],
     [ "fr.softsf.vault.NativeVaultTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html", null ],
-    [ "VaultStrategy", null, [
-      [ "fr.softsf.vault.strategy.LinuxKeyringStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html", null ],
-      [ "fr.softsf.vault.strategy.MacKeychainStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html", null ],
-      [ "fr.softsf.vault.strategy.WindowsCredentialManagerStrategy", "interfacefr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html", null ]
+    [ "VaultStrategy permits MacKeychainStrategy", null, [
+      [ "fr.softsf.vault.strategy.AbstractVaultStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html", null ]
+    ] ],
+    [ "fr.softsf.vault.strategy.WindowsCredentialManagerStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html", [
+      [ "fr.softsf.vault.strategy.AbstractVaultStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html", null ]
     ] ]
 ];

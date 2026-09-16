@@ -1,0 +1,5 @@
+<map id="fr.softsf.vault.strategy.MacKeychainStrategy.freeNativePointer" name="fr.softsf.vault.strategy.MacKeychainStrategy.freeNativePointer">
+<area shape="rect" id="Node000001" title="Releases the native pointer and zero&#45;fills its referenced memory segment." alt="" coords="5,5,240,60"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a0e452128eae5a491fc5ff6e340d93708" title="Overwrites the specified memory segment with zeros to ensure security." alt="" coords="288,13,501,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,30,274,30,274,35,240,35"/>
+</map>

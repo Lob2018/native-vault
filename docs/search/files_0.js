@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['crossplatformvaultloader_2ejava_0',['CrossPlatformVaultLoader.java',['../CrossPlatformVaultLoader_8java.html',1,'']]]
+  ['abstractvaultstrategy_2ejava_0',['AbstractVaultStrategy.java',['../AbstractVaultStrategy_8java.html',1,'']]]
 ];

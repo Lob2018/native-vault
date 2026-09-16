@@ -1,5 +1,8 @@
 <map id="fr.softsf.vault.strategy.MacKeychainStrategy.retrieve" name="fr.softsf.vault.strategy.MacKeychainStrategy.retrieve">
-<area shape="rect" id="Node000001" title="Retrieves a secret associated with the specified key from the keychain." alt="" coords="5,13,221,53"/>
+<area shape="rect" id="Node000001" title="Retrieves a secret associated with the specified key from the keychain." alt="" coords="5,46,221,86"/>
 <area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a12127078f04125b5a1662c63547f6ece" title="Releases the native pointer and zero&#45;fills its referenced memory segment." alt="" coords="269,5,504,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,30,256,30,256,35,222,35"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,50,256,46,256,51,222,55"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a0e452128eae5a491fc5ff6e340d93708" title="Overwrites the specified memory segment with zeros to ensure security." alt="" coords="552,46,765,86"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="222,68,269,69,504,69,538,68,538,73,504,74,269,74,222,73"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="505,44,539,49,538,54,504,50"/>
 </map>

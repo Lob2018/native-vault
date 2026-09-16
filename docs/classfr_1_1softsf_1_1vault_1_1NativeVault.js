@@ -2,6 +2,7 @@ var classfr_1_1softsf_1_1vault_1_1NativeVault =
 [
     [ "NativeVault", "classfr_1_1softsf_1_1vault_1_1NativeVault.html#ae9eaabb4c71bb7760c4d422b727eaf78", null ],
     [ "[static initializer]", "classfr_1_1softsf_1_1vault_1_1NativeVault.html#a9e9b8acbf36c886e50837a370ede64eb", null ],
+    [ "detect", "classfr_1_1softsf_1_1vault_1_1NativeVault.html#a7f279220e80865282d1f61ad8409dc6b", null ],
     [ "ensureUsable", "classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705", null ],
     [ "executeIntegrityCheck", "classfr_1_1softsf_1_1vault_1_1NativeVault.html#a1129581ab9d0c26021bf92f3eb1d0d9a", null ],
     [ "getIntegrityTestKeyChar", "classfr_1_1softsf_1_1vault_1_1NativeVault.html#ac75c10b9d5b77e2145ac637ad1058c97", null ],

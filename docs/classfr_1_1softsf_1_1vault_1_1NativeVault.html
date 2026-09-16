@@ -145,6 +145,7 @@ Static Package Functions</h2></td></tr>
 <tr class="memitem:a9e9b8acbf36c886e50837a370ede64eb" id="r_a9e9b8acbf36c886e50837a370ede64eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a9e9b8acbf36c886e50837a370ede64eb">[static initializer]</a></td></tr>
 <tr class="separator:a9e9b8acbf36c886e50837a370ede64eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac75c10b9d5b77e2145ac637ad1058c97" id="r_ac75c10b9d5b77e2145ac637ad1058c97"><td class="memItemLeft" align="right" valign="top">static char[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#ac75c10b9d5b77e2145ac637ad1058c97">getIntegrityTestKeyChar</a> ()</td></tr>
+<tr class="memdesc:ac75c10b9d5b77e2145ac637ad1058c97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the integrity test key character array.  <br /></td></tr>
 <tr class="separator:ac75c10b9d5b77e2145ac637ad1058c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pac-static-attribs" name="pac-static-attribs"></a>
@@ -154,6 +155,9 @@ Static Package Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a7f279220e80865282d1f61ad8409dc6b" id="r_a7f279220e80865282d1f61ad8409dc6b"><td class="memItemLeft" align="right" valign="top">static VaultStrategy&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a7f279220e80865282d1f61ad8409dc6b">detect</a> ()</td></tr>
+<tr class="memdesc:a7f279220e80865282d1f61ad8409dc6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects and returns the appropriate native vault strategy based on the operating system.  <br /></td></tr>
+<tr class="separator:a7f279220e80865282d1f61ad8409dc6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90c802cfe36372acf18721597e6a9705" id="r_a90c802cfe36372acf18721597e6a9705"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705">ensureUsable</a> ()  throws NativeVaultException </td></tr>
 <tr class="memdesc:a90c802cfe36372acf18721597e6a9705"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensures that a strategy is available before performing operations.  <br /></td></tr>
 <tr class="separator:a90c802cfe36372acf18721597e6a9705"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -255,8 +259,42 @@ try {<br/>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_a9e9b8acbf36c886e50837a370ede64eb_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_a9e9b8acbf36c886e50837a370ede64eb_cgraph.svg" width="100%" height="376"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+
+</div>
+</div>
+<a id="a7f279220e80865282d1f61ad8409dc6b" name="a7f279220e80865282d1f61ad8409dc6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f279220e80865282d1f61ad8409dc6b">&#9670;&#160;</a></span>detect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static VaultStrategy fr.softsf.vault.NativeVault.detect </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Detects and returns the appropriate native vault strategy based on the operating system. </p>
+<dl class="section return"><dt>Returns</dt><dd>the matching vault strategy </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">UnsupportedOperationException</td><td>if the operating system is not supported </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -363,6 +401,9 @@ try {<br/>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Returns the integrity test key character array. </p>
+<dl class="section return"><dt>Returns</dt><dd>the integrity test key as a character array </dd></dl>
 
 </div>
 </div>
@@ -840,7 +881,7 @@ try {<br/>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>fr</b></li><li class="navelem"><b>softsf</b></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault.html">vault</a></li><li class="navelem"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html">NativeVault</a></li>
-    <li class="footer">Generated on Wed Sep 16 2026 19:40:44 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Wed Sep 16 2026 20:14:07 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>
