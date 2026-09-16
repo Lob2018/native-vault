@@ -5,11 +5,6 @@
  */
 package fr.softsf.vault.strategy;
 
-import java.lang.foreign.Arena;
-import java.lang.foreign.MemorySegment;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.util.Objects;
 import java.util.Optional;
 
 import fr.softsf.vault.exception.NativeVaultException;
@@ -18,8 +13,7 @@ import fr.softsf.vault.exception.NativeVaultException;
  * Polymorphic strategy interface for OS-native credential store operations using character arrays
  * for keys and secrets.
  */
-public sealed interface VaultStrategy
-        permits MacKeychainStrategy, LinuxKeyringStrategy, WindowsCredentialManagerStrategy {
+public sealed interface VaultStrategy permits AbstractVaultStrategy {
 
     /**
      * Stores a secret in the native credential store.
@@ -61,58 +55,4 @@ public sealed interface VaultStrategy
      * @throws NativeVaultException if a native system error occurs during execution
      */
     boolean exists(char[] key) throws NativeVaultException;
-
-    /**
-     * Overwrites the specified memory segment with zeros to ensure security.
-     *
-     * @param segment the memory segment to clear
-     */
-    default void zeroFill(MemorySegment segment) {
-        if (segment != null && segment.address() != 0 && !segment.equals(MemorySegment.NULL)) {
-            segment.fill((byte) 0);
-        }
-    }
-
-    /**
-     * Allocates and populates a memory segment for the given character data.
-     *
-     * @param arena the memory arena
-     * @param data the character array data
-     * @param charset the charset to use for encoding
-     * @return the allocated memory segment
-     * @throws NullPointerException if arena or charset is null
-     * @throws IllegalArgumentException if data is null or empty
-     */
-    default MemorySegment allocateSegment(Arena arena, char[] data, Charset charset) {
-        Objects.requireNonNull(arena, "Arena cannot be null");
-        if (data == null || data.length == 0) {
-            throw new IllegalArgumentException("Data cannot be null or empty");
-        }
-        Objects.requireNonNull(charset, "Charset cannot be null");
-        java.nio.ByteBuffer byteBuffer = charset.encode(CharBuffer.wrap(data));
-        MemorySegment segment = arena.allocate(byteBuffer.remaining());
-        segment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
-        byteBuffer.position(0);
-        while (byteBuffer.hasRemaining()) {
-            byteBuffer.put((byte) 0);
-        }
-        return segment;
-    }
-
-    /**
-     * Detects and returns the appropriate native vault strategy based on the operating system.
-     *
-     * @return the matching vault strategy
-     * @throws UnsupportedOperationException if the operating system is not supported
-     */
-    static VaultStrategy detect() {
-        String os = System.getProperty("os.name").toLowerCase(java.util.Locale.ROOT);
-        return switch (os) {
-            case String s when s.contains("win") -> new WindowsCredentialManagerStrategy();
-            case String s when s.contains("mac") -> new MacKeychainStrategy();
-            case String s when s.contains("nix") || s.contains("nux") -> new LinuxKeyringStrategy();
-            default ->
-                    throw new UnsupportedOperationException("Unsupported operating system: " + os);
-        };
-    }
 }

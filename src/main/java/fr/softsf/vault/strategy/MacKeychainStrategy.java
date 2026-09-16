@@ -22,7 +22,7 @@ import fr.softsf.vault.internal.CrossPlatformVaultLoader;
  * macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper
  * memory cleanup and error handling.
  */
-final class MacKeychainStrategy implements VaultStrategy {
+public final class MacKeychainStrategy extends AbstractVaultStrategy {
     private static final String LIB_PATH =
             "/System/Library/Frameworks/Security.framework/Security"; // NOSONAR
     private static final String CF_LIB_PATH =
@@ -63,7 +63,7 @@ final class MacKeychainStrategy implements VaultStrategy {
     }
 
     /** Initializes a new instance of the MacKeychainStrategy. */
-    MacKeychainStrategy() {
+    public MacKeychainStrategy() {
         // Stateless implementation; native method handles are loaded statically.
     }
 

@@ -28,7 +28,7 @@ import fr.softsf.vault.internal.CrossPlatformVaultLoader;
  *     Reference</a>
  * @see <a href="https://docs.gtk.org/glib/">GLib Reference Manual</a>
  */
-final class LinuxKeyringStrategy implements VaultStrategy {
+public final class LinuxKeyringStrategy extends AbstractVaultStrategy {
     private static final String LIB_NAME = "libsecret-1.so.0";
     private static final String GLIB_LIB_NAME = "libglib-2.0.so.0";
     private static final MemoryLayout SECRET_SCHEMA_ATTRIBUTE_LAYOUT =
@@ -136,7 +136,7 @@ final class LinuxKeyringStrategy implements VaultStrategy {
     }
 
     /** Initializes a new instance of the LinuxKeyringStrategy. */
-    LinuxKeyringStrategy() {
+    public LinuxKeyringStrategy() {
         // Stateless implementation; native method handles are loaded statically.
     }
 

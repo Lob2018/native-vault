@@ -12,7 +12,10 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.apache.commons.lang3.StringUtils;
 
 import fr.softsf.vault.exception.NativeVaultException;
+import fr.softsf.vault.strategy.LinuxKeyringStrategy;
+import fr.softsf.vault.strategy.MacKeychainStrategy;
 import fr.softsf.vault.strategy.VaultStrategy;
+import fr.softsf.vault.strategy.WindowsCredentialManagerStrategy;
 
 /**
  * Zero-JNI/JNA facade class managing native credential operations via the Project Panama Foreign
@@ -64,7 +67,7 @@ public final class NativeVault {
         VaultStrategy strategy = null;
         boolean verified = false;
         try {
-            strategy = VaultStrategy.detect();
+            strategy = detect();
             verified = executeIntegrityCheck(strategy);
         } catch (NativeVaultException e) {
             INITIALIZATION_EXCEPTION.set(e);
@@ -85,6 +88,23 @@ public final class NativeVault {
      */
     public NativeVault() throws NativeVaultException {
         ensureUsable();
+    }
+
+    /**
+     * Detects and returns the appropriate native vault strategy based on the operating system.
+     *
+     * @return the matching vault strategy
+     * @throws UnsupportedOperationException if the operating system is not supported
+     */
+    private static VaultStrategy detect() {
+        String os = System.getProperty("os.name").toLowerCase(java.util.Locale.ROOT);
+        return switch (os) {
+            case String s when s.contains("win") -> new WindowsCredentialManagerStrategy();
+            case String s when s.contains("mac") -> new MacKeychainStrategy();
+            case String s when s.contains("nix") || s.contains("nux") -> new LinuxKeyringStrategy();
+            default ->
+                    throw new UnsupportedOperationException("Unsupported operating system: " + os);
+        };
     }
 
     /**

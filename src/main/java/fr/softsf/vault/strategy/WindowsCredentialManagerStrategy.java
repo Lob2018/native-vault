@@ -29,7 +29,7 @@ import fr.softsf.vault.internal.CrossPlatformVaultLoader;
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/api/wincred/">Wincred.h Win32 API
  *     Reference</a>
  */
-final class WindowsCredentialManagerStrategy implements VaultStrategy {
+public final class WindowsCredentialManagerStrategy extends AbstractVaultStrategy {
     private static final String LIB_NAME = "Advapi32";
     private static final int CRED_TYPE_GENERIC = 1;
     private static final int CRED_PERSIST_LOCAL_MACHINE = 2;
@@ -100,7 +100,7 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
     }
 
     /** Initializes a new instance of the WindowsCredentialManagerStrategy. */
-    WindowsCredentialManagerStrategy() {
+    public WindowsCredentialManagerStrategy() {
         // Stateless implementation; native method handles are loaded statically.
     }
 
@@ -127,7 +127,6 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
         return keySegment;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean store(char[] key, char[] secret) throws NativeVaultException {
         if (key == null || key.length == 0) {
@@ -163,11 +162,10 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
                         CREDENTIAL_LAYOUT.byteOffset(
                                 MemoryLayout.PathElement.groupElement("Comment")),
                         MemorySegment.NULL);
-                secretSeg = allocateSegment(arena, secret, StandardCharsets.UTF_8);
+                secretSeg = allocateSegment(arena, secret, StandardCharsets.UTF_16LE);
                 long secretBytesSize = secretSeg.byteSize();
-                nativePassword = arena.allocate(secretBytesSize + 1);
+                nativePassword = arena.allocate(secretBytesSize);
                 nativePassword.copyFrom(secretSeg);
-                nativePassword.set(ValueLayout.JAVA_BYTE, secretBytesSize, (byte) 0);
                 credentialSegment.set(
                         ValueLayout.JAVA_INT,
                         CREDENTIAL_LAYOUT.byteOffset(
