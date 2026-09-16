@@ -1,9 +1,5 @@
 <map id="fr.softsf.vault.NativeVault.setSecret" name="fr.softsf.vault.NativeVault.setSecret">
-<area shape="rect" id="Node000001" title="Stores or updates a secret securely in the native credential store using character array parameters." alt="" coords="5,69,216,109"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a40c6e55f55bbd3670d4b2d87b62bcabb" title="Allocates a memory segment from a character array and encodes it to UTF&#45;8." alt="" coords="264,5,507,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,67,285,46,286,51,198,72"/>
-<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="268,69,503,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="216,87,254,87,254,92,216,92"/>
-<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a040f448e0276c0c3fac0f145b16f9110" title="Overwrites the specified memory segment with zeros to ensure security." alt="" coords="266,134,505,159"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="208,107,311,129,310,134,207,112"/>
+<area shape="rect" id="Node000001" title="Stores or updates a secret securely in the native credential store using character array parameters." alt="" coords="5,5,216,45"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="264,5,499,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,23,251,23,251,28,216,28"/>
 </map>

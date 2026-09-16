@@ -1,12 +1,10 @@
 var hierarchy =
 [
-    [ "AutoCloseable", null, [
-      [ "fr.softsf.vault.NativeVault", "classfr_1_1softsf_1_1vault_1_1NativeVault.html", null ]
-    ] ],
     [ "fr.softsf.vault.internal.CrossPlatformVaultLoader", "classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html", null ],
     [ "Exception", null, [
       [ "fr.softsf.vault.exception.NativeVaultException", "classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html", null ]
     ] ],
+    [ "fr.softsf.vault.NativeVault", "classfr_1_1softsf_1_1vault_1_1NativeVault.html", null ],
     [ "fr.softsf.vault.NativeVaultExceptionTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest.html", null ],
     [ "fr.softsf.vault.NativeVaultTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html", null ],
     [ "VaultStrategy", null, [

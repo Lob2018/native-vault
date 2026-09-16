@@ -1,7 +1,5 @@
 <map id="fr.softsf.vault.NativeVault.getSecret" name="fr.softsf.vault.NativeVault.getSecret">
-<area shape="rect" id="Node000001" title="Retrieves a secret from the native credential store using a character array key." alt="" coords="5,35,217,75"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="267,5,502,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,41,253,37,254,42,218,46"/>
-<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a040f448e0276c0c3fac0f145b16f9110" title="Overwrites the specified memory segment with zeros to ensure security." alt="" coords="265,70,504,95"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="218,63,252,66,252,72,217,68"/>
+<area shape="rect" id="Node000001" title="Retrieves a secret from the native credential store using a character array key." alt="" coords="5,5,217,45"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="265,5,500,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="218,23,252,23,252,28,218,28"/>
 </map>

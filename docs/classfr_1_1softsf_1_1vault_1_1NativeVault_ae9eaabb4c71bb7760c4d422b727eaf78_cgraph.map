@@ -1,5 +1,5 @@
 <map id="fr.softsf.vault.NativeVault.NativeVault" name="fr.softsf.vault.NativeVault.NativeVault">
-<area shape="rect" id="Node000001" title="Initializes a new instance of the native vault facade using a shared arena to guarantee thread safety..." alt="" coords="5,5,196,45"/>
+<area shape="rect" id="Node000001" title="Initializes a new instance of the native vault facade." alt="" coords="5,5,196,45"/>
 <area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="244,5,479,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,23,230,23,230,28,196,28"/>
 </map>

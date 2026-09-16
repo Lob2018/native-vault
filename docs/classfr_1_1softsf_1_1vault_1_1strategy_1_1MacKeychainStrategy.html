@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('classfr_1_1softsf_1_1vault_1_1strategy
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pac-methods">Package Functions</a> &#124;
 <a href="#pac-static-methods">Static Package Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">fr.softsf.vault.strategy.MacKeychainStrategy Class Reference</div></div>
@@ -122,10 +123,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1989bdc67eaa88e3ed723823acda43b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7618d1ebe3f750802260f25d9a598cd6" id="r_a7618d1ebe3f750802260f25d9a598cd6"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a7618d1ebe3f750802260f25d9a598cd6">exists</a> (char[] key)</td></tr>
 <tr class="separator:a7618d1ebe3f750802260f25d9a598cd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3af7c0f91fcb0cd0174324b94e73fb4" id="r_aa3af7c0f91fcb0cd0174324b94e73fb4"><td class="memItemLeft" align="right" valign="top">Optional&lt; MemorySegment &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#aa3af7c0f91fcb0cd0174324b94e73fb4">retrieve</a> (char[] key, Arena arena)</td></tr>
-<tr class="separator:aa3af7c0f91fcb0cd0174324b94e73fb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a926aa592dc1e41ccd7cd8302d170001a" id="r_a926aa592dc1e41ccd7cd8302d170001a"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a926aa592dc1e41ccd7cd8302d170001a">store</a> (char[] key, MemorySegment secretData, Arena arena)</td></tr>
-<tr class="separator:a926aa592dc1e41ccd7cd8302d170001a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf628ba9a0ca04954bbec04699fa7895" id="r_adf628ba9a0ca04954bbec04699fa7895"><td class="memItemLeft" align="right" valign="top">Optional&lt; char[]&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#adf628ba9a0ca04954bbec04699fa7895">retrieve</a> (char[] key)</td></tr>
+<tr class="memdesc:adf628ba9a0ca04954bbec04699fa7895"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a secret associated with the specified key from the keychain.  <br /></td></tr>
+<tr class="separator:adf628ba9a0ca04954bbec04699fa7895"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc566c61a21820c55f139965e9a5faf8" id="r_adc566c61a21820c55f139965e9a5faf8"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#adc566c61a21820c55f139965e9a5faf8">store</a> (char[] key, char[] secret)</td></tr>
+<tr class="separator:adc566c61a21820c55f139965e9a5faf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pac-methods" name="pac-methods"></a>
 Package Functions</h2></td></tr>
@@ -137,6 +139,12 @@ Package Functions</h2></td></tr>
 Static Package Functions</h2></td></tr>
 <tr class="memitem:a8c622f851f76282630c1171f44455045" id="r_a8c622f851f76282630c1171f44455045"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a8c622f851f76282630c1171f44455045">[static initializer]</a></td></tr>
 <tr class="separator:a8c622f851f76282630c1171f44455045"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a12127078f04125b5a1662c63547f6ece" id="r_a12127078f04125b5a1662c63547f6ece"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a12127078f04125b5a1662c63547f6ece">freeNativePointer</a> (MemorySegment nativePtr, MemorySegment secretCopy)  throws Throwable </td></tr>
+<tr class="memdesc:a12127078f04125b5a1662c63547f6ece"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the native pointer and zero-fills its referenced memory segment.  <br /></td></tr>
+<tr class="separator:a12127078f04125b5a1662c63547f6ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -244,36 +252,93 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa3af7c0f91fcb0cd0174324b94e73fb4" name="aa3af7c0f91fcb0cd0174324b94e73fb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3af7c0f91fcb0cd0174324b94e73fb4">&#9670;&#160;</a></span>retrieve()</h2>
+<a id="a12127078f04125b5a1662c63547f6ece" name="a12127078f04125b5a1662c63547f6ece"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12127078f04125b5a1662c63547f6ece">&#9670;&#160;</a></span>freeNativePointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fr.softsf.vault.strategy.MacKeychainStrategy.freeNativePointer </td>
+          <td>(</td>
+          <td class="paramtype">MemorySegment&#160;</td>
+          <td class="paramname"><em>nativePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MemorySegment&#160;</td>
+          <td class="paramname"><em>secretCopy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> throws Throwable</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Releases the native pointer and zero-fills its referenced memory segment. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nativePtr</td><td>the native pointer to release </td></tr>
+    <tr><td class="paramname">secretCopy</td><td>the segment containing the copied secret data </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Throwable</td><td>if method handle invocation fails </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adf628ba9a0ca04954bbec04699fa7895" name="adf628ba9a0ca04954bbec04699fa7895"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf628ba9a0ca04954bbec04699fa7895">&#9670;&#160;</a></span>retrieve()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Optional&lt; MemorySegment &gt; fr.softsf.vault.strategy.MacKeychainStrategy.retrieve </td>
+          <td class="memname">Optional&lt; char[]&gt; fr.softsf.vault.strategy.MacKeychainStrategy.retrieve </td>
           <td>(</td>
           <td class="paramtype">char[]&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>key</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">Arena&#160;</td>
-          <td class="paramname"><em>arena</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Retrieves a secret associated with the specified key from the keychain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>the key identifying the secret </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an Optional containing the secret character array if found, or empty otherwise </dd></dl>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_adf628ba9a0ca04954bbec04699fa7895_cgraph.svg" width="510" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
-<a id="a926aa592dc1e41ccd7cd8302d170001a" name="a926aa592dc1e41ccd7cd8302d170001a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a926aa592dc1e41ccd7cd8302d170001a">&#9670;&#160;</a></span>store()</h2>
+<a id="adc566c61a21820c55f139965e9a5faf8" name="adc566c61a21820c55f139965e9a5faf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc566c61a21820c55f139965e9a5faf8">&#9670;&#160;</a></span>store()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -287,14 +352,8 @@ Static Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">MemorySegment&#160;</td>
-          <td class="paramname"><em>secretData</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Arena&#160;</td>
-          <td class="paramname"><em>arena</em>&#160;</td>
+          <td class="paramtype">char[]&#160;</td>
+          <td class="paramname"><em>secret</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -474,7 +533,7 @@ Static Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>fr</b></li><li class="navelem"><b>softsf</b></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault.html">vault</a></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault_1_1strategy.html">strategy</a></li><li class="navelem"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html">MacKeychainStrategy</a></li>
-    <li class="footer">Generated on Tue Sep 15 2026 18:03:22 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Wed Sep 16 2026 19:40:44 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

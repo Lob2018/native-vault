@@ -129,7 +129,9 @@ How to use this library</h1>
 <div class="line"><span class="keywordtype">char</span>[] uniqueExampleKey = {<span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;o&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;y&#39;</span>, <span class="charliteral">&#39;a&#39;</span>, <span class="charliteral">&#39;p&#39;</span>, <span class="charliteral">&#39;p&#39;</span>, <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;u&#39;</span>, <span class="charliteral">&#39;n&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;q&#39;</span>, <span class="charliteral">&#39;u&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;k&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;y&#39;</span>};</div>
 <div class="line"><span class="comment">// The secret to store</span></div>
 <div class="line"><span class="keywordtype">char</span>[] secret = {<span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;y&#39;</span>, <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;a&#39;</span>, <span class="charliteral">&#39;l&#39;</span>, <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;t&#39;</span>};</div>
-<div class="line"><span class="keywordflow">try</span> (NativeVault <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a> = <span class="keyword">new</span> NativeVault()) {</div>
+<div class="line"><span class="keywordflow">try</span> {</div>
+<div class="line">    <span class="comment">// Initialize the native vault facade</span></div>
+<div class="line">    NativeVault <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a> = <span class="keyword">new</span> NativeVault();</div>
 <div class="line">    <span class="comment">// Write action (upsert: creates or overwrites): returns true if successfully stored, false otherwise</span></div>
 <div class="line">    <span class="keywordtype">boolean</span> stored = <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.setSecret(uniqueExampleKey, secret);</div>
 <div class="line">    <span class="comment">// Existence check action: returns true if the secret exists, false otherwise</span></div>
@@ -165,7 +167,7 @@ License</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Sep 15 2026 18:03:22 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Wed Sep 16 2026 19:40:44 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['mackeychainstrategy_0',['MacKeychainStrategy',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a7beac9668d0e7bf7156a55613cae8153',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]]
+  ['linuxkeyringstrategy_0',['LinuxKeyringStrategy',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a1192a44ce643435d03a51546923b0db8',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]],
+  ['loadnativefunction_1',['loadNativeFunction',['../classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html#a3f149a0566540c2cacf5ffbdfa37d6d5',1,'fr::softsf::vault::internal::CrossPlatformVaultLoader']]]
 ];

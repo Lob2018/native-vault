@@ -4,7 +4,7 @@ var indexSectionsWithContent =
   1: "clmnw",
   2: "f",
   3: "clmnrvw",
-  4: "[acdeghklmnrstwz",
+  4: "[acdefghklmnrstwz",
   5: "acdegiklrsuvw",
   6: "n🔐"
 };

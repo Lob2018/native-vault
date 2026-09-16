@@ -1,7 +1,5 @@
 <map id="fr.softsf.vault.NativeVaultTest" name="fr.softsf.vault.NativeVaultTest">
-<area shape="rect" id="Node000001" title="Unit tests for NativeVault lifecycle and CRUD operations using Given&#45;When&#45;Then convention." alt="" coords="5,877,313,1259"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html" title="Zero&#45;JNI/JNA facade class managing native credential operations via the Project Panama Foreign Functi..." alt="" coords="44,120,275,815"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,815,162,861,157,861,157,815"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="105,5,213,71"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="162,84,162,120,157,120,157,84"/>
+<area shape="rect" id="Node000001" title="Unit tests for NativeVault lifecycle and CRUD operations using Given&#45;When&#45;Then convention." alt="" coords="5,673,313,1104"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html" title="Zero&#45;JNI/JNA facade class managing native credential operations via the Project Panama Foreign Functi..." alt="" coords="44,5,275,611"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,611,162,657,157,657,157,611"/>
 </map>
