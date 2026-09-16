@@ -54,6 +54,11 @@ public final class NativeVault {
     private static final Object INTEGRITY_CHECK_LOCK = new Object();
     static final String INTEGRITY_TEST_KEY = "fr.softsf.vault.integrity.check.key";
 
+    /**
+     * Returns the integrity test key character array.
+     *
+     * @return the integrity test key as a character array
+     */
     static char[] getIntegrityTestKeyChar() {
         return INTEGRITY_TEST_KEY.toCharArray();
     }

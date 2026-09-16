@@ -10,8 +10,9 @@ import java.util.Optional;
 import fr.softsf.vault.exception.NativeVaultException;
 
 /**
- * Polymorphic strategy interface for OS-native credential store operations using character arrays
- * for keys and secrets.
+ * Sealed polymorphic strategy interface defining OS-native credential store contracts
+ * using character arrays for keys and secrets. Permitted exclusively for implementation
+ * by {@link AbstractVaultStrategy}.
  */
 public sealed interface VaultStrategy permits AbstractVaultStrategy {
 
