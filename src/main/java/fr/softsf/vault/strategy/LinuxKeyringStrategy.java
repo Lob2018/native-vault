@@ -15,7 +15,6 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Optional;
 
 import fr.softsf.vault.exception.NativeVaultException;
@@ -51,7 +50,6 @@ final class LinuxKeyringStrategy implements VaultStrategy {
     private static final MethodHandle LOOKUP_HANDLE;
     private static final MethodHandle CLEAR_HANDLE;
     private static final MethodHandle G_FREE_HANDLE;
-    public static final String ARENA_CANNOT_BE_NULL = "Arena cannot be null";
     public static final String KEY_CANNOT_BE_NULL_OR_EMPTY = "Key cannot be null or empty";
 
     public static final String KEY = "key";
@@ -142,53 +140,44 @@ final class LinuxKeyringStrategy implements VaultStrategy {
         // Stateless implementation; native method handles are loaded statically.
     }
 
-    /**
-     * Allocates and populates a memory segment for the given key using the provided arena.
-     *
-     * @param key the key characters
-     * @param arena the memory arena
-     * @return the allocated memory segment containing the encoded key
-     */
-    private MemorySegment keySegment(char[] key, Arena arena) {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
-        }
-        Objects.requireNonNull(arena, ARENA_CANNOT_BE_NULL);
-        ByteBuffer byteBuffer = StandardCharsets.UTF_8.encode(CharBuffer.wrap(key));
-        MemorySegment keySeg = arena.allocate(byteBuffer.remaining());
-        keySeg.copyFrom(MemorySegment.ofBuffer(byteBuffer));
-        byteBuffer.position(0);
-        while (byteBuffer.hasRemaining()) {
-            byteBuffer.put((byte) 0);
-        }
-        return keySeg;
-    }
-
     @Override
-    public boolean store(char[] key, MemorySegment secretData) throws NativeVaultException {
+    public boolean store(char[] key, char[] secret) throws NativeVaultException {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
-        Objects.requireNonNull(secretData, "SecretData cannot be null");
+        if (secret == null || secret.length == 0) {
+            throw new IllegalArgumentException("Secret cannot be null or empty");
+        }
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment keySeg = keySegment(key, arena);
-            MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
-            MemorySegment labelSeg =
-                    arena.allocateFrom("NativeVault Secret", StandardCharsets.UTF_8);
-            long secretBytesSize = secretData.byteSize();
-            MemorySegment nativePassword = arena.allocate(secretBytesSize);
-            nativePassword.copyFrom(secretData);
-            return (boolean)
-                    STORE_HANDLE.invokeExact(
-                            SCHEMA_SEGMENT,
-                            MemorySegment.NULL,
-                            labelSeg,
-                            nativePassword,
-                            MemorySegment.NULL,
-                            MemorySegment.NULL,
-                            attrKeySeg,
-                            keySeg,
-                            MemorySegment.NULL);
+            MemorySegment keySeg = null;
+            MemorySegment secretSeg = null;
+            MemorySegment nativePassword = null;
+            try {
+                keySeg = allocateSegment(arena, key, StandardCharsets.UTF_8);
+                MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
+                MemorySegment labelSeg =
+                        arena.allocateFrom("NativeVault Secret", StandardCharsets.UTF_8);
+                secretSeg = allocateSegment(arena, secret, StandardCharsets.UTF_8);
+                long secretBytesSize = secretSeg.byteSize();
+                nativePassword = arena.allocate(secretBytesSize + 1);
+                nativePassword.copyFrom(secretSeg);
+                nativePassword.set(ValueLayout.JAVA_BYTE, secretBytesSize, (byte) 0);
+                return (boolean)
+                        STORE_HANDLE.invokeExact(
+                                SCHEMA_SEGMENT,
+                                MemorySegment.NULL,
+                                labelSeg,
+                                nativePassword,
+                                MemorySegment.NULL,
+                                MemorySegment.NULL,
+                                attrKeySeg,
+                                keySeg,
+                                MemorySegment.NULL);
+            } finally {
+                zeroFill(nativePassword);
+                zeroFill(secretSeg);
+                zeroFill(keySeg);
+            }
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
@@ -203,32 +192,43 @@ final class LinuxKeyringStrategy implements VaultStrategy {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment keySeg = keySegment(key, arena);
-            MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
-            MemorySegment result =
-                    (MemorySegment)
-                            LOOKUP_HANDLE.invokeExact(
-                                    SCHEMA_SEGMENT,
-                                    MemorySegment.NULL,
-                                    MemorySegment.NULL,
-                                    attrKeySeg,
-                                    keySeg,
-                                    MemorySegment.NULL);
-            if (result == null || result.address() == 0 || result.equals(MemorySegment.NULL)) {
-                return Optional.empty();
-            }
-            MemorySegment boundedResult = result.reinterpret(Long.MAX_VALUE);
-            String password = boundedResult.getString(0, StandardCharsets.UTF_8);
-            byte[] passwordBytes = password.getBytes(StandardCharsets.UTF_8);
+            MemorySegment keySeg = null;
+            MemorySegment result = null;
+            byte[] passwordBytes = null;
             try {
+                keySeg = allocateSegment(arena, key, StandardCharsets.UTF_8);
+                MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
+                result =
+                        (MemorySegment)
+                                LOOKUP_HANDLE.invokeExact(
+                                        SCHEMA_SEGMENT,
+                                        MemorySegment.NULL,
+                                        MemorySegment.NULL,
+                                        attrKeySeg,
+                                        keySeg,
+                                        MemorySegment.NULL);
+                if (result == null || result.address() == 0 || result.equals(MemorySegment.NULL)) {
+                    return Optional.empty();
+                }
+                MemorySegment boundedResult = result.reinterpret(Long.MAX_VALUE);
+                String password = boundedResult.getString(0, StandardCharsets.UTF_8);
+                passwordBytes = password.getBytes(StandardCharsets.UTF_8);
                 CharBuffer charBuffer =
                         StandardCharsets.UTF_8.decode(ByteBuffer.wrap(passwordBytes));
                 char[] chars = new char[charBuffer.remaining()];
                 charBuffer.get(chars);
                 return Optional.of(chars);
             } finally {
-                Arrays.fill(passwordBytes, (byte) 0);
-                G_FREE_HANDLE.invokeExact(result);
+                if (result != null && result.address() != 0 && !result.equals(MemorySegment.NULL)) {
+                    if (passwordBytes != null) {
+                        zeroFill(result.reinterpret(passwordBytes.length));
+                    }
+                    G_FREE_HANDLE.invokeExact(result);
+                }
+                if (passwordBytes != null) {
+                    Arrays.fill(passwordBytes, (byte) 0);
+                }
+                zeroFill(keySeg);
             }
         } catch (Throwable t) {
             if (t instanceof Error error) {
@@ -244,16 +244,21 @@ final class LinuxKeyringStrategy implements VaultStrategy {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment keySeg = keySegment(key, arena);
-            MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
-            return (boolean)
-                    CLEAR_HANDLE.invokeExact(
-                            SCHEMA_SEGMENT,
-                            MemorySegment.NULL,
-                            MemorySegment.NULL,
-                            attrKeySeg,
-                            keySeg,
-                            MemorySegment.NULL);
+            MemorySegment keySeg = null;
+            try {
+                keySeg = allocateSegment(arena, key, StandardCharsets.UTF_8);
+                MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
+                return (boolean)
+                        CLEAR_HANDLE.invokeExact(
+                                SCHEMA_SEGMENT,
+                                MemorySegment.NULL,
+                                MemorySegment.NULL,
+                                attrKeySeg,
+                                keySeg,
+                                MemorySegment.NULL);
+            } finally {
+                zeroFill(keySeg);
+            }
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
@@ -268,22 +273,40 @@ final class LinuxKeyringStrategy implements VaultStrategy {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment keySeg = keySegment(key, arena);
-            MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
-            MemorySegment result =
-                    (MemorySegment)
-                            LOOKUP_HANDLE.invokeExact(
-                                    SCHEMA_SEGMENT,
-                                    MemorySegment.NULL,
-                                    MemorySegment.NULL,
-                                    attrKeySeg,
-                                    keySeg,
-                                    MemorySegment.NULL);
-            if (result == null || result.address() == 0 || result.equals(MemorySegment.NULL)) {
-                return false;
+            MemorySegment keySeg = null;
+            MemorySegment result = null;
+            byte[] tempBytes = null;
+            try {
+                keySeg = allocateSegment(arena, key, StandardCharsets.UTF_8);
+                MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
+                result =
+                        (MemorySegment)
+                                LOOKUP_HANDLE.invokeExact(
+                                        SCHEMA_SEGMENT,
+                                        MemorySegment.NULL,
+                                        MemorySegment.NULL,
+                                        attrKeySeg,
+                                        keySeg,
+                                        MemorySegment.NULL);
+                if (result == null || result.address() == 0 || result.equals(MemorySegment.NULL)) {
+                    return false;
+                }
+                MemorySegment boundedResult = result.reinterpret(Long.MAX_VALUE);
+                String password = boundedResult.getString(0, StandardCharsets.UTF_8);
+                tempBytes = password.getBytes(StandardCharsets.UTF_8);
+                return true;
+            } finally {
+                if (result != null && result.address() != 0 && !result.equals(MemorySegment.NULL)) {
+                    if (tempBytes != null) {
+                        zeroFill(result.reinterpret(tempBytes.length));
+                    }
+                    G_FREE_HANDLE.invokeExact(result);
+                }
+                if (tempBytes != null) {
+                    Arrays.fill(tempBytes, (byte) 0);
+                }
+                zeroFill(keySeg);
             }
-            G_FREE_HANDLE.invokeExact(result);
-            return true;
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;

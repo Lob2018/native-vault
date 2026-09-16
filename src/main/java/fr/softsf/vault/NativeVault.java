@@ -5,13 +5,7 @@
  */
 package fr.softsf.vault;
 
-import java.lang.foreign.Arena;
-import java.lang.foreign.MemorySegment;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -110,9 +104,8 @@ public final class NativeVault {
         char[] testKey = getIntegrityTestKeyChar();
         char[] testValue = {'t', 'e', 's', 't'};
         synchronized (INTEGRITY_CHECK_LOCK) {
-            try (Arena tempArena = Arena.ofConfined()) {
-                MemorySegment segment = allocateSegment(tempArena, testValue);
-                boolean stored = strategy.store(testKey, segment);
+            try {
+                boolean stored = strategy.store(testKey, testValue);
                 boolean exists = strategy.exists(testKey);
                 Optional<char[]> retrieved = strategy.retrieve(testKey);
                 boolean deleted = strategy.delete(testKey);
@@ -195,13 +188,8 @@ public final class NativeVault {
             throw new IllegalArgumentException("Secret cannot be null or empty");
         }
         ensureUsable();
-        try (Arena arena = Arena.ofConfined()) {
-            MemorySegment segment = allocateSegment(arena, secret);
-            try {
-                return STRATEGY.store(key, segment);
-            } finally {
-                zeroFill(segment);
-            }
+        try {
+            return STRATEGY.store(key, secret);
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
@@ -355,40 +343,5 @@ public final class NativeVault {
             }
             throw new NativeVaultException("Failed to check secret existence in native store", t);
         }
-    }
-
-    /**
-     * Allocates a memory segment from a character array and encodes it to UTF-8.
-     *
-     * @param arena the memory arena
-     * @param data the character array data
-     * @return the allocated memory segment
-     * @throws NullPointerException if {@code arena} is null
-     * @throws IllegalArgumentException if {@code data} is null or empty
-     */
-    private static MemorySegment allocateSegment(Arena arena, char[] data) {
-        Objects.requireNonNull(arena, "Arena cannot be null");
-        if (data == null || data.length == 0) {
-            throw new IllegalArgumentException("Data cannot be null or empty");
-        }
-        ByteBuffer byteBuffer = StandardCharsets.UTF_8.encode(CharBuffer.wrap(data));
-        MemorySegment segment = arena.allocate(byteBuffer.remaining());
-        segment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
-        byteBuffer.position(0);
-        while (byteBuffer.hasRemaining()) {
-            byteBuffer.put((byte) 0);
-        }
-        return segment;
-    }
-
-    /**
-     * Overwrites the specified memory segment with zeros to ensure security.
-     *
-     * @param segment the memory segment to clear
-     * @throws NullPointerException if {@code segment} is null
-     */
-    private void zeroFill(MemorySegment segment) {
-        Objects.requireNonNull(segment, "Segment cannot be null");
-        segment.fill((byte) 0);
     }
 }

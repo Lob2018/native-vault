@@ -127,70 +127,89 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
         return keySegment;
     }
 
+    /** {@inheritDoc} */
     @Override
-    public boolean store(char[] key, MemorySegment secretData) throws NativeVaultException {
+    public boolean store(char[] key, char[] secret) throws NativeVaultException {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
-        Objects.requireNonNull(secretData, SECRET_DATA_CANNOT_BE_NULL);
+        if (secret == null || secret.length == 0) {
+            throw new IllegalArgumentException(SECRET_DATA_CANNOT_BE_NULL);
+        }
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment targetNameSegment = keySegment(key, arena);
-            MemorySegment credentialSegment = arena.allocate(CREDENTIAL_LAYOUT);
-            credentialSegment.set(
-                    ValueLayout.JAVA_INT,
-                    CREDENTIAL_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("Flags")),
-                    0);
-            credentialSegment.set(
-                    ValueLayout.JAVA_INT,
-                    CREDENTIAL_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("Type")),
-                    CRED_TYPE_GENERIC);
-            credentialSegment.set(
-                    ValueLayout.ADDRESS,
-                    CREDENTIAL_LAYOUT.byteOffset(
-                            MemoryLayout.PathElement.groupElement("TargetName")),
-                    targetNameSegment);
-            credentialSegment.set(
-                    ValueLayout.ADDRESS,
-                    CREDENTIAL_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("Comment")),
-                    MemorySegment.NULL);
-            long secretBytesSize = secretData.byteSize();
-            MemorySegment nativePassword = arena.allocate(secretBytesSize);
-            nativePassword.copyFrom(secretData);
-            credentialSegment.set(
-                    ValueLayout.JAVA_INT,
-                    CREDENTIAL_LAYOUT.byteOffset(
-                            MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB_SIZE)),
-                    (int) secretBytesSize);
-            credentialSegment.set(
-                    ValueLayout.ADDRESS,
-                    CREDENTIAL_LAYOUT.byteOffset(
-                            MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB)),
-                    nativePassword);
-            credentialSegment.set(
-                    ValueLayout.JAVA_INT,
-                    CREDENTIAL_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("Persist")),
-                    CRED_PERSIST_LOCAL_MACHINE);
-            credentialSegment.set(
-                    ValueLayout.JAVA_INT,
-                    CREDENTIAL_LAYOUT.byteOffset(
-                            MemoryLayout.PathElement.groupElement("AttributeCount")),
-                    0);
-            credentialSegment.set(
-                    ValueLayout.ADDRESS,
-                    CREDENTIAL_LAYOUT.byteOffset(
-                            MemoryLayout.PathElement.groupElement("Attributes")),
-                    MemorySegment.NULL);
-            credentialSegment.set(
-                    ValueLayout.ADDRESS,
-                    CREDENTIAL_LAYOUT.byteOffset(
-                            MemoryLayout.PathElement.groupElement("TargetAlias")),
-                    MemorySegment.NULL);
-            credentialSegment.set(
-                    ValueLayout.ADDRESS,
-                    CREDENTIAL_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("UserName")),
-                    MemorySegment.NULL);
-            int status = (int) WRITE_HANDLE.invokeExact(credentialSegment, 0);
-            return status != 0;
+            MemorySegment targetNameSegment = null;
+            MemorySegment credentialSegment;
+            MemorySegment secretSeg = null;
+            MemorySegment nativePassword = null;
+            try {
+                targetNameSegment = keySegment(key, arena);
+                credentialSegment = arena.allocate(CREDENTIAL_LAYOUT);
+                credentialSegment.set(
+                        ValueLayout.JAVA_INT,
+                        CREDENTIAL_LAYOUT.byteOffset(
+                                MemoryLayout.PathElement.groupElement("Flags")),
+                        0);
+                credentialSegment.set(
+                        ValueLayout.JAVA_INT,
+                        CREDENTIAL_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("Type")),
+                        CRED_TYPE_GENERIC);
+                credentialSegment.set(
+                        ValueLayout.ADDRESS,
+                        CREDENTIAL_LAYOUT.byteOffset(
+                                MemoryLayout.PathElement.groupElement("TargetName")),
+                        targetNameSegment);
+                credentialSegment.set(
+                        ValueLayout.ADDRESS,
+                        CREDENTIAL_LAYOUT.byteOffset(
+                                MemoryLayout.PathElement.groupElement("Comment")),
+                        MemorySegment.NULL);
+                secretSeg = allocateSegment(arena, secret, StandardCharsets.UTF_8);
+                long secretBytesSize = secretSeg.byteSize();
+                nativePassword = arena.allocate(secretBytesSize + 1);
+                nativePassword.copyFrom(secretSeg);
+                nativePassword.set(ValueLayout.JAVA_BYTE, secretBytesSize, (byte) 0);
+                credentialSegment.set(
+                        ValueLayout.JAVA_INT,
+                        CREDENTIAL_LAYOUT.byteOffset(
+                                MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB_SIZE)),
+                        (int) secretBytesSize);
+                credentialSegment.set(
+                        ValueLayout.ADDRESS,
+                        CREDENTIAL_LAYOUT.byteOffset(
+                                MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB)),
+                        nativePassword);
+                credentialSegment.set(
+                        ValueLayout.JAVA_INT,
+                        CREDENTIAL_LAYOUT.byteOffset(
+                                MemoryLayout.PathElement.groupElement("Persist")),
+                        CRED_PERSIST_LOCAL_MACHINE);
+                credentialSegment.set(
+                        ValueLayout.JAVA_INT,
+                        CREDENTIAL_LAYOUT.byteOffset(
+                                MemoryLayout.PathElement.groupElement("AttributeCount")),
+                        0);
+                credentialSegment.set(
+                        ValueLayout.ADDRESS,
+                        CREDENTIAL_LAYOUT.byteOffset(
+                                MemoryLayout.PathElement.groupElement("Attributes")),
+                        MemorySegment.NULL);
+                credentialSegment.set(
+                        ValueLayout.ADDRESS,
+                        CREDENTIAL_LAYOUT.byteOffset(
+                                MemoryLayout.PathElement.groupElement("TargetAlias")),
+                        MemorySegment.NULL);
+                credentialSegment.set(
+                        ValueLayout.ADDRESS,
+                        CREDENTIAL_LAYOUT.byteOffset(
+                                MemoryLayout.PathElement.groupElement("UserName")),
+                        MemorySegment.NULL);
+                int status = (int) WRITE_HANDLE.invokeExact(credentialSegment, 0);
+                return status != 0;
+            } finally {
+                zeroFill(nativePassword);
+                zeroFill(secretSeg);
+                zeroFill(targetNameSegment);
+            }
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
@@ -206,51 +225,57 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment targetNameSegment = keySegment(key, arena);
-            MemorySegment outCredPtr = arena.allocate(ValueLayout.ADDRESS);
-            int status =
-                    (int)
-                            READ_HANDLE.invokeExact(
-                                    targetNameSegment, CRED_TYPE_GENERIC, 0, outCredPtr);
-            if (status == 0) {
-                return Optional.empty();
-            }
-            MemorySegment rawCredPtr = outCredPtr.get(ValueLayout.ADDRESS, 0);
-            if (rawCredPtr == null
-                    || rawCredPtr.address() == 0
-                    || rawCredPtr.equals(MemorySegment.NULL)) {
-                return Optional.empty();
-            }
-            MemorySegment credStruct = rawCredPtr.reinterpret(CREDENTIAL_LAYOUT.byteSize());
-            int blobSize =
-                    credStruct.get(
-                            ValueLayout.JAVA_INT,
-                            CREDENTIAL_LAYOUT.byteOffset(
-                                    MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB_SIZE)));
-            MemorySegment blobPtr =
-                    credStruct.get(
-                            ValueLayout.ADDRESS,
-                            CREDENTIAL_LAYOUT.byteOffset(
-                                    MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB)));
-            if (blobPtr == null
-                    || blobPtr.address() == 0
-                    || blobPtr.equals(MemorySegment.NULL)
-                    || blobSize <= 0) {
-                CRED_FREE_HANDLE.invokeExact(rawCredPtr);
-                return Optional.empty();
-            }
-            MemorySegment boundedBlob = blobPtr.reinterpret(blobSize);
-            byte[] blobBytes = new byte[blobSize];
-            MemorySegment.ofArray(blobBytes).copyFrom(boundedBlob);
+            MemorySegment targetNameSegment = null;
+            MemorySegment outCredPtr;
+            byte[] blobBytes = null;
+            MemorySegment rawCredPtr = null;
             try {
-                CharBuffer charBuffer =
-                        StandardCharsets.UTF_16LE.decode(ByteBuffer.wrap(blobBytes));
+                targetNameSegment = keySegment(key, arena);
+                outCredPtr = arena.allocate(ValueLayout.ADDRESS);
+                int status =
+                        (int)
+                                READ_HANDLE.invokeExact(
+                                        targetNameSegment, CRED_TYPE_GENERIC, 0, outCredPtr);
+                if (status == 0) {
+                    return Optional.empty();
+                }
+                rawCredPtr = outCredPtr.get(ValueLayout.ADDRESS, 0);
+                if (rawCredPtr == null
+                        || rawCredPtr.address() == 0
+                        || rawCredPtr.equals(MemorySegment.NULL)) {
+                    return Optional.empty();
+                }
+                MemorySegment credStruct = rawCredPtr.reinterpret(CREDENTIAL_LAYOUT.byteSize());
+                int blobSize =
+                        credStruct.get(
+                                ValueLayout.JAVA_INT,
+                                CREDENTIAL_LAYOUT.byteOffset(
+                                        MemoryLayout.PathElement.groupElement(
+                                                CREDENTIAL_BLOB_SIZE)));
+                MemorySegment blobPtr =
+                        credStruct.get(
+                                ValueLayout.ADDRESS,
+                                CREDENTIAL_LAYOUT.byteOffset(
+                                        MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB)));
+                if (blobPtr == null
+                        || blobPtr.address() == 0
+                        || blobPtr.equals(MemorySegment.NULL)
+                        || blobSize <= 0) {
+                    return Optional.empty();
+                }
+                MemorySegment boundedBlob = blobPtr.reinterpret(blobSize);
+                blobBytes = new byte[blobSize];
+                MemorySegment.ofArray(blobBytes).copyFrom(boundedBlob);
+                CharBuffer charBuffer = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(blobBytes));
                 char[] chars = new char[charBuffer.remaining()];
                 charBuffer.get(chars);
                 return Optional.of(chars);
             } finally {
-                Arrays.fill(blobBytes, (byte) 0);
-                CRED_FREE_HANDLE.invokeExact(rawCredPtr);
+                freeCredential(rawCredPtr);
+                if (blobBytes != null) {
+                    Arrays.fill(blobBytes, (byte) 0);
+                }
+                zeroFill(targetNameSegment);
             }
         } catch (Throwable t) {
             if (t instanceof Error error) {
@@ -261,15 +286,53 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
         }
     }
 
+    /**
+     * Frees the raw credential pointer and zero-fills its internal blob.
+     *
+     * @param rawCredPtr the raw credential pointer
+     * @throws Throwable if a method handle invocation fails
+     */
+    private void freeCredential(MemorySegment rawCredPtr) throws Throwable {
+        if (rawCredPtr == null
+                || rawCredPtr.address() == 0
+                || rawCredPtr.equals(MemorySegment.NULL)) {
+            return;
+        }
+        MemorySegment credStruct = rawCredPtr.reinterpret(CREDENTIAL_LAYOUT.byteSize());
+        int blobSize =
+                credStruct.get(
+                        ValueLayout.JAVA_INT,
+                        CREDENTIAL_LAYOUT.byteOffset(
+                                MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB_SIZE)));
+        MemorySegment blobPtr =
+                credStruct.get(
+                        ValueLayout.ADDRESS,
+                        CREDENTIAL_LAYOUT.byteOffset(
+                                MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB)));
+        if (blobPtr != null
+                && blobPtr.address() != 0
+                && !blobPtr.equals(MemorySegment.NULL)
+                && blobSize > 0) {
+            zeroFill(blobPtr.reinterpret(blobSize));
+        }
+        CRED_FREE_HANDLE.invokeExact(rawCredPtr);
+    }
+
     @Override
     public boolean delete(char[] key) throws NativeVaultException {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment targetNameSegment = keySegment(key, arena);
-            int status = (int) DELETE_HANDLE.invokeExact(targetNameSegment, CRED_TYPE_GENERIC, 0);
-            return status != 0;
+            MemorySegment targetNameSegment = null;
+            try {
+                targetNameSegment = keySegment(key, arena);
+                int status =
+                        (int) DELETE_HANDLE.invokeExact(targetNameSegment, CRED_TYPE_GENERIC, 0);
+                return status != 0;
+            } finally {
+                zeroFill(targetNameSegment);
+            }
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
@@ -285,23 +348,52 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment targetNameSegment = keySegment(key, arena);
-            MemorySegment outCredPtr = arena.allocate(ValueLayout.ADDRESS);
-            int status =
-                    (int)
-                            READ_HANDLE.invokeExact(
-                                    targetNameSegment, CRED_TYPE_GENERIC, 0, outCredPtr);
-            if (status == 0) {
-                return false;
+            MemorySegment targetNameSegment = null;
+            MemorySegment outCredPtr;
+            MemorySegment rawCredPtr = null;
+            try {
+                targetNameSegment = keySegment(key, arena);
+                outCredPtr = arena.allocate(ValueLayout.ADDRESS);
+                int status =
+                        (int)
+                                READ_HANDLE.invokeExact(
+                                        targetNameSegment, CRED_TYPE_GENERIC, 0, outCredPtr);
+                if (status == 0) {
+                    return false;
+                }
+                rawCredPtr = outCredPtr.get(ValueLayout.ADDRESS, 0);
+                if (rawCredPtr == null
+                        || rawCredPtr.address() == 0
+                        || rawCredPtr.equals(MemorySegment.NULL)) {
+                    return false;
+                }
+                MemorySegment credStruct = rawCredPtr.reinterpret(CREDENTIAL_LAYOUT.byteSize());
+                int blobSize =
+                        credStruct.get(
+                                ValueLayout.JAVA_INT,
+                                CREDENTIAL_LAYOUT.byteOffset(
+                                        MemoryLayout.PathElement.groupElement(
+                                                CREDENTIAL_BLOB_SIZE)));
+                MemorySegment blobPtr =
+                        credStruct.get(
+                                ValueLayout.ADDRESS,
+                                CREDENTIAL_LAYOUT.byteOffset(
+                                        MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB)));
+                if (blobPtr != null
+                        && blobPtr.address() != 0
+                        && !blobPtr.equals(MemorySegment.NULL)
+                        && blobSize > 0) {
+                    zeroFill(blobPtr.reinterpret(blobSize));
+                }
+                return true;
+            } finally {
+                if (rawCredPtr != null
+                        && rawCredPtr.address() != 0
+                        && !rawCredPtr.equals(MemorySegment.NULL)) {
+                    CRED_FREE_HANDLE.invokeExact(rawCredPtr);
+                }
+                zeroFill(targetNameSegment);
             }
-            MemorySegment rawCredPtr = outCredPtr.get(ValueLayout.ADDRESS, 0);
-            if (rawCredPtr == null
-                    || rawCredPtr.address() == 0
-                    || rawCredPtr.equals(MemorySegment.NULL)) {
-                return false;
-            }
-            CRED_FREE_HANDLE.invokeExact(rawCredPtr);
-            return true;
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
