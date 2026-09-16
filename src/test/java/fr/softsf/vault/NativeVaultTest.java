@@ -35,7 +35,6 @@ class NativeVaultTest {
     void tearDown() throws NativeVaultException {
         if (vault != null) {
             vault.removeSecret(NativeVault.INTEGRITY_TEST_KEY);
-            vault.close();
         }
     }
 
@@ -97,12 +96,25 @@ class NativeVaultTest {
         assertFalse(vault.hasSecret(NativeVault.INTEGRITY_TEST_KEY));
     }
 
+    /** Tests updating an existing secret successfully. */
+    @Test
+    void givenExistingSecret_whenUpdateSecret_thenSecretIsUpdated() throws NativeVaultException {
+        String initialSecret = "initial-secret";
+        String updatedSecret = "updated-secret";
+        assertTrue(vault.setSecret(NativeVault.INTEGRITY_TEST_KEY, initialSecret));
+        assertTrue(vault.setSecret(NativeVault.INTEGRITY_TEST_KEY, updatedSecret));
+        Optional<char[]> retrieved = vault.getSecret(NativeVault.INTEGRITY_TEST_KEY);
+        assertTrue(retrieved.isPresent());
+        assertArrayEquals(updatedSecret.toCharArray(), retrieved.get());
+        Arrays.fill(retrieved.get(), '\0');
+    }
+
     /** Tests invalid string inputs throwing IllegalArgumentException. */
     @Test
     void givenBlankStringInputs_whenMethodsCalled_thenIllegalArgumentExceptionIsThrown() {
         assertThrows(IllegalArgumentException.class, () -> vault.setSecret("", "secret"));
         assertThrows(IllegalArgumentException.class, () -> vault.setSecret("key", ""));
-        assertThrows(IllegalArgumentException.class, () -> vault.getSecret("  "));
+        assertThrows(IllegalArgumentException.class, () -> vault.getSecret("   "));
         assertThrows(IllegalArgumentException.class, () -> vault.removeSecret((String) null));
         assertThrows(IllegalArgumentException.class, () -> vault.removeSecret((char[]) null));
         assertThrows(IllegalArgumentException.class, () -> vault.hasSecret(""));

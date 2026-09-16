@@ -13,6 +13,7 @@ import java.lang.invoke.MethodHandle;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Optional;
 
 import fr.softsf.vault.internal.CrossPlatformVaultLoader;
@@ -67,8 +68,8 @@ final class MacKeychainStrategy implements VaultStrategy {
     }
 
     @Override
-    public boolean store(char[] key, MemorySegment secretData, Arena arena) {
-        try {
+    public boolean store(char[] key, MemorySegment secretData) {
+        try (Arena arena = Arena.ofConfined()) {
             ByteBuffer byteBuffer = StandardCharsets.UTF_8.encode(CharBuffer.wrap(key));
             MemorySegment keySegment = arena.allocate(byteBuffer.remaining());
             keySegment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
@@ -77,7 +78,7 @@ final class MacKeychainStrategy implements VaultStrategy {
                 return (int) UPDATE_HANDLE.invokeExact(keySegment, secretData) == 0;
             }
             return status == 0;
-        } catch (Throwable t) { // NOSONAR
+        } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
@@ -86,8 +87,8 @@ final class MacKeychainStrategy implements VaultStrategy {
     }
 
     @Override
-    public Optional<MemorySegment> retrieve(char[] key, Arena arena) {
-        try {
+    public Optional<char[]> retrieve(char[] key) {
+        try (Arena arena = Arena.ofConfined()) {
             ByteBuffer byteBuffer = StandardCharsets.UTF_8.encode(CharBuffer.wrap(key));
             MemorySegment query = arena.allocate(byteBuffer.remaining());
             query.copyFrom(MemorySegment.ofBuffer(byteBuffer));
@@ -109,8 +110,18 @@ final class MacKeychainStrategy implements VaultStrategy {
             MemorySegment secretCopy = arena.allocate(size);
             secretCopy.copyFrom(nativePtr.reinterpret(size).asSlice(0, size));
             CF_RELEASE_HANDLE.invokeExact(nativePtr);
-            return Optional.of(secretCopy);
-        } catch (Throwable t) { // NOSONAR
+            byte[] passwordBytes = new byte[(int) size];
+            secretCopy.asByteBuffer().get(passwordBytes);
+            try {
+                CharBuffer charBuffer =
+                        StandardCharsets.UTF_8.decode(ByteBuffer.wrap(passwordBytes));
+                char[] chars = new char[charBuffer.remaining()];
+                charBuffer.get(chars);
+                return Optional.of(chars);
+            } finally {
+                Arrays.fill(passwordBytes, (byte) 0);
+            }
+        } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
@@ -118,6 +129,12 @@ final class MacKeychainStrategy implements VaultStrategy {
         }
     }
 
+    /**
+     * Deletes a secret from the macOS Keychain using the specified key.
+     *
+     * @param key the key associated with the secret to delete
+     * @return true if the deletion succeeds, false otherwise
+     */
     @Override
     public boolean delete(char[] key) {
         try (Arena arena = Arena.ofConfined()) {
@@ -125,7 +142,7 @@ final class MacKeychainStrategy implements VaultStrategy {
             MemorySegment keySegment = arena.allocate(byteBuffer.remaining());
             keySegment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
             return (int) DELETE_HANDLE.invokeExact(keySegment) == 0;
-        } catch (Throwable t) { // NOSONAR
+        } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
@@ -149,7 +166,7 @@ final class MacKeychainStrategy implements VaultStrategy {
                 }
             }
             return false;
-        } catch (Throwable t) { // NOSONAR
+        } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }

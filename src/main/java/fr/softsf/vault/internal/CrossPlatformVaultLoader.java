@@ -42,7 +42,7 @@ public final class CrossPlatformVaultLoader {
         if (StringUtils.isBlank(functionName)) {
             throw new IllegalArgumentException("FunctionName must not be blank");
         }
-        Objects.requireNonNull(descriptor, "descriptor cannot be null");
+        Objects.requireNonNull(descriptor, "Descriptor cannot be null");
         SymbolLookup lookup;
         if (libraryName.contains("/")
                 || libraryName.endsWith(".so.0")

@@ -51,7 +51,7 @@ final class LinuxKeyringStrategy implements VaultStrategy {
     private static final MethodHandle LOOKUP_HANDLE;
     private static final MethodHandle CLEAR_HANDLE;
     private static final MethodHandle G_FREE_HANDLE;
-    public static final String ARENA_CANNOT_BE_NULL = "arena cannot be null";
+    public static final String ARENA_CANNOT_BE_NULL = "Arena cannot be null";
     public static final String KEY_CANNOT_BE_NULL_OR_EMPTY = "Key cannot be null or empty";
 
     public static final String KEY = "key";
@@ -155,25 +155,23 @@ final class LinuxKeyringStrategy implements VaultStrategy {
         }
         Objects.requireNonNull(arena, ARENA_CANNOT_BE_NULL);
         ByteBuffer byteBuffer = StandardCharsets.UTF_8.encode(CharBuffer.wrap(key));
-        MemorySegment keySegment = arena.allocate(byteBuffer.remaining());
-        keySegment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
+        MemorySegment keySeg = arena.allocate(byteBuffer.remaining());
+        keySeg.copyFrom(MemorySegment.ofBuffer(byteBuffer));
         byteBuffer.position(0);
         while (byteBuffer.hasRemaining()) {
             byteBuffer.put((byte) 0);
         }
-        return keySegment;
+        return keySeg;
     }
 
     @Override
-    public boolean store(char[] key, MemorySegment secretData, Arena arena)
-            throws NativeVaultException {
+    public boolean store(char[] key, MemorySegment secretData) throws NativeVaultException {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
-        Objects.requireNonNull(secretData, "secretData cannot be null");
-        Objects.requireNonNull(arena, ARENA_CANNOT_BE_NULL);
-        try {
-            MemorySegment keySegment = keySegment(key, arena);
+        Objects.requireNonNull(secretData, "SecretData cannot be null");
+        try (Arena arena = Arena.ofConfined()) {
+            MemorySegment keySeg = keySegment(key, arena);
             MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
             MemorySegment labelSeg =
                     arena.allocateFrom("NativeVault Secret", StandardCharsets.UTF_8);
@@ -189,7 +187,7 @@ final class LinuxKeyringStrategy implements VaultStrategy {
                             MemorySegment.NULL,
                             MemorySegment.NULL,
                             attrKeySeg,
-                            keySegment,
+                            keySeg,
                             MemorySegment.NULL);
         } catch (Throwable t) {
             if (t instanceof Error error) {
@@ -200,13 +198,12 @@ final class LinuxKeyringStrategy implements VaultStrategy {
     }
 
     @Override
-    public Optional<MemorySegment> retrieve(char[] key, Arena arena) throws NativeVaultException {
+    public Optional<char[]> retrieve(char[] key) throws NativeVaultException {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
-        Objects.requireNonNull(arena, ARENA_CANNOT_BE_NULL);
-        try {
-            MemorySegment keySegment = keySegment(key, arena);
+        try (Arena arena = Arena.ofConfined()) {
+            MemorySegment keySeg = keySegment(key, arena);
             MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
             MemorySegment result =
                     (MemorySegment)
@@ -215,7 +212,7 @@ final class LinuxKeyringStrategy implements VaultStrategy {
                                     MemorySegment.NULL,
                                     MemorySegment.NULL,
                                     attrKeySeg,
-                                    keySegment,
+                                    keySeg,
                                     MemorySegment.NULL);
             if (result == null || result.address() == 0 || result.equals(MemorySegment.NULL)) {
                 return Optional.empty();
@@ -224,9 +221,11 @@ final class LinuxKeyringStrategy implements VaultStrategy {
             String password = boundedResult.getString(0, StandardCharsets.UTF_8);
             byte[] passwordBytes = password.getBytes(StandardCharsets.UTF_8);
             try {
-                MemorySegment secretCopy = arena.allocate(passwordBytes.length);
-                secretCopy.copyFrom(MemorySegment.ofArray(passwordBytes));
-                return Optional.of(secretCopy);
+                CharBuffer charBuffer =
+                        StandardCharsets.UTF_8.decode(ByteBuffer.wrap(passwordBytes));
+                char[] chars = new char[charBuffer.remaining()];
+                charBuffer.get(chars);
+                return Optional.of(chars);
             } finally {
                 Arrays.fill(passwordBytes, (byte) 0);
                 G_FREE_HANDLE.invokeExact(result);
@@ -245,7 +244,7 @@ final class LinuxKeyringStrategy implements VaultStrategy {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment keySegment = keySegment(key, arena);
+            MemorySegment keySeg = keySegment(key, arena);
             MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
             return (boolean)
                     CLEAR_HANDLE.invokeExact(
@@ -253,7 +252,7 @@ final class LinuxKeyringStrategy implements VaultStrategy {
                             MemorySegment.NULL,
                             MemorySegment.NULL,
                             attrKeySeg,
-                            keySegment,
+                            keySeg,
                             MemorySegment.NULL);
         } catch (Throwable t) {
             if (t instanceof Error error) {
@@ -269,7 +268,7 @@ final class LinuxKeyringStrategy implements VaultStrategy {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment keySegment = keySegment(key, arena);
+            MemorySegment keySeg = keySegment(key, arena);
             MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
             MemorySegment result =
                     (MemorySegment)
@@ -278,7 +277,7 @@ final class LinuxKeyringStrategy implements VaultStrategy {
                                     MemorySegment.NULL,
                                     MemorySegment.NULL,
                                     attrKeySeg,
-                                    keySegment,
+                                    keySeg,
                                     MemorySegment.NULL);
             if (result == null || result.address() == 0 || result.equals(MemorySegment.NULL)) {
                 return false;

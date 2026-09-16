@@ -57,8 +57,7 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
     private static final MethodHandle DELETE_HANDLE;
     private static final MethodHandle CRED_FREE_HANDLE;
     public static final String KEY_CANNOT_BE_NULL_OR_EMPTY = "Key cannot be null or empty";
-    public static final String SECRET_DATA_CANNOT_BE_NULL = "secretData cannot be null";
-    public static final String ARENA_CANNOT_BE_NULL = "arena cannot be null";
+    public static final String SECRET_DATA_CANNOT_BE_NULL = "SecretData cannot be null";
 
     static {
         try {
@@ -106,18 +105,17 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
     }
 
     /**
-     * Allocates and populates a memory segment for the given key using the provided arena with
-     * UTF-16LE encoding and null termination.
+     * Allocates a memory segment for the specified key.
      *
-     * @param key the key characters
-     * @param arena the memory arena
-     * @return the allocated memory segment containing the encoded key
+     * @param key the key
+     * @param arena the arena
+     * @return the memory segment
      */
     private MemorySegment keySegment(char[] key, Arena arena) {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
-        Objects.requireNonNull(arena, ARENA_CANNOT_BE_NULL);
+        Objects.requireNonNull(arena, "Arena cannot be null");
         ByteBuffer byteBuffer = StandardCharsets.UTF_16LE.encode(CharBuffer.wrap(key));
         MemorySegment keySegment = arena.allocate(byteBuffer.remaining() + 2L);
         keySegment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
@@ -130,14 +128,12 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
     }
 
     @Override
-    public boolean store(char[] key, MemorySegment secretData, Arena arena)
-            throws NativeVaultException {
+    public boolean store(char[] key, MemorySegment secretData) throws NativeVaultException {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
         Objects.requireNonNull(secretData, SECRET_DATA_CANNOT_BE_NULL);
-        Objects.requireNonNull(arena, ARENA_CANNOT_BE_NULL);
-        try {
+        try (Arena arena = Arena.ofConfined()) {
             MemorySegment targetNameSegment = keySegment(key, arena);
             MemorySegment credentialSegment = arena.allocate(CREDENTIAL_LAYOUT);
             credentialSegment.set(
@@ -205,12 +201,11 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
     }
 
     @Override
-    public Optional<MemorySegment> retrieve(char[] key, Arena arena) throws NativeVaultException {
+    public Optional<char[]> retrieve(char[] key) throws NativeVaultException {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
         }
-        Objects.requireNonNull(arena, ARENA_CANNOT_BE_NULL);
-        try {
+        try (Arena arena = Arena.ofConfined()) {
             MemorySegment targetNameSegment = keySegment(key, arena);
             MemorySegment outCredPtr = arena.allocate(ValueLayout.ADDRESS);
             int status =
@@ -248,9 +243,11 @@ final class WindowsCredentialManagerStrategy implements VaultStrategy {
             byte[] blobBytes = new byte[blobSize];
             MemorySegment.ofArray(blobBytes).copyFrom(boundedBlob);
             try {
-                MemorySegment secretCopy = arena.allocate(blobSize);
-                secretCopy.copyFrom(MemorySegment.ofArray(blobBytes));
-                return Optional.of(secretCopy);
+                CharBuffer charBuffer =
+                        StandardCharsets.UTF_16LE.decode(ByteBuffer.wrap(blobBytes));
+                char[] chars = new char[charBuffer.remaining()];
+                charBuffer.get(chars);
+                return Optional.of(chars);
             } finally {
                 Arrays.fill(blobBytes, (byte) 0);
                 CRED_FREE_HANDLE.invokeExact(rawCredPtr);

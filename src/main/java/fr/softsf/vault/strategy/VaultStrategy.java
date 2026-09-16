@@ -5,7 +5,6 @@
  */
 package fr.softsf.vault.strategy;
 
-import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.util.Optional;
 
@@ -23,25 +22,22 @@ public sealed interface VaultStrategy
      *
      * @param key the credential identifier character array
      * @param secretData the memory segment containing the secret data
-     * @param arena the memory arena managing the segment
      * @return true if stored successfully, false otherwise
      * @throws IllegalArgumentException if {@code key} is null or empty
-     * @throws NullPointerException if {@code secretData} or {@code arena} is null
+     * @throws NullPointerException if {@code secretData} is null
      * @throws NativeVaultException if a native system error occurs during execution
      */
-    boolean store(char[] key, MemorySegment secretData, Arena arena) throws NativeVaultException;
+    boolean store(char[] key, MemorySegment secretData) throws NativeVaultException;
 
     /**
      * Retrieves a secret from the native credential store.
      *
      * @param key the credential identifier character array
-     * @param arena the memory arena for allocation
-     * @return an optional containing the memory segment of the secret if found
+     * @return an optional containing the secret character array if found
      * @throws IllegalArgumentException if {@code key} is null or empty
-     * @throws NullPointerException if {@code arena} is null
      * @throws NativeVaultException if a native system error occurs during execution
      */
-    Optional<MemorySegment> retrieve(char[] key, Arena arena) throws NativeVaultException;
+    Optional<char[]> retrieve(char[] key) throws NativeVaultException;
 
     /**
      * Deletes a secret from the native credential store.

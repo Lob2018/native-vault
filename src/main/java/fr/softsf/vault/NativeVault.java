@@ -7,7 +7,6 @@ package fr.softsf.vault;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
-import java.lang.foreign.ValueLayout;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
@@ -27,9 +26,8 @@ import fr.softsf.vault.strategy.VaultStrategy;
  * desktop applications, featuring strict memory hygiene via {@code char[]} buffers and dynamic
  * strategy detection.
  *
- * <p>Instances must be used within a <b>try-with-resources</b> block. Keys and secrets must be
- * managed as mutable {@code char[]} buffers and explicitly zero-filled ({@code Arrays.fill(...,
- * '\0')}) in a {@code finally} block to guarantee heap memory hygiene.
+ * <p>Keys and secrets must be managed as mutable {@code char[]} buffers and explicitly zero-filled
+ * ({@code Arrays.fill(..., '\0')}) in a {@code finally} block to guarantee heap memory hygiene.
  *
  * <p>Interactions must be wrapped in a corresponding <b>catch (NativeVaultException |
  * LinkageError)</b> block to safely handle native linkage initialization and execution errors.
@@ -39,22 +37,24 @@ import fr.softsf.vault.strategy.VaultStrategy;
  * <pre>{@code
  * char[] uniqueExampleKey = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.', 'm', 'y', 'a', 'p', 'p', '.', 'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};
  * char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l', '-', 's', 'e', 'c', 'r', 'e', 't'};
- * try (NativeVault vault = new NativeVault()) {
- *      boolean stored = vault.setSecret(uniqueExampleKey, secret);
- *      boolean exists = vault.hasSecret(uniqueExampleKey);
- *      vault.getSecret(uniqueExampleKey).ifPresent(retrieved -> {
- *          java.util.Arrays.fill(retrieved, '\0');
- *      });
- *      boolean removed = vault.removeSecret(uniqueExampleKey);
+ * try {
+ *     NativeVault vault = new NativeVault();
+ *     boolean stored = vault.setSecret(uniqueExampleKey, secret);
+ *     boolean exists = vault.hasSecret(uniqueExampleKey);
+ *     vault.getSecret(uniqueExampleKey).ifPresent(retrieved -> {
+ *         java.util.Arrays.fill(retrieved, '\0');
+ *     });
+ *     boolean removed = vault.removeSecret(uniqueExampleKey);
  * } catch (NativeVaultException | LinkageError e) {
- *      System.err.println("Failed to initialize or use native vault: " + e.getMessage());
+ *     System.err.println("Failed to initialize or use native vault: " + e.getMessage());
  * } finally {
- *      java.util.Arrays.fill(uniqueExampleKey, '\0');
- *      java.util.Arrays.fill(secret, '\0');
+ *     java.util.Arrays.fill(uniqueExampleKey, '\0');
+ *     java.util.Arrays.fill(secret, '\0');
  * }
  * }</pre>
  */
-public final class NativeVault implements AutoCloseable {
+public final class NativeVault {
+    private static final Object INTEGRITY_CHECK_LOCK = new Object();
     static final String INTEGRITY_TEST_KEY = "fr.softsf.vault.integrity.check.key";
 
     static char[] getIntegrityTestKeyChar() {
@@ -82,22 +82,20 @@ public final class NativeVault implements AutoCloseable {
         VERIFIED = verified;
     }
 
-    private final Arena arena;
-
     /**
-     * Initializes a new instance of the native vault facade using a shared arena to guarantee
-     * thread safety across application threads.
+     * Initializes a new instance of the native vault facade.
      *
      * @throws NativeVaultException if the strategy integrity check fails
      * @throws UnsupportedOperationException if the operating system is not supported
+     * @throws LinkageError if native library loading or linking fails
      */
     public NativeVault() throws NativeVaultException {
         ensureUsable();
-        this.arena = Arena.ofShared();
     }
 
     /**
-     * Executes the native vault integrity check sequence.
+     * Executes the native vault integrity check sequence within a synchronized block to prevent
+     * race conditions on the shared test key.
      *
      * @param strategy the vault strategy instance to verify
      * @return true if store, existence, retrieval, and deletion operations succeed
@@ -111,25 +109,27 @@ public final class NativeVault implements AutoCloseable {
         }
         char[] testKey = getIntegrityTestKeyChar();
         char[] testValue = {'t', 'e', 's', 't'};
-        try (Arena tempArena = Arena.ofConfined()) {
-            MemorySegment segment = allocateSegment(tempArena, testValue);
-            boolean stored = strategy.store(testKey, segment, tempArena);
-            boolean exists = strategy.exists(testKey);
-            Optional<MemorySegment> retrieved = strategy.retrieve(testKey, tempArena);
-            boolean deleted = strategy.delete(testKey);
-            return stored && exists && retrieved.isPresent() && deleted;
-        } catch (Throwable t) {
-            if (t instanceof Error error) {
-                throw error;
+        synchronized (INTEGRITY_CHECK_LOCK) {
+            try (Arena tempArena = Arena.ofConfined()) {
+                MemorySegment segment = allocateSegment(tempArena, testValue);
+                boolean stored = strategy.store(testKey, segment);
+                boolean exists = strategy.exists(testKey);
+                Optional<char[]> retrieved = strategy.retrieve(testKey);
+                boolean deleted = strategy.delete(testKey);
+                return stored && exists && retrieved.isPresent() && deleted;
+            } catch (Throwable t) {
+                if (t instanceof Error error) {
+                    throw error;
+                }
+                if (t instanceof NativeVaultException nativeVaultException) {
+                    throw nativeVaultException;
+                }
+                throw new NativeVaultException(
+                        "Native vault integrity check failed during initialization", t);
+            } finally {
+                Arrays.fill(testKey, '\0');
+                Arrays.fill(testValue, '\0');
             }
-            if (t instanceof NativeVaultException nativeVaultException) {
-                throw nativeVaultException;
-            }
-            throw new NativeVaultException(
-                    "Native vault integrity check failed during initialization", t);
-        } finally {
-            Arrays.fill(testKey, '\0');
-            Arrays.fill(testValue, '\0');
         }
     }
 
@@ -195,16 +195,21 @@ public final class NativeVault implements AutoCloseable {
             throw new IllegalArgumentException("Secret cannot be null or empty");
         }
         ensureUsable();
-        MemorySegment segment = allocateSegment(arena, secret);
-        try {
-            return STRATEGY.store(key, segment, arena);
+        try (Arena arena = Arena.ofConfined()) {
+            MemorySegment segment = allocateSegment(arena, secret);
+            try {
+                return STRATEGY.store(key, segment);
+            } finally {
+                zeroFill(segment);
+            }
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
+            if (t instanceof NativeVaultException nativeVaultException) {
+                throw nativeVaultException;
+            }
             throw new NativeVaultException("Failed to store secret in native store", t);
-        } finally {
-            zeroFill(segment);
         }
     }
 
@@ -244,24 +249,13 @@ public final class NativeVault implements AutoCloseable {
         }
         ensureUsable();
         try {
-            Optional<MemorySegment> segmentOpt = STRATEGY.retrieve(key, arena);
-            if (segmentOpt.isEmpty()) {
-                return Optional.empty();
-            }
-            MemorySegment segment = segmentOpt.get();
-            try {
-                byte[] bytes = segment.toArray(ValueLayout.JAVA_BYTE);
-                CharBuffer charBuffer = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(bytes));
-                char[] chars = new char[charBuffer.remaining()];
-                charBuffer.get(chars);
-                Arrays.fill(bytes, (byte) 0);
-                return Optional.of(chars);
-            } finally {
-                zeroFill(segment);
-            }
+            return STRATEGY.retrieve(key);
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
+            }
+            if (t instanceof NativeVaultException nativeVaultException) {
+                throw nativeVaultException;
             }
             throw new NativeVaultException("Failed to retrieve secret from native store", t);
         }
@@ -308,6 +302,9 @@ public final class NativeVault implements AutoCloseable {
             if (t instanceof Error error) {
                 throw error;
             }
+            if (t instanceof NativeVaultException nativeVaultException) {
+                throw nativeVaultException;
+            }
             throw new NativeVaultException("Failed to remove secret from native store", t);
         }
     }
@@ -353,6 +350,9 @@ public final class NativeVault implements AutoCloseable {
             if (t instanceof Error error) {
                 throw error;
             }
+            if (t instanceof NativeVaultException nativeVaultException) {
+                throw nativeVaultException;
+            }
             throw new NativeVaultException("Failed to check secret existence in native store", t);
         }
     }
@@ -390,11 +390,5 @@ public final class NativeVault implements AutoCloseable {
     private void zeroFill(MemorySegment segment) {
         Objects.requireNonNull(segment, "Segment cannot be null");
         segment.fill((byte) 0);
-    }
-
-    /** Closes the native vault arena, releasing associated native memory resources. */
-    @Override
-    public void close() {
-        arena.close();
     }
 }

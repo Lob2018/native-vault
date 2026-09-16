@@ -45,7 +45,9 @@ Here is sample code showing how to use the vault:
 char[] uniqueExampleKey = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.', 'm', 'y', 'a', 'p', 'p', '.', 'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};
 // The secret to store
 char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l', '-', 's', 'e', 'c', 'r', 'e', 't'};
-try (NativeVault vault = new NativeVault()) {
+try {
+    // Initialize the native vault facade
+    NativeVault vault = new NativeVault();
     // Write action (upsert: creates or overwrites): returns true if successfully stored, false otherwise
     boolean stored = vault.setSecret(uniqueExampleKey, secret);
     // Existence check action: returns true if the secret exists, false otherwise
