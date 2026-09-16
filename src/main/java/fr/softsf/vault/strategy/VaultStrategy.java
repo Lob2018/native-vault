@@ -80,12 +80,15 @@ public sealed interface VaultStrategy
      * @param data the character array data
      * @param charset the charset to use for encoding
      * @return the allocated memory segment
+     * @throws NullPointerException if arena or charset is null
+     * @throws IllegalArgumentException if data is null or empty
      */
     default MemorySegment allocateSegment(Arena arena, char[] data, Charset charset) {
         Objects.requireNonNull(arena, "Arena cannot be null");
         if (data == null || data.length == 0) {
             throw new IllegalArgumentException("Data cannot be null or empty");
         }
+        Objects.requireNonNull(charset, "Charset cannot be null");
         java.nio.ByteBuffer byteBuffer = charset.encode(CharBuffer.wrap(data));
         MemorySegment segment = arena.allocate(byteBuffer.remaining());
         segment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
