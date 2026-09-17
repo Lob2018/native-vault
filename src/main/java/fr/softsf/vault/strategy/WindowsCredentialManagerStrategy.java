@@ -104,8 +104,7 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
     private static final MethodHandle READ_HANDLE;
     private static final MethodHandle DELETE_HANDLE;
     private static final MethodHandle CRED_FREE_HANDLE;
-    public static final String KEY_CANNOT_BE_NULL_OR_EMPTY = "Key cannot be null or empty";
-    public static final String SECRET_DATA_CANNOT_BE_NULL = "SecretData cannot be null";
+    private final char[] namespace;
 
     static {
         try {
@@ -147,26 +146,35 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
         }
     }
 
-    /** Initializes a new instance of the WindowsCredentialManagerStrategy. */
-    public WindowsCredentialManagerStrategy() {
-        // Stateless implementation; native method handles are loaded statically.
+    /**
+     * Initializes a new instance of the {@code WindowsCredentialManagerStrategy} with a custom
+     * namespace.
+     *
+     * @param namespace the isolated namespace character array used as a TargetName prefix for
+     *     Windows credentials
+     * @throws IllegalArgumentException if {@code namespace} is null or empty
+     */
+    public WindowsCredentialManagerStrategy(char[] namespace) {
+        if (namespace == null || namespace.length == 0) {
+            throw new IllegalArgumentException("Namespace cannot be null or empty");
+        }
+        this.namespace = namespace.clone();
     }
 
     @Override
     public boolean store(char[] key, char[] secret) throws NativeVaultException {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
-        }
-        if (secret == null || secret.length == 0) {
-            throw new IllegalArgumentException(SECRET_DATA_CANNOT_BE_NULL);
-        }
+        validateKey(key);
+        validateSecret(secret);
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment targetNameSegment = null;
             MemorySegment credentialSegment;
             MemorySegment secretSeg = null;
             MemorySegment nativePassword = null;
+            char[] namespacedKey = null;
             try {
-                targetNameSegment = allocateSegment(arena, key, StandardCharsets.UTF_16LE);
+                namespacedKey = concatNamespaceAndKey(namespace, key);
+                targetNameSegment =
+                        allocateSegment(arena, namespacedKey, StandardCharsets.UTF_16LE);
                 credentialSegment = arena.allocate(CREDENTIAL_LAYOUT);
                 NativeCredentialRecord.FLAGS_HANDLE.set(credentialSegment, 0L, 0);
                 NativeCredentialRecord.TYPE_HANDLE.set(credentialSegment, 0L, CRED_TYPE_GENERIC);
@@ -196,6 +204,7 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
                 zeroFill(nativePassword);
                 zeroFill(secretSeg);
                 zeroFill(targetNameSegment);
+                zeroFill(namespacedKey);
             }
         } catch (Throwable t) {
             if (t instanceof Error error) {
@@ -208,15 +217,16 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
 
     @Override
     public Optional<char[]> retrieve(char[] key) throws NativeVaultException {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
-        }
+        validateKey(key);
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment targetNameSegment = null;
             MemorySegment outCredPtr;
             MemorySegment rawCredPtr = null;
+            char[] namespacedKey = null;
             try {
-                targetNameSegment = allocateSegment(arena, key, StandardCharsets.UTF_16LE);
+                namespacedKey = concatNamespaceAndKey(namespace, key);
+                targetNameSegment =
+                        allocateSegment(arena, namespacedKey, StandardCharsets.UTF_16LE);
                 outCredPtr = arena.allocate(ValueLayout.ADDRESS);
                 int status =
                         (int)
@@ -241,15 +251,17 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
                         || blobSize <= 0) {
                     return Optional.empty();
                 }
-                MemorySegment boundedBlob = blobPtr.reinterpret(blobSize);
-                CharBuffer charBuffer =
-                        StandardCharsets.UTF_16LE.decode(boundedBlob.asByteBuffer());
+                MemorySegment boundedBlob =
+                        blobPtr.reinterpret(WINDOWS_CREDENTIAL_MANAGER_MAX_SECRET_BYTE_SIZE);
+                MemorySegment actualBlob = boundedBlob.asSlice(0, blobSize);
+                CharBuffer charBuffer = StandardCharsets.UTF_16LE.decode(actualBlob.asByteBuffer());
                 char[] chars = new char[charBuffer.remaining()];
                 charBuffer.get(chars);
                 return Optional.of(chars);
             } finally {
                 freeCredential(rawCredPtr);
                 zeroFill(targetNameSegment);
+                zeroFill(namespacedKey);
             }
         } catch (Throwable t) {
             if (t instanceof Error error) {
@@ -287,18 +299,20 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
 
     @Override
     public boolean delete(char[] key) throws NativeVaultException {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
-        }
+        validateKey(key);
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment targetNameSegment = null;
+            char[] namespacedKey = null;
             try {
-                targetNameSegment = allocateSegment(arena, key, StandardCharsets.UTF_16LE);
+                namespacedKey = concatNamespaceAndKey(namespace, key);
+                targetNameSegment =
+                        allocateSegment(arena, namespacedKey, StandardCharsets.UTF_16LE);
                 int status =
                         (int) DELETE_HANDLE.invokeExact(targetNameSegment, CRED_TYPE_GENERIC, 0);
                 return status != 0;
             } finally {
                 zeroFill(targetNameSegment);
+                zeroFill(namespacedKey);
             }
         } catch (Throwable t) {
             if (t instanceof Error error) {
@@ -311,15 +325,16 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
 
     @Override
     public boolean exists(char[] key) throws NativeVaultException {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
-        }
+        validateKey(key);
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment targetNameSegment = null;
             MemorySegment outCredPtr;
             MemorySegment rawCredPtr = null;
+            char[] namespacedKey = null;
             try {
-                targetNameSegment = allocateSegment(arena, key, StandardCharsets.UTF_16LE);
+                namespacedKey = concatNamespaceAndKey(namespace, key);
+                targetNameSegment =
+                        allocateSegment(arena, namespacedKey, StandardCharsets.UTF_16LE);
                 outCredPtr = arena.allocate(ValueLayout.ADDRESS);
                 int status =
                         (int)
@@ -335,6 +350,7 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
             } finally {
                 freeCredential(rawCredPtr);
                 zeroFill(targetNameSegment);
+                zeroFill(namespacedKey);
             }
         } catch (Throwable t) {
             if (t instanceof Error error) {

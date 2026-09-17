@@ -7,7 +7,6 @@ package fr.softsf.vault;
 
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -32,81 +31,109 @@ import fr.softsf.vault.strategy.WindowsCredentialManagerStrategy;
  * <p><strong>Usage Example:</strong>
  *
  * <pre>{@code
- * char[] uniqueExampleKey = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.', 'm', 'y', 'a', 'p', 'p', '.', 'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};
- * char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l', '-', 's', 'e', 'c', 'r', 'e', 't'};
+ * // Unique namespace to avoid OS keychain collisions
+ * char[] namespace = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.',
+ *     'm', 'y', 'a', 'p', 'p'};
+ * // The unique key to store
+ * char[] key = {'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};
+ * // The secret to store
+ * char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l',
+ *     '-', 's', 'e', 'c', 'r', 'e', 't'};
  * try {
- *     NativeVault vault = new NativeVault();
- *     boolean stored = vault.setSecret(uniqueExampleKey, secret);
- *     boolean exists = vault.hasSecret(uniqueExampleKey);
- *     vault.getSecret(uniqueExampleKey).ifPresent(retrieved -> {
- *         java.util.Arrays.fill(retrieved, '\0');
+ *     // Initialize the native vault facade
+ *     NativeVault vault = new NativeVault(namespace);
+ *     // Upsert action: returns true if successfully stored, false otherwise
+ *     boolean stored = vault.setSecret(key, secret);
+ *     // Existence action: returns true if the secret exists, false otherwise
+ *     boolean exists = vault.hasSecret(key);
+ *     // Read action: returns Optional<char[]>
+ *     vault.getSecret(key).ifPresent(rawSecret -> {
+ *         try {
+ *             // Process secret...
+ *         } finally {
+ *             Arrays.fill(rawSecret, '\0'); // Mandatory cleanup for secret buffer
+ *         }
  *     });
- *     boolean removed = vault.removeSecret(uniqueExampleKey);
+ *     // Deletion action: returns true if successfully removed, false otherwise
+ *     boolean removed = vault.removeSecret(key);
  * } catch (NativeVaultException | LinkageError e) {
+ *     // Handle initialization or execution failures safely
  *     System.err.println("Failed to initialize or use native vault: " + e.getMessage());
  * } finally {
- *     java.util.Arrays.fill(uniqueExampleKey, '\0');
- *     java.util.Arrays.fill(secret, '\0');
+ *     Arrays.fill(namespace, '\0'); // Mandatory cleanup for namespace buffer
+ *     Arrays.fill(key, '\0'); // Mandatory cleanup for key buffer
+ *     Arrays.fill(secret, '\0'); // Mandatory cleanup for secret buffer
  * }
  * }</pre>
  */
 public final class NativeVault {
     private static final Object INTEGRITY_CHECK_LOCK = new Object();
-    static final String INTEGRITY_TEST_KEY = "fr.softsf.vault.integrity.check.key";
+
+    static final String INTEGRITY_TEST_KEY = "key";
 
     /**
      * Returns the integrity test key character array.
      *
      * @return the integrity test key as a character array
      */
-    static char[] getIntegrityTestKeyChar() {
+    static char[] getIntegrityTestKey() {
         return INTEGRITY_TEST_KEY.toCharArray();
     }
 
-    private static final VaultStrategy STRATEGY;
-    private static final AtomicReference<NativeVaultException> INITIALIZATION_EXCEPTION =
-            new AtomicReference<>();
-    private static final boolean VERIFIED;
-
-    static {
-        VaultStrategy strategy = null;
-        boolean verified = false;
-        try {
-            strategy = detect();
-            verified = executeIntegrityCheck(strategy);
-        } catch (NativeVaultException e) {
-            INITIALIZATION_EXCEPTION.set(e);
-        } catch (Exception e) {
-            INITIALIZATION_EXCEPTION.set(
-                    new NativeVaultException("Failed to initialize native vault strategy", e));
-        }
-        STRATEGY = strategy;
-        VERIFIED = verified;
-    }
+    private final VaultStrategy strategy;
+    private final boolean verified;
+    private final NativeVaultException initializationException;
 
     /**
-     * Initializes a new instance of the native vault facade.
+     * Initializes a new instance of the native vault facade with a custom namespace.
      *
+     * @param namespace the isolated namespace character array used as a schema name on Linux or a
+     *     TargetName prefix on Windows/macOS
+     * @throws IllegalArgumentException if {@code namespace} is null or empty
      * @throws NativeVaultException if the strategy integrity check fails
      * @throws UnsupportedOperationException if the operating system is not supported
      * @throws LinkageError if native library loading or linking fails
      */
-    public NativeVault() throws NativeVaultException {
+    public NativeVault(char[] namespace) throws NativeVaultException {
+        if (namespace == null || namespace.length == 0) {
+            throw new IllegalArgumentException("Namespace cannot be null or empty");
+        }
+        VaultStrategy detectedStrategy = null;
+        boolean isVerified = false;
+        NativeVaultException initEx = null;
+        try {
+            detectedStrategy = detect(namespace);
+            isVerified = executeIntegrityCheck(detectedStrategy);
+        } catch (NativeVaultException e) {
+            initEx = e;
+        } catch (Exception e) {
+            initEx = new NativeVaultException("Failed to initialize native vault strategy", e);
+        }
+        this.strategy = detectedStrategy;
+        this.verified = isVerified;
+        this.initializationException = initEx;
         ensureUsable();
     }
 
     /**
      * Detects and returns the appropriate native vault strategy based on the operating system.
      *
+     * @param namespace the isolated namespace character array used as a schema name on Linux or a
+     *     TargetName prefix on Windows/macOS
      * @return the matching vault strategy
+     * @throws IllegalArgumentException if {@code namespace} is null or empty
      * @throws UnsupportedOperationException if the operating system is not supported
      */
-    private static VaultStrategy detect() {
+    private static VaultStrategy detect(char[] namespace) {
+        if (namespace == null || namespace.length == 0) {
+            throw new IllegalArgumentException("Namespace cannot be null or empty");
+        }
         String os = System.getProperty("os.name").toLowerCase(java.util.Locale.ROOT);
         return switch (os) {
-            case String s when s.contains("win") -> new WindowsCredentialManagerStrategy();
-            case String s when s.contains("mac") -> new MacKeychainStrategy();
-            case String s when s.contains("nix") || s.contains("nux") -> new LinuxKeyringStrategy();
+            case String s when s.contains("win") -> new WindowsCredentialManagerStrategy(namespace);
+            case String s when s.contains("mac") -> new MacKeychainStrategy(namespace);
+            case String s when s.contains("nix") || s.contains("nux") ->
+                    new LinuxKeyringStrategy(namespace);
             default ->
                     throw new UnsupportedOperationException("Unsupported operating system: " + os);
         };
@@ -126,7 +153,7 @@ public final class NativeVault {
         if (strategy == null) {
             return false;
         }
-        char[] testKey = getIntegrityTestKeyChar();
+        char[] testKey = getIntegrityTestKey();
         char[] testValue = {'t', 'e', 's', 't'};
         synchronized (INTEGRITY_CHECK_LOCK) {
             try {
@@ -156,12 +183,14 @@ public final class NativeVault {
      *
      * @throws NativeVaultException if the integrity verification failed
      */
-    private static void ensureUsable() throws NativeVaultException {
-        if (!VERIFIED || STRATEGY == null) {
-            NativeVaultException cause = INITIALIZATION_EXCEPTION.get();
+    private void ensureUsable() throws NativeVaultException {
+        if (!verified || strategy == null) {
             String message =
-                    cause != null ? cause.getMessage() : "Integrity verification returned false.";
-            throw new NativeVaultException("Native vault is not usable: " + message, cause);
+                    initializationException != null
+                            ? initializationException.getMessage()
+                            : "Integrity verification returned false.";
+            throw new NativeVaultException(
+                    "Native vault is not usable: " + message, initializationException);
         }
     }
 
@@ -214,7 +243,7 @@ public final class NativeVault {
         }
         ensureUsable();
         try {
-            return STRATEGY.store(key, secret);
+            return strategy.store(key, secret);
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
@@ -262,7 +291,7 @@ public final class NativeVault {
         }
         ensureUsable();
         try {
-            return STRATEGY.retrieve(key);
+            return strategy.retrieve(key);
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
@@ -310,7 +339,7 @@ public final class NativeVault {
         }
         ensureUsable();
         try {
-            return STRATEGY.delete(key);
+            return strategy.delete(key);
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
@@ -358,7 +387,7 @@ public final class NativeVault {
         }
         ensureUsable();
         try {
-            return STRATEGY.exists(key);
+            return strategy.exists(key);
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;

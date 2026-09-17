@@ -41,34 +41,37 @@ Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this li
 Here is sample code showing how to use the vault:
 
 ```java
-// Unique package-prefixed key to avoid OS keychain collisions
-char[] uniqueExampleKey = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.',
-    'm', 'y', 'a', 'p', 'p', '.', 'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};
+// Unique namespace to avoid OS keychain collisions
+char[] namespace = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.',
+    'm', 'y', 'a', 'p', 'p'};
+// The unique key to store
+char[] key = {'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};
 // The secret to store
 char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l',
     '-', 's', 'e', 'c', 'r', 'e', 't'};
 try {
     // Initialize the native vault facade
-    NativeVault vault = new NativeVault();
+    NativeVault vault = new NativeVault(namespace);
     // Upsert action: returns true if successfully stored, false otherwise
-    boolean stored = vault.setSecret(uniqueExampleKey, secret);
+    boolean stored = vault.setSecret(key, secret);
     // Existence action: returns true if the secret exists, false otherwise
-    boolean exists = vault.hasSecret(uniqueExampleKey);
+    boolean exists = vault.hasSecret(key);
     // Read action: returns Optional<char[]>
-    vault.getSecret(uniqueExampleKey).ifPresent(rawSecret -> {
+    vault.getSecret(key).ifPresent(rawSecret -> {
         try {
-        // Process secret...
+            // Process secret...
         } finally {
             Arrays.fill(rawSecret, '\0'); // Mandatory cleanup for secret buffer
         }
     });
     // Deletion action: returns true if successfully removed, false otherwise
-    boolean removed = vault.removeSecret(uniqueExampleKey);
+    boolean removed = vault.removeSecret(key);
 } catch (NativeVaultException | LinkageError e) {
     // Handle initialization or execution failures safely
     System.err.println("Failed to initialize or use native vault: " + e.getMessage());
 } finally {
-    Arrays.fill(uniqueExampleKey, '\0'); // Mandatory cleanup for key buffer
+    Arrays.fill(namespace, '\0'); // Mandatory cleanup for namespace buffer
+    Arrays.fill(key, '\0'); // Mandatory cleanup for key buffer
     Arrays.fill(secret, '\0'); // Mandatory cleanup for secret buffer
 }
 ```

@@ -14,7 +14,6 @@ import java.lang.invoke.MethodHandle;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Optional;
 
 import fr.softsf.vault.exception.NativeVaultException;
@@ -22,7 +21,7 @@ import fr.softsf.vault.internal.CrossPlatformVaultLoader;
 
 /**
  * Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper
- * memory cleanup and error handling.
+ * memory cleanup, safe null-terminated string scanning, and heap memory hygiene.
  *
  * @see <a href="https://gnome.pages.gitlab.gnome.org/libsecret/index.html">Libsecret API
  *     Reference</a>
@@ -45,44 +44,17 @@ public final class LinuxKeyringStrategy extends AbstractVaultStrategy {
                     MemoryLayout.sequenceLayout(32, SECRET_SCHEMA_ATTRIBUTE_LAYOUT)
                             .withName(ATTRIBUTES),
                     MemoryLayout.sequenceLayout(7, ValueLayout.ADDRESS).withName("reserved"));
-    private static final MemorySegment SCHEMA_SEGMENT;
+
+    private final MemorySegment schemaSegment;
+
     private static final MethodHandle STORE_HANDLE;
     private static final MethodHandle LOOKUP_HANDLE;
     private static final MethodHandle CLEAR_HANDLE;
     private static final MethodHandle G_FREE_HANDLE;
-    public static final String KEY_CANNOT_BE_NULL_OR_EMPTY = "Key cannot be null or empty";
-
     public static final String KEY = "key";
 
     static {
         try {
-            Arena arena = Arena.global();
-            MemorySegment nameSegment =
-                    arena.allocateFrom("fr.softsf.vault", StandardCharsets.UTF_8);
-            MemorySegment attrNameSegment = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
-            SCHEMA_SEGMENT = arena.allocate(SECRET_SCHEMA_LAYOUT);
-            SCHEMA_SEGMENT.set(
-                    ValueLayout.ADDRESS,
-                    SECRET_SCHEMA_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("name")),
-                    nameSegment);
-            SCHEMA_SEGMENT.set(
-                    ValueLayout.JAVA_INT,
-                    SECRET_SCHEMA_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("flags")),
-                    0);
-            long attr0Offset =
-                    SECRET_SCHEMA_LAYOUT.byteOffset(
-                            MemoryLayout.PathElement.groupElement(ATTRIBUTES),
-                            MemoryLayout.PathElement.sequenceElement(0));
-            SCHEMA_SEGMENT.set(ValueLayout.ADDRESS, attr0Offset, attrNameSegment);
-            SCHEMA_SEGMENT.set(
-                    ValueLayout.JAVA_INT, attr0Offset + ValueLayout.ADDRESS.byteSize(), 0);
-            long attr1Offset =
-                    SECRET_SCHEMA_LAYOUT.byteOffset(
-                            MemoryLayout.PathElement.groupElement(ATTRIBUTES),
-                            MemoryLayout.PathElement.sequenceElement(1));
-            SCHEMA_SEGMENT.set(ValueLayout.ADDRESS, attr1Offset, MemorySegment.NULL);
-            SCHEMA_SEGMENT.set(
-                    ValueLayout.JAVA_INT, attr1Offset + ValueLayout.ADDRESS.byteSize(), 0);
             STORE_HANDLE =
                     CrossPlatformVaultLoader.loadNativeFunction(
                             LIB_NAME,
@@ -135,36 +107,69 @@ public final class LinuxKeyringStrategy extends AbstractVaultStrategy {
         }
     }
 
-    /** Initializes a new instance of the LinuxKeyringStrategy. */
-    public LinuxKeyringStrategy() {
-        // Stateless implementation; native method handles are loaded statically.
+    /**
+     * Initializes a new instance of the {@code LinuxKeyringStrategy} with a custom namespace.
+     *
+     * @param schemaName the isolated schema name character array used for the Linux keyring
+     * @throws IllegalArgumentException if {@code schemaName} is null or empty
+     */
+    public LinuxKeyringStrategy(char[] schemaName) {
+        if (schemaName == null || schemaName.length == 0) {
+            throw new IllegalArgumentException("Schema name cannot be null or empty");
+        }
+        Arena arena = Arena.ofShared();
+        MemorySegment nameSegment = null;
+        try {
+            nameSegment = allocateSegment(arena, schemaName, StandardCharsets.UTF_8);
+            MemorySegment attrNameSegment = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
+            MemorySegment segment = arena.allocate(SECRET_SCHEMA_LAYOUT);
+            segment.set(
+                    ValueLayout.ADDRESS,
+                    SECRET_SCHEMA_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("name")),
+                    nameSegment);
+            segment.set(
+                    ValueLayout.JAVA_INT,
+                    SECRET_SCHEMA_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("flags")),
+                    0);
+            long attr0Offset =
+                    SECRET_SCHEMA_LAYOUT.byteOffset(
+                            MemoryLayout.PathElement.groupElement(ATTRIBUTES),
+                            MemoryLayout.PathElement.sequenceElement(0));
+            segment.set(ValueLayout.ADDRESS, attr0Offset, attrNameSegment);
+            segment.set(ValueLayout.JAVA_INT, attr0Offset + ValueLayout.ADDRESS.byteSize(), 0);
+            long attr1Offset =
+                    SECRET_SCHEMA_LAYOUT.byteOffset(
+                            MemoryLayout.PathElement.groupElement(ATTRIBUTES),
+                            MemoryLayout.PathElement.sequenceElement(1));
+            segment.set(ValueLayout.ADDRESS, attr1Offset, MemorySegment.NULL);
+            segment.set(ValueLayout.JAVA_INT, attr1Offset + ValueLayout.ADDRESS.byteSize(), 0);
+            this.schemaSegment = segment;
+        } finally {
+            zeroFill(nameSegment);
+        }
     }
 
     @Override
     public boolean store(char[] key, char[] secret) throws NativeVaultException {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
-        }
-        if (secret == null || secret.length == 0) {
-            throw new IllegalArgumentException("Secret cannot be null or empty");
-        }
-        try (Arena arena = Arena.ofConfined()) {
+        validateKey(key);
+        validateSecret(secret);
+        try (Arena confinedArena = Arena.ofConfined()) {
             MemorySegment keySeg = null;
             MemorySegment secretSeg = null;
             MemorySegment nativePassword = null;
             try {
-                keySeg = allocateSegment(arena, key, StandardCharsets.UTF_8);
-                MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
+                keySeg = allocateSegment(confinedArena, key, StandardCharsets.UTF_8);
+                MemorySegment attrKeySeg = confinedArena.allocateFrom(KEY, StandardCharsets.UTF_8);
                 MemorySegment labelSeg =
-                        arena.allocateFrom("NativeVault Secret", StandardCharsets.UTF_8);
-                secretSeg = allocateSegment(arena, secret, StandardCharsets.UTF_8);
+                        confinedArena.allocateFrom("NativeVault Secret", StandardCharsets.UTF_8);
+                secretSeg = allocateSegment(confinedArena, secret, StandardCharsets.UTF_8);
                 long secretBytesSize = secretSeg.byteSize();
-                nativePassword = arena.allocate(secretBytesSize + 1);
+                nativePassword = confinedArena.allocate(secretBytesSize + 1);
                 nativePassword.copyFrom(secretSeg);
                 nativePassword.set(ValueLayout.JAVA_BYTE, secretBytesSize, (byte) 0);
                 return (boolean)
                         STORE_HANDLE.invokeExact(
-                                SCHEMA_SEGMENT,
+                                schemaSegment,
                                 MemorySegment.NULL,
                                 labelSeg,
                                 nativePassword,
@@ -188,20 +193,18 @@ public final class LinuxKeyringStrategy extends AbstractVaultStrategy {
 
     @Override
     public Optional<char[]> retrieve(char[] key) throws NativeVaultException {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
-        }
-        try (Arena arena = Arena.ofConfined()) {
+        validateKey(key);
+        try (Arena confinedArena = Arena.ofConfined()) {
             MemorySegment keySeg = null;
             MemorySegment result = null;
-            byte[] passwordBytes = null;
+            long passwordLength = 0;
             try {
-                keySeg = allocateSegment(arena, key, StandardCharsets.UTF_8);
-                MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
+                keySeg = allocateSegment(confinedArena, key, StandardCharsets.UTF_8);
+                MemorySegment attrKeySeg = confinedArena.allocateFrom(KEY, StandardCharsets.UTF_8);
                 result =
                         (MemorySegment)
                                 LOOKUP_HANDLE.invokeExact(
-                                        SCHEMA_SEGMENT,
+                                        schemaSegment,
                                         MemorySegment.NULL,
                                         MemorySegment.NULL,
                                         attrKeySeg,
@@ -210,23 +213,23 @@ public final class LinuxKeyringStrategy extends AbstractVaultStrategy {
                 if (result == null || result.address() == 0 || result.equals(MemorySegment.NULL)) {
                     return Optional.empty();
                 }
-                MemorySegment boundedResult = result.reinterpret(Long.MAX_VALUE);
-                String password = boundedResult.getString(0, StandardCharsets.UTF_8);
-                passwordBytes = password.getBytes(StandardCharsets.UTF_8);
-                CharBuffer charBuffer =
-                        StandardCharsets.UTF_8.decode(ByteBuffer.wrap(passwordBytes));
+                MemorySegment boundedResult =
+                        result.reinterpret(LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE);
+                while (boundedResult.get(ValueLayout.JAVA_BYTE, passwordLength) != 0) {
+                    passwordLength++;
+                }
+                MemorySegment passwordSegment = boundedResult.asSlice(0, passwordLength);
+                ByteBuffer byteBuffer = passwordSegment.asByteBuffer();
+                CharBuffer charBuffer = StandardCharsets.UTF_8.decode(byteBuffer);
                 char[] chars = new char[charBuffer.remaining()];
                 charBuffer.get(chars);
                 return Optional.of(chars);
             } finally {
                 if (result != null && result.address() != 0 && !result.equals(MemorySegment.NULL)) {
-                    if (passwordBytes != null) {
-                        zeroFill(result.reinterpret(passwordBytes.length));
+                    if (passwordLength > 0) {
+                        zeroFill(result.reinterpret(passwordLength));
                     }
                     G_FREE_HANDLE.invokeExact(result);
-                }
-                if (passwordBytes != null) {
-                    Arrays.fill(passwordBytes, (byte) 0);
                 }
                 zeroFill(keySeg);
             }
@@ -240,17 +243,15 @@ public final class LinuxKeyringStrategy extends AbstractVaultStrategy {
 
     @Override
     public boolean delete(char[] key) throws NativeVaultException {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
-        }
-        try (Arena arena = Arena.ofConfined()) {
+        validateKey(key);
+        try (Arena confinedArena = Arena.ofConfined()) {
             MemorySegment keySeg = null;
             try {
-                keySeg = allocateSegment(arena, key, StandardCharsets.UTF_8);
-                MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
+                keySeg = allocateSegment(confinedArena, key, StandardCharsets.UTF_8);
+                MemorySegment attrKeySeg = confinedArena.allocateFrom(KEY, StandardCharsets.UTF_8);
                 return (boolean)
                         CLEAR_HANDLE.invokeExact(
-                                SCHEMA_SEGMENT,
+                                schemaSegment,
                                 MemorySegment.NULL,
                                 MemorySegment.NULL,
                                 attrKeySeg,
@@ -269,20 +270,18 @@ public final class LinuxKeyringStrategy extends AbstractVaultStrategy {
 
     @Override
     public boolean exists(char[] key) throws NativeVaultException {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
-        }
-        try (Arena arena = Arena.ofConfined()) {
+        validateKey(key);
+        try (Arena confinedArena = Arena.ofConfined()) {
             MemorySegment keySeg = null;
             MemorySegment result = null;
-            byte[] tempBytes = null;
+            long passwordLength = 0;
             try {
-                keySeg = allocateSegment(arena, key, StandardCharsets.UTF_8);
-                MemorySegment attrKeySeg = arena.allocateFrom(KEY, StandardCharsets.UTF_8);
+                keySeg = allocateSegment(confinedArena, key, StandardCharsets.UTF_8);
+                MemorySegment attrKeySeg = confinedArena.allocateFrom(KEY, StandardCharsets.UTF_8);
                 result =
                         (MemorySegment)
                                 LOOKUP_HANDLE.invokeExact(
-                                        SCHEMA_SEGMENT,
+                                        schemaSegment,
                                         MemorySegment.NULL,
                                         MemorySegment.NULL,
                                         attrKeySeg,
@@ -291,19 +290,18 @@ public final class LinuxKeyringStrategy extends AbstractVaultStrategy {
                 if (result == null || result.address() == 0 || result.equals(MemorySegment.NULL)) {
                     return false;
                 }
-                MemorySegment boundedResult = result.reinterpret(Long.MAX_VALUE);
-                String password = boundedResult.getString(0, StandardCharsets.UTF_8);
-                tempBytes = password.getBytes(StandardCharsets.UTF_8);
+                MemorySegment boundedResult =
+                        result.reinterpret(LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE);
+                while (boundedResult.get(ValueLayout.JAVA_BYTE, passwordLength) != 0) {
+                    passwordLength++;
+                }
                 return true;
             } finally {
                 if (result != null && result.address() != 0 && !result.equals(MemorySegment.NULL)) {
-                    if (tempBytes != null) {
-                        zeroFill(result.reinterpret(tempBytes.length));
+                    if (passwordLength > 0) {
+                        zeroFill(result.reinterpret(passwordLength));
                     }
                     G_FREE_HANDLE.invokeExact(result);
-                }
-                if (tempBytes != null) {
-                    Arrays.fill(tempBytes, (byte) 0);
                 }
                 zeroFill(keySeg);
             }

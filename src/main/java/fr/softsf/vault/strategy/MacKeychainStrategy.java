@@ -10,134 +10,129 @@ import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
-import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Optional;
 
+import fr.softsf.vault.exception.NativeVaultException;
 import fr.softsf.vault.internal.CrossPlatformVaultLoader;
 
 /**
  * macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper
- * memory cleanup and error handling.
+ * memory cleanup, namespace isolation, and error handling.
  */
 public final class MacKeychainStrategy extends AbstractVaultStrategy {
     private static final String LIB_PATH =
             "/System/Library/Frameworks/Security.framework/Security"; // NOSONAR
     private static final String CF_LIB_PATH =
             "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"; // NOSONAR
+
     private static final MethodHandle ADD_HANDLE;
     private static final MethodHandle UPDATE_HANDLE;
     private static final MethodHandle COPY_HANDLE;
     private static final MethodHandle DELETE_HANDLE;
     private static final MethodHandle CF_RELEASE_HANDLE;
 
+    private final char[] namespace;
+
     static {
-        ADD_HANDLE =
-                CrossPlatformVaultLoader.loadNativeFunction(
-                        LIB_PATH,
-                        "SecItemAdd",
-                        FunctionDescriptor.of(
-                                ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.ADDRESS));
-        UPDATE_HANDLE =
-                CrossPlatformVaultLoader.loadNativeFunction(
-                        LIB_PATH,
-                        "SecItemUpdate",
-                        FunctionDescriptor.of(
-                                ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.ADDRESS));
-        COPY_HANDLE =
-                CrossPlatformVaultLoader.loadNativeFunction(
-                        LIB_PATH,
-                        "SecItemCopyMatching",
-                        FunctionDescriptor.of(
-                                ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.ADDRESS));
-        DELETE_HANDLE =
-                CrossPlatformVaultLoader.loadNativeFunction(
-                        LIB_PATH,
-                        "SecItemDelete",
-                        FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS));
-        CF_RELEASE_HANDLE =
-                CrossPlatformVaultLoader.loadNativeFunction(
-                        CF_LIB_PATH, "CFRelease", FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
+        try {
+            ADD_HANDLE =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            LIB_PATH,
+                            "SecItemAdd",
+                            FunctionDescriptor.of(
+                                    ValueLayout.JAVA_INT,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.ADDRESS));
+            UPDATE_HANDLE =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            LIB_PATH,
+                            "SecItemUpdate",
+                            FunctionDescriptor.of(
+                                    ValueLayout.JAVA_INT,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.ADDRESS));
+            COPY_HANDLE =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            LIB_PATH,
+                            "SecItemCopyMatching",
+                            FunctionDescriptor.of(
+                                    ValueLayout.JAVA_INT,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.ADDRESS));
+            DELETE_HANDLE =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            LIB_PATH,
+                            "SecItemDelete",
+                            FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS));
+            CF_RELEASE_HANDLE =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            CF_LIB_PATH,
+                            "CFRelease",
+                            FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
+        } catch (Throwable t) { // NOSONAR
+            if (t instanceof Error error) {
+                throw error;
+            }
+            throw new ExceptionInInitializerError(t);
+        }
     }
 
-    /** Initializes a new instance of the MacKeychainStrategy. */
-    public MacKeychainStrategy() {
-        // Stateless implementation; native method handles are loaded statically.
+    /**
+     * Initializes a new instance of the {@code MacKeychainStrategy} with a custom namespace.
+     *
+     * @param namespace the isolated namespace character array used as a prefix for keychain items
+     * @throws IllegalArgumentException if {@code namespace} is null or empty
+     */
+    public MacKeychainStrategy(char[] namespace) {
+        if (namespace == null || namespace.length == 0) {
+            throw new IllegalArgumentException("Namespace cannot be null or empty");
+        }
+        this.namespace = namespace.clone();
     }
 
     @Override
-    public boolean store(char[] key, char[] secret) {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException("Key cannot be null or empty");
-        }
-        if (secret == null || secret.length == 0) {
-            throw new IllegalArgumentException("Secret cannot be null or empty");
-        }
+    public boolean store(char[] key, char[] secret) throws NativeVaultException {
+        validateKey(key);
+        validateSecret(secret);
+        char[] qualifiedKey = null;
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment keySegment = null;
             MemorySegment secretSegment = null;
             try {
-                ByteBuffer keyBuffer = StandardCharsets.UTF_8.encode(CharBuffer.wrap(key));
-                keySegment = arena.allocate(keyBuffer.remaining());
-                keySegment.copyFrom(MemorySegment.ofBuffer(keyBuffer));
-                keyBuffer.position(0);
-                while (keyBuffer.hasRemaining()) {
-                    keyBuffer.put((byte) 0);
-                }
-
-                ByteBuffer secretBuffer = StandardCharsets.UTF_8.encode(CharBuffer.wrap(secret));
-                secretSegment = arena.allocate(secretBuffer.remaining());
-                secretSegment.copyFrom(MemorySegment.ofBuffer(secretBuffer));
-                secretBuffer.position(0);
-                while (secretBuffer.hasRemaining()) {
-                    secretBuffer.put((byte) 0);
-                }
-
+                qualifiedKey = concatNamespaceAndKey(namespace, key);
+                keySegment = allocateSegment(arena, qualifiedKey, StandardCharsets.UTF_8);
+                secretSegment = allocateSegment(arena, secret, StandardCharsets.UTF_8);
                 int status = (int) ADD_HANDLE.invokeExact(keySegment, secretSegment);
-                if (status == -25299) {
+                if (status == -25299) { // errSecDuplicateItem
                     return (int) UPDATE_HANDLE.invokeExact(keySegment, secretSegment) == 0;
                 }
                 return status == 0;
             } finally {
                 zeroFill(secretSegment);
                 zeroFill(keySegment);
+                zeroFill(qualifiedKey);
             }
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
-            return false;
+            throw new NativeVaultException("Failed to store secret in macOS Keychain", t);
         }
     }
 
-    /**
-     * Retrieves a secret associated with the specified key from the keychain.
-     *
-     * @param key the key identifying the secret
-     * @return an Optional containing the secret character array if found, or empty otherwise
-     */
     @Override
-    public Optional<char[]> retrieve(char[] key) {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException("Key cannot be null or empty");
-        }
+    public Optional<char[]> retrieve(char[] key) throws NativeVaultException {
+        validateKey(key);
+        char[] qualifiedKey = null;
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment query = null;
             MemorySegment resultData;
             MemorySegment nativePtr = null;
-            MemorySegment secretCopy = null;
-            byte[] passwordBytes = null;
             try {
-                ByteBuffer byteBuffer = StandardCharsets.UTF_8.encode(CharBuffer.wrap(key));
-                query = arena.allocate(byteBuffer.remaining());
-                query.copyFrom(MemorySegment.ofBuffer(byteBuffer));
-                byteBuffer.position(0);
-                while (byteBuffer.hasRemaining()) {
-                    byteBuffer.put((byte) 0);
-                }
-
+                qualifiedKey = concatNamespaceAndKey(namespace, key);
+                query = allocateSegment(arena, qualifiedKey, StandardCharsets.UTF_8);
                 resultData = arena.allocate(ValueLayout.ADDRESS);
                 int status = (int) COPY_HANDLE.invokeExact(query, resultData);
                 if (status != 0) {
@@ -149,102 +144,81 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                         || nativePtr.equals(MemorySegment.NULL)) {
                     return Optional.empty();
                 }
-                long size =
-                        nativePtr
-                                .reinterpret(Long.MAX_VALUE)
-                                .getString(0, StandardCharsets.UTF_8)
-                                .getBytes(StandardCharsets.UTF_8)
-                                .length;
-                secretCopy = arena.allocate(size);
-                secretCopy.copyFrom(nativePtr.reinterpret(size).asSlice(0, size));
-
-                passwordBytes = new byte[(int) size];
-                secretCopy.asByteBuffer().get(passwordBytes);
-
+                MemorySegment boundedPtr =
+                        nativePtr.reinterpret(MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE);
+                long passwordLength = 0;
+                while (boundedPtr.get(ValueLayout.JAVA_BYTE, passwordLength) != 0) {
+                    passwordLength++;
+                }
+                MemorySegment passwordSegment = boundedPtr.asSlice(0, passwordLength);
                 CharBuffer charBuffer =
-                        StandardCharsets.UTF_8.decode(ByteBuffer.wrap(passwordBytes));
+                        StandardCharsets.UTF_8.decode(passwordSegment.asByteBuffer());
                 char[] chars = new char[charBuffer.remaining()];
                 charBuffer.get(chars);
                 return Optional.of(chars);
             } finally {
-                freeNativePointer(nativePtr, secretCopy);
-                zeroFill(secretCopy);
+                freeNativePointer(nativePtr);
                 zeroFill(query);
-                if (passwordBytes != null) {
-                    Arrays.fill(passwordBytes, (byte) 0);
-                }
+                zeroFill(qualifiedKey);
             }
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
-            return Optional.empty();
+            throw new NativeVaultException("Failed to retrieve secret from macOS Keychain", t);
         }
     }
 
     /**
-     * Releases the native pointer and zero-fills its referenced memory segment.
+     * Releases the native keychain pointer and securely zero-fills its referenced memory segment.
      *
      * @param nativePtr the native pointer to release
-     * @param secretCopy the segment containing the copied secret data
      * @throws Throwable if method handle invocation fails
      */
-    private void freeNativePointer(MemorySegment nativePtr, MemorySegment secretCopy)
-            throws Throwable {
+    private void freeNativePointer(MemorySegment nativePtr) throws Throwable {
         if (nativePtr == null || nativePtr.address() == 0 || nativePtr.equals(MemorySegment.NULL)) {
             return;
         }
-        long size = secretCopy != null ? secretCopy.byteSize() : 0;
-        if (size > 0) {
-            zeroFill(nativePtr.reinterpret(size));
+        try {
+            zeroFill(nativePtr.reinterpret(MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE));
+        } finally {
+            CF_RELEASE_HANDLE.invokeExact(nativePtr);
         }
-        CF_RELEASE_HANDLE.invokeExact(nativePtr);
     }
 
     @Override
-    public boolean delete(char[] key) {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException("Key cannot be null or empty");
-        }
+    public boolean delete(char[] key) throws NativeVaultException {
+        validateKey(key);
+        char[] qualifiedKey = null;
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment keySegment = null;
             try {
-                ByteBuffer byteBuffer = StandardCharsets.UTF_8.encode(CharBuffer.wrap(key));
-                keySegment = arena.allocate(byteBuffer.remaining());
-                keySegment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
-                byteBuffer.position(0);
-                while (byteBuffer.hasRemaining()) {
-                    byteBuffer.put((byte) 0);
-                }
+                qualifiedKey = concatNamespaceAndKey(namespace, key);
+                keySegment = allocateSegment(arena, qualifiedKey, StandardCharsets.UTF_8);
                 return (int) DELETE_HANDLE.invokeExact(keySegment) == 0;
             } finally {
                 zeroFill(keySegment);
+                zeroFill(qualifiedKey);
             }
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
-            return false;
+            throw new NativeVaultException("Failed to delete secret from macOS Keychain", t);
         }
     }
 
     @Override
-    public boolean exists(char[] key) {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException("Key cannot be null or empty");
-        }
+    public boolean exists(char[] key) throws NativeVaultException {
+        validateKey(key);
+        char[] qualifiedKey = null;
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment query = null;
             MemorySegment resultData;
             MemorySegment nativePtr;
             try {
-                ByteBuffer byteBuffer = StandardCharsets.UTF_8.encode(CharBuffer.wrap(key));
-                query = arena.allocate(byteBuffer.remaining());
-                query.copyFrom(MemorySegment.ofBuffer(byteBuffer));
-                byteBuffer.position(0);
-                while (byteBuffer.hasRemaining()) {
-                    byteBuffer.put((byte) 0);
-                }
+                qualifiedKey = concatNamespaceAndKey(namespace, key);
+                query = allocateSegment(arena, qualifiedKey, StandardCharsets.UTF_8);
                 resultData = arena.allocate(ValueLayout.ADDRESS);
                 int status = (int) COPY_HANDLE.invokeExact(query, resultData);
                 if (status == 0) {
@@ -252,28 +226,20 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                     if (nativePtr != null
                             && nativePtr.address() != 0
                             && !nativePtr.equals(MemorySegment.NULL)) {
-                        long size =
-                                nativePtr
-                                        .reinterpret(Long.MAX_VALUE)
-                                        .getString(0, StandardCharsets.UTF_8)
-                                        .getBytes(StandardCharsets.UTF_8)
-                                        .length;
-                        if (size > 0) {
-                            zeroFill(nativePtr.reinterpret(size));
-                        }
-                        CF_RELEASE_HANDLE.invokeExact(nativePtr);
+                        freeNativePointer(nativePtr);
                         return true;
                     }
                 }
                 return false;
             } finally {
                 zeroFill(query);
+                zeroFill(qualifiedKey);
             }
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
-            return false;
+            throw new NativeVaultException("Failed to check secret existence in macOS Keychain", t);
         }
     }
 }

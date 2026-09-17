@@ -27,7 +27,12 @@ class NativeVaultTest {
     /** Sets up the test environment before each test execution. */
     @BeforeEach
     void setUp() throws NativeVaultException {
-        vault = new NativeVault();
+        vault =
+                new NativeVault(
+                        new char[] {
+                            'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.', 'm', 'y', 'a', 'p',
+                            'p'
+                        });
     }
 
     /** Cleans up the test environment after each test execution. */
@@ -55,7 +60,7 @@ class NativeVaultTest {
     @Test
     void givenCharArrayKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved()
             throws NativeVaultException {
-        char[] key = NativeVault.getIntegrityTestKeyChar();
+        char[] key = NativeVault.getIntegrityTestKey();
         char[] secret = new char[] {'s', 'e', 'c', 'r', 'e', 't'};
         try {
             assertTrue(vault.setSecret(key, secret));
@@ -73,7 +78,7 @@ class NativeVaultTest {
     /** Tests behavior when querying a non-existent secret. */
     @Test
     void givenNonExistentKey_whenGetOrHasSecret_thenEmptyOrFalseIsReturned() {
-        char[] key = NativeVault.getIntegrityTestKeyChar();
+        char[] key = NativeVault.getIntegrityTestKey();
         try {
             assertFalse(vault.hasSecret(key));
             Optional<char[]> retrieved = vault.getSecret(key);
@@ -131,5 +136,48 @@ class NativeVaultTest {
         assertThrows(IllegalArgumentException.class, () -> vault.getSecret(emptyArray));
         assertThrows(IllegalArgumentException.class, () -> vault.removeSecret((char[]) null));
         assertThrows(IllegalArgumentException.class, () -> vault.hasSecret(emptyArray));
+    }
+
+    /**
+     * Tests that a key exceeding maximum allowed length throws NativeVaultException encapsulating
+     * IllegalArgumentException.
+     */
+    @Test
+    void givenTooLongKey_whenSetSecret_thenIllegalArgumentExceptionIsThrown() {
+        char[] longKey = new char[257];
+        Arrays.fill(longKey, 'a');
+        try {
+            NativeVaultException ex =
+                    assertThrows(
+                            NativeVaultException.class,
+                            () -> vault.setSecret(longKey, new char[] {'s'}));
+            org.junit.jupiter.api.Assertions.assertInstanceOf(
+                    IllegalArgumentException.class, ex.getCause());
+        } finally {
+            Arrays.fill(longKey, '\0');
+        }
+    }
+
+    /**
+     * Tests that a secret exceeding platform maximum allowed size throws NativeVaultException
+     * encapsulating IllegalArgumentException.
+     */
+    @Test
+    void givenTooLargeSecret_whenSetSecret_thenIllegalArgumentExceptionIsThrown() {
+        char[] normalKey = new char[] {'k', 'e', 'y'};
+        int size = System.getProperty("os.name").toLowerCase().contains("win") ? 3000 : 70000;
+        char[] hugeSecret = new char[size];
+        Arrays.fill(hugeSecret, 's');
+        try {
+            NativeVaultException ex =
+                    assertThrows(
+                            NativeVaultException.class,
+                            () -> vault.setSecret(normalKey, hugeSecret));
+            org.junit.jupiter.api.Assertions.assertInstanceOf(
+                    IllegalArgumentException.class, ex.getCause());
+        } finally {
+            Arrays.fill(normalKey, '\0');
+            Arrays.fill(hugeSecret, '\0');
+        }
     }
 }
