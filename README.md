@@ -54,8 +54,12 @@ try {
     boolean exists = vault.hasSecret(uniqueExampleKey);
     // Read action: returns Optional<char[]>
     vault.getSecret(uniqueExampleKey).ifPresent(retrieved -> {
+        try {
         // Process secret...
-        java.util.Arrays.fill(retrieved, '\0'); // Mandatory memory cleanup
+        } finally {
+            // Mandatory memory cleanup 
+            Arrays.fill(retrieved, '\0'); 
+        }
     });
     // Deletion action: returns true if successfully removed, false otherwise
     boolean removed = vault.removeSecret(uniqueExampleKey);
@@ -63,8 +67,8 @@ try {
     // Handle initialization or execution failures safely
     System.err.println("Failed to initialize or use native vault: " + e.getMessage());
 } finally {
-    java.util.Arrays.fill(uniqueExampleKey, '\0'); // Mandatory cleanup for key buffer
-    java.util.Arrays.fill(secret, '\0'); // Mandatory cleanup for secret buffer
+    Arrays.fill(uniqueExampleKey, '\0'); // Mandatory cleanup for key buffer
+    Arrays.fill(secret, '\0'); // Mandatory cleanup for secret buffer
 }
 ```
 
