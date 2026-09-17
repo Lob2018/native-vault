@@ -12,10 +12,9 @@ import java.lang.foreign.MemoryLayout;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
-import java.nio.ByteBuffer;
+import java.lang.invoke.VarHandle;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Optional;
 
 import fr.softsf.vault.exception.NativeVaultException;
@@ -23,7 +22,7 @@ import fr.softsf.vault.internal.CrossPlatformVaultLoader;
 
 /**
  * Windows Credential Manager implementation of the VaultStrategy interface utilizing the FFM API
- * with proper segment reinterpretation and error handling.
+ * with proper segment reinterpretation, record mapping, and error handling.
  *
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/api/wincred/">Wincred.h Win32 API
  *     Reference</a>
@@ -32,7 +31,6 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
     private static final String LIB_NAME = "Advapi32";
     private static final int CRED_TYPE_GENERIC = 1;
     private static final int CRED_PERSIST_LOCAL_MACHINE = 2;
-
     public static final String CREDENTIAL_BLOB_SIZE = "CredentialBlobSize";
     public static final String CREDENTIAL_BLOB = "CredentialBlob";
     private static final GroupLayout CREDENTIAL_LAYOUT =
@@ -50,6 +48,57 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
                     ValueLayout.ADDRESS.withName("Attributes"),
                     ValueLayout.ADDRESS.withName("TargetAlias"),
                     ValueLayout.ADDRESS.withName("UserName"));
+
+    /** Represents a mapped view of the native Windows CREDENTIAL structure. */
+    private record NativeCredentialRecord(
+            int flags,
+            int type,
+            MemorySegment targetName,
+            int credentialBlobSize,
+            MemorySegment credentialBlob,
+            int persist) {
+
+        private static final VarHandle FLAGS_HANDLE =
+                CREDENTIAL_LAYOUT.varHandle(MemoryLayout.PathElement.groupElement("Flags"));
+        private static final VarHandle TYPE_HANDLE =
+                CREDENTIAL_LAYOUT.varHandle(MemoryLayout.PathElement.groupElement("Type"));
+        private static final VarHandle TARGET_NAME_HANDLE =
+                CREDENTIAL_LAYOUT.varHandle(MemoryLayout.PathElement.groupElement("TargetName"));
+        private static final VarHandle COMMENT_HANDLE =
+                CREDENTIAL_LAYOUT.varHandle(MemoryLayout.PathElement.groupElement("Comment"));
+        private static final VarHandle BLOB_SIZE_HANDLE =
+                CREDENTIAL_LAYOUT.varHandle(
+                        MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB_SIZE));
+        private static final VarHandle BLOB_HANDLE =
+                CREDENTIAL_LAYOUT.varHandle(MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB));
+        private static final VarHandle PERSIST_HANDLE =
+                CREDENTIAL_LAYOUT.varHandle(MemoryLayout.PathElement.groupElement("Persist"));
+        private static final VarHandle ATTRIBUTE_COUNT_HANDLE =
+                CREDENTIAL_LAYOUT.varHandle(
+                        MemoryLayout.PathElement.groupElement("AttributeCount"));
+        private static final VarHandle ATTRIBUTES_HANDLE =
+                CREDENTIAL_LAYOUT.varHandle(MemoryLayout.PathElement.groupElement("Attributes"));
+        private static final VarHandle TARGET_ALIAS_HANDLE =
+                CREDENTIAL_LAYOUT.varHandle(MemoryLayout.PathElement.groupElement("TargetAlias"));
+        private static final VarHandle USER_NAME_HANDLE =
+                CREDENTIAL_LAYOUT.varHandle(MemoryLayout.PathElement.groupElement("UserName"));
+
+        /**
+         * Maps a native memory segment to a NativeCredentialRecord instance.
+         *
+         * @param segment the memory segment representing the native struct
+         * @return the mapped record
+         */
+        public static NativeCredentialRecord fromSegment(MemorySegment segment) {
+            return new NativeCredentialRecord(
+                    (int) FLAGS_HANDLE.get(segment, 0L),
+                    (int) TYPE_HANDLE.get(segment, 0L),
+                    (MemorySegment) TARGET_NAME_HANDLE.get(segment, 0L),
+                    (int) BLOB_SIZE_HANDLE.get(segment, 0L),
+                    (MemorySegment) BLOB_HANDLE.get(segment, 0L),
+                    (int) PERSIST_HANDLE.get(segment, 0L));
+        }
+    }
 
     private static final MethodHandle WRITE_HANDLE;
     private static final MethodHandle READ_HANDLE;
@@ -119,64 +168,28 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
             try {
                 targetNameSegment = allocateSegment(arena, key, StandardCharsets.UTF_16LE);
                 credentialSegment = arena.allocate(CREDENTIAL_LAYOUT);
-                credentialSegment.set(
-                        ValueLayout.JAVA_INT,
-                        CREDENTIAL_LAYOUT.byteOffset(
-                                MemoryLayout.PathElement.groupElement("Flags")),
-                        0);
-                credentialSegment.set(
-                        ValueLayout.JAVA_INT,
-                        CREDENTIAL_LAYOUT.byteOffset(MemoryLayout.PathElement.groupElement("Type")),
-                        CRED_TYPE_GENERIC);
-                credentialSegment.set(
-                        ValueLayout.ADDRESS,
-                        CREDENTIAL_LAYOUT.byteOffset(
-                                MemoryLayout.PathElement.groupElement("TargetName")),
-                        targetNameSegment);
-                credentialSegment.set(
-                        ValueLayout.ADDRESS,
-                        CREDENTIAL_LAYOUT.byteOffset(
-                                MemoryLayout.PathElement.groupElement("Comment")),
-                        MemorySegment.NULL);
+                NativeCredentialRecord.FLAGS_HANDLE.set(credentialSegment, 0L, 0);
+                NativeCredentialRecord.TYPE_HANDLE.set(credentialSegment, 0L, CRED_TYPE_GENERIC);
+                NativeCredentialRecord.TARGET_NAME_HANDLE.set(
+                        credentialSegment, 0L, targetNameSegment);
+                NativeCredentialRecord.COMMENT_HANDLE.set(
+                        credentialSegment, 0L, MemorySegment.NULL);
                 secretSeg = allocateSegment(arena, secret, StandardCharsets.UTF_16LE);
                 long secretBytesSize = secretSeg.byteSize();
                 nativePassword = arena.allocate(secretBytesSize);
                 nativePassword.copyFrom(secretSeg);
-                credentialSegment.set(
-                        ValueLayout.JAVA_INT,
-                        CREDENTIAL_LAYOUT.byteOffset(
-                                MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB_SIZE)),
-                        (int) secretBytesSize);
-                credentialSegment.set(
-                        ValueLayout.ADDRESS,
-                        CREDENTIAL_LAYOUT.byteOffset(
-                                MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB)),
-                        nativePassword);
-                credentialSegment.set(
-                        ValueLayout.JAVA_INT,
-                        CREDENTIAL_LAYOUT.byteOffset(
-                                MemoryLayout.PathElement.groupElement("Persist")),
-                        CRED_PERSIST_LOCAL_MACHINE);
-                credentialSegment.set(
-                        ValueLayout.JAVA_INT,
-                        CREDENTIAL_LAYOUT.byteOffset(
-                                MemoryLayout.PathElement.groupElement("AttributeCount")),
-                        0);
-                credentialSegment.set(
-                        ValueLayout.ADDRESS,
-                        CREDENTIAL_LAYOUT.byteOffset(
-                                MemoryLayout.PathElement.groupElement("Attributes")),
-                        MemorySegment.NULL);
-                credentialSegment.set(
-                        ValueLayout.ADDRESS,
-                        CREDENTIAL_LAYOUT.byteOffset(
-                                MemoryLayout.PathElement.groupElement("TargetAlias")),
-                        MemorySegment.NULL);
-                credentialSegment.set(
-                        ValueLayout.ADDRESS,
-                        CREDENTIAL_LAYOUT.byteOffset(
-                                MemoryLayout.PathElement.groupElement("UserName")),
-                        MemorySegment.NULL);
+                NativeCredentialRecord.BLOB_SIZE_HANDLE.set(
+                        credentialSegment, 0L, (int) secretBytesSize);
+                NativeCredentialRecord.BLOB_HANDLE.set(credentialSegment, 0L, nativePassword);
+                NativeCredentialRecord.PERSIST_HANDLE.set(
+                        credentialSegment, 0L, CRED_PERSIST_LOCAL_MACHINE);
+                NativeCredentialRecord.ATTRIBUTE_COUNT_HANDLE.set(credentialSegment, 0L, 0);
+                NativeCredentialRecord.ATTRIBUTES_HANDLE.set(
+                        credentialSegment, 0L, MemorySegment.NULL);
+                NativeCredentialRecord.TARGET_ALIAS_HANDLE.set(
+                        credentialSegment, 0L, MemorySegment.NULL);
+                NativeCredentialRecord.USER_NAME_HANDLE.set(
+                        credentialSegment, 0L, MemorySegment.NULL);
                 int status = (int) WRITE_HANDLE.invokeExact(credentialSegment, 0);
                 return status != 0;
             } finally {
@@ -201,7 +214,6 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment targetNameSegment = null;
             MemorySegment outCredPtr;
-            byte[] blobBytes = null;
             MemorySegment rawCredPtr = null;
             try {
                 targetNameSegment = allocateSegment(arena, key, StandardCharsets.UTF_16LE);
@@ -220,17 +232,9 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
                     return Optional.empty();
                 }
                 MemorySegment credStruct = rawCredPtr.reinterpret(CREDENTIAL_LAYOUT.byteSize());
-                int blobSize =
-                        credStruct.get(
-                                ValueLayout.JAVA_INT,
-                                CREDENTIAL_LAYOUT.byteOffset(
-                                        MemoryLayout.PathElement.groupElement(
-                                                CREDENTIAL_BLOB_SIZE)));
-                MemorySegment blobPtr =
-                        credStruct.get(
-                                ValueLayout.ADDRESS,
-                                CREDENTIAL_LAYOUT.byteOffset(
-                                        MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB)));
+                NativeCredentialRecord credential = NativeCredentialRecord.fromSegment(credStruct);
+                int blobSize = credential.credentialBlobSize();
+                MemorySegment blobPtr = credential.credentialBlob();
                 if (blobPtr == null
                         || blobPtr.address() == 0
                         || blobPtr.equals(MemorySegment.NULL)
@@ -238,18 +242,13 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
                     return Optional.empty();
                 }
                 MemorySegment boundedBlob = blobPtr.reinterpret(blobSize);
-                blobBytes = new byte[blobSize];
-                MemorySegment.ofArray(blobBytes).copyFrom(boundedBlob);
                 CharBuffer charBuffer =
-                        StandardCharsets.UTF_16LE.decode(ByteBuffer.wrap(blobBytes));
+                        StandardCharsets.UTF_16LE.decode(boundedBlob.asByteBuffer());
                 char[] chars = new char[charBuffer.remaining()];
                 charBuffer.get(chars);
                 return Optional.of(chars);
             } finally {
                 freeCredential(rawCredPtr);
-                if (blobBytes != null) {
-                    Arrays.fill(blobBytes, (byte) 0);
-                }
                 zeroFill(targetNameSegment);
             }
         } catch (Throwable t) {
@@ -274,16 +273,9 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
             return;
         }
         MemorySegment credStruct = rawCredPtr.reinterpret(CREDENTIAL_LAYOUT.byteSize());
-        int blobSize =
-                credStruct.get(
-                        ValueLayout.JAVA_INT,
-                        CREDENTIAL_LAYOUT.byteOffset(
-                                MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB_SIZE)));
-        MemorySegment blobPtr =
-                credStruct.get(
-                        ValueLayout.ADDRESS,
-                        CREDENTIAL_LAYOUT.byteOffset(
-                                MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB)));
+        NativeCredentialRecord credential = NativeCredentialRecord.fromSegment(credStruct);
+        int blobSize = credential.credentialBlobSize();
+        MemorySegment blobPtr = credential.credentialBlob();
         if (blobPtr != null
                 && blobPtr.address() != 0
                 && !blobPtr.equals(MemorySegment.NULL)
@@ -337,36 +329,11 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
                     return false;
                 }
                 rawCredPtr = outCredPtr.get(ValueLayout.ADDRESS, 0);
-                if (rawCredPtr == null
-                        || rawCredPtr.address() == 0
-                        || rawCredPtr.equals(MemorySegment.NULL)) {
-                    return false;
-                }
-                MemorySegment credStruct = rawCredPtr.reinterpret(CREDENTIAL_LAYOUT.byteSize());
-                int blobSize =
-                        credStruct.get(
-                                ValueLayout.JAVA_INT,
-                                CREDENTIAL_LAYOUT.byteOffset(
-                                        MemoryLayout.PathElement.groupElement(
-                                                CREDENTIAL_BLOB_SIZE)));
-                MemorySegment blobPtr =
-                        credStruct.get(
-                                ValueLayout.ADDRESS,
-                                CREDENTIAL_LAYOUT.byteOffset(
-                                        MemoryLayout.PathElement.groupElement(CREDENTIAL_BLOB)));
-                if (blobPtr != null
-                        && blobPtr.address() != 0
-                        && !blobPtr.equals(MemorySegment.NULL)
-                        && blobSize > 0) {
-                    zeroFill(blobPtr.reinterpret(blobSize));
-                }
-                return true;
-            } finally {
-                if (rawCredPtr != null
+                return rawCredPtr != null
                         && rawCredPtr.address() != 0
-                        && !rawCredPtr.equals(MemorySegment.NULL)) {
-                    CRED_FREE_HANDLE.invokeExact(rawCredPtr);
-                }
+                        && !rawCredPtr.equals(MemorySegment.NULL);
+            } finally {
+                freeCredential(rawCredPtr);
                 zeroFill(targetNameSegment);
             }
         } catch (Throwable t) {
