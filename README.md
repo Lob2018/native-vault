@@ -21,14 +21,16 @@ Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this li
 
 | Secret Type / Operation | Windows (Credential Manager)* | Linux (GNOME Keyring / Libsecret)* | macOS (Keychain)* |
 | --- | --- | --- | --- |
-| Key-Value Credentials (`char[]` or `String`) | Yes | Yes | Yes |
+| Key-Value Credentials (`char[]`) | Yes | Yes | Yes |
 
 <i>*Requires an active desktop session.</i>
 
 # How to use this library
 
-> [!WARNING]
-> **Key Collision Risk**: OS keychains lack namespace isolation. Use unique package-prefixed keys (e.g., `fr.softsf.myapp.uniquekey`) to prevent cross-application overwrites.
+> [!CAUTION]
+> OS key stores lack native isolation for cross-application keys:
+> * NativeVault prevents collisions by concatenating the key with the namespace defined at instantiation (e.g., `fr.softsf.myapp.thekey`).
+> * Linux & macOS: NativeVault also uses the namespace as the isolated schema name.
 
 ```xml
 <dependency>
