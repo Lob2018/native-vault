@@ -93,7 +93,9 @@ $(document).ready(function(){initNavTree('classfr_1_1softsf_1_1vault_1_1NativeVa
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pac-static-methods">Static Package Functions</a> &#124;
 <a href="#pac-static-attribs">Static Package Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-static-methods">Static Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classfr_1_1softsf_1_1vault_1_1NativeVault-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">fr.softsf.vault.NativeVault Class Reference</div></div>
@@ -107,74 +109,66 @@ $(document).ready(function(){initNavTree('classfr_1_1softsf_1_1vault_1_1NativeVa
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault__coll__graph.svg" width="242" height="492"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae9eaabb4c71bb7760c4d422b727eaf78" id="r_ae9eaabb4c71bb7760c4d422b727eaf78"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#ae9eaabb4c71bb7760c4d422b727eaf78">NativeVault</a> ()  throws NativeVaultException </td></tr>
-<tr class="memdesc:ae9eaabb4c71bb7760c4d422b727eaf78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the native vault facade.  <br /></td></tr>
-<tr class="separator:ae9eaabb4c71bb7760c4d422b727eaf78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3aaeee51bb93d75ee162fc618f90f682" id="r_a3aaeee51bb93d75ee162fc618f90f682"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a3aaeee51bb93d75ee162fc618f90f682">NativeVault</a> (char[] namespace)  throws NativeVaultException </td></tr>
+<tr class="memdesc:a3aaeee51bb93d75ee162fc618f90f682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the native vault facade with a custom namespace.  <br /></td></tr>
+<tr class="separator:a3aaeee51bb93d75ee162fc618f90f682"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a041d9c30b7e2f6050440240cc952cd55" id="r_a041d9c30b7e2f6050440240cc952cd55"><td class="memItemLeft" align="right" valign="top">Optional&lt; char[]&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a041d9c30b7e2f6050440240cc952cd55">getSecret</a> (char[] key)  throws NativeVaultException </td></tr>
 <tr class="memdesc:a041d9c30b7e2f6050440240cc952cd55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a secret from the native credential store using a character array key.  <br /></td></tr>
 <tr class="separator:a041d9c30b7e2f6050440240cc952cd55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76d43cd1cf9e98e077ca433a55fb15df" id="r_a76d43cd1cf9e98e077ca433a55fb15df"><td class="memItemLeft" align="right" valign="top">Optional&lt; char[]&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a76d43cd1cf9e98e077ca433a55fb15df">getSecret</a> (String key)  throws NativeVaultException </td></tr>
-<tr class="memdesc:a76d43cd1cf9e98e077ca433a55fb15df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a secret from the native credential store using a string key.  <br /></td></tr>
-<tr class="separator:a76d43cd1cf9e98e077ca433a55fb15df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a547e2184985338f831369165fe31ebfc" id="r_a547e2184985338f831369165fe31ebfc"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a547e2184985338f831369165fe31ebfc">hasSecret</a> (char[] key)  throws NativeVaultException </td></tr>
 <tr class="memdesc:a547e2184985338f831369165fe31ebfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a secret exists in the native credential store using a character array key.  <br /></td></tr>
 <tr class="separator:a547e2184985338f831369165fe31ebfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a749f572dec5d3a6f0bf3fffe4566d0e8" id="r_a749f572dec5d3a6f0bf3fffe4566d0e8"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a749f572dec5d3a6f0bf3fffe4566d0e8">hasSecret</a> (String key)  throws NativeVaultException </td></tr>
-<tr class="memdesc:a749f572dec5d3a6f0bf3fffe4566d0e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a secret exists in the native credential store using a string key.  <br /></td></tr>
-<tr class="separator:a749f572dec5d3a6f0bf3fffe4566d0e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46bdeb1670ffe2770f1bb44650767b8d" id="r_a46bdeb1670ffe2770f1bb44650767b8d"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a46bdeb1670ffe2770f1bb44650767b8d">removeSecret</a> (char[] key)  throws NativeVaultException </td></tr>
 <tr class="memdesc:a46bdeb1670ffe2770f1bb44650767b8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes a secret from the native credential store using a character array key.  <br /></td></tr>
 <tr class="separator:a46bdeb1670ffe2770f1bb44650767b8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10f9ce8ca17b9b16473b938999954eb6" id="r_a10f9ce8ca17b9b16473b938999954eb6"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a10f9ce8ca17b9b16473b938999954eb6">removeSecret</a> (String key)  throws NativeVaultException </td></tr>
-<tr class="memdesc:a10f9ce8ca17b9b16473b938999954eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes a secret from the native credential store using a string key.  <br /></td></tr>
-<tr class="separator:a10f9ce8ca17b9b16473b938999954eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8e94d0dcf1d55a0072197025e127972" id="r_ae8e94d0dcf1d55a0072197025e127972"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#ae8e94d0dcf1d55a0072197025e127972">setSecret</a> (char[] key, char[] secret)  throws NativeVaultException </td></tr>
 <tr class="memdesc:ae8e94d0dcf1d55a0072197025e127972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores or updates a secret securely in the native credential store using character array parameters.  <br /></td></tr>
 <tr class="separator:ae8e94d0dcf1d55a0072197025e127972"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a552245265cbad2a517317635ba750f0a" id="r_a552245265cbad2a517317635ba750f0a"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a552245265cbad2a517317635ba750f0a">setSecret</a> (String key, String secret)  throws NativeVaultException </td></tr>
-<tr class="memdesc:a552245265cbad2a517317635ba750f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores or updates a secret securely in the native credential store using string parameters.  <br /></td></tr>
-<tr class="separator:a552245265cbad2a517317635ba750f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pac-static-methods" name="pac-static-methods"></a>
 Static Package Functions</h2></td></tr>
-<tr class="memitem:a9e9b8acbf36c886e50837a370ede64eb" id="r_a9e9b8acbf36c886e50837a370ede64eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a9e9b8acbf36c886e50837a370ede64eb">[static initializer]</a></td></tr>
-<tr class="separator:a9e9b8acbf36c886e50837a370ede64eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac75c10b9d5b77e2145ac637ad1058c97" id="r_ac75c10b9d5b77e2145ac637ad1058c97"><td class="memItemLeft" align="right" valign="top">static char[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#ac75c10b9d5b77e2145ac637ad1058c97">getIntegrityTestKeyChar</a> ()</td></tr>
-<tr class="memdesc:ac75c10b9d5b77e2145ac637ad1058c97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the integrity test key character array.  <br /></td></tr>
-<tr class="separator:ac75c10b9d5b77e2145ac637ad1058c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3cecf7a5e3a06a1e9a6ddcde54ede61" id="r_ab3cecf7a5e3a06a1e9a6ddcde54ede61"><td class="memItemLeft" align="right" valign="top">static char[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#ab3cecf7a5e3a06a1e9a6ddcde54ede61">getIntegrityTestKey</a> ()</td></tr>
+<tr class="memdesc:ab3cecf7a5e3a06a1e9a6ddcde54ede61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the integrity test key character array.  <br /></td></tr>
+<tr class="separator:ab3cecf7a5e3a06a1e9a6ddcde54ede61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pac-static-attribs" name="pac-static-attribs"></a>
 Static Package Attributes</h2></td></tr>
-<tr class="memitem:ab0b42828c66a5d70eb059cbda3bf2309" id="r_ab0b42828c66a5d70eb059cbda3bf2309"><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#ab0b42828c66a5d70eb059cbda3bf2309">INTEGRITY_TEST_KEY</a> = &quot;fr.softsf.vault.integrity.check.key&quot;</td></tr>
+<tr class="memitem:ab0b42828c66a5d70eb059cbda3bf2309" id="r_ab0b42828c66a5d70eb059cbda3bf2309"><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#ab0b42828c66a5d70eb059cbda3bf2309">INTEGRITY_TEST_KEY</a> = &quot;key&quot;</td></tr>
 <tr class="separator:ab0b42828c66a5d70eb059cbda3bf2309"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a70a09e700fc761b5fb476840b7c85874" id="r_a70a09e700fc761b5fb476840b7c85874"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a70a09e700fc761b5fb476840b7c85874">ensureUsable</a> ()  throws NativeVaultException </td></tr>
+<tr class="memdesc:a70a09e700fc761b5fb476840b7c85874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensures that a strategy is available before performing operations.  <br /></td></tr>
+<tr class="separator:a70a09e700fc761b5fb476840b7c85874"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a7f279220e80865282d1f61ad8409dc6b" id="r_a7f279220e80865282d1f61ad8409dc6b"><td class="memItemLeft" align="right" valign="top">static VaultStrategy&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a7f279220e80865282d1f61ad8409dc6b">detect</a> ()</td></tr>
-<tr class="memdesc:a7f279220e80865282d1f61ad8409dc6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects and returns the appropriate native vault strategy based on the operating system.  <br /></td></tr>
-<tr class="separator:a7f279220e80865282d1f61ad8409dc6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90c802cfe36372acf18721597e6a9705" id="r_a90c802cfe36372acf18721597e6a9705"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705">ensureUsable</a> ()  throws NativeVaultException </td></tr>
-<tr class="memdesc:a90c802cfe36372acf18721597e6a9705"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensures that a strategy is available before performing operations.  <br /></td></tr>
-<tr class="separator:a90c802cfe36372acf18721597e6a9705"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1129581ab9d0c26021bf92f3eb1d0d9a" id="r_a1129581ab9d0c26021bf92f3eb1d0d9a"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a1129581ab9d0c26021bf92f3eb1d0d9a">executeIntegrityCheck</a> (VaultStrategy strategy)  throws NativeVaultException </td></tr>
+<tr class="memitem:ae902c95d7531746e89eaf4f53427c2d3" id="r_ae902c95d7531746e89eaf4f53427c2d3"><td class="memItemLeft" align="right" valign="top">static VaultStrategy&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#ae902c95d7531746e89eaf4f53427c2d3">detect</a> (char[] namespace)</td></tr>
+<tr class="memdesc:ae902c95d7531746e89eaf4f53427c2d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects and returns the appropriate native vault strategy based on the operating system.  <br /></td></tr>
+<tr class="separator:ae902c95d7531746e89eaf4f53427c2d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1129581ab9d0c26021bf92f3eb1d0d9a" id="r_a1129581ab9d0c26021bf92f3eb1d0d9a"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a1129581ab9d0c26021bf92f3eb1d0d9a">executeIntegrityCheck</a> (VaultStrategy <a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#ada89d743d3882ee2a286e8e886884dc6">strategy</a>)  throws NativeVaultException </td></tr>
 <tr class="memdesc:a1129581ab9d0c26021bf92f3eb1d0d9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the native vault integrity check sequence within a synchronized block to prevent race conditions on the shared test key.  <br /></td></tr>
 <tr class="separator:a1129581ab9d0c26021bf92f3eb1d0d9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a6a777500d6b0d6a653673dee6838a4f7" id="r_a6a777500d6b0d6a653673dee6838a4f7"><td class="memItemLeft" align="right" valign="top">final NativeVaultException&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a6a777500d6b0d6a653673dee6838a4f7">initializationException</a></td></tr>
+<tr class="separator:a6a777500d6b0d6a653673dee6838a4f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada89d743d3882ee2a286e8e886884dc6" id="r_ada89d743d3882ee2a286e8e886884dc6"><td class="memItemLeft" align="right" valign="top">final VaultStrategy&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#ada89d743d3882ee2a286e8e886884dc6">strategy</a></td></tr>
+<tr class="separator:ada89d743d3882ee2a286e8e886884dc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5666796175b24c6f6560919645b6382f" id="r_a5666796175b24c6f6560919645b6382f"><td class="memItemLeft" align="right" valign="top">final boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a5666796175b24c6f6560919645b6382f">verified</a></td></tr>
+<tr class="separator:a5666796175b24c6f6560919645b6382f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
-<tr class="memitem:a3ece176049ba1531107ed08299d02df3" id="r_a3ece176049ba1531107ed08299d02df3"><td class="memItemLeft" align="right" valign="top">static final AtomicReference&lt; NativeVaultException &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a3ece176049ba1531107ed08299d02df3">INITIALIZATION_EXCEPTION</a></td></tr>
-<tr class="separator:a3ece176049ba1531107ed08299d02df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17bbf96880b381233670cb07129bd322" id="r_a17bbf96880b381233670cb07129bd322"><td class="memItemLeft" align="right" valign="top">static final Object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a17bbf96880b381233670cb07129bd322">INTEGRITY_CHECK_LOCK</a> = new Object()</td></tr>
 <tr class="separator:a17bbf96880b381233670cb07129bd322"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f43944943b29e04a02ffee7f4ab34da" id="r_a0f43944943b29e04a02ffee7f4ab34da"><td class="memItemLeft" align="right" valign="top">static final VaultStrategy&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a0f43944943b29e04a02ffee7f4ab34da">STRATEGY</a></td></tr>
-<tr class="separator:a0f43944943b29e04a02ffee7f4ab34da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf020314e19a8c6f61cadb48623515d1" id="r_acf020314e19a8c6f61cadb48623515d1"><td class="memItemLeft" align="right" valign="top">static final boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#acf020314e19a8c6f61cadb48623515d1">VERIFIED</a></td></tr>
-<tr class="separator:acf020314e19a8c6f61cadb48623515d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Zero-JNI/JNA facade class managing native credential operations via the Project Panama Foreign Function &amp; Memory (FFM) API. </p>
@@ -183,25 +177,42 @@ Static Private Attributes</h2></td></tr>
 <p>Interactions must be wrapped in a corresponding <b>catch (NativeVaultException | LinkageError)</b> block to safely handle native linkage initialization and execution errors.</p>
 <p><b>Usage Example:</b></p>
 <pre><code class="JavaDocCode"><br/>
-char[] uniqueExampleKey = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.', 'm', 'y', 'a', 'p', 'p', '.', 'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};<br/>
-char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l', '-', 's', 'e', 'c', 'r', 'e', 't'};<br/>
+// Unique namespace to avoid OS keychain collisions<br/>
+char[] namespace = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.',<br/>
+    'm', 'y', 'a', 'p', 'p'};<br/>
+// The unique key to store<br/>
+char[] key = {'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};<br/>
+// The secret to store<br/>
+char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l',<br/>
+    '-', 's', 'e', 'c', 'r', 'e', 't'};<br/>
 try {<br/>
-    NativeVault vault = new NativeVault();<br/>
-    boolean stored = vault.setSecret(uniqueExampleKey, secret);<br/>
-    boolean exists = vault.hasSecret(uniqueExampleKey);<br/>
-    vault.getSecret(uniqueExampleKey).ifPresent(retrieved -&gt; {<br/>
-        java.util.Arrays.fill(retrieved, '\0');<br/>
+    // Initialize the native vault facade<br/>
+    NativeVault vault = new NativeVault(namespace);<br/>
+    // Upsert action: returns true if successfully stored, false otherwise<br/>
+    boolean stored = vault.setSecret(key, secret);<br/>
+    // Existence action: returns true if the secret exists, false otherwise<br/>
+    boolean exists = vault.hasSecret(key);<br/>
+    // Read action: returns Optional&lt;char[]&gt;<br/>
+    vault.getSecret(key).ifPresent(rawSecret -&gt; {<br/>
+        try {<br/>
+            // Process secret...<br/>
+        } finally {<br/>
+            Arrays.fill(rawSecret, '\0'); // Mandatory cleanup for secret buffer<br/>
+        }<br/>
     });<br/>
-    boolean removed = vault.removeSecret(uniqueExampleKey);<br/>
+    // Deletion action: returns true if successfully removed, false otherwise<br/>
+    boolean removed = vault.removeSecret(key);<br/>
 } catch (NativeVaultException | LinkageError e) {<br/>
+    // Handle initialization or execution failures safely<br/>
     System.err.println("Failed to initialize or use native vault: " + e.getMessage());<br/>
 } finally {<br/>
-    java.util.Arrays.fill(uniqueExampleKey, '\0');<br/>
-    java.util.Arrays.fill(secret, '\0');<br/>
+    Arrays.fill(namespace, '\0'); // Mandatory cleanup for namespace buffer<br/>
+    Arrays.fill(key, '\0'); // Mandatory cleanup for key buffer<br/>
+    Arrays.fill(secret, '\0'); // Mandatory cleanup for secret buffer<br/>
 }<br/>
 </code></pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae9eaabb4c71bb7760c4d422b727eaf78" name="ae9eaabb4c71bb7760c4d422b727eaf78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9eaabb4c71bb7760c4d422b727eaf78">&#9670;&#160;</a></span>NativeVault()</h2>
+<a id="a3aaeee51bb93d75ee162fc618f90f682" name="a3aaeee51bb93d75ee162fc618f90f682"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aaeee51bb93d75ee162fc618f90f682">&#9670;&#160;</a></span>NativeVault()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,15 +220,23 @@ try {<br/>
         <tr>
           <td class="memname">fr.softsf.vault.NativeVault.NativeVault </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">char[]&#160;</td>
+          <td class="paramname"><em>namespace</em></td><td>)</td>
           <td> throws NativeVaultException</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes a new instance of the native vault facade. </p>
+<p>Initializes a new instance of the native vault facade with a custom namespace. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">namespace</td><td>the isolated namespace character array used as a schema name on Linux or a TargetName prefix on Windows/macOS </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
+    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">namespace</code> is null or empty </td></tr>
     <tr><td class="paramname">NativeVaultException</td><td>if the strategy integrity check fails </td></tr>
     <tr><td class="paramname">UnsupportedOperationException</td><td>if the operating system is not supported </td></tr>
     <tr><td class="paramname">LinkageError</td><td>if native library loading or linking fails </td></tr>
@@ -229,43 +248,14 @@ try {<br/>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_ae9eaabb4c71bb7760c4d422b727eaf78_cgraph.svg" width="484" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_a3aaeee51bb93d75ee162fc618f90f682_cgraph.svg" width="100%" height="424"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9e9b8acbf36c886e50837a370ede64eb" name="a9e9b8acbf36c886e50837a370ede64eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e9b8acbf36c886e50837a370ede64eb">&#9670;&#160;</a></span>[static initializer]()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">fr.softsf.vault.NativeVault.[static initializer]</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">package</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_a9e9b8acbf36c886e50837a370ede64eb_cgraph.svg" width="100%" height="376"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
-</div>
-
-</div>
-</div>
-<a id="a7f279220e80865282d1f61ad8409dc6b" name="a7f279220e80865282d1f61ad8409dc6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f279220e80865282d1f61ad8409dc6b">&#9670;&#160;</a></span>detect()</h2>
+<a id="ae902c95d7531746e89eaf4f53427c2d3" name="ae902c95d7531746e89eaf4f53427c2d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae902c95d7531746e89eaf4f53427c2d3">&#9670;&#160;</a></span>detect()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -276,7 +266,8 @@ try {<br/>
         <tr>
           <td class="memname">static VaultStrategy fr.softsf.vault.NativeVault.detect </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">char[]&#160;</td>
+          <td class="paramname"><em>namespace</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -288,9 +279,16 @@ try {<br/>
 </div><div class="memdoc">
 
 <p>Detects and returns the appropriate native vault strategy based on the operating system. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">namespace</td><td>the isolated namespace character array used as a schema name on Linux or a TargetName prefix on Windows/macOS </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>the matching vault strategy </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
+    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">namespace</code> is null or empty </td></tr>
     <tr><td class="paramname">UnsupportedOperationException</td><td>if the operating system is not supported </td></tr>
   </table>
   </dd>
@@ -298,8 +296,8 @@ try {<br/>
 
 </div>
 </div>
-<a id="a90c802cfe36372acf18721597e6a9705" name="a90c802cfe36372acf18721597e6a9705"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90c802cfe36372acf18721597e6a9705">&#9670;&#160;</a></span>ensureUsable()</h2>
+<a id="a70a09e700fc761b5fb476840b7c85874" name="a70a09e700fc761b5fb476840b7c85874"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70a09e700fc761b5fb476840b7c85874">&#9670;&#160;</a></span>ensureUsable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,7 +306,7 @@ try {<br/>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void fr.softsf.vault.NativeVault.ensureUsable </td>
+          <td class="memname">void fr.softsf.vault.NativeVault.ensureUsable </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> throws NativeVaultException</td>
@@ -316,7 +314,7 @@ try {<br/>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -369,18 +367,18 @@ try {<br/>
   </table>
   </dd>
 </dl>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_a1129581ab9d0c26021bf92f3eb1d0d9a_cgraph.svg" width="514" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="ac75c10b9d5b77e2145ac637ad1058c97" name="ac75c10b9d5b77e2145ac637ad1058c97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac75c10b9d5b77e2145ac637ad1058c97">&#9670;&#160;</a></span>getIntegrityTestKeyChar()</h2>
+<a id="ab3cecf7a5e3a06a1e9a6ddcde54ede61" name="ab3cecf7a5e3a06a1e9a6ddcde54ede61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3cecf7a5e3a06a1e9a6ddcde54ede61">&#9670;&#160;</a></span>getIntegrityTestKey()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -389,7 +387,7 @@ try {<br/>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static char[] fr.softsf.vault.NativeVault.getIntegrityTestKeyChar </td>
+          <td class="memname">static char[] fr.softsf.vault.NativeVault.getIntegrityTestKey </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -408,7 +406,7 @@ try {<br/>
 </div>
 </div>
 <a id="a041d9c30b7e2f6050440240cc952cd55" name="a041d9c30b7e2f6050440240cc952cd55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a041d9c30b7e2f6050440240cc952cd55">&#9670;&#160;</a></span>getSecret() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a041d9c30b7e2f6050440240cc952cd55">&#9670;&#160;</a></span>getSecret()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -438,59 +436,18 @@ try {<br/>
   </table>
   </dd>
 </dl>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_a041d9c30b7e2f6050440240cc952cd55_cgraph.svg" width="506" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="a76d43cd1cf9e98e077ca433a55fb15df" name="a76d43cd1cf9e98e077ca433a55fb15df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76d43cd1cf9e98e077ca433a55fb15df">&#9670;&#160;</a></span>getSecret() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Optional&lt; char[]&gt; fr.softsf.vault.NativeVault.getSecret </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td> throws NativeVaultException</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieves a secret from the native credential store using a string key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>the credential identifier </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>an optional containing the secret character array if found </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">key</code> is blank </td></tr>
-    <tr><td class="paramname">NativeVaultException</td><td>if an error occurs while retrieving the secret </td></tr>
-  </table>
-  </dd>
-</dl>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_a76d43cd1cf9e98e077ca433a55fb15df_cgraph.svg" width="506" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
 <a id="a547e2184985338f831369165fe31ebfc" name="a547e2184985338f831369165fe31ebfc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a547e2184985338f831369165fe31ebfc">&#9670;&#160;</a></span>hasSecret() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a547e2184985338f831369165fe31ebfc">&#9670;&#160;</a></span>hasSecret()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -520,59 +477,18 @@ try {<br/>
   </table>
   </dd>
 </dl>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_a547e2184985338f831369165fe31ebfc_cgraph.svg" width="508" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="a749f572dec5d3a6f0bf3fffe4566d0e8" name="a749f572dec5d3a6f0bf3fffe4566d0e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a749f572dec5d3a6f0bf3fffe4566d0e8">&#9670;&#160;</a></span>hasSecret() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">boolean fr.softsf.vault.NativeVault.hasSecret </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td> throws NativeVaultException</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks if a secret exists in the native credential store using a string key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>the credential identifier </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the secret exists, false otherwise </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">key</code> is blank </td></tr>
-    <tr><td class="paramname">NativeVaultException</td><td>if an error occurs while checking existence </td></tr>
-  </table>
-  </dd>
-</dl>
-<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_a749f572dec5d3a6f0bf3fffe4566d0e8_cgraph.svg" width="508" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
 <a id="a46bdeb1670ffe2770f1bb44650767b8d" name="a46bdeb1670ffe2770f1bb44650767b8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46bdeb1670ffe2770f1bb44650767b8d">&#9670;&#160;</a></span>removeSecret() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a46bdeb1670ffe2770f1bb44650767b8d">&#9670;&#160;</a></span>removeSecret()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -602,59 +518,18 @@ try {<br/>
   </table>
   </dd>
 </dl>
-<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_a46bdeb1670ffe2770f1bb44650767b8d_cgraph.svg" width="535" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="a10f9ce8ca17b9b16473b938999954eb6" name="a10f9ce8ca17b9b16473b938999954eb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10f9ce8ca17b9b16473b938999954eb6">&#9670;&#160;</a></span>removeSecret() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">boolean fr.softsf.vault.NativeVault.removeSecret </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td> throws NativeVaultException</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Deletes a secret from the native credential store using a string key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>the credential identifier </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the secret was successfully removed, false otherwise </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">key</code> is blank </td></tr>
-    <tr><td class="paramname">NativeVaultException</td><td>if an error occurs while removing the secret </td></tr>
-  </table>
-  </dd>
-</dl>
-<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-9-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_a10f9ce8ca17b9b16473b938999954eb6_cgraph.svg" width="535" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
 <a id="ae8e94d0dcf1d55a0072197025e127972" name="ae8e94d0dcf1d55a0072197025e127972"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8e94d0dcf1d55a0072197025e127972">&#9670;&#160;</a></span>setSecret() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8e94d0dcf1d55a0072197025e127972">&#9670;&#160;</a></span>setSecret()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -696,72 +571,19 @@ try {<br/>
   </table>
   </dd>
 </dl>
-<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_ae8e94d0dcf1d55a0072197025e127972_cgraph.svg" width="504" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="a552245265cbad2a517317635ba750f0a" name="a552245265cbad2a517317635ba750f0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a552245265cbad2a517317635ba750f0a">&#9670;&#160;</a></span>setSecret() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">boolean fr.softsf.vault.NativeVault.setSecret </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>secret</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> throws NativeVaultException</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Stores or updates a secret securely in the native credential store using string parameters. </p>
-<p>This operation acts as an upsert: if the key already exists, its value is overwritten.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>the credential identifier </td></tr>
-    <tr><td class="paramname">secret</td><td>the secret value to store </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the secret was successfully stored, false otherwise </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">key</code> or <code class="JavaDocCode">secret</code> is blank </td></tr>
-    <tr><td class="paramname">NativeVaultException</td><td>if an error occurs while storing the secret </td></tr>
-  </table>
-  </dd>
-</dl>
-<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVault_a552245265cbad2a517317635ba750f0a_cgraph.svg" width="504" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a3ece176049ba1531107ed08299d02df3" name="a3ece176049ba1531107ed08299d02df3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ece176049ba1531107ed08299d02df3">&#9670;&#160;</a></span>INITIALIZATION_EXCEPTION</h2>
+<a id="a6a777500d6b0d6a653673dee6838a4f7" name="a6a777500d6b0d6a653673dee6838a4f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a777500d6b0d6a653673dee6838a4f7">&#9670;&#160;</a></span>initializationException</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -770,18 +592,16 @@ try {<br/>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final AtomicReference&lt;NativeVaultException&gt; fr.softsf.vault.NativeVault.INITIALIZATION_EXCEPTION</td>
+          <td class="memname">final NativeVaultException fr.softsf.vault.NativeVault.initializationException</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">            <span class="keyword">new</span> AtomicReference&lt;&gt;()</div>
-</div><!-- fragment -->
+
 </div>
 </div>
 <a id="a17bbf96880b381233670cb07129bd322" name="a17bbf96880b381233670cb07129bd322"></a>
@@ -816,7 +636,7 @@ try {<br/>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final String fr.softsf.vault.NativeVault.INTEGRITY_TEST_KEY = &quot;fr.softsf.vault.integrity.check.key&quot;</td>
+          <td class="memname">final String fr.softsf.vault.NativeVault.INTEGRITY_TEST_KEY = &quot;key&quot;</td>
         </tr>
       </table>
   </td>
@@ -828,8 +648,8 @@ try {<br/>
 
 </div>
 </div>
-<a id="a0f43944943b29e04a02ffee7f4ab34da" name="a0f43944943b29e04a02ffee7f4ab34da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f43944943b29e04a02ffee7f4ab34da">&#9670;&#160;</a></span>STRATEGY</h2>
+<a id="ada89d743d3882ee2a286e8e886884dc6" name="ada89d743d3882ee2a286e8e886884dc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada89d743d3882ee2a286e8e886884dc6">&#9670;&#160;</a></span>strategy</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -838,20 +658,20 @@ try {<br/>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final VaultStrategy fr.softsf.vault.NativeVault.STRATEGY</td>
+          <td class="memname">final VaultStrategy fr.softsf.vault.NativeVault.strategy</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="acf020314e19a8c6f61cadb48623515d1" name="acf020314e19a8c6f61cadb48623515d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf020314e19a8c6f61cadb48623515d1">&#9670;&#160;</a></span>VERIFIED</h2>
+<a id="a5666796175b24c6f6560919645b6382f" name="a5666796175b24c6f6560919645b6382f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5666796175b24c6f6560919645b6382f">&#9670;&#160;</a></span>verified</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -860,12 +680,12 @@ try {<br/>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final boolean fr.softsf.vault.NativeVault.VERIFIED</td>
+          <td class="memname">final boolean fr.softsf.vault.NativeVault.verified</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -881,7 +701,7 @@ try {<br/>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>fr</b></li><li class="navelem"><b>softsf</b></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault.html">vault</a></li><li class="navelem"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVault.html">NativeVault</a></li>
-    <li class="footer">Generated on Wed Sep 16 2026 20:14:07 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Thu Sep 17 2026 20:50:24 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

@@ -93,13 +93,14 @@ $(document).ready(function(){initNavTree('classfr_1_1softsf_1_1vault_1_1strategy
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pac-static-methods">Static Package Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">fr.softsf.vault.strategy.MacKeychainStrategy Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper memory cleanup and error handling.  
+<p>macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper memory cleanup, namespace isolation, and error handling.  
  <a href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#details">More...</a></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for fr.softsf.vault.strategy.MacKeychainStrategy:</div>
@@ -118,29 +119,29 @@ $(document).ready(function(){initNavTree('classfr_1_1softsf_1_1vault_1_1strategy
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7beac9668d0e7bf7156a55613cae8153" id="r_a7beac9668d0e7bf7156a55613cae8153"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a7beac9668d0e7bf7156a55613cae8153">MacKeychainStrategy</a> ()</td></tr>
-<tr class="memdesc:a7beac9668d0e7bf7156a55613cae8153"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the MacKeychainStrategy.  <br /></td></tr>
-<tr class="separator:a7beac9668d0e7bf7156a55613cae8153"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1989bdc67eaa88e3ed723823acda43b1" id="r_a1989bdc67eaa88e3ed723823acda43b1"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a1989bdc67eaa88e3ed723823acda43b1">delete</a> (char[] key)</td></tr>
+<tr class="memitem:ad6300fc42ce5563a4630a35fd8029e13" id="r_ad6300fc42ce5563a4630a35fd8029e13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ad6300fc42ce5563a4630a35fd8029e13">MacKeychainStrategy</a> (char[] <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ad02c2feb4a29eabeab9f09b2edb709f6">namespace</a>)</td></tr>
+<tr class="memdesc:ad6300fc42ce5563a4630a35fd8029e13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <code class="JavaDocCode">MacKeychainStrategy</code> with a custom namespace.  <br /></td></tr>
+<tr class="separator:ad6300fc42ce5563a4630a35fd8029e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1989bdc67eaa88e3ed723823acda43b1" id="r_a1989bdc67eaa88e3ed723823acda43b1"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a1989bdc67eaa88e3ed723823acda43b1">delete</a> (char[] key)  throws NativeVaultException </td></tr>
 <tr class="memdesc:a1989bdc67eaa88e3ed723823acda43b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes a secret from the native credential store.  <br /></td></tr>
 <tr class="separator:a1989bdc67eaa88e3ed723823acda43b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7618d1ebe3f750802260f25d9a598cd6" id="r_a7618d1ebe3f750802260f25d9a598cd6"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a7618d1ebe3f750802260f25d9a598cd6">exists</a> (char[] key)</td></tr>
+<tr class="memitem:a7618d1ebe3f750802260f25d9a598cd6" id="r_a7618d1ebe3f750802260f25d9a598cd6"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a7618d1ebe3f750802260f25d9a598cd6">exists</a> (char[] key)  throws NativeVaultException </td></tr>
 <tr class="memdesc:a7618d1ebe3f750802260f25d9a598cd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a secret exists in the native credential store.  <br /></td></tr>
 <tr class="separator:a7618d1ebe3f750802260f25d9a598cd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf628ba9a0ca04954bbec04699fa7895" id="r_adf628ba9a0ca04954bbec04699fa7895"><td class="memItemLeft" align="right" valign="top">Optional&lt; char[]&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#adf628ba9a0ca04954bbec04699fa7895">retrieve</a> (char[] key)</td></tr>
-<tr class="memdesc:adf628ba9a0ca04954bbec04699fa7895"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a secret associated with the specified key from the keychain.  <br /></td></tr>
+<tr class="memitem:adf628ba9a0ca04954bbec04699fa7895" id="r_adf628ba9a0ca04954bbec04699fa7895"><td class="memItemLeft" align="right" valign="top">Optional&lt; char[]&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#adf628ba9a0ca04954bbec04699fa7895">retrieve</a> (char[] key)  throws NativeVaultException </td></tr>
+<tr class="memdesc:adf628ba9a0ca04954bbec04699fa7895"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a secret from the native credential store.  <br /></td></tr>
 <tr class="separator:adf628ba9a0ca04954bbec04699fa7895"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc566c61a21820c55f139965e9a5faf8" id="r_adc566c61a21820c55f139965e9a5faf8"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#adc566c61a21820c55f139965e9a5faf8">store</a> (char[] key, char[] secret)</td></tr>
+<tr class="memitem:adc566c61a21820c55f139965e9a5faf8" id="r_adc566c61a21820c55f139965e9a5faf8"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#adc566c61a21820c55f139965e9a5faf8">store</a> (char[] key, char[] secret)  throws NativeVaultException </td></tr>
 <tr class="memdesc:adc566c61a21820c55f139965e9a5faf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores a secret in the native credential store.  <br /></td></tr>
 <tr class="separator:adc566c61a21820c55f139965e9a5faf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html">fr.softsf.vault.strategy.LinuxKeyringStrategy</a></td></tr>
-<tr class="memitem:a1192a44ce643435d03a51546923b0db8 inherit pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy" id="r_a1192a44ce643435d03a51546923b0db8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a1192a44ce643435d03a51546923b0db8">LinuxKeyringStrategy</a> ()</td></tr>
-<tr class="memdesc:a1192a44ce643435d03a51546923b0db8 inherit pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the LinuxKeyringStrategy.  <br /></td></tr>
-<tr class="separator:a1192a44ce643435d03a51546923b0db8 inherit pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1e1b9a7c246bff1469f472dfff24963 inherit pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy" id="r_ab1e1b9a7c246bff1469f472dfff24963"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#ab1e1b9a7c246bff1469f472dfff24963">LinuxKeyringStrategy</a> (char[] schemaName)</td></tr>
+<tr class="memdesc:ab1e1b9a7c246bff1469f472dfff24963 inherit pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <code class="JavaDocCode">LinuxKeyringStrategy</code> with a custom namespace.  <br /></td></tr>
+<tr class="separator:ab1e1b9a7c246bff1469f472dfff24963 inherit pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html">fr.softsf.vault.strategy.WindowsCredentialManagerStrategy</a></td></tr>
-<tr class="memitem:afddd2a571845476d29187abf5746f47d inherit pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" id="r_afddd2a571845476d29187abf5746f47d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#afddd2a571845476d29187abf5746f47d">WindowsCredentialManagerStrategy</a> ()</td></tr>
-<tr class="memdesc:afddd2a571845476d29187abf5746f47d inherit pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the WindowsCredentialManagerStrategy.  <br /></td></tr>
-<tr class="separator:afddd2a571845476d29187abf5746f47d inherit pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8c789c09a44fcd6f11803ed89c288be inherit pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" id="r_ad8c789c09a44fcd6f11803ed89c288be"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ad8c789c09a44fcd6f11803ed89c288be">WindowsCredentialManagerStrategy</a> (char[] <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a630e394e2f9a269565765c124e2eae08">namespace</a>)</td></tr>
+<tr class="memdesc:ad8c789c09a44fcd6f11803ed89c288be inherit pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <code class="JavaDocCode">WindowsCredentialManagerStrategy</code> with a custom namespace.  <br /></td></tr>
+<tr class="separator:ad8c789c09a44fcd6f11803ed89c288be inherit pub_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pac-static-methods" name="pac-static-methods"></a>
 Static Package Functions</h2></td></tr>
@@ -149,9 +150,14 @@ Static Package Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a12127078f04125b5a1662c63547f6ece" id="r_a12127078f04125b5a1662c63547f6ece"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a12127078f04125b5a1662c63547f6ece">freeNativePointer</a> (MemorySegment nativePtr, MemorySegment secretCopy)  throws Throwable </td></tr>
-<tr class="memdesc:a12127078f04125b5a1662c63547f6ece"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the native pointer and zero-fills its referenced memory segment.  <br /></td></tr>
-<tr class="separator:a12127078f04125b5a1662c63547f6ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a12b01acca31352e55cc6a56f7f90f4" id="r_a5a12b01acca31352e55cc6a56f7f90f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a5a12b01acca31352e55cc6a56f7f90f4">freeNativePointer</a> (MemorySegment nativePtr)  throws Throwable </td></tr>
+<tr class="memdesc:a5a12b01acca31352e55cc6a56f7f90f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the native keychain pointer and securely zero-fills its referenced memory segment.  <br /></td></tr>
+<tr class="separator:a5a12b01acca31352e55cc6a56f7f90f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ad02c2feb4a29eabeab9f09b2edb709f6" id="r_ad02c2feb4a29eabeab9f09b2edb709f6"><td class="memItemLeft" align="right" valign="top">final char[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ad02c2feb4a29eabeab9f09b2edb709f6">namespace</a></td></tr>
+<tr class="separator:ad02c2feb4a29eabeab9f09b2edb709f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -177,30 +183,49 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a8a2776b8bd867ef2c9ff51dd9c8d527d inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04bb31c1c2ee8a4ec91338beb6a76bc8 inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy" id="r_a04bb31c1c2ee8a4ec91338beb6a76bc8"><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a04bb31c1c2ee8a4ec91338beb6a76bc8">KEY</a> = &quot;key&quot;</td></tr>
 <tr class="separator:a04bb31c1c2ee8a4ec91338beb6a76bc8 inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9da3fadf93fed11c0ccdaf8b8140a5cb inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy" id="r_a9da3fadf93fed11c0ccdaf8b8140a5cb"><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a9da3fadf93fed11c0ccdaf8b8140a5cb">KEY_CANNOT_BE_NULL_OR_EMPTY</a> = &quot;Key cannot be null or empty&quot;</td></tr>
-<tr class="separator:a9da3fadf93fed11c0ccdaf8b8140a5cb inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html">fr.softsf.vault.strategy.WindowsCredentialManagerStrategy</a></td></tr>
 <tr class="memitem:a1c841b3cd859af11dfa74e01eb2069fd inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" id="r_a1c841b3cd859af11dfa74e01eb2069fd"><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a1c841b3cd859af11dfa74e01eb2069fd">CREDENTIAL_BLOB</a> = &quot;CredentialBlob&quot;</td></tr>
 <tr class="separator:a1c841b3cd859af11dfa74e01eb2069fd inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6dd0b93f51c237a6743225132436d3f inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" id="r_ac6dd0b93f51c237a6743225132436d3f"><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ac6dd0b93f51c237a6743225132436d3f">CREDENTIAL_BLOB_SIZE</a> = &quot;CredentialBlobSize&quot;</td></tr>
 <tr class="separator:ac6dd0b93f51c237a6743225132436d3f inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae31b39a7d3c981e055e79edb188f4fc7 inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" id="r_ae31b39a7d3c981e055e79edb188f4fc7"><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ae31b39a7d3c981e055e79edb188f4fc7">KEY_CANNOT_BE_NULL_OR_EMPTY</a> = &quot;Key cannot be null or empty&quot;</td></tr>
-<tr class="separator:ae31b39a7d3c981e055e79edb188f4fc7 inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeabd50e23240db6e89e171e726faf8f0 inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" id="r_aeabd50e23240db6e89e171e726faf8f0"><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#aeabd50e23240db6e89e171e726faf8f0">SECRET_DATA_CANNOT_BE_NULL</a> = &quot;SecretData cannot be null&quot;</td></tr>
-<tr class="separator:aeabd50e23240db6e89e171e726faf8f0 inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td colspan="2" onclick="javascript:toggleInherit('pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html">fr.softsf.vault.strategy.AbstractVaultStrategy</a></td></tr>
-<tr class="memitem:ac211d9a6f3f197d4be9d3bf1ee3d9a90 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_ac211d9a6f3f197d4be9d3bf1ee3d9a90"><td class="memItemLeft" align="right" valign="top">MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ac211d9a6f3f197d4be9d3bf1ee3d9a90">allocateSegment</a> (Arena arena, char[] data, Charset charset)</td></tr>
-<tr class="memdesc:ac211d9a6f3f197d4be9d3bf1ee3d9a90 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates and populates a memory segment for the given character data.  <br /></td></tr>
-<tr class="separator:ac211d9a6f3f197d4be9d3bf1ee3d9a90 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e452128eae5a491fc5ff6e340d93708 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a0e452128eae5a491fc5ff6e340d93708"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a0e452128eae5a491fc5ff6e340d93708">zeroFill</a> (MemorySegment segment)</td></tr>
-<tr class="memdesc:a0e452128eae5a491fc5ff6e340d93708 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the specified memory segment with zeros to ensure security.  <br /></td></tr>
-<tr class="separator:a0e452128eae5a491fc5ff6e340d93708 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6022f5fd880256ddca98a2bb6fd0ab6 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_ac6022f5fd880256ddca98a2bb6fd0ab6"><td class="memItemLeft" align="right" valign="top">final MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ac6022f5fd880256ddca98a2bb6fd0ab6">allocateSegment</a> (Arena arena, char[] data, Charset charset)</td></tr>
+<tr class="memdesc:ac6022f5fd880256ddca98a2bb6fd0ab6 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates and populates a memory segment for the given character data.  <br /></td></tr>
+<tr class="separator:ac6022f5fd880256ddca98a2bb6fd0ab6 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa27e89d7ef7b0a3aa531a551da6f1f50 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_aa27e89d7ef7b0a3aa531a551da6f1f50"><td class="memItemLeft" align="right" valign="top">final char[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#aa27e89d7ef7b0a3aa531a551da6f1f50">concatNamespaceAndKey</a> (char[] <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a630e394e2f9a269565765c124e2eae08">namespace</a>, char[] key)</td></tr>
+<tr class="memdesc:aa27e89d7ef7b0a3aa531a551da6f1f50 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenates the namespace and the user key with an intermediate dot separator and validates all parts.  <br /></td></tr>
+<tr class="separator:aa27e89d7ef7b0a3aa531a551da6f1f50 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad79e3b72d9781124fa48d0eecedaeae9 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_ad79e3b72d9781124fa48d0eecedaeae9"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ad79e3b72d9781124fa48d0eecedaeae9">validateKey</a> (char[] key)</td></tr>
+<tr class="memdesc:ad79e3b72d9781124fa48d0eecedaeae9 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the key constraints.  <br /></td></tr>
+<tr class="separator:ad79e3b72d9781124fa48d0eecedaeae9 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d4ad2ef26310f0e005024bdf1b256a8 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a8d4ad2ef26310f0e005024bdf1b256a8"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a8d4ad2ef26310f0e005024bdf1b256a8">validateSecret</a> (char[] secret)</td></tr>
+<tr class="memdesc:a8d4ad2ef26310f0e005024bdf1b256a8 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the secret constraints based on the specific platform strategy implementation.  <br /></td></tr>
+<tr class="separator:a8d4ad2ef26310f0e005024bdf1b256a8 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3de61cded3f3045b80202dc016f8be0 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_ad3de61cded3f3045b80202dc016f8be0"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ad3de61cded3f3045b80202dc016f8be0">zeroFill</a> (char[] array)</td></tr>
+<tr class="memdesc:ad3de61cded3f3045b80202dc016f8be0 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the specified character array with zeros to ensure security.  <br /></td></tr>
+<tr class="separator:ad3de61cded3f3045b80202dc016f8be0 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2200b8d2b52a72eaf03a8a650f3d10a2 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a2200b8d2b52a72eaf03a8a650f3d10a2"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a2200b8d2b52a72eaf03a8a650f3d10a2">zeroFill</a> (MemorySegment segment)</td></tr>
+<tr class="memdesc:a2200b8d2b52a72eaf03a8a650f3d10a2 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the specified memory segment with zeros to ensure security.  <br /></td></tr>
+<tr class="separator:a2200b8d2b52a72eaf03a8a650f3d10a2 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td colspan="2" onclick="javascript:toggleInherit('pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy')"><img src="closed.png" alt="-"/>&#160;Static Package Attributes inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html">fr.softsf.vault.strategy.AbstractVaultStrategy</a></td></tr>
+<tr class="memitem:a0a650196241473b4cbdac2a31b9d77a4 inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a0a650196241473b4cbdac2a31b9d77a4"><td class="memItemLeft" align="right" valign="top">static final long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a0a650196241473b4cbdac2a31b9d77a4">LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE</a> = 1024L * 64L</td></tr>
+<tr class="memdesc:a0a650196241473b4cbdac2a31b9d77a4 inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum allowed size in bytes for the Linux Secret Service DBus backend secret payload.  <br /></td></tr>
+<tr class="separator:a0a650196241473b4cbdac2a31b9d77a4 inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8762aeeedbcb6f632e8bca80dab29201 inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a8762aeeedbcb6f632e8bca80dab29201"><td class="memItemLeft" align="right" valign="top">static final long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a8762aeeedbcb6f632e8bca80dab29201">MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE</a> = 1024L * 64L</td></tr>
+<tr class="memdesc:a8762aeeedbcb6f632e8bca80dab29201 inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum allowed size in bytes for the macOS Keychain Services secret payload.  <br /></td></tr>
+<tr class="separator:a8762aeeedbcb6f632e8bca80dab29201 inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3d0ed5f9fc091e09b1ee79865975ffb inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_aa3d0ed5f9fc091e09b1ee79865975ffb"><td class="memItemLeft" align="right" valign="top">static final int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#aa3d0ed5f9fc091e09b1ee79865975ffb">MAX_KEY_BYTE_SIZE</a> = 256</td></tr>
+<tr class="memdesc:aa3d0ed5f9fc091e09b1ee79865975ffb inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum allowed size in bytes for the identifier key across all platform strategies.  <br /></td></tr>
+<tr class="separator:aa3d0ed5f9fc091e09b1ee79865975ffb inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06381b632fb5cf9ee755590466081507 inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a06381b632fb5cf9ee755590466081507"><td class="memItemLeft" align="right" valign="top">static final int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a06381b632fb5cf9ee755590466081507">WINDOWS_CREDENTIAL_MANAGER_MAX_SECRET_BYTE_SIZE</a> = 2560</td></tr>
+<tr class="memdesc:a06381b632fb5cf9ee755590466081507 inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum allowed size in bytes imposed by the Win32 Credential Manager CredWrite API.  <br /></td></tr>
+<tr class="separator:a06381b632fb5cf9ee755590466081507 inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper memory cleanup and error handling. </p>
+<div class="textblock"><p>macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper memory cleanup, namespace isolation, and error handling. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7beac9668d0e7bf7156a55613cae8153" name="a7beac9668d0e7bf7156a55613cae8153"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7beac9668d0e7bf7156a55613cae8153">&#9670;&#160;</a></span>MacKeychainStrategy()</h2>
+<a id="ad6300fc42ce5563a4630a35fd8029e13" name="ad6300fc42ce5563a4630a35fd8029e13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6300fc42ce5563a4630a35fd8029e13">&#9670;&#160;</a></span>MacKeychainStrategy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,13 +233,26 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">fr.softsf.vault.strategy.MacKeychainStrategy.MacKeychainStrategy </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">char[]&#160;</td>
+          <td class="paramname"><em>namespace</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes a new instance of the MacKeychainStrategy. </p>
+<p>Initializes a new instance of the <code class="JavaDocCode">MacKeychainStrategy</code> with a custom namespace. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">namespace</td><td>the isolated namespace character array used as a prefix for keychain items </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">namespace</code> is null or empty </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -254,7 +292,7 @@ Additional Inherited Members</h2></td></tr>
           <td>(</td>
           <td class="paramtype">char[]&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
+          <td> throws NativeVaultException</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -281,7 +319,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_a1989bdc67eaa88e3ed723823acda43b1_cgraph.svg" width="551" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_a1989bdc67eaa88e3ed723823acda43b1_cgraph.svg" width="100%" height="495"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -297,7 +335,7 @@ Additional Inherited Members</h2></td></tr>
           <td>(</td>
           <td class="paramtype">char[]&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
+          <td> throws NativeVaultException</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -324,13 +362,13 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_a7618d1ebe3f750802260f25d9a598cd6_cgraph.svg" width="476" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_a7618d1ebe3f750802260f25d9a598cd6_cgraph.svg" width="100%" height="535"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="a12127078f04125b5a1662c63547f6ece" name="a12127078f04125b5a1662c63547f6ece"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12127078f04125b5a1662c63547f6ece">&#9670;&#160;</a></span>freeNativePointer()</h2>
+<a id="a5a12b01acca31352e55cc6a56f7f90f4" name="a5a12b01acca31352e55cc6a56f7f90f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a12b01acca31352e55cc6a56f7f90f4">&#9670;&#160;</a></span>freeNativePointer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -342,18 +380,8 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">void fr.softsf.vault.strategy.MacKeychainStrategy.freeNativePointer </td>
           <td>(</td>
           <td class="paramtype">MemorySegment&#160;</td>
-          <td class="paramname"><em>nativePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">MemorySegment&#160;</td>
-          <td class="paramname"><em>secretCopy</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> throws Throwable</td>
+          <td class="paramname"><em>nativePtr</em></td><td>)</td>
+          <td> throws Throwable</td>
         </tr>
       </table>
   </td>
@@ -363,11 +391,10 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Releases the native pointer and zero-fills its referenced memory segment. </p>
+<p>Releases the native keychain pointer and securely zero-fills its referenced memory segment. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nativePtr</td><td>the native pointer to release </td></tr>
-    <tr><td class="paramname">secretCopy</td><td>the segment containing the copied secret data </td></tr>
   </table>
   </dd>
 </dl>
@@ -382,7 +409,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_a12127078f04125b5a1662c63547f6ece_cgraph.svg" width="507" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_a5a12b01acca31352e55cc6a56f7f90f4_cgraph.svg" width="507" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -398,19 +425,26 @@ Additional Inherited Members</h2></td></tr>
           <td>(</td>
           <td class="paramtype">char[]&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
+          <td> throws NativeVaultException</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves a secret associated with the specified key from the keychain. </p>
+<p>Retrieves a secret from the native credential store. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">key</td><td>the key identifying the secret </td></tr>
+    <tr><td class="paramname">key</td><td>the credential identifier character array </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>an Optional containing the secret character array if found, or empty otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>an optional containing the secret character array if found </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">key</code> is null or empty </td></tr>
+    <tr><td class="paramname">NativeVaultException</td><td>if a native system error occurs during execution </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a75302c380d7a799b892d49d3b81a79b3">fr.softsf.vault.strategy.AbstractVaultStrategy</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -418,7 +452,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_adf628ba9a0ca04954bbec04699fa7895_cgraph.svg" width="100%" height="369"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_adf628ba9a0ca04954bbec04699fa7895_cgraph.svg" width="100%" height="534"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -444,7 +478,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> throws NativeVaultException</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -472,7 +506,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_adc566c61a21820c55f139965e9a5faf8_cgraph.svg" width="543" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_adc566c61a21820c55f139965e9a5faf8_cgraph.svg" width="100%" height="555"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -614,6 +648,28 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="ad02c2feb4a29eabeab9f09b2edb709f6" name="ad02c2feb4a29eabeab9f09b2edb709f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad02c2feb4a29eabeab9f09b2edb709f6">&#9670;&#160;</a></span>namespace</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">final char [] fr.softsf.vault.strategy.MacKeychainStrategy.namespace</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="acf217640be92bd4d10436377a41cbee3" name="acf217640be92bd4d10436377a41cbee3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acf217640be92bd4d10436377a41cbee3">&#9670;&#160;</a></span>UPDATE_HANDLE</h2>
 
@@ -645,7 +701,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>fr</b></li><li class="navelem"><b>softsf</b></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault.html">vault</a></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault_1_1strategy.html">strategy</a></li><li class="navelem"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html">MacKeychainStrategy</a></li>
-    <li class="footer">Generated on Wed Sep 16 2026 20:14:08 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Thu Sep 17 2026 20:50:24 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['teardown_0',['tearDown',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a649e7a0d1c4f2ed4a6e0e1473d6388b7',1,'fr::softsf::vault::NativeVaultTest']]],
-  ['testexceptionconstructorandproperties_1',['testExceptionConstructorAndProperties',['../classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest.html#af6607e5fdd30f9b61d62a487c41d18fb',1,'fr::softsf::vault::NativeVaultExceptionTest']]]
+  ['validatekey_0',['validateKey',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ad79e3b72d9781124fa48d0eecedaeae9',1,'fr::softsf::vault::strategy::AbstractVaultStrategy']]],
+  ['validatesecret_1',['validateSecret',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a8d4ad2ef26310f0e005024bdf1b256a8',1,'fr::softsf::vault::strategy::AbstractVaultStrategy']]]
 ];

@@ -1,8 +1,14 @@
 <map id="fr.softsf.vault.strategy.MacKeychainStrategy.store" name="fr.softsf.vault.strategy.MacKeychainStrategy.store">
-<area shape="rect" id="Node000001" title="Stores a secret in the native credential store." alt="" coords="5,73,204,113"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a42aa5b0b2d44a40634fa73e594dfe41a" title="Allocates a memory segment for the specified key." alt="" coords="252,29,537,84"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,78,238,73,239,79,204,83"/>
-<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a0e452128eae5a491fc5ff6e340d93708" title="Overwrites the specified memory segment with zeros to ensure security." alt="" coords="288,109,501,149"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="204,102,275,111,274,116,204,108"/>
-<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="339,29,339,19,349,10,368,5,395,3,427,6,445,14,443,19,426,11,395,8,369,10,352,15,344,21,344,29"/>
+<area shape="rect" id="Node000001" title="Stores a secret in the native credential store." alt="" coords="5,157,204,197"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ac6022f5fd880256ddca98a2bb6fd0ab6" title="Allocates and populates a memory segment for the given character data." alt="" coords="286,5,505,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,154,181,111,215,89,251,69,272,60,274,65,253,74,218,93,184,116,130,158"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#aa27e89d7ef7b0a3aa531a551da6f1f50" title="Concatenates the namespace and the user key with an intermediate dot separator and validates all part..." alt="" coords="252,84,539,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,154,260,139,261,144,195,159"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ad79e3b72d9781124fa48d0eecedaeae9" title="Validates the key constraints." alt="" coords="587,125,829,165"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="204,169,573,149,573,154,204,174"/>
+<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a8d4ad2ef26310f0e005024bdf1b256a8" title="Validates the secret constraints based on the specific platform strategy implementation." alt="" coords="286,215,505,269"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="195,194,273,212,272,217,194,199"/>
+<area shape="rect" id="Node000006" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a2200b8d2b52a72eaf03a8a650f3d10a2" title="Overwrites the specified memory segment with zeros to ensure security." alt="" coords="289,294,502,334"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="130,195,184,237,218,259,253,278,277,287,275,292,251,283,215,264,181,242,127,199"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="539,124,574,128,573,133,539,129"/>
 </map>

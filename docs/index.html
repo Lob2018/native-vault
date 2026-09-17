@@ -111,13 +111,16 @@ Available Secure Storage Providers:</h3>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Secret Type / Operation   </th><th class="markdownTableHeadNone">Windows (Credential Manager)*   </th><th class="markdownTableHeadNone">Linux (GNOME Keyring / Libsecret)*   </th><th class="markdownTableHeadNone">macOS (Keychain)*    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Key-Value Credentials (<code>char[]</code> or <code>String</code>)   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td></tr>
+<td class="markdownTableBodyNone">Key-Value Credentials (<code>char[]</code>)   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td></tr>
 </table>
 <p><em>*Requires an active desktop session.</em></p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 How to use this library</h1>
 <blockquote class="doxtable">
-<p>&zwj;[!WARNING] <b>Key Collision Risk</b>: OS keychains lack namespace isolation. Use unique package-prefixed keys (e.g., <code>fr.softsf.myapp.uniquekey</code>) to prevent cross-application overwrites. </p>
+<p>&zwj;[!CAUTION] OS key stores lack native isolation for cross-application keys:</p><ul>
+<li>NativeVault prevents key collisions by concatenating the key with the namespace defined at instantiation (e.g., <code>fr.softsf.myapp.thekey</code>).</li>
+<li>Linux &amp; macOS: NativeVault also uses the namespace as the isolated schema name. </li>
+</ul>
 </blockquote>
 <div class="fragment"><div class="line">&lt;<span class="keywordtype">dependency</span>&gt;</div>
 <div class="line">    &lt;<span class="keywordtype">groupId</span>&gt;<span class="keyword">fr.softsf</span>&lt;/<span class="keywordtype">groupId</span>&gt;</div>
@@ -125,30 +128,38 @@ How to use this library</h1>
 <div class="line">    &lt;<span class="keywordtype">version</span>&gt;1.0.0&lt;/<span class="keywordtype">version</span>&gt;</div>
 <div class="line">&lt;/<span class="keywordtype">dependency</span>&gt;</div>
 </div><!-- fragment --><p>Here is sample code showing how to use the vault:</p>
-<div class="fragment"><div class="line"><span class="comment">// Unique package-prefixed key to avoid OS keychain collisions</span></div>
-<div class="line"><span class="keywordtype">char</span>[] uniqueExampleKey = {<span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;o&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;y&#39;</span>, <span class="charliteral">&#39;a&#39;</span>, <span class="charliteral">&#39;p&#39;</span>, <span class="charliteral">&#39;p&#39;</span>, <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;u&#39;</span>, <span class="charliteral">&#39;n&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;q&#39;</span>, <span class="charliteral">&#39;u&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;k&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;y&#39;</span>};</div>
+<div class="fragment"><div class="line"><span class="comment">// Unique namespace to avoid OS keychain collisions</span></div>
+<div class="line"><span class="keywordtype">char</span>[] <span class="keyword">namespace </span>= {<span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;o&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;.&#39;</span>,</div>
+<div class="line">    <span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;y&#39;</span>, <span class="charliteral">&#39;a&#39;</span>, <span class="charliteral">&#39;p&#39;</span>, <span class="charliteral">&#39;p&#39;</span>};</div>
+<div class="line"><span class="comment">// The unique key to store</span></div>
+<div class="line"><span class="keywordtype">char</span>[] key = {<span class="charliteral">&#39;u&#39;</span>, <span class="charliteral">&#39;n&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;q&#39;</span>, <span class="charliteral">&#39;u&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;k&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;y&#39;</span>};</div>
 <div class="line"><span class="comment">// The secret to store</span></div>
-<div class="line"><span class="keywordtype">char</span>[] secret = {<span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;y&#39;</span>, <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;a&#39;</span>, <span class="charliteral">&#39;l&#39;</span>, <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;t&#39;</span>};</div>
+<div class="line"><span class="keywordtype">char</span>[] secret = {<span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;y&#39;</span>, <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;a&#39;</span>, <span class="charliteral">&#39;l&#39;</span>,</div>
+<div class="line">    <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;t&#39;</span>};</div>
 <div class="line"><span class="keywordflow">try</span> {</div>
 <div class="line">    <span class="comment">// Initialize the native vault facade</span></div>
-<div class="line">    NativeVault <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a> = <span class="keyword">new</span> NativeVault();</div>
-<div class="line">    <span class="comment">// Write action (upsert: creates or overwrites): returns true if successfully stored, false otherwise</span></div>
-<div class="line">    <span class="keywordtype">boolean</span> stored = <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.setSecret(uniqueExampleKey, secret);</div>
-<div class="line">    <span class="comment">// Existence check action: returns true if the secret exists, false otherwise</span></div>
-<div class="line">    <span class="keywordtype">boolean</span> exists = <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.hasSecret(uniqueExampleKey);</div>
+<div class="line">    NativeVault <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a> = <span class="keyword">new</span> NativeVault(namespace);</div>
+<div class="line">    <span class="comment">// Upsert action: returns true if successfully stored, false otherwise</span></div>
+<div class="line">    <span class="keywordtype">boolean</span> stored = <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.setSecret(key, secret);</div>
+<div class="line">    <span class="comment">// Existence action: returns true if the secret exists, false otherwise</span></div>
+<div class="line">    <span class="keywordtype">boolean</span> exists = <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.hasSecret(key);</div>
 <div class="line">    <span class="comment">// Read action: returns Optional&lt;char[]&gt;</span></div>
-<div class="line">    <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.getSecret(uniqueExampleKey).ifPresent(retrieved -&gt; {</div>
-<div class="line">        <span class="comment">// Process secret...</span></div>
-<div class="line">        java.util.Arrays.fill(retrieved, <span class="charliteral">&#39;\0&#39;</span>); <span class="comment">// Mandatory memory cleanup</span></div>
+<div class="line">    <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.getSecret(key).ifPresent(rawSecret -&gt; {</div>
+<div class="line">        <span class="keywordflow">try</span> {</div>
+<div class="line">            <span class="comment">// Process secret...</span></div>
+<div class="line">        } <span class="keywordflow">finally</span> {</div>
+<div class="line">            Arrays.fill(rawSecret, <span class="charliteral">&#39;\0&#39;</span>); <span class="comment">// Mandatory cleanup for secret buffer</span></div>
+<div class="line">        }</div>
 <div class="line">    });</div>
 <div class="line">    <span class="comment">// Deletion action: returns true if successfully removed, false otherwise</span></div>
-<div class="line">    <span class="keywordtype">boolean</span> removed = <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.removeSecret(uniqueExampleKey);</div>
+<div class="line">    <span class="keywordtype">boolean</span> removed = <a class="code hl_variable" href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a>.removeSecret(key);</div>
 <div class="line">} <span class="keywordflow">catch</span> (NativeVaultException | LinkageError e) {</div>
 <div class="line">    <span class="comment">// Handle initialization or execution failures safely</span></div>
 <div class="line">    System.err.println(<span class="stringliteral">&quot;Failed to initialize or use native vault: &quot;</span> + e.getMessage());</div>
 <div class="line">} <span class="keywordflow">finally</span> {</div>
-<div class="line">    java.util.Arrays.fill(uniqueExampleKey, <span class="charliteral">&#39;\0&#39;</span>); <span class="comment">// Mandatory cleanup for key buffer</span></div>
-<div class="line">    java.util.Arrays.fill(secret, <span class="charliteral">&#39;\0&#39;</span>); <span class="comment">// Mandatory cleanup for secret buffer</span></div>
+<div class="line">    Arrays.fill(namespace, <span class="charliteral">&#39;\0&#39;</span>); <span class="comment">// Mandatory cleanup for namespace buffer</span></div>
+<div class="line">    Arrays.fill(key, <span class="charliteral">&#39;\0&#39;</span>); <span class="comment">// Mandatory cleanup for key buffer</span></div>
+<div class="line">    Arrays.fill(secret, <span class="charliteral">&#39;\0&#39;</span>); <span class="comment">// Mandatory cleanup for secret buffer</span></div>
 <div class="line">}</div>
 <div class="ttc" id="amodule-info_8java_html_ae3ed66f35d55de965e4dd7bc5d7fddfd"><div class="ttname"><a href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a></div><div class="ttdeci">module fr.softsf. vault</div><div class="ttdef"><b>Definition</b> module-info.java:1</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
@@ -167,7 +178,7 @@ License</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Sep 16 2026 20:14:08 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Thu Sep 17 2026 20:50:24 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

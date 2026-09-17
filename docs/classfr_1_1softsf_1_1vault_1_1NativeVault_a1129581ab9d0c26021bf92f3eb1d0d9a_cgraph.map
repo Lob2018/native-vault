@@ -1,5 +1,5 @@
 <map id="fr.softsf.vault.NativeVault.executeIntegrityCheck" name="fr.softsf.vault.NativeVault.executeIntegrityCheck">
 <area shape="rect" id="Node000001" title="Executes the native vault integrity check sequence within a synchronized block to prevent race condit..." alt="" coords="5,5,248,45"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ac75c10b9d5b77e2145ac637ad1058c97" title="Returns the integrity test key character array." alt="" coords="296,5,508,45"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ab3cecf7a5e3a06a1e9a6ddcde54ede61" title="Returns the integrity test key character array." alt="" coords="296,5,508,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,23,282,23,282,28,248,28"/>
 </map>

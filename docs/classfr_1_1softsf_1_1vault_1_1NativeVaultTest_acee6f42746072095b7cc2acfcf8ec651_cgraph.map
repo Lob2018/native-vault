@@ -1,0 +1,7 @@
+<map id="fr.softsf.vault.NativeVaultTest.givenTooLongKey_whenSetSecret_thenIllegalArgumentExceptionIsThrown" name="fr.softsf.vault.NativeVaultTest.givenTooLongKey_whenSetSecret_thenIllegalArgumentExceptionIsThrown">
+<area shape="rect" id="Node000001" title="Tests that a key exceeding maximum allowed length throws NativeVaultException encapsulating IllegalAr..." alt="" coords="5,5,291,60"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ae8e94d0dcf1d55a0072197025e127972" title="Stores or updates a secret securely in the native credential store using character array parameters." alt="" coords="339,13,549,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="291,30,325,30,325,35,291,35"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a70a09e700fc761b5fb476840b7c85874" title="Ensures that a strategy is available before performing operations." alt="" coords="597,13,832,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="550,30,584,30,584,35,550,35"/>
+</map>

@@ -1,8 +1,9 @@
 <map id="fr.softsf.vault.NativeVaultTest.tearDown" name="fr.softsf.vault.NativeVaultTest.tearDown">
-<area shape="rect" id="Node000001" title="Cleans up the test environment after each test execution." alt="" coords="5,29,192,69"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a10f9ce8ca17b9b16473b938999954eb6" title="Deletes a secret from the native credential store using a string key." alt="" coords="240,29,481,69"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,47,226,47,226,52,192,52"/>
-<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="312,30,309,20,317,10,334,5,361,3,391,6,407,13,405,18,390,11,361,8,335,10,320,15,314,21,317,28"/>
-<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="529,29,764,69"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="481,47,516,47,516,52,481,52"/>
+<area shape="rect" id="Node000001" title="Cleans up the test environment after each test execution." alt="" coords="5,37,192,77"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ab3cecf7a5e3a06a1e9a6ddcde54ede61" title="Returns the integrity test key character array." alt="" coords="255,5,467,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,43,241,37,241,43,192,49"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a46bdeb1670ffe2770f1bb44650767b8d" title="Deletes a secret from the native credential store using a character array key." alt="" coords="240,69,481,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,66,227,70,226,76,192,71"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a70a09e700fc761b5fb476840b7c85874" title="Ensures that a strategy is available before performing operations." alt="" coords="529,69,764,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="481,87,516,87,516,92,481,92"/>
 </map>

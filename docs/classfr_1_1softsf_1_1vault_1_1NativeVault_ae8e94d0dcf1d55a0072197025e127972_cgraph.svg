@@ -31,7 +31,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" target="_top" xlink:title="Ensures that a strategy is available before performing operations.">
+<g id="a_Node000002"><a xlink:href="classfr_1_1softsf_1_1vault_1_1NativeVault.html#a70a09e700fc761b5fb476840b7c85874" target="_top" xlink:title="Ensures that a strategy is available before performing operations.">
 <polygon fill="white" stroke="#666666" points="370,-30 194,-30 194,0 370,0 370,-30"/>
 <text text-anchor="start" x="202" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">fr.softsf.vault.NativeVault.ensure</text>
 <text text-anchor="middle" x="282" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Usable</text>

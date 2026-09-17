@@ -1,5 +1,5 @@
 <map id="fr.softsf.vault.NativeVault.hasSecret" name="fr.softsf.vault.NativeVault.hasSecret">
 <area shape="rect" id="Node000001" title="Checks if a secret exists in the native credential store using a character array key." alt="" coords="5,5,220,45"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="268,5,503,45"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a70a09e700fc761b5fb476840b7c85874" title="Ensures that a strategy is available before performing operations." alt="" coords="268,5,503,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,23,255,23,255,28,220,28"/>
 </map>

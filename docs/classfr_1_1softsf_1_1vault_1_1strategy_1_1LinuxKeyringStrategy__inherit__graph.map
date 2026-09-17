@@ -1,7 +1,7 @@
 <map id="fr.softsf.vault.strategy.LinuxKeyringStrategy" name="fr.softsf.vault.strategy.LinuxKeyringStrategy">
-<area shape="rect" id="Node000001" title="Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper memory ..." alt="" coords="5,5,288,640"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html" title="Sealed polymorphic strategy interface defining OS&#45;native credential store contracts using character a..." alt="" coords="19,688,274,971"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,654,149,688,144,688,144,654"/>
-<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html" title="macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper memory..." alt="" coords="33,1019,260,1529"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="149,985,149,1018,144,1018,144,985"/>
+<area shape="rect" id="Node000001" title="Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper memory ..." alt="" coords="5,5,288,605"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html" title="Sealed polymorphic strategy interface defining OS&#45;native credential store contracts using character a..." alt="" coords="11,653,282,1252"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,619,149,653,144,653,144,619"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html" title="macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper memory..." alt="" coords="40,1300,253,1831"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="149,1266,149,1300,144,1300,144,1266"/>
 </map>

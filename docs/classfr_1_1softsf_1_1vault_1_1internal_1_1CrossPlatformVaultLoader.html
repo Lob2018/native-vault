@@ -92,6 +92,7 @@ $(document).ready(function(){initNavTree('classfr_1_1softsf_1_1vault_1_1internal
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">fr.softsf.vault.internal.CrossPlatformVaultLoader Class Reference</div></div>
@@ -105,7 +106,7 @@ $(document).ready(function(){initNavTree('classfr_1_1softsf_1_1vault_1_1internal
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader__coll__graph.svg" width="240" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader__coll__graph.svg" width="240" height="234"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
@@ -119,6 +120,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a9aece8767ab7dd74c519215fc0fa079c" id="r_a9aece8767ab7dd74c519215fc0fa079c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html#a9aece8767ab7dd74c519215fc0fa079c">CrossPlatformVaultLoader</a> ()</td></tr>
 <tr class="memdesc:a9aece8767ab7dd74c519215fc0fa079c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Private constructor to prevent instantiation.  <br /></td></tr>
 <tr class="separator:a9aece8767ab7dd74c519215fc0fa079c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:aeed3e009ec172bcb4d9879fe723f7de8" id="r_aeed3e009ec172bcb4d9879fe723f7de8"><td class="memItemLeft" align="right" valign="top">static SymbolLookup&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html#aeed3e009ec172bcb4d9879fe723f7de8">resolveSymbolLookup</a> (String libraryName)</td></tr>
+<tr class="memdesc:aeed3e009ec172bcb4d9879fe723f7de8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves and returns the appropriate symbol lookup instance based on the library name.  <br /></td></tr>
+<tr class="separator:aeed3e009ec172bcb4d9879fe723f7de8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -208,9 +215,56 @@ Static Private Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>the method handle for the native function </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">libraryName</code> is blank or <code class="JavaDocCode">functionName</code> is blank </td></tr>
-    <tr><td class="paramname">NullPointerException</td><td>if <code class="JavaDocCode">descriptor</code> is null </td></tr>
+    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">libraryName</code> or <code class="JavaDocCode">functionName</code> is blank, or if <code class="JavaDocCode">descriptor</code> is null </td></tr>
     <tr><td class="paramname">UnsatisfiedLinkError</td><td>if the native function cannot be found or loaded </td></tr>
+  </table>
+  </dd>
+</dl>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader_a3f149a0566540c2cacf5ffbdfa37d6d5_cgraph.svg" width="567" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aeed3e009ec172bcb4d9879fe723f7de8" name="aeed3e009ec172bcb4d9879fe723f7de8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeed3e009ec172bcb4d9879fe723f7de8">&#9670;&#160;</a></span>resolveSymbolLookup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SymbolLookup fr.softsf.vault.internal.CrossPlatformVaultLoader.resolveSymbolLookup </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>libraryName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Resolves and returns the appropriate symbol lookup instance based on the library name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">libraryName</td><td>the library name or path </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the resolved symbol lookup </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">libraryName</code> is blank </td></tr>
   </table>
   </dd>
 </dl>
@@ -249,7 +303,7 @@ Static Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>fr</b></li><li class="navelem"><b>softsf</b></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault.html">vault</a></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault_1_1internal.html">internal</a></li><li class="navelem"><a class="el" href="classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html">CrossPlatformVaultLoader</a></li>
-    <li class="footer">Generated on Wed Sep 16 2026 20:14:07 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Thu Sep 17 2026 20:50:24 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

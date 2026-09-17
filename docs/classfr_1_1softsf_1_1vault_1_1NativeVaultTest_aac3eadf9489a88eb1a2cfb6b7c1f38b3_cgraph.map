@@ -1,12 +1,12 @@
 <map id="fr.softsf.vault.NativeVaultTest.givenExistingSecret_whenUpdateSecret_thenSecretIsUpdated" name="fr.softsf.vault.NativeVaultTest.givenExistingSecret_whenUpdateSecret_thenSecretIsUpdated">
-<area shape="rect" id="Node000001" title="Tests updating an existing secret successfully." alt="" coords="5,66,300,121"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a76d43cd1cf9e98e077ca433a55fb15df" title="Retrieves a secret from the native credential store using a string key." alt="" coords="348,29,560,69"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="300,69,334,64,335,69,301,74"/>
-<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a552245265cbad2a517317635ba750f0a" title="Stores or updates a secret securely in the native credential store using string parameters." alt="" coords="349,117,559,157"/>
-<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="301,112,336,117,335,123,300,118"/>
-<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="404,30,401,20,409,10,427,5,454,3,485,5,502,13,500,18,484,11,454,8,428,10,412,15,406,21,409,28"/>
-<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a90c802cfe36372acf18721597e6a9705" title="Ensures that a strategy is available before performing operations." alt="" coords="608,73,843,113"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="561,64,595,69,594,75,560,69"/>
-<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="559,118,594,112,595,117,560,123"/>
-<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="404,118,401,108,409,98,427,93,454,91,485,93,502,101,500,106,484,99,454,96,428,98,412,103,406,109,409,116"/>
+<area shape="rect" id="Node000001" title="Tests updating an existing secret successfully using character array parameters." alt="" coords="5,62,300,117"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ab3cecf7a5e3a06a1e9a6ddcde54ede61" title="Returns the integrity test key character array." alt="" coords="348,5,560,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="281,59,345,46,346,51,283,65"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a041d9c30b7e2f6050440240cc952cd55" title="Retrieves a secret from the native credential store using a character array key." alt="" coords="348,69,560,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="300,87,334,87,334,92,300,92"/>
+<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ae8e94d0dcf1d55a0072197025e127972" title="Stores or updates a secret securely in the native credential store using character array parameters." alt="" coords="349,133,559,173"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="283,114,346,128,345,133,281,119"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a70a09e700fc761b5fb476840b7c85874" title="Ensures that a strategy is available before performing operations." alt="" coords="608,101,843,141"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="561,99,595,103,594,109,560,104"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="559,138,594,134,594,139,560,144"/>
 </map>

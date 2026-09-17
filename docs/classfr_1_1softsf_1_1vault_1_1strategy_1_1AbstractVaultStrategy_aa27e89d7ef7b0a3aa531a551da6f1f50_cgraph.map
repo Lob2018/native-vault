@@ -1,0 +1,5 @@
+<map id="fr.softsf.vault.strategy.AbstractVaultStrategy.concatNamespaceAndKey" name="fr.softsf.vault.strategy.AbstractVaultStrategy.concatNamespaceAndKey">
+<area shape="rect" id="Node000001" title="Concatenates the namespace and the user key with an intermediate dot separator and validates all part..." alt="" coords="5,5,292,60"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ad79e3b72d9781124fa48d0eecedaeae9" title="Validates the key constraints." alt="" coords="340,13,583,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="292,30,326,30,326,35,292,35"/>
+</map>

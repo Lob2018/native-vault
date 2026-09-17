@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('classfr_1_1softsf_1_1vault_1_1NativeVa
 </div><!--header-->
 <div class="contents">
 
-<p>Unit tests for NativeVault lifecycle and CRUD operations using Given-When-Then convention.  
+<p>Unit tests for NativeVault lifecycle and CRUD operations using char[] buffers exclusively.  
  <a href="classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#details">More...</a></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for fr.softsf.vault.NativeVaultTest:</div>
@@ -109,14 +109,11 @@ $(document).ready(function(){initNavTree('classfr_1_1softsf_1_1vault_1_1NativeVa
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pac-methods" name="pac-methods"></a>
 Package Functions</h2></td></tr>
-<tr class="memitem:ad42f9e4b80851fb2ca359b124446b811" id="r_ad42f9e4b80851fb2ca359b124446b811"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#ad42f9e4b80851fb2ca359b124446b811">givenBlankStringInputs_whenMethodsCalled_thenIllegalArgumentExceptionIsThrown</a> ()</td></tr>
-<tr class="memdesc:ad42f9e4b80851fb2ca359b124446b811"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests invalid string inputs throwing IllegalArgumentException.  <br /></td></tr>
-<tr class="separator:ad42f9e4b80851fb2ca359b124446b811"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bb112e88f7a18ed19886c24a22ab08d" id="r_a5bb112e88f7a18ed19886c24a22ab08d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a5bb112e88f7a18ed19886c24a22ab08d">givenCharArrayKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved</a> ()  throws NativeVaultException </td></tr>
 <tr class="memdesc:a5bb112e88f7a18ed19886c24a22ab08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests storing and retrieving secrets using character array parameters.  <br /></td></tr>
 <tr class="separator:a5bb112e88f7a18ed19886c24a22ab08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac3eadf9489a88eb1a2cfb6b7c1f38b3" id="r_aac3eadf9489a88eb1a2cfb6b7c1f38b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#aac3eadf9489a88eb1a2cfb6b7c1f38b3">givenExistingSecret_whenUpdateSecret_thenSecretIsUpdated</a> ()  throws NativeVaultException </td></tr>
-<tr class="memdesc:aac3eadf9489a88eb1a2cfb6b7c1f38b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests updating an existing secret successfully.  <br /></td></tr>
+<tr class="memdesc:aac3eadf9489a88eb1a2cfb6b7c1f38b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests updating an existing secret successfully using character array parameters.  <br /></td></tr>
 <tr class="separator:aac3eadf9489a88eb1a2cfb6b7c1f38b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87e1be21b1780454570e3a8706b8f8ea" id="r_a87e1be21b1780454570e3a8706b8f8ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a87e1be21b1780454570e3a8706b8f8ea">givenNonExistentKey_whenGetOrHasSecret_thenEmptyOrFalseIsReturned</a> ()</td></tr>
 <tr class="memdesc:a87e1be21b1780454570e3a8706b8f8ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests behavior when querying a non-existent secret.  <br /></td></tr>
@@ -125,11 +122,14 @@ Package Functions</h2></td></tr>
 <tr class="memdesc:a05c7ab7e6554d32efa5336052fbd739d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests invalid character array inputs throwing IllegalArgumentException.  <br /></td></tr>
 <tr class="separator:a05c7ab7e6554d32efa5336052fbd739d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26cbfaedd49028c2c19633b5aabc8bba" id="r_a26cbfaedd49028c2c19633b5aabc8bba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a26cbfaedd49028c2c19633b5aabc8bba">givenStoredSecret_whenRemoveSecret_thenSecretIsDeleted</a> ()  throws NativeVaultException </td></tr>
-<tr class="memdesc:a26cbfaedd49028c2c19633b5aabc8bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests removing a stored secret successfully.  <br /></td></tr>
+<tr class="memdesc:a26cbfaedd49028c2c19633b5aabc8bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests removing a stored secret successfully using character array parameters.  <br /></td></tr>
 <tr class="separator:a26cbfaedd49028c2c19633b5aabc8bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c06fc1535785d079b94e93de2cd8986" id="r_a6c06fc1535785d079b94e93de2cd8986"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a6c06fc1535785d079b94e93de2cd8986">givenStringKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved</a> ()  throws NativeVaultException </td></tr>
-<tr class="memdesc:a6c06fc1535785d079b94e93de2cd8986"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests storing and retrieving secrets using string parameters.  <br /></td></tr>
-<tr class="separator:a6c06fc1535785d079b94e93de2cd8986"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bb88820be8ffbe5ff47bf48117767f1" id="r_a9bb88820be8ffbe5ff47bf48117767f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a9bb88820be8ffbe5ff47bf48117767f1">givenTooLargeSecret_whenSetSecret_thenIllegalArgumentExceptionIsThrown</a> ()</td></tr>
+<tr class="memdesc:a9bb88820be8ffbe5ff47bf48117767f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests that a secret exceeding platform maximum allowed size throws NativeVaultException encapsulating IllegalArgumentException.  <br /></td></tr>
+<tr class="separator:a9bb88820be8ffbe5ff47bf48117767f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acee6f42746072095b7cc2acfcf8ec651" id="r_acee6f42746072095b7cc2acfcf8ec651"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#acee6f42746072095b7cc2acfcf8ec651">givenTooLongKey_whenSetSecret_thenIllegalArgumentExceptionIsThrown</a> ()</td></tr>
+<tr class="memdesc:acee6f42746072095b7cc2acfcf8ec651"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests that a key exceeding maximum allowed length throws NativeVaultException encapsulating IllegalArgumentException.  <br /></td></tr>
+<tr class="separator:acee6f42746072095b7cc2acfcf8ec651"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76abe5df5e26a047676b4f305c760348" id="r_a76abe5df5e26a047676b4f305c760348"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a76abe5df5e26a047676b4f305c760348">setUp</a> ()  throws NativeVaultException </td></tr>
 <tr class="memdesc:a76abe5df5e26a047676b4f305c760348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the test environment before each test execution.  <br /></td></tr>
 <tr class="separator:a76abe5df5e26a047676b4f305c760348"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,42 +143,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:aed0f04f777944da870ae3bb0cbe7c2d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Unit tests for NativeVault lifecycle and CRUD operations using Given-When-Then convention. </p>
+<div class="textblock"><p>Unit tests for NativeVault lifecycle and CRUD operations using char[] buffers exclusively. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad42f9e4b80851fb2ca359b124446b811" name="ad42f9e4b80851fb2ca359b124446b811"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad42f9e4b80851fb2ca359b124446b811">&#9670;&#160;</a></span>givenBlankStringInputs_whenMethodsCalled_thenIllegalArgumentExceptionIsThrown()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void fr.softsf.vault.NativeVaultTest.givenBlankStringInputs_whenMethodsCalled_thenIllegalArgumentExceptionIsThrown </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">package</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Tests invalid string inputs throwing IllegalArgumentException. </p>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_ad42f9e4b80851fb2ca359b124446b811_cgraph.svg" width="100%" height="554"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
-</div>
-
-</div>
-</div>
 <a id="a5bb112e88f7a18ed19886c24a22ab08d" name="a5bb112e88f7a18ed19886c24a22ab08d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5bb112e88f7a18ed19886c24a22ab08d">&#9670;&#160;</a></span>givenCharArrayKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved()</h2>
 
@@ -203,12 +169,12 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Tests storing and retrieving secrets using character array parameters. </p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_a5bb112e88f7a18ed19886c24a22ab08d_cgraph.svg" width="100%" height="536"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_a5bb112e88f7a18ed19886c24a22ab08d_cgraph.svg" width="100%" height="482"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -236,13 +202,13 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Tests updating an existing secret successfully. </p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<p>Tests updating an existing secret successfully using character array parameters. </p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_aac3eadf9489a88eb1a2cfb6b7c1f38b3_cgraph.svg" width="100%" height="422"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_aac3eadf9489a88eb1a2cfb6b7c1f38b3_cgraph.svg" width="100%" height="434"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -271,12 +237,12 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Tests behavior when querying a non-existent secret. </p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_a87e1be21b1780454570e3a8706b8f8ea_cgraph.svg" width="100%" height="536"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_a87e1be21b1780454570e3a8706b8f8ea_cgraph.svg" width="100%" height="482"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -305,12 +271,12 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Tests invalid character array inputs throwing IllegalArgumentException. </p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_a05c7ab7e6554d32efa5336052fbd739d_cgraph.svg" width="100%" height="554"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_a05c7ab7e6554d32efa5336052fbd739d_cgraph.svg" width="100%" height="482"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -338,19 +304,19 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Tests removing a stored secret successfully. </p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<p>Tests removing a stored secret successfully using character array parameters. </p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_a26cbfaedd49028c2c19633b5aabc8bba_cgraph.svg" width="100%" height="488"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_a26cbfaedd49028c2c19633b5aabc8bba_cgraph.svg" width="100%" height="482"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="a6c06fc1535785d079b94e93de2cd8986" name="a6c06fc1535785d079b94e93de2cd8986"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c06fc1535785d079b94e93de2cd8986">&#9670;&#160;</a></span>givenStringKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved()</h2>
+<a id="a9bb88820be8ffbe5ff47bf48117767f1" name="a9bb88820be8ffbe5ff47bf48117767f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bb88820be8ffbe5ff47bf48117767f1">&#9670;&#160;</a></span>givenTooLargeSecret_whenSetSecret_thenIllegalArgumentExceptionIsThrown()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -359,10 +325,10 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void fr.softsf.vault.NativeVaultTest.givenStringKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved </td>
+          <td class="memname">void fr.softsf.vault.NativeVaultTest.givenTooLargeSecret_whenSetSecret_thenIllegalArgumentExceptionIsThrown </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> throws NativeVaultException</td>
+          <td></td>
         </tr>
       </table>
   </td>
@@ -372,13 +338,47 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Tests storing and retrieving secrets using string parameters. </p>
+<p>Tests that a secret exceeding platform maximum allowed size throws NativeVaultException encapsulating IllegalArgumentException. </p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_a9bb88820be8ffbe5ff47bf48117767f1_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="acee6f42746072095b7cc2acfcf8ec651" name="acee6f42746072095b7cc2acfcf8ec651"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acee6f42746072095b7cc2acfcf8ec651">&#9670;&#160;</a></span>givenTooLongKey_whenSetSecret_thenIllegalArgumentExceptionIsThrown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fr.softsf.vault.NativeVaultTest.givenTooLongKey_whenSetSecret_thenIllegalArgumentExceptionIsThrown </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">package</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tests that a key exceeding maximum allowed length throws NativeVaultException encapsulating IllegalArgumentException. </p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-7-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_a6c06fc1535785d079b94e93de2cd8986_cgraph.svg" width="100%" height="488"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_acee6f42746072095b7cc2acfcf8ec651_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -439,7 +439,7 @@ Private Attributes</h2></td></tr>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-8-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_a649e7a0d1c4f2ed4a6e0e1473d6388b7_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1NativeVaultTest_a649e7a0d1c4f2ed4a6e0e1473d6388b7_cgraph.svg" width="100%" height="386"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -476,7 +476,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>fr</b></li><li class="navelem"><b>softsf</b></li><li class="navelem"><a class="el" href="namespacefr_1_1softsf_1_1vault.html">vault</a></li><li class="navelem"><a class="el" href="classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html">NativeVaultTest</a></li>
-    <li class="footer">Generated on Wed Sep 16 2026 20:14:07 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Thu Sep 17 2026 20:50:24 for NativeVault by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

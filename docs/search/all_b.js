@@ -6,8 +6,9 @@ var searchData=
   ['library_20provides_3',['What this library provides',['../index.html#autotoc_md1',1,'']]],
   ['license_4',['License',['../index.html#autotoc_md5',1,'']]],
   ['linker_5',['LINKER',['../classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html#aa3bf3731c0c52d796346d7b7aa672b0f',1,'fr::softsf::vault::internal::CrossPlatformVaultLoader']]],
-  ['linuxkeyringstrategy_6',['linuxkeyringstrategy',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a1192a44ce643435d03a51546923b0db8',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.LinuxKeyringStrategy()']]],
-  ['linuxkeyringstrategy_2ejava_7',['LinuxKeyringStrategy.java',['../LinuxKeyringStrategy_8java.html',1,'']]],
-  ['loadnativefunction_8',['loadNativeFunction',['../classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html#a3f149a0566540c2cacf5ffbdfa37d6d5',1,'fr::softsf::vault::internal::CrossPlatformVaultLoader']]],
-  ['lookup_5fhandle_9',['LOOKUP_HANDLE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a5e4b12e53c0fa5eb5bc5f31dc4d30bb2',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]]
+  ['linux_5fsecret_5fservice_5fmax_5fsecret_5fbyte_5fsize_6',['LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a0a650196241473b4cbdac2a31b9d77a4',1,'fr::softsf::vault::strategy::AbstractVaultStrategy']]],
+  ['linuxkeyringstrategy_7',['linuxkeyringstrategy',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#ab1e1b9a7c246bff1469f472dfff24963',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.LinuxKeyringStrategy()']]],
+  ['linuxkeyringstrategy_2ejava_8',['LinuxKeyringStrategy.java',['../LinuxKeyringStrategy_8java.html',1,'']]],
+  ['loadnativefunction_9',['loadNativeFunction',['../classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html#a3f149a0566540c2cacf5ffbdfa37d6d5',1,'fr::softsf::vault::internal::CrossPlatformVaultLoader']]],
+  ['lookup_5fhandle_10',['LOOKUP_HANDLE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a5e4b12e53c0fa5eb5bc5f31dc4d30bb2',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]]
 ];
