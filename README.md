@@ -29,7 +29,7 @@ Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this li
 
 > [!CAUTION]
 > OS key stores lack native isolation for cross-application keys:
-> * NativeVault prevents collisions by concatenating the key with the namespace defined at instantiation (e.g., `fr.softsf.myapp.thekey`).
+> * NativeVault prevents key collisions by concatenating the key with the namespace defined at instantiation (e.g., `fr.softsf.myapp.thekey`).
 > * Linux & macOS: NativeVault also uses the namespace as the isolated schema name.
 
 ```xml
