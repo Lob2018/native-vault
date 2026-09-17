@@ -42,23 +42,24 @@ Here is sample code showing how to use the vault:
 
 ```java
 // Unique package-prefixed key to avoid OS keychain collisions
-char[] uniqueExampleKey = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.', 'm', 'y', 'a', 'p', 'p', '.', 'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};
+char[] uniqueExampleKey = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.',
+    'm', 'y', 'a', 'p', 'p', '.', 'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};
 // The secret to store
-char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l', '-', 's', 'e', 'c', 'r', 'e', 't'};
+char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l', 
+    '-', 's', 'e', 'c', 'r', 'e', 't'};
 try {
     // Initialize the native vault facade
     NativeVault vault = new NativeVault();
-    // Write action (upsert: creates or overwrites): returns true if successfully stored, false otherwise
+    // Upsert action: returns true if successfully stored, false otherwise
     boolean stored = vault.setSecret(uniqueExampleKey, secret);
-    // Existence check action: returns true if the secret exists, false otherwise
+    // Existence action: returns true if the secret exists, false otherwise
     boolean exists = vault.hasSecret(uniqueExampleKey);
     // Read action: returns Optional<char[]>
-    vault.getSecret(uniqueExampleKey).ifPresent(retrieved -> {
+    vault.getSecret(uniqueExampleKey).ifPresent(rawSecret -> {
         try {
         // Process secret...
         } finally {
-            // Mandatory memory cleanup 
-            Arrays.fill(retrieved, '\0'); 
+            Arrays.fill(rawSecret, '\0'); // Mandatory cleanup for secret buffer
         }
     });
     // Deletion action: returns true if successfully removed, false otherwise
