@@ -8,8 +8,6 @@ package fr.softsf.vault;
 import java.util.Arrays;
 import java.util.Optional;
 
-import org.apache.commons.lang3.StringUtils;
-
 import fr.softsf.vault.exception.NativeVaultException;
 import fr.softsf.vault.strategy.LinuxKeyringStrategy;
 import fr.softsf.vault.strategy.MacKeychainStrategy;
@@ -195,34 +193,6 @@ public final class NativeVault {
     }
 
     /**
-     * Stores or updates a secret securely in the native credential store using string parameters.
-     * This operation acts as an upsert: if the key already exists, its value is overwritten.
-     *
-     * @param key the credential identifier
-     * @param secret the secret value to store
-     * @return true if the secret was successfully stored, false otherwise
-     * @throws IllegalArgumentException if {@code key} or {@code secret} is blank
-     * @throws NativeVaultException if an error occurs while storing the secret
-     */
-    public boolean setSecret(String key, String secret) throws NativeVaultException {
-        if (StringUtils.isBlank(key)) {
-            throw new IllegalArgumentException("Key cannot be null or blank");
-        }
-        if (StringUtils.isBlank(secret)) {
-            throw new IllegalArgumentException("Secret cannot be null or blank");
-        }
-        ensureUsable();
-        char[] keyChars = key.toCharArray();
-        char[] secretChars = secret.toCharArray();
-        try {
-            return setSecret(keyChars, secretChars);
-        } finally {
-            Arrays.fill(keyChars, '\0');
-            Arrays.fill(secretChars, '\0');
-        }
-    }
-
-    /**
      * Stores or updates a secret securely in the native credential store using character array
      * parameters. This operation acts as an upsert: if the key already exists, its value is
      * overwritten.
@@ -256,27 +226,6 @@ public final class NativeVault {
     }
 
     /**
-     * Retrieves a secret from the native credential store using a string key.
-     *
-     * @param key the credential identifier
-     * @return an optional containing the secret character array if found
-     * @throws IllegalArgumentException if {@code key} is blank
-     * @throws NativeVaultException if an error occurs while retrieving the secret
-     */
-    public Optional<char[]> getSecret(String key) throws NativeVaultException {
-        if (StringUtils.isBlank(key)) {
-            throw new IllegalArgumentException("Key cannot be null or blank");
-        }
-        ensureUsable();
-        char[] keyChars = key.toCharArray();
-        try {
-            return getSecret(keyChars);
-        } finally {
-            Arrays.fill(keyChars, '\0');
-        }
-    }
-
-    /**
      * Retrieves a secret from the native credential store using a character array key.
      *
      * @param key the credential identifier character array
@@ -304,27 +253,6 @@ public final class NativeVault {
     }
 
     /**
-     * Deletes a secret from the native credential store using a string key.
-     *
-     * @param key the credential identifier
-     * @return true if the secret was successfully removed, false otherwise
-     * @throws IllegalArgumentException if {@code key} is blank
-     * @throws NativeVaultException if an error occurs while removing the secret
-     */
-    public boolean removeSecret(String key) throws NativeVaultException {
-        if (StringUtils.isBlank(key)) {
-            throw new IllegalArgumentException("Key cannot be null or blank");
-        }
-        ensureUsable();
-        char[] keyChars = key.toCharArray();
-        try {
-            return removeSecret(keyChars);
-        } finally {
-            Arrays.fill(keyChars, '\0');
-        }
-    }
-
-    /**
      * Deletes a secret from the native credential store using a character array key.
      *
      * @param key the credential identifier character array
@@ -348,27 +276,6 @@ public final class NativeVault {
                 throw nativeVaultException;
             }
             throw new NativeVaultException("Failed to remove secret from native store", t);
-        }
-    }
-
-    /**
-     * Checks if a secret exists in the native credential store using a string key.
-     *
-     * @param key the credential identifier
-     * @return true if the secret exists, false otherwise
-     * @throws IllegalArgumentException if {@code key} is blank
-     * @throws NativeVaultException if an error occurs while checking existence
-     */
-    public boolean hasSecret(String key) throws NativeVaultException {
-        if (StringUtils.isBlank(key)) {
-            throw new IllegalArgumentException("Key cannot be null or blank");
-        }
-        ensureUsable();
-        char[] keyChars = key.toCharArray();
-        try {
-            return hasSecret(keyChars);
-        } finally {
-            Arrays.fill(keyChars, '\0');
         }
     }
 

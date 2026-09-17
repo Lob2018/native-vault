@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/** Unit tests for NativeVault lifecycle and CRUD operations using Given-When-Then convention. */
+/** Unit tests for NativeVault lifecycle and CRUD operations using char[] buffers exclusively. */
 class NativeVaultTest {
 
     private NativeVault vault;
@@ -39,21 +39,13 @@ class NativeVaultTest {
     @AfterEach
     void tearDown() throws NativeVaultException {
         if (vault != null) {
-            vault.removeSecret(NativeVault.INTEGRITY_TEST_KEY);
+            char[] key = NativeVault.getIntegrityTestKey();
+            try {
+                vault.removeSecret(key);
+            } finally {
+                Arrays.fill(key, '\0');
+            }
         }
-    }
-
-    /** Tests storing and retrieving secrets using string parameters. */
-    @Test
-    void givenStringKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved()
-            throws NativeVaultException {
-        String secret = "test-secret-str";
-        assertTrue(vault.setSecret(NativeVault.INTEGRITY_TEST_KEY, secret));
-        assertTrue(vault.hasSecret(NativeVault.INTEGRITY_TEST_KEY));
-        Optional<char[]> retrieved = vault.getSecret(NativeVault.INTEGRITY_TEST_KEY);
-        assertTrue(retrieved.isPresent());
-        assertArrayEquals(secret.toCharArray(), retrieved.get());
-        Arrays.fill(retrieved.get(), '\0');
     }
 
     /** Tests storing and retrieving secrets using character array parameters. */
@@ -91,38 +83,40 @@ class NativeVaultTest {
         }
     }
 
-    /** Tests removing a stored secret successfully. */
+    /** Tests removing a stored secret successfully using character array parameters. */
     @Test
     void givenStoredSecret_whenRemoveSecret_thenSecretIsDeleted() throws NativeVaultException {
-        String secret = "secret-to-remove";
-        assertTrue(vault.setSecret(NativeVault.INTEGRITY_TEST_KEY, secret));
-        assertTrue(vault.hasSecret(NativeVault.INTEGRITY_TEST_KEY));
-        assertTrue(vault.removeSecret(NativeVault.INTEGRITY_TEST_KEY));
-        assertFalse(vault.hasSecret(NativeVault.INTEGRITY_TEST_KEY));
+        char[] key = NativeVault.getIntegrityTestKey();
+        char[] secret = new char[] {'s', 'e', 'c', 'r', 'e', 't'};
+        try {
+            assertTrue(vault.setSecret(key, secret));
+            assertTrue(vault.hasSecret(key));
+            assertTrue(vault.removeSecret(key));
+            assertFalse(vault.hasSecret(key));
+        } finally {
+            Arrays.fill(key, '\0');
+            Arrays.fill(secret, '\0');
+        }
     }
 
-    /** Tests updating an existing secret successfully. */
+    /** Tests updating an existing secret successfully using character array parameters. */
     @Test
     void givenExistingSecret_whenUpdateSecret_thenSecretIsUpdated() throws NativeVaultException {
-        String initialSecret = "initial-secret";
-        String updatedSecret = "updated-secret";
-        assertTrue(vault.setSecret(NativeVault.INTEGRITY_TEST_KEY, initialSecret));
-        assertTrue(vault.setSecret(NativeVault.INTEGRITY_TEST_KEY, updatedSecret));
-        Optional<char[]> retrieved = vault.getSecret(NativeVault.INTEGRITY_TEST_KEY);
-        assertTrue(retrieved.isPresent());
-        assertArrayEquals(updatedSecret.toCharArray(), retrieved.get());
-        Arrays.fill(retrieved.get(), '\0');
-    }
-
-    /** Tests invalid string inputs throwing IllegalArgumentException. */
-    @Test
-    void givenBlankStringInputs_whenMethodsCalled_thenIllegalArgumentExceptionIsThrown() {
-        assertThrows(IllegalArgumentException.class, () -> vault.setSecret("", "secret"));
-        assertThrows(IllegalArgumentException.class, () -> vault.setSecret("key", ""));
-        assertThrows(IllegalArgumentException.class, () -> vault.getSecret("   "));
-        assertThrows(IllegalArgumentException.class, () -> vault.removeSecret((String) null));
-        assertThrows(IllegalArgumentException.class, () -> vault.removeSecret((char[]) null));
-        assertThrows(IllegalArgumentException.class, () -> vault.hasSecret(""));
+        char[] key = NativeVault.getIntegrityTestKey();
+        char[] initialSecret = new char[] {'i', 'n', 'i', 't'};
+        char[] updatedSecret = new char[] {'u', 'p', 'd', 'a', 't', 'e', 'd'};
+        try {
+            assertTrue(vault.setSecret(key, initialSecret));
+            assertTrue(vault.setSecret(key, updatedSecret));
+            Optional<char[]> retrieved = vault.getSecret(key);
+            assertTrue(retrieved.isPresent());
+            assertArrayEquals(updatedSecret, retrieved.get());
+            Arrays.fill(retrieved.get(), '\0');
+        } finally {
+            Arrays.fill(key, '\0');
+            Arrays.fill(initialSecret, '\0');
+            Arrays.fill(updatedSecret, '\0');
+        }
     }
 
     /** Tests invalid character array inputs throwing IllegalArgumentException. */
@@ -134,7 +128,7 @@ class NativeVaultTest {
                 () -> vault.setSecret(emptyArray, new char[] {'s'}));
         assertThrows(IllegalArgumentException.class, () -> vault.setSecret(new char[] {'k'}, null));
         assertThrows(IllegalArgumentException.class, () -> vault.getSecret(emptyArray));
-        assertThrows(IllegalArgumentException.class, () -> vault.removeSecret((char[]) null));
+        assertThrows(IllegalArgumentException.class, () -> vault.removeSecret(null));
         assertThrows(IllegalArgumentException.class, () -> vault.hasSecret(emptyArray));
     }
 
