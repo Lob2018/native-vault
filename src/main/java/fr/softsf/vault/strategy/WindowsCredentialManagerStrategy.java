@@ -264,7 +264,8 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
                 MemorySegment boundedBlob = blobPtr.reinterpret(blobSize);
                 blobBytes = new byte[blobSize];
                 MemorySegment.ofArray(blobBytes).copyFrom(boundedBlob);
-                CharBuffer charBuffer = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(blobBytes));
+                CharBuffer charBuffer =
+                        StandardCharsets.UTF_16LE.decode(ByteBuffer.wrap(blobBytes));
                 char[] chars = new char[charBuffer.remaining()];
                 charBuffer.get(chars);
                 return Optional.of(chars);
