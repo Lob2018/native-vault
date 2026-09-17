@@ -16,7 +16,6 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Optional;
 
 import fr.softsf.vault.exception.NativeVaultException;
@@ -104,29 +103,6 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
         // Stateless implementation; native method handles are loaded statically.
     }
 
-    /**
-     * Allocates a memory segment for the specified key.
-     *
-     * @param key the key
-     * @param arena the arena
-     * @return the memory segment
-     */
-    private MemorySegment keySegment(char[] key, Arena arena) {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException(KEY_CANNOT_BE_NULL_OR_EMPTY);
-        }
-        Objects.requireNonNull(arena, "Arena cannot be null");
-        ByteBuffer byteBuffer = StandardCharsets.UTF_16LE.encode(CharBuffer.wrap(key));
-        MemorySegment keySegment = arena.allocate(byteBuffer.remaining() + 2L);
-        keySegment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
-        keySegment.set(ValueLayout.JAVA_SHORT, byteBuffer.remaining(), (short) 0);
-        byteBuffer.position(0);
-        while (byteBuffer.hasRemaining()) {
-            byteBuffer.put((byte) 0);
-        }
-        return keySegment;
-    }
-
     @Override
     public boolean store(char[] key, char[] secret) throws NativeVaultException {
         if (key == null || key.length == 0) {
@@ -141,7 +117,7 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
             MemorySegment secretSeg = null;
             MemorySegment nativePassword = null;
             try {
-                targetNameSegment = keySegment(key, arena);
+                targetNameSegment = allocateSegment(arena, key, StandardCharsets.UTF_16LE);
                 credentialSegment = arena.allocate(CREDENTIAL_LAYOUT);
                 credentialSegment.set(
                         ValueLayout.JAVA_INT,
@@ -228,7 +204,7 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
             byte[] blobBytes = null;
             MemorySegment rawCredPtr = null;
             try {
-                targetNameSegment = keySegment(key, arena);
+                targetNameSegment = allocateSegment(arena, key, StandardCharsets.UTF_16LE);
                 outCredPtr = arena.allocate(ValueLayout.ADDRESS);
                 int status =
                         (int)
@@ -325,7 +301,7 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment targetNameSegment = null;
             try {
-                targetNameSegment = keySegment(key, arena);
+                targetNameSegment = allocateSegment(arena, key, StandardCharsets.UTF_16LE);
                 int status =
                         (int) DELETE_HANDLE.invokeExact(targetNameSegment, CRED_TYPE_GENERIC, 0);
                 return status != 0;
@@ -351,7 +327,7 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
             MemorySegment outCredPtr;
             MemorySegment rawCredPtr = null;
             try {
-                targetNameSegment = keySegment(key, arena);
+                targetNameSegment = allocateSegment(arena, key, StandardCharsets.UTF_16LE);
                 outCredPtr = arena.allocate(ValueLayout.ADDRESS);
                 int status =
                         (int)
