@@ -45,7 +45,7 @@ Here is sample code showing how to use the vault:
 char[] uniqueExampleKey = {'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.',
     'm', 'y', 'a', 'p', 'p', '.', 'u', 'n', 'i', 'q', 'u', 'e', 'k', 'e', 'y'};
 // The secret to store
-char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l', 
+char[] secret = {'m', 'y', '-', 'c', 'r', 'i', 't', 'i', 'c', 'a', 'l',
     '-', 's', 'e', 'c', 'r', 'e', 't'};
 try {
     // Initialize the native vault facade
