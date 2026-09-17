@@ -8,10 +8,12 @@ package fr.softsf.vault.internal;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
+import java.lang.foreign.MemorySegment;
 import java.lang.foreign.SymbolLookup;
 import java.lang.invoke.MethodHandle;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -44,24 +46,38 @@ public final class CrossPlatformVaultLoader {
         if (Objects.isNull(descriptor)) {
             throw new IllegalArgumentException("Descriptor cannot be null");
         }
-        SymbolLookup lookup;
-        if (libraryName.contains("/")
-                || libraryName.endsWith(".so.0")
-                || libraryName.toLowerCase(Locale.ROOT).endsWith(".dll")) {
+        SymbolLookup lookup = resolveSymbolLookup(libraryName);
+        Optional<MemorySegment> symbol = lookup.find(functionName);
+        if (symbol.isEmpty() && !libraryName.equalsIgnoreCase("Advapi32")) {
             lookup = SymbolLookup.libraryLookup(libraryName, Arena.global());
-        } else if (libraryName.equalsIgnoreCase("Advapi32")) {
-            lookup = SymbolLookup.libraryLookup(libraryName + ".dll", Arena.global());
-        } else {
-            lookup = LINKER.defaultLookup();
+            symbol = lookup.find(functionName);
         }
-        if (lookup.find(functionName).isEmpty() && !libraryName.equalsIgnoreCase("Advapi32")) {
-            lookup = SymbolLookup.libraryLookup(libraryName, Arena.global());
-        }
-        return lookup.find(functionName)
-                .map(addr -> LINKER.downcallHandle(addr, descriptor))
+        return symbol.map(addr -> LINKER.downcallHandle(addr, descriptor))
                 .orElseThrow(
                         () ->
                                 new UnsatisfiedLinkError(
                                         "Failed to load native function: " + functionName));
+    }
+
+    /**
+     * Resolves and returns the appropriate symbol lookup instance based on the library name.
+     *
+     * @param libraryName the library name or path
+     * @return the resolved symbol lookup
+     * @throws IllegalArgumentException if {@code libraryName} is blank
+     */
+    private static SymbolLookup resolveSymbolLookup(String libraryName) {
+        if (StringUtils.isBlank(libraryName)) {
+            throw new IllegalArgumentException("LibraryName must not be blank");
+        }
+        if (libraryName.contains("/")
+                || libraryName.endsWith(".so.0")
+                || libraryName.toLowerCase(Locale.ROOT).endsWith(".dll")) {
+            return SymbolLookup.libraryLookup(libraryName, Arena.global());
+        }
+        if (libraryName.equalsIgnoreCase("Advapi32")) {
+            return SymbolLookup.libraryLookup(libraryName + ".dll", Arena.global());
+        }
+        return LINKER.defaultLookup();
     }
 }
