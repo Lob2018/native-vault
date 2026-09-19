@@ -84,13 +84,13 @@ try {
 2. Maven 3.8+
 3. `mvn clean verify`
 
-## Architecture (UML)
+# Architecture (UML)
 
-* **Use Case Diagram**
+**Use case diagram**
 
 ![Use Case Diagram](https://raw.githubusercontent.com/Lob2018/native-vault/master/docs/uml/usecase.svg)
 
-* **Class Diagram**
+**Class diagram**
 
 ![Class Diagram](https://raw.githubusercontent.com/Lob2018/native-vault/master/docs/uml/class.svg)
 # License
