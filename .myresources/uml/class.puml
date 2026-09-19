@@ -1,0 +1,139 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+interface VaultStrategy {
+    + boolean store(char[] key, char[] secret)
+    + Optional<char[]> retrieve(char[] key)
+    + boolean delete(char[] key)
+    + boolean exists(char[] key)
+}
+
+abstract class AbstractVaultStrategy {
+    {static} ~ int MAX_KEY_BYTE_SIZE
+    {static} ~ long MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE
+    {static} ~ long LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE
+    {static} ~ int WINDOWS_CREDENTIAL_MANAGER_MAX_SECRET_BYTE_SIZE
+    ~ void validateKey(char[] key)
+    ~ void validateSecret(char[] secret)
+    ~ void zeroFill(MemorySegment segment)
+    ~ void zeroFill(char[] array)
+    ~ MemorySegment allocateSegment(Arena arena, char[] data, Charset charset)
+    ~ char[] concatNamespaceAndKey(char[] namespace, char[] key)
+}
+
+class LinuxKeyringStrategy {
+    {static} - String LIB_NAME
+    {static} - String GLIB_LIB_NAME
+    {static} - MemoryLayout SECRET_SCHEMA_ATTRIBUTE_LAYOUT
+    {static} + String ATTRIBUTES
+    {static} - MemoryLayout SECRET_SCHEMA_LAYOUT
+    - MemorySegment schemaSegment
+    {static} - MethodHandle STORE_HANDLE
+    {static} - MethodHandle LOOKUP_HANDLE
+    {static} - MethodHandle CLEAR_HANDLE
+    {static} - MethodHandle G_FREE_HANDLE
+    {static} + String KEY
+    + LinuxKeyringStrategy(char[] schemaName)
+    + boolean store(char[] key, char[] secret)
+    + Optional<char[]> retrieve(char[] key)
+    + boolean delete(char[] key)
+    + boolean exists(char[] key)
+}
+
+class MacKeychainStrategy {
+    {static} - String LIB_PATH
+    {static} - String CF_LIB_PATH
+    {static} - MethodHandle ADD_HANDLE
+    {static} - MethodHandle UPDATE_HANDLE
+    {static} - MethodHandle COPY_HANDLE
+    {static} - MethodHandle DELETE_HANDLE
+    {static} - MethodHandle CF_RELEASE_HANDLE
+    - char[] namespace
+    + MacKeychainStrategy(char[] namespace)
+    + boolean store(char[] key, char[] secret)
+    + Optional<char[]> retrieve(char[] key)
+    - void freeNativePointer(MemorySegment nativePtr)
+    + boolean delete(char[] key)
+    + boolean exists(char[] key)
+}
+
+class WindowsCredentialManagerStrategy {
+    {static} - String LIB_NAME
+    {static} - int CRED_TYPE_GENERIC
+    {static} - int CRED_PERSIST_LOCAL_MACHINE
+    {static} + String CREDENTIAL_BLOB_SIZE
+    {static} + String CREDENTIAL_BLOB
+    {static} - GroupLayout CREDENTIAL_LAYOUT
+    {static} - MethodHandle WRITE_HANDLE
+    {static} - MethodHandle READ_HANDLE
+    {static} - MethodHandle DELETE_HANDLE
+    {static} - MethodHandle CRED_FREE_HANDLE
+    - char[] namespace
+    + WindowsCredentialManagerStrategy(char[] namespace)
+    + boolean store(char[] key, char[] secret)
+    + Optional<char[]> retrieve(char[] key)
+    - void freeCredential(MemorySegment rawCredPtr)
+    + boolean delete(char[] key)
+    + boolean exists(char[] key)
+}
+
+class "NativeCredentialRecord" as WindowsCredentialManagerStrategy_NativeCredentialRecord {
+    - int flags
+    - int type
+    - MemorySegment targetName
+    - int credentialBlobSize
+    - MemorySegment credentialBlob
+    - int persist
+    {static} - VarHandle FLAGS_HANDLE
+    {static} - VarHandle TYPE_HANDLE
+    {static} - VarHandle TARGET_NAME_HANDLE
+    {static} - VarHandle COMMENT_HANDLE
+    {static} - VarHandle BLOB_SIZE_HANDLE
+    {static} - VarHandle BLOB_HANDLE
+    {static} - VarHandle PERSIST_HANDLE
+    {static} - VarHandle ATTRIBUTE_COUNT_HANDLE
+    {static} - VarHandle ATTRIBUTES_HANDLE
+    {static} - VarHandle TARGET_ALIAS_HANDLE
+    {static} - VarHandle USER_NAME_HANDLE
+    {static} + NativeCredentialRecord fromSegment(MemorySegment segment)
+}
+
+class NativeVault {
+    {static} - Object INTEGRITY_CHECK_LOCK
+    {static} ~ String INTEGRITY_TEST_KEY
+    - VaultStrategy strategy
+    - boolean verified
+    - NativeVaultException initializationException
+    {static} ~ char[] getIntegrityTestKey()
+    + NativeVault(char[] namespace)
+    {static} - VaultStrategy detect(char[] namespace)
+    {static} - boolean executeIntegrityCheck(VaultStrategy strategy)
+    - void ensureUsable()
+    + boolean setSecret(char[] key, char[] secret)
+    + Optional<char[]> getSecret(char[] key)
+    + boolean removeSecret(char[] key)
+    + boolean hasSecret(char[] key)
+}
+
+class CrossPlatformVaultLoader {
+    {static} - Linker LINKER
+    - CrossPlatformVaultLoader()
+    {static} + MethodHandle loadNativeFunction(String libraryName, String functionName, FunctionDescriptor descriptor)
+    {static} - SymbolLookup resolveSymbolLookup(String libraryName)
+}
+
+class NativeVaultException {
+    + NativeVaultException(String message)
+    + NativeVaultException(String message, Throwable cause)
+}
+
+class Exception
+
+VaultStrategy <|.. AbstractVaultStrategy : implements
+AbstractVaultStrategy <|-- LinuxKeyringStrategy : extends
+AbstractVaultStrategy <|-- MacKeychainStrategy : extends
+AbstractVaultStrategy <|-- WindowsCredentialManagerStrategy : extends
+WindowsCredentialManagerStrategy +-- WindowsCredentialManagerStrategy_NativeCredentialRecord : nested
+NativeVault --> VaultStrategy : uses
+Exception <|-- NativeVaultException : extends
+@enduml

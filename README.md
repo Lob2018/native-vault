@@ -84,6 +84,15 @@ try {
 2. Maven 3.8+
 3. `mvn clean verify`
 
+## Architecture (UML)
+
+* **Use Case Diagram**
+
+![Use Case Diagram](https://raw.githubusercontent.com/Lob2018/native-vault/master/docs/uml/usecase.svg)
+
+* **Class Diagram**
+
+![Class Diagram](https://raw.githubusercontent.com/Lob2018/native-vault/master/docs/uml/class.svg)
 # License
 
 This project is licensed under the terms of the GNU General Public License v3.0 (GPLv3).

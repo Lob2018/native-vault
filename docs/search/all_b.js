@@ -4,7 +4,7 @@ var searchData=
   ['lib_5fpath_1',['LIB_PATH',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#aa05716cf1d77ecda75f18630fd8376eb',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
   ['library_2',['How to use this library',['../index.html#autotoc_md3',1,'']]],
   ['library_20provides_3',['What this library provides',['../index.html#autotoc_md1',1,'']]],
-  ['license_4',['License',['../index.html#autotoc_md5',1,'']]],
+  ['license_4',['License',['../index.html#autotoc_md6',1,'']]],
   ['linker_5',['LINKER',['../classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html#aa3bf3731c0c52d796346d7b7aa672b0f',1,'fr::softsf::vault::internal::CrossPlatformVaultLoader']]],
   ['linux_5fsecret_5fservice_5fmax_5fsecret_5fbyte_5fsize_6',['LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a0a650196241473b4cbdac2a31b9d77a4',1,'fr::softsf::vault::strategy::AbstractVaultStrategy']]],
   ['linuxkeyringstrategy_7',['linuxkeyringstrategy',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#ab1e1b9a7c246bff1469f472dfff24963',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.LinuxKeyringStrategy()']]],

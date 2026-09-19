@@ -1,0 +1,27 @@
+@startuml
+skinparam actorStyle hollow
+skinparam packageStyle rectangle
+skinparam linetype polyline
+
+left to right direction
+
+actor "Application Client" as Client
+
+rectangle "NativeVault System" {
+    usecase "Store Secret" as UC1
+    usecase "Retrieve Secret" as UC2
+    usecase "Delete Secret" as UC3
+    usecase "Check Secret Existence" as UC4
+    usecase "Resolve Platform Strategy" as UC5
+}
+
+Client -- UC1
+Client -- UC2
+Client -- UC3
+Client -- UC4
+
+UC1 ..> UC5 : <<include>>
+UC2 ..> UC5 : <<include>>
+UC3 ..> UC5 : <<include>>
+UC4 ..> UC5 : <<include>>
+@enduml
