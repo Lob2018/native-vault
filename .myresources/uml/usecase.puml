@@ -12,7 +12,7 @@ rectangle "NativeVault System" {
     usecase "Retrieve Secret" as UC2
     usecase "Delete Secret" as UC3
     usecase "Check Secret Existence" as UC4
-    usecase "Resolve Platform Strategy" as UC5
+    usecase "Resolve Platform Credential Storage" as UC5
 }
 
 Client -- UC1
