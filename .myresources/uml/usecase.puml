@@ -5,14 +5,15 @@ skinparam linetype polyline
 
 left to right direction
 
-actor "Application Client" as Client
+actor "Application client" as Client
 
-rectangle "NativeVault System" {
-    usecase "Store Secret" as UC1
-    usecase "Retrieve Secret" as UC2
-    usecase "Delete Secret" as UC3
-    usecase "Check Secret Existence" as UC4
-    usecase "Resolve Platform Credential Storage" as UC5
+rectangle "NativeVault system" {
+    usecase "Store secret" as UC1
+    usecase "Retrieve secret" as UC2
+    usecase "Delete secret" as UC3
+    usecase "Check secret existence" as UC4
+    usecase "Verify credential storage" as UC5
+    usecase "Select platform credential storage" as UC6
 }
 
 Client -- UC1
@@ -24,4 +25,6 @@ UC1 ..> UC5 : <<include>>
 UC2 ..> UC5 : <<include>>
 UC3 ..> UC5 : <<include>>
 UC4 ..> UC5 : <<include>>
+
+UC5 ..> UC6 : <<include>>
 @enduml

@@ -88,11 +88,11 @@ try {
 
 **Use case diagram**
 
-![Use Case Diagram](https://raw.githubusercontent.com/Lob2018/native-vault/master/docs/uml/usecase.svg)
+![Use Case Diagram](https://raw.githubusercontent.com/Lob2018/native-vault/master/.myresources/uml/usecase.svg)
 
 **Class diagram**
 
-![Class Diagram](https://raw.githubusercontent.com/Lob2018/native-vault/master/docs/uml/class.svg)
+![Class Diagram](https://raw.githubusercontent.com/Lob2018/native-vault/master/.myresources/uml/class.svg)
 # License
 
 This project is licensed under the terms of the GNU General Public License v3.0 (GPLv3).

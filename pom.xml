@@ -294,7 +294,7 @@
                     <argument>${project.build.directory}/plantuml.jar</argument>
                     <argument>-tsvg</argument>
                     <argument>-o</argument>
-                    <argument>${project.basedir}/docs/uml</argument>
+                    <argument>./</argument>
                     <argument>.myresources/uml/*.puml</argument>
                   </arguments>
                 </configuration>
