@@ -4,6 +4,16 @@
 ## Unreleased - 
 
 
+✨ feat pom.xml, README.md, CHANGELOG.md: Add git-changelog-maven-plugin, CHANGELOG badge, and CHANGELOG
+- README.md :
+  - Add CHANGELOG shield badge.
+  - Update Online Javadoc badge formatting.
+- pom.xml :
+  - Integrate se.bjurr.gitchangelog:git-changelog-maven-plugin v2.4.0 with custom Handlebars template and generate-resources execution phase.
+- Tests pass.
+
+([46504ddbd904c73](https://github.com/Lob2018/CanScan/commit/46504ddbd904c73ec196b5ea5750c04f57b40729))
+
 ♻️ refactor UML: Moved UML diagrams to .myresources/uml
 
 ([f86ef8fe03446cf](https://github.com/Lob2018/CanScan/commit/f86ef8fe03446cf348cd159255477577c92ffa07))
