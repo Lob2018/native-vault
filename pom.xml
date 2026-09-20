@@ -256,6 +256,38 @@
           </execution>
         </executions>
       </plugin>
+      <!-- CHANGELOG plugin-->
+      <plugin>
+        <groupId>se.bjurr.gitchangelog</groupId>
+        <artifactId>git-changelog-maven-plugin</artifactId>
+        <version>2.4.0</version>
+        <configuration>
+          <file>CHANGELOG.md</file>
+          <templateContent><![CDATA[
+# Changelog
+
+{{#tags}}
+
+## {{name}} - {{tagDate .}}
+
+{{#commits}}
+
+{{message}}
+
+([{{hash}}](https://github.com/Lob2018/CanScan/commit/{{hashFull}}))
+{{/commits}}
+{{/tags}}
+]]></templateContent>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>git-changelog</goal>
+            </goals>
+            <phase>generate-resources</phase>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <profiles>

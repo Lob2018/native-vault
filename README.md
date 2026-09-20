@@ -2,8 +2,9 @@
 
 ![Status](https://img.shields.io/badge/status-in%20development-yellow)<br>
 
-[![Online Javadoc](https://img.shields.io/badge/Docs-🔗_Online_JavaDoc-0D47A1?style=for-the-badge)](https://lob2018.github.io/native-vault/)
+[![Online Javadoc](https://img.shields.io/badge/🔗_Online_JavaDoc-0D47A1?style=for-the-badge)](https://lob2018.github.io/native-vault/)
 
+[![CHANGELOG](https://img.shields.io/badge/🔗_CHANGELOG-0D47A1?style=for-the-badge)](https://github.com/lob2018/native-vault/blob/main/CHANGELOG.md)
 
 > [!WARNING]
 > This project is currently under active development. APIs are subject to change, and it is not yet recommended for production use.
