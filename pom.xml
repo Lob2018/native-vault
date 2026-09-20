@@ -274,7 +274,7 @@
 
 {{message}}
 
-([{{hash}}](https://github.com/Lob2018/CanScan/commit/{{hashFull}}))
+([{{hash}}](https://github.com/Lob2018/native-vault/commit/{{hashFull}}))
 {{/commits}}
 {{/tags}}
 ]]></templateContent>
