@@ -19,6 +19,13 @@
       <timezone>+1</timezone>
     </developer>
   </developers>
+  <!-- SCM configuration -->
+  <scm>
+    <connection>scm:git:https://github.com/Lob2018/native-vault.git</connection>
+    <developerConnection>scm:git:https://github.com/Lob2018/native-vault.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>https://github.com/Lob2018/native-vault</url>
+  </scm>
   <!-- Project properties -->
   <properties>
     <junit.version>5.11.4</junit.version>

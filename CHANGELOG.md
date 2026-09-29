@@ -4,6 +4,10 @@
 ## Unreleased - 
 
 
+🐛 fix pom.xml, CHANGELOG: from CanScan to native-vault, and update Doxygen
+
+([9c3342f4a0ad5e4](https://github.com/Lob2018/native-vault/commit/9c3342f4a0ad5e4ca2b77a57ccb5381eba4e3ef1))
+
 📚 docs Doxygen
 
 ([fc07873a26d78d8](https://github.com/Lob2018/native-vault/commit/fc07873a26d78d8c5a2369949ababfd234272d6b))
