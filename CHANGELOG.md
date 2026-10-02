@@ -4,6 +4,12 @@
 ## Unreleased - 
 
 
+✨ feat src/*, LICENSE.txt, pom.xml, README.md: Update license from GPLv3 to AGPLv3
+- Update license headers and project metadata to AGPLv3.
+- Tests pass.
+
+([d9d14f66860ae3c](https://github.com/Lob2018/native-vault/commit/d9d14f66860ae3c039239256eadd1fa4a887cccd))
+
 📚 docs pom.xml: Add SCM configuration
 - Add connection, developerConnection, url, and tag elements to the pom.xml file.
 - Tests pass.
