@@ -95,6 +95,6 @@ try {
 ![Class Diagram](https://raw.githubusercontent.com/Lob2018/native-vault/master/.myresources/uml/class.svg)
 # License
 
-This project is licensed under the terms of the GNU General Public License v3.0 (GPLv3).
+This project is licensed under the terms of the GNU Affero General Public License v3.0 (AGPLv3).
 See the [LICENSE](LICENSE) file for details.
 See the [NOTICE.txt](NOTICE.txt) file for required notices and attributions.

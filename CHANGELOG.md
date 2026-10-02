@@ -4,6 +4,12 @@
 ## Unreleased - 
 
 
+📚 docs pom.xml: Add SCM configuration
+- Add connection, developerConnection, url, and tag elements to the pom.xml file.
+- Tests pass.
+
+([e4223253274486c](https://github.com/Lob2018/native-vault/commit/e4223253274486c4eeb88654f3c9540880bd25d8))
+
 🐛 fix pom.xml, CHANGELOG: from CanScan to native-vault, and update Doxygen
 
 ([9c3342f4a0ad5e4](https://github.com/Lob2018/native-vault/commit/9c3342f4a0ad5e4ca2b77a57ccb5381eba4e3ef1))
