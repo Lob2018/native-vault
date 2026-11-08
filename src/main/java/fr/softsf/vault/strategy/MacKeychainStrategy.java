@@ -8,36 +8,48 @@ package fr.softsf.vault.strategy;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemorySegment;
+import java.lang.foreign.SymbolLookup;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
-import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import fr.softsf.vault.exception.NativeVaultException;
 import fr.softsf.vault.internal.CrossPlatformVaultLoader;
 
-/**
- * macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper
- * memory cleanup, namespace isolation, and error handling.
- */
+/** macOS Keychain implementation utilizing FFM API with proper CoreFoundation dictionaries. */
 public final class MacKeychainStrategy extends AbstractVaultStrategy {
     private static final String LIB_PATH =
             "/System/Library/Frameworks/Security.framework/Security"; // NOSONAR
     private static final String CF_LIB_PATH =
             "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"; // NOSONAR
 
-    private static final MethodHandle ADD_HANDLE;
-    private static final MethodHandle UPDATE_HANDLE;
-    private static final MethodHandle COPY_HANDLE;
-    private static final MethodHandle DELETE_HANDLE;
-    private static final MethodHandle CF_RELEASE_HANDLE;
+    private static final MethodHandle SEC_ITEM_ADD;
+    private static final MethodHandle SEC_ITEM_UPDATE;
+    private static final MethodHandle SEC_ITEM_COPY_MATCHING;
+    private static final MethodHandle SEC_ITEM_DELETE;
+
+    private static final MethodHandle CF_STRING_CREATE_WITH_C_STRING;
+    private static final MethodHandle CF_DATA_CREATE;
+    private static final MethodHandle CF_DICTIONARY_CREATE;
+    private static final MethodHandle CF_DATA_GET_BYTE_PTR;
+    private static final MethodHandle CF_DATA_GET_LENGTH;
+    private static final MethodHandle CF_RELEASE;
+
+    private static final MemorySegment K_SEC_CLASS;
+    private static final MemorySegment K_SEC_CLASS_GENERIC_PASSWORD;
+    private static final MemorySegment K_SEC_ATTR_ACCOUNT;
+    private static final MemorySegment K_SEC_VALUE_DATA;
+    private static final MemorySegment K_SEC_RETURN_DATA;
+    private static final MemorySegment K_SEC_MATCH_LIMIT;
+    private static final MemorySegment K_SEC_MATCH_LIMIT_ONE;
+    private static final MemorySegment K_CF_BOOLEAN_TRUE;
 
     private final char[] namespace;
 
     static {
         try {
-            ADD_HANDLE =
+            SEC_ITEM_ADD =
                     CrossPlatformVaultLoader.loadNativeFunction(
                             LIB_PATH,
                             "SecItemAdd",
@@ -45,7 +57,7 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                                     ValueLayout.JAVA_INT,
                                     ValueLayout.ADDRESS,
                                     ValueLayout.ADDRESS));
-            UPDATE_HANDLE =
+            SEC_ITEM_UPDATE =
                     CrossPlatformVaultLoader.loadNativeFunction(
                             LIB_PATH,
                             "SecItemUpdate",
@@ -53,7 +65,7 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                                     ValueLayout.JAVA_INT,
                                     ValueLayout.ADDRESS,
                                     ValueLayout.ADDRESS));
-            COPY_HANDLE =
+            SEC_ITEM_COPY_MATCHING =
                     CrossPlatformVaultLoader.loadNativeFunction(
                             LIB_PATH,
                             "SecItemCopyMatching",
@@ -61,16 +73,68 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                                     ValueLayout.JAVA_INT,
                                     ValueLayout.ADDRESS,
                                     ValueLayout.ADDRESS));
-            DELETE_HANDLE =
+            SEC_ITEM_DELETE =
                     CrossPlatformVaultLoader.loadNativeFunction(
                             LIB_PATH,
                             "SecItemDelete",
                             FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS));
-            CF_RELEASE_HANDLE =
+
+            CF_STRING_CREATE_WITH_C_STRING =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            CF_LIB_PATH,
+                            "CFStringCreateWithCString",
+                            FunctionDescriptor.of(
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.JAVA_INT));
+            CF_DATA_CREATE =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            CF_LIB_PATH,
+                            "CFDataCreate",
+                            FunctionDescriptor.of(
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.JAVA_LONG));
+            CF_DICTIONARY_CREATE =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            CF_LIB_PATH,
+                            "CFDictionaryCreate",
+                            FunctionDescriptor.of(
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.JAVA_LONG,
+                                    ValueLayout.ADDRESS,
+                                    ValueLayout.ADDRESS));
+            CF_DATA_GET_BYTE_PTR =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            CF_LIB_PATH,
+                            "CFDataGetBytePtr",
+                            FunctionDescriptor.of(ValueLayout.ADDRESS, ValueLayout.ADDRESS));
+            CF_DATA_GET_LENGTH =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            CF_LIB_PATH,
+                            "CFDataGetLength",
+                            FunctionDescriptor.of(ValueLayout.JAVA_LONG, ValueLayout.ADDRESS));
+            CF_RELEASE =
                     CrossPlatformVaultLoader.loadNativeFunction(
                             CF_LIB_PATH,
                             "CFRelease",
                             FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
+
+            SymbolLookup secLookup = SymbolLookup.libraryLookup(LIB_PATH, Arena.global());
+            SymbolLookup cfudLookup = SymbolLookup.libraryLookup(CF_LIB_PATH, Arena.global());
+
+            K_SEC_CLASS = secLookup.find("kSecClass").orElseThrow();
+            K_SEC_CLASS_GENERIC_PASSWORD = secLookup.find("kSecClassGenericPassword").orElseThrow();
+            K_SEC_ATTR_ACCOUNT = secLookup.find("kSecAttrAccount").orElseThrow();
+            K_SEC_VALUE_DATA = secLookup.find("kSecValueData").orElseThrow();
+            K_SEC_RETURN_DATA = secLookup.find("kSecReturnData").orElseThrow();
+            K_SEC_MATCH_LIMIT = secLookup.find("kSecMatchLimit").orElseThrow();
+            K_SEC_MATCH_LIMIT_ONE = secLookup.find("kSecMatchLimitOne").orElseThrow();
+            K_CF_BOOLEAN_TRUE = cfudLookup.find("kCFBooleanTrue").orElseThrow();
         } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
@@ -79,12 +143,6 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
         }
     }
 
-    /**
-     * Initializes a new instance of the {@code MacKeychainStrategy} with a custom namespace.
-     *
-     * @param namespace the isolated namespace character array used as a prefix for keychain items
-     * @throws IllegalArgumentException if {@code namespace} is null or empty
-     */
     public MacKeychainStrategy(char[] namespace) {
         if (namespace == null || namespace.length == 0) {
             throw new IllegalArgumentException("Namespace cannot be null or empty");
@@ -96,150 +154,281 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
     public boolean store(char[] key, char[] secret) throws NativeVaultException {
         validateKey(key);
         validateSecret(secret);
-        char[] qualifiedKey = null;
+        char[] qualifiedKey = concatNamespaceAndKey(namespace, key);
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment keySegment = null;
-            MemorySegment secretSegment = null;
-            try {
-                qualifiedKey = concatNamespaceAndKey(namespace, key);
-                keySegment = allocateSegment(arena, qualifiedKey, StandardCharsets.UTF_8);
-                secretSegment = allocateSegment(arena, secret, StandardCharsets.UTF_8);
-                int status = (int) ADD_HANDLE.invokeExact(keySegment, secretSegment);
-                if (status == -25299) { // errSecDuplicateItem
-                    return (int) UPDATE_HANDLE.invokeExact(keySegment, secretSegment) == 0;
-                }
-                return status == 0;
-            } finally {
-                zeroFill(secretSegment);
-                zeroFill(keySegment);
-                zeroFill(qualifiedKey);
+            MemorySegment keyStr = createCFString(arena, qualifiedKey);
+            MemorySegment dataVal = createCFData(arena, secret);
+
+            MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, 3);
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS.get(ValueLayout.ADDRESS, 0));
+            keysArray.setAtIndex(
+                    ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT.get(ValueLayout.ADDRESS, 0));
+            keysArray.setAtIndex(
+                    ValueLayout.ADDRESS, 2, K_SEC_VALUE_DATA.get(ValueLayout.ADDRESS, 0));
+
+            MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, 3);
+            valuesArray.setAtIndex(
+                    ValueLayout.ADDRESS,
+                    0,
+                    K_SEC_CLASS_GENERIC_PASSWORD.get(ValueLayout.ADDRESS, 0));
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, 2, dataVal);
+
+            MemorySegment dict =
+                    (MemorySegment)
+                            CF_DICTIONARY_CREATE.invokeExact(
+                                    MemorySegment.NULL,
+                                    keysArray,
+                                    valuesArray,
+                                    3L,
+                                    MemorySegment.NULL,
+                                    MemorySegment.NULL);
+
+            int status = (int) SEC_ITEM_ADD.invokeExact(dict);
+            if (status == -25299) { // errSecDuplicateItem
+                MemorySegment updateQueryKeys = arena.allocate(ValueLayout.ADDRESS, 2);
+                updateQueryKeys.setAtIndex(
+                        ValueLayout.ADDRESS, 0, K_SEC_CLASS.get(ValueLayout.ADDRESS, 0));
+                updateQueryKeys.setAtIndex(
+                        ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT.get(ValueLayout.ADDRESS, 0));
+
+                MemorySegment updateQueryVals = arena.allocate(ValueLayout.ADDRESS, 2);
+                updateQueryVals.setAtIndex(
+                        ValueLayout.ADDRESS,
+                        0,
+                        K_SEC_CLASS_GENERIC_PASSWORD.get(ValueLayout.ADDRESS, 0));
+                updateQueryVals.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
+
+                MemorySegment queryDict =
+                        (MemorySegment)
+                                CF_DICTIONARY_CREATE.invokeExact(
+                                        MemorySegment.NULL,
+                                        updateQueryKeys,
+                                        updateQueryVals,
+                                        2L,
+                                        MemorySegment.NULL,
+                                        MemorySegment.NULL);
+
+                MemorySegment updateKeys = arena.allocate(ValueLayout.ADDRESS, 1);
+                updateKeys.setAtIndex(
+                        ValueLayout.ADDRESS, 0, K_SEC_VALUE_DATA.get(ValueLayout.ADDRESS, 0));
+
+                MemorySegment updateVals = arena.allocate(ValueLayout.ADDRESS, 1);
+                updateVals.setAtIndex(ValueLayout.ADDRESS, 0, dataVal);
+
+                MemorySegment attributesToUpdate =
+                        (MemorySegment)
+                                CF_DICTIONARY_CREATE.invokeExact(
+                                        MemorySegment.NULL,
+                                        updateKeys,
+                                        updateVals,
+                                        1L,
+                                        MemorySegment.NULL,
+                                        MemorySegment.NULL);
+
+                status = (int) SEC_ITEM_UPDATE.invokeExact(queryDict, attributesToUpdate);
+                CF_RELEASE.invokeExact(queryDict);
+                CF_RELEASE.invokeExact(attributesToUpdate);
             }
+            CF_RELEASE.invokeExact(dict);
+            CF_RELEASE.invokeExact(keyStr);
+            CF_RELEASE.invokeExact(dataVal);
+            return status == 0;
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
             throw new NativeVaultException("Failed to store secret in macOS Keychain", t);
+        } finally {
+            zeroFill(qualifiedKey);
         }
     }
 
     @Override
     public Optional<char[]> retrieve(char[] key) throws NativeVaultException {
         validateKey(key);
-        char[] qualifiedKey = null;
+        char[] qualifiedKey = concatNamespaceAndKey(namespace, key);
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment query = null;
-            MemorySegment resultData;
-            MemorySegment nativePtr = null;
+            MemorySegment keyStr = createCFString(arena, qualifiedKey);
+
+            MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, 4);
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS.get(ValueLayout.ADDRESS, 0));
+            keysArray.setAtIndex(
+                    ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT.get(ValueLayout.ADDRESS, 0));
+            keysArray.setAtIndex(
+                    ValueLayout.ADDRESS, 2, K_SEC_RETURN_DATA.get(ValueLayout.ADDRESS, 0));
+            keysArray.setAtIndex(
+                    ValueLayout.ADDRESS, 3, K_SEC_MATCH_LIMIT.get(ValueLayout.ADDRESS, 0));
+
+            MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, 4);
+            valuesArray.setAtIndex(
+                    ValueLayout.ADDRESS,
+                    0,
+                    K_SEC_CLASS_GENERIC_PASSWORD.get(ValueLayout.ADDRESS, 0));
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
+            valuesArray.setAtIndex(
+                    ValueLayout.ADDRESS, 2, K_CF_BOOLEAN_TRUE.get(ValueLayout.ADDRESS, 0));
+            valuesArray.setAtIndex(
+                    ValueLayout.ADDRESS, 3, K_SEC_MATCH_LIMIT_ONE.get(ValueLayout.ADDRESS, 0));
+
+            MemorySegment queryDict =
+                    (MemorySegment)
+                            CF_DICTIONARY_CREATE.invokeExact(
+                                    MemorySegment.NULL,
+                                    keysArray,
+                                    valuesArray,
+                                    4L,
+                                    MemorySegment.NULL,
+                                    MemorySegment.NULL);
+
+            MemorySegment resultData = arena.allocate(ValueLayout.ADDRESS);
+            int status = (int) SEC_ITEM_COPY_MATCHING.invokeExact(queryDict, resultData);
+            CF_RELEASE.invokeExact(queryDict);
+            CF_RELEASE.invokeExact(keyStr);
+
+            if (status != 0) {
+                return Optional.empty();
+            }
+
+            MemorySegment dataRef = resultData.get(ValueLayout.ADDRESS, 0);
+            if (MemorySegment.NULL.equals(dataRef) || dataRef.address() == 0) {
+                return Optional.empty();
+            }
+
             try {
-                qualifiedKey = concatNamespaceAndKey(namespace, key);
-                query = allocateSegment(arena, qualifiedKey, StandardCharsets.UTF_8);
-                resultData = arena.allocate(ValueLayout.ADDRESS);
-                int status = (int) COPY_HANDLE.invokeExact(query, resultData);
-                if (status != 0) {
-                    return Optional.empty();
-                }
-                nativePtr = resultData.get(ValueLayout.ADDRESS, 0);
-                if (nativePtr == null
-                        || nativePtr.address() == 0
-                        || nativePtr.equals(MemorySegment.NULL)) {
-                    return Optional.empty();
-                }
-                MemorySegment boundedPtr =
-                        nativePtr.reinterpret(MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE);
-                long passwordLength = 0;
-                while (boundedPtr.get(ValueLayout.JAVA_BYTE, passwordLength) != 0) {
-                    passwordLength++;
-                }
-                MemorySegment passwordSegment = boundedPtr.asSlice(0, passwordLength);
-                CharBuffer charBuffer =
-                        StandardCharsets.UTF_8.decode(passwordSegment.asByteBuffer());
-                char[] chars = new char[charBuffer.remaining()];
-                charBuffer.get(chars);
+                long length = (long) CF_DATA_GET_LENGTH.invokeExact(dataRef);
+                MemorySegment bytePtr = (MemorySegment) CF_DATA_GET_BYTE_PTR.invokeExact(dataRef);
+                MemorySegment bounded = bytePtr.reinterpret(length);
+                byte[] bytes = bounded.toArray(ValueLayout.JAVA_BYTE);
+                char[] chars =
+                        StandardCharsets.UTF_8.decode(java.nio.ByteBuffer.wrap(bytes)).array();
                 return Optional.of(chars);
             } finally {
-                freeNativePointer(nativePtr);
-                zeroFill(query);
-                zeroFill(qualifiedKey);
+                CF_RELEASE.invokeExact(dataRef);
             }
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
             throw new NativeVaultException("Failed to retrieve secret from macOS Keychain", t);
-        }
-    }
-
-    /**
-     * Releases the native keychain pointer and securely zero-fills its referenced memory segment.
-     *
-     * @param nativePtr the native pointer to release
-     * @throws Throwable if method handle invocation fails
-     */
-    private void freeNativePointer(MemorySegment nativePtr) throws Throwable {
-        if (nativePtr == null || nativePtr.address() == 0 || nativePtr.equals(MemorySegment.NULL)) {
-            return;
-        }
-        try {
-            zeroFill(nativePtr.reinterpret(MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE));
         } finally {
-            CF_RELEASE_HANDLE.invokeExact(nativePtr);
+            zeroFill(qualifiedKey);
         }
     }
 
     @Override
     public boolean delete(char[] key) throws NativeVaultException {
         validateKey(key);
-        char[] qualifiedKey = null;
+        char[] qualifiedKey = concatNamespaceAndKey(namespace, key);
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment keySegment = null;
-            try {
-                qualifiedKey = concatNamespaceAndKey(namespace, key);
-                keySegment = allocateSegment(arena, qualifiedKey, StandardCharsets.UTF_8);
-                return (int) DELETE_HANDLE.invokeExact(keySegment) == 0;
-            } finally {
-                zeroFill(keySegment);
-                zeroFill(qualifiedKey);
-            }
+            MemorySegment keyStr = createCFString(arena, qualifiedKey);
+
+            MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, 2);
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS.get(ValueLayout.ADDRESS, 0));
+            keysArray.setAtIndex(
+                    ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT.get(ValueLayout.ADDRESS, 0));
+
+            MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, 2);
+            valuesArray.setAtIndex(
+                    ValueLayout.ADDRESS,
+                    0,
+                    K_SEC_CLASS_GENERIC_PASSWORD.get(ValueLayout.ADDRESS, 0));
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
+
+            MemorySegment queryDict =
+                    (MemorySegment)
+                            CF_DICTIONARY_CREATE.invokeExact(
+                                    MemorySegment.NULL,
+                                    keysArray,
+                                    valuesArray,
+                                    2L,
+                                    MemorySegment.NULL,
+                                    MemorySegment.NULL);
+
+            int status = (int) SEC_ITEM_DELETE.invokeExact(queryDict);
+            CF_RELEASE.invokeExact(queryDict);
+            CF_RELEASE.invokeExact(keyStr);
+            return status == 0;
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
             throw new NativeVaultException("Failed to delete secret from macOS Keychain", t);
+        } finally {
+            zeroFill(qualifiedKey);
         }
     }
 
     @Override
     public boolean exists(char[] key) throws NativeVaultException {
         validateKey(key);
-        char[] qualifiedKey = null;
+        char[] qualifiedKey = concatNamespaceAndKey(namespace, key);
         try (Arena arena = Arena.ofConfined()) {
-            MemorySegment query = null;
-            MemorySegment resultData;
-            MemorySegment nativePtr;
-            try {
-                qualifiedKey = concatNamespaceAndKey(namespace, key);
-                query = allocateSegment(arena, qualifiedKey, StandardCharsets.UTF_8);
-                resultData = arena.allocate(ValueLayout.ADDRESS);
-                int status = (int) COPY_HANDLE.invokeExact(query, resultData);
-                if (status == 0) {
-                    nativePtr = resultData.get(ValueLayout.ADDRESS, 0);
-                    if (nativePtr != null
-                            && nativePtr.address() != 0
-                            && !nativePtr.equals(MemorySegment.NULL)) {
-                        freeNativePointer(nativePtr);
-                        return true;
-                    }
+            MemorySegment keyStr = createCFString(arena, qualifiedKey);
+
+            MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, 3);
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS.get(ValueLayout.ADDRESS, 0));
+            keysArray.setAtIndex(
+                    ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT.get(ValueLayout.ADDRESS, 0));
+            keysArray.setAtIndex(
+                    ValueLayout.ADDRESS, 2, K_SEC_MATCH_LIMIT.get(ValueLayout.ADDRESS, 0));
+
+            MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, 3);
+            valuesArray.setAtIndex(
+                    ValueLayout.ADDRESS,
+                    0,
+                    K_SEC_CLASS_GENERIC_PASSWORD.get(ValueLayout.ADDRESS, 0));
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
+            valuesArray.setAtIndex(
+                    ValueLayout.ADDRESS, 2, K_SEC_MATCH_LIMIT_ONE.get(ValueLayout.ADDRESS, 0));
+
+            MemorySegment queryDict =
+                    (MemorySegment)
+                            CF_DICTIONARY_CREATE.invokeExact(
+                                    MemorySegment.NULL,
+                                    keysArray,
+                                    valuesArray,
+                                    3L,
+                                    MemorySegment.NULL,
+                                    MemorySegment.NULL);
+
+            MemorySegment resultData = arena.allocate(ValueLayout.ADDRESS);
+            int status = (int) SEC_ITEM_COPY_MATCHING.invokeExact(queryDict, resultData);
+            CF_RELEASE.invokeExact(queryDict);
+            CF_RELEASE.invokeExact(keyStr);
+
+            if (status == 0) {
+                MemorySegment dataRef = resultData.get(ValueLayout.ADDRESS, 0);
+                if (!MemorySegment.NULL.equals(dataRef) && dataRef.address() != 0) {
+                    CF_RELEASE.invokeExact(dataRef);
                 }
-                return false;
-            } finally {
-                zeroFill(query);
-                zeroFill(qualifiedKey);
+                return true;
             }
+            return false;
         } catch (Throwable t) {
             if (t instanceof Error error) {
                 throw error;
             }
             throw new NativeVaultException("Failed to check secret existence in macOS Keychain", t);
+        } finally {
+            zeroFill(qualifiedKey);
         }
+    }
+
+    private MemorySegment createCFString(Arena arena, char[] chars) throws Throwable {
+        byte[] bytes = new String(chars).getBytes(StandardCharsets.UTF_8);
+        MemorySegment cStr = arena.allocate(bytes.length + 1L);
+        cStr.asByteBuffer().put(bytes).put((byte) 0);
+        return (MemorySegment)
+                CF_STRING_CREATE_WITH_C_STRING.invokeExact(
+                        MemorySegment.NULL, cStr, 0x08000000 /* kCFStringEncodingUTF8 */);
+    }
+
+    private MemorySegment createCFData(Arena arena, char[] chars) throws Throwable {
+        byte[] bytes = new String(chars).getBytes(StandardCharsets.UTF_8);
+        MemorySegment dataSeg = arena.allocate(bytes.length);
+        dataSeg.asByteBuffer().put(bytes);
+        return (MemorySegment)
+                CF_DATA_CREATE.invokeExact(MemorySegment.NULL, dataSeg, (long) bytes.length);
     }
 }

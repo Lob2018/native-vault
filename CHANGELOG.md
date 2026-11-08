@@ -4,6 +4,10 @@
 ## Unreleased - 
 
 
+📚 docs Doxygen
+
+([c2c1a40350d64cc](https://github.com/Lob2018/native-vault/commit/c2c1a40350d64ccc0b05031e9bb6c7361edc7681))
+
 ✨ feat src/*, LICENSE.txt, pom.xml, README.md: Update license from GPLv3 to AGPLv3
 - Update license headers and project metadata to AGPLv3.
 - Tests pass.
