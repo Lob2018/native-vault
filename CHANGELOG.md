@@ -4,6 +4,14 @@
 ## Unreleased - 
 
 
+🐛 fix MacKeychainStrategy: Fix native symbol resolution and prevent IndexOutOfBoundsException during static initialization
+- MacKeychainStrategy:
+ -Directly dereference Security and CoreFoundation symbol segments using get(ValueLayout.ADDRESS, 0) during static lookup.
+ -Use raw memory segment references for global keychain constants and boolean values in FFM dictionary lookups.
+- Tests pass.
+
+([d57f02bca4a71c8](https://github.com/Lob2018/native-vault/commit/d57f02bca4a71c8c69e8d81b80d0ac6f7811592c))
+
 🐛 fix MacKeychainStrategy: Resolve JVM crash (SIGABRT/Exit Code 134) on macOS by replacing raw string pointers with CoreFoundation dictionaries.
 -MacKeychainStrategy:
  -Update native FFM bindings to correctly construct CFDictionary for SecItemAdd, SecItemCopyMatching, SecItemDelete, and SecItemUpdate.

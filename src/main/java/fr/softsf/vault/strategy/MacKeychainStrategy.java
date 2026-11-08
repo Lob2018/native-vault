@@ -127,24 +127,54 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
             SymbolLookup secLookup = SymbolLookup.libraryLookup(LIB_PATH, Arena.global());
             SymbolLookup cfudLookup = SymbolLookup.libraryLookup(CF_LIB_PATH, Arena.global());
 
-            K_SEC_CLASS = secLookup.find("kSecClass").orElseThrow().get(ValueLayout.ADDRESS, 0);
+            K_SEC_CLASS =
+                    secLookup
+                            .find("kSecClass")
+                            .orElseThrow()
+                            .reinterpret(8)
+                            .get(ValueLayout.ADDRESS, 0);
             K_SEC_CLASS_GENERIC_PASSWORD =
                     secLookup
                             .find("kSecClassGenericPassword")
                             .orElseThrow()
+                            .reinterpret(8)
                             .get(ValueLayout.ADDRESS, 0);
             K_SEC_ATTR_ACCOUNT =
-                    secLookup.find("kSecAttrAccount").orElseThrow().get(ValueLayout.ADDRESS, 0);
+                    secLookup
+                            .find("kSecAttrAccount")
+                            .orElseThrow()
+                            .reinterpret(8)
+                            .get(ValueLayout.ADDRESS, 0);
             K_SEC_VALUE_DATA =
-                    secLookup.find("kSecValueData").orElseThrow().get(ValueLayout.ADDRESS, 0);
+                    secLookup
+                            .find("kSecValueData")
+                            .orElseThrow()
+                            .reinterpret(8)
+                            .get(ValueLayout.ADDRESS, 0);
             K_SEC_RETURN_DATA =
-                    secLookup.find("kSecReturnData").orElseThrow().get(ValueLayout.ADDRESS, 0);
+                    secLookup
+                            .find("kSecReturnData")
+                            .orElseThrow()
+                            .reinterpret(8)
+                            .get(ValueLayout.ADDRESS, 0);
             K_SEC_MATCH_LIMIT =
-                    secLookup.find("kSecMatchLimit").orElseThrow().get(ValueLayout.ADDRESS, 0);
+                    secLookup
+                            .find("kSecMatchLimit")
+                            .orElseThrow()
+                            .reinterpret(8)
+                            .get(ValueLayout.ADDRESS, 0);
             K_SEC_MATCH_LIMIT_ONE =
-                    secLookup.find("kSecMatchLimitOne").orElseThrow().get(ValueLayout.ADDRESS, 0);
+                    secLookup
+                            .find("kSecMatchLimitOne")
+                            .orElseThrow()
+                            .reinterpret(8)
+                            .get(ValueLayout.ADDRESS, 0);
             K_CF_BOOLEAN_TRUE =
-                    cfudLookup.find("kCFBooleanTrue").orElseThrow().get(ValueLayout.ADDRESS, 0);
+                    cfudLookup
+                            .find("kCFBooleanTrue")
+                            .orElseThrow()
+                            .reinterpret(8)
+                            .get(ValueLayout.ADDRESS, 0);
         } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
