@@ -1,13 +1,8 @@
 var searchData=
 [
-  ['namespace_0',['namespace',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ad02c2feb4a29eabeab9f09b2edb709f6',1,'fr.softsf.vault.strategy.MacKeychainStrategy.namespace'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a630e394e2f9a269565765c124e2eae08',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.namespace']]],
-  ['nativecredentialrecord_1',['NativeCredentialRecord',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#aed332ecbf6f0123eca32a1b0d26501ac',1,'fr::softsf::vault::strategy::WindowsCredentialManagerStrategy']]],
-  ['nativevault_2',['NativeVault',['../index.html',1,'🔐 NativeVault'],['../classfr_1_1softsf_1_1vault_1_1NativeVault.html',1,'fr.softsf.vault.NativeVault'],['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a3aaeee51bb93d75ee162fc618f90f682',1,'fr.softsf.vault.NativeVault.NativeVault()']]],
-  ['nativevault_2ejava_3',['NativeVault.java',['../NativeVault_8java.html',1,'']]],
-  ['nativevaultexception_4',['NativeVaultException',['../classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html',1,'fr.softsf.vault.exception.NativeVaultException'],['../classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html#a56f714bfcb1b5e1ae2ad8134aa0364fe',1,'fr.softsf.vault.exception.NativeVaultException.NativeVaultException(String message)'],['../classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html#a594fb584d4010147c70fb0e60159c2fb',1,'fr.softsf.vault.exception.NativeVaultException.NativeVaultException(String message, Throwable cause)']]],
-  ['nativevaultexception_2ejava_5',['NativeVaultException.java',['../NativeVaultException_8java.html',1,'']]],
-  ['nativevaultexceptiontest_6',['NativeVaultExceptionTest',['../classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest.html',1,'fr::softsf::vault']]],
-  ['nativevaultexceptiontest_2ejava_7',['NativeVaultExceptionTest.java',['../NativeVaultExceptionTest_8java.html',1,'']]],
-  ['nativevaulttest_8',['NativeVaultTest',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html',1,'fr::softsf::vault']]],
-  ['nativevaulttest_2ejava_9',['NativeVaultTest.java',['../NativeVaultTest_8java.html',1,'']]]
+  ['mackeychainstrategy_0',['MacKeychainStrategy',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html',1,'fr.softsf.vault.strategy.MacKeychainStrategy'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ad6300fc42ce5563a4630a35fd8029e13',1,'fr.softsf.vault.strategy.MacKeychainStrategy.MacKeychainStrategy()']]],
+  ['mackeychainstrategy_2ejava_1',['MacKeychainStrategy.java',['../MacKeychainStrategy_8java.html',1,'']]],
+  ['macos_5fkeychain_5fmax_5fsecret_5fbyte_5fsize_2',['MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a8762aeeedbcb6f632e8bca80dab29201',1,'fr::softsf::vault::strategy::AbstractVaultStrategy']]],
+  ['max_5fkey_5fbyte_5fsize_3',['MAX_KEY_BYTE_SIZE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#aa3d0ed5f9fc091e09b1ee79865975ffb',1,'fr::softsf::vault::strategy::AbstractVaultStrategy']]],
+  ['module_2dinfo_2ejava_4',['module-info.java',['../module-info_8java.html',1,'']]]
 ];

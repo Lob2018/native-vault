@@ -4,6 +4,14 @@
 ## Unreleased - 
 
 
+✨ feat .sdkmanrc, TestVault.java, README.md: Add JBang support and native vault test script
+-.sdkmanrc: Add jbang&#x3D;0.143.0.
+-.myresources/scripts/TestVault: Create test script for validating NativeVault operations using JBang.
+-README.md: Document the JBang quick-testing workflow.
+-Tests pass.
+
+([9b5bcbf96aca91b](https://github.com/Lob2018/native-vault/commit/9b5bcbf96aca91b4789174b15a51ae9673958c7f))
+
 📚 docs Doxygen
 
 ([4bd62d1b17262b4](https://github.com/Lob2018/native-vault/commit/4bd62d1b17262b4b67d27c5aa86a10075a749d78))

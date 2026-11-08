@@ -1,14 +1,14 @@
 var searchData=
 [
-  ['lib_5fname_0',['LIB_NAME',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#aad4f09499355e37e19bdfdfb780d9e7a',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.LIB_NAME'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a33c57fb53c19ef132b703626589c349c',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.LIB_NAME']]],
-  ['lib_5fpath_1',['LIB_PATH',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#aa05716cf1d77ecda75f18630fd8376eb',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
-  ['library_2',['How to use this library',['../index.html#autotoc_md3',1,'']]],
-  ['library_20provides_3',['What this library provides',['../index.html#autotoc_md1',1,'']]],
-  ['license_4',['License',['../index.html#autotoc_md6',1,'']]],
-  ['linker_5',['LINKER',['../classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html#aa3bf3731c0c52d796346d7b7aa672b0f',1,'fr::softsf::vault::internal::CrossPlatformVaultLoader']]],
-  ['linux_5fsecret_5fservice_5fmax_5fsecret_5fbyte_5fsize_6',['LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a0a650196241473b4cbdac2a31b9d77a4',1,'fr::softsf::vault::strategy::AbstractVaultStrategy']]],
-  ['linuxkeyringstrategy_7',['LinuxKeyringStrategy',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#ab1e1b9a7c246bff1469f472dfff24963',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.LinuxKeyringStrategy()']]],
-  ['linuxkeyringstrategy_2ejava_8',['LinuxKeyringStrategy.java',['../LinuxKeyringStrategy_8java.html',1,'']]],
-  ['loadnativefunction_9',['loadNativeFunction',['../classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html#a3f149a0566540c2cacf5ffbdfa37d6d5',1,'fr::softsf::vault::internal::CrossPlatformVaultLoader']]],
-  ['lookup_5fhandle_10',['LOOKUP_HANDLE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a5e4b12e53c0fa5eb5bc5f31dc4d30bb2',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]]
+  ['k_5fcf_5fboolean_5ftrue_0',['K_CF_BOOLEAN_TRUE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a6502777deae3dff65353897bbd63417f',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
+  ['k_5fcf_5ftype_5fdictionary_5fkey_5fcallbacks_1',['K_CF_TYPE_DICTIONARY_KEY_CALLBACKS',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a8d7a053bb163a9b89d1d324a7ecd8d14',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
+  ['k_5fcf_5ftype_5fdictionary_5fvalue_5fcallbacks_2',['K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ae28c2732430bd70d4939607e863432f2',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
+  ['k_5fsec_5fattr_5faccount_3',['K_SEC_ATTR_ACCOUNT',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#aa704b582f3920da218483651ffffff1a',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
+  ['k_5fsec_5fclass_4',['K_SEC_CLASS',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a3f5561e653daeec10197fcb367bca0e0',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
+  ['k_5fsec_5fclass_5fgeneric_5fpassword_5',['K_SEC_CLASS_GENERIC_PASSWORD',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#acaf6607bf8050f3d7e9ead5b31e79997',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
+  ['k_5fsec_5fmatch_5flimit_6',['K_SEC_MATCH_LIMIT',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ac127c638713185e656e8ab42d31da302',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
+  ['k_5fsec_5fmatch_5flimit_5fone_7',['K_SEC_MATCH_LIMIT_ONE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#af02ebb31ba64f08e68adc92fbd5f59b7',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
+  ['k_5fsec_5freturn_5fdata_8',['K_SEC_RETURN_DATA',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ab5aadab196c0c335987a903967e5b6bd',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
+  ['k_5fsec_5fvalue_5fdata_9',['K_SEC_VALUE_DATA',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a6f97d10bd61038e5e620cea1f5eaadd4',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
+  ['key_10',['KEY',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a04bb31c1c2ee8a4ec91338beb6a76bc8',1,'fr::softsf::vault::strategy::LinuxKeyringStrategy']]]
 ];
