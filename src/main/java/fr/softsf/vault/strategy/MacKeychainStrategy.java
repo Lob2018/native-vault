@@ -11,6 +11,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.foreign.SymbolLookup;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
@@ -104,6 +105,7 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                             CF_LIB_PATH,
                             "CFDictionaryCreate",
                             FunctionDescriptor.of(
+                                    ValueLayout.ADDRESS,
                                     ValueLayout.ADDRESS,
                                     ValueLayout.ADDRESS,
                                     ValueLayout.ADDRESS,
@@ -335,8 +337,7 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                 MemorySegment bytePtr = (MemorySegment) CF_DATA_GET_BYTE_PTR.invokeExact(dataRef);
                 MemorySegment bounded = bytePtr.reinterpret(length);
                 byte[] bytes = bounded.toArray(ValueLayout.JAVA_BYTE);
-                char[] chars =
-                        StandardCharsets.UTF_8.decode(java.nio.ByteBuffer.wrap(bytes)).array();
+                char[] chars = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(bytes)).array();
                 return Optional.of(chars);
             } finally {
                 CF_RELEASE.invokeExact(dataRef);

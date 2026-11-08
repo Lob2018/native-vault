@@ -4,6 +4,12 @@
 ## Unreleased - 
 
 
+🐛 fix MacKeychainStrategy: Fix SecItemAdd native method call signature
+-MacKeychainStrategy: Update SEC_ITEM_ADD invocation to pass two arguments matching the native function descriptor.
+-Tests pass.
+
+([4ad87f59f01d21e](https://github.com/Lob2018/native-vault/commit/4ad87f59f01d21ee69a08f008863edba799b9989))
+
 🐛 fix MacKeychainStrategy: Correct CFDictionaryCreate native method handle signature and add missing dictionary callbacks
 -Update CF_DICTIONARY_CREATE function descriptor to match all 6 expected parameters (including key and value callback pointers).
 -Resolve WrongMethodTypeException by correctly loading and passing kCFTypeDictionaryKeyCallBacks and kCFTypeDictionaryValueCallBacks.
