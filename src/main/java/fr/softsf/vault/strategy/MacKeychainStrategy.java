@@ -127,14 +127,24 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
             SymbolLookup secLookup = SymbolLookup.libraryLookup(LIB_PATH, Arena.global());
             SymbolLookup cfudLookup = SymbolLookup.libraryLookup(CF_LIB_PATH, Arena.global());
 
-            K_SEC_CLASS = secLookup.find("kSecClass").orElseThrow();
-            K_SEC_CLASS_GENERIC_PASSWORD = secLookup.find("kSecClassGenericPassword").orElseThrow();
-            K_SEC_ATTR_ACCOUNT = secLookup.find("kSecAttrAccount").orElseThrow();
-            K_SEC_VALUE_DATA = secLookup.find("kSecValueData").orElseThrow();
-            K_SEC_RETURN_DATA = secLookup.find("kSecReturnData").orElseThrow();
-            K_SEC_MATCH_LIMIT = secLookup.find("kSecMatchLimit").orElseThrow();
-            K_SEC_MATCH_LIMIT_ONE = secLookup.find("kSecMatchLimitOne").orElseThrow();
-            K_CF_BOOLEAN_TRUE = cfudLookup.find("kCFBooleanTrue").orElseThrow();
+            K_SEC_CLASS = secLookup.find("kSecClass").orElseThrow().get(ValueLayout.ADDRESS, 0);
+            K_SEC_CLASS_GENERIC_PASSWORD =
+                    secLookup
+                            .find("kSecClassGenericPassword")
+                            .orElseThrow()
+                            .get(ValueLayout.ADDRESS, 0);
+            K_SEC_ATTR_ACCOUNT =
+                    secLookup.find("kSecAttrAccount").orElseThrow().get(ValueLayout.ADDRESS, 0);
+            K_SEC_VALUE_DATA =
+                    secLookup.find("kSecValueData").orElseThrow().get(ValueLayout.ADDRESS, 0);
+            K_SEC_RETURN_DATA =
+                    secLookup.find("kSecReturnData").orElseThrow().get(ValueLayout.ADDRESS, 0);
+            K_SEC_MATCH_LIMIT =
+                    secLookup.find("kSecMatchLimit").orElseThrow().get(ValueLayout.ADDRESS, 0);
+            K_SEC_MATCH_LIMIT_ONE =
+                    secLookup.find("kSecMatchLimitOne").orElseThrow().get(ValueLayout.ADDRESS, 0);
+            K_CF_BOOLEAN_TRUE =
+                    cfudLookup.find("kCFBooleanTrue").orElseThrow().get(ValueLayout.ADDRESS, 0);
         } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
@@ -160,17 +170,12 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
             MemorySegment dataVal = createCFData(arena, secret);
 
             MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, 3);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS.get(ValueLayout.ADDRESS, 0));
-            keysArray.setAtIndex(
-                    ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT.get(ValueLayout.ADDRESS, 0));
-            keysArray.setAtIndex(
-                    ValueLayout.ADDRESS, 2, K_SEC_VALUE_DATA.get(ValueLayout.ADDRESS, 0));
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS);
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT);
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 2, K_SEC_VALUE_DATA);
 
             MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, 3);
-            valuesArray.setAtIndex(
-                    ValueLayout.ADDRESS,
-                    0,
-                    K_SEC_CLASS_GENERIC_PASSWORD.get(ValueLayout.ADDRESS, 0));
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS_GENERIC_PASSWORD);
             valuesArray.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
             valuesArray.setAtIndex(ValueLayout.ADDRESS, 2, dataVal);
 
@@ -187,16 +192,11 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
             int status = (int) SEC_ITEM_ADD.invokeExact(dict);
             if (status == -25299) { // errSecDuplicateItem
                 MemorySegment updateQueryKeys = arena.allocate(ValueLayout.ADDRESS, 2);
-                updateQueryKeys.setAtIndex(
-                        ValueLayout.ADDRESS, 0, K_SEC_CLASS.get(ValueLayout.ADDRESS, 0));
-                updateQueryKeys.setAtIndex(
-                        ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT.get(ValueLayout.ADDRESS, 0));
+                updateQueryKeys.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS);
+                updateQueryKeys.setAtIndex(ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT);
 
                 MemorySegment updateQueryVals = arena.allocate(ValueLayout.ADDRESS, 2);
-                updateQueryVals.setAtIndex(
-                        ValueLayout.ADDRESS,
-                        0,
-                        K_SEC_CLASS_GENERIC_PASSWORD.get(ValueLayout.ADDRESS, 0));
+                updateQueryVals.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS_GENERIC_PASSWORD);
                 updateQueryVals.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
 
                 MemorySegment queryDict =
@@ -210,8 +210,7 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                                         MemorySegment.NULL);
 
                 MemorySegment updateKeys = arena.allocate(ValueLayout.ADDRESS, 1);
-                updateKeys.setAtIndex(
-                        ValueLayout.ADDRESS, 0, K_SEC_VALUE_DATA.get(ValueLayout.ADDRESS, 0));
+                updateKeys.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_VALUE_DATA);
 
                 MemorySegment updateVals = arena.allocate(ValueLayout.ADDRESS, 1);
                 updateVals.setAtIndex(ValueLayout.ADDRESS, 0, dataVal);
@@ -252,24 +251,16 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
             MemorySegment keyStr = createCFString(arena, qualifiedKey);
 
             MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, 4);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS.get(ValueLayout.ADDRESS, 0));
-            keysArray.setAtIndex(
-                    ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT.get(ValueLayout.ADDRESS, 0));
-            keysArray.setAtIndex(
-                    ValueLayout.ADDRESS, 2, K_SEC_RETURN_DATA.get(ValueLayout.ADDRESS, 0));
-            keysArray.setAtIndex(
-                    ValueLayout.ADDRESS, 3, K_SEC_MATCH_LIMIT.get(ValueLayout.ADDRESS, 0));
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS);
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT);
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 2, K_SEC_RETURN_DATA);
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 3, K_SEC_MATCH_LIMIT);
 
             MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, 4);
-            valuesArray.setAtIndex(
-                    ValueLayout.ADDRESS,
-                    0,
-                    K_SEC_CLASS_GENERIC_PASSWORD.get(ValueLayout.ADDRESS, 0));
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS_GENERIC_PASSWORD);
             valuesArray.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
-            valuesArray.setAtIndex(
-                    ValueLayout.ADDRESS, 2, K_CF_BOOLEAN_TRUE.get(ValueLayout.ADDRESS, 0));
-            valuesArray.setAtIndex(
-                    ValueLayout.ADDRESS, 3, K_SEC_MATCH_LIMIT_ONE.get(ValueLayout.ADDRESS, 0));
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, 2, K_CF_BOOLEAN_TRUE);
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, 3, K_SEC_MATCH_LIMIT_ONE);
 
             MemorySegment queryDict =
                     (MemorySegment)
@@ -324,15 +315,11 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
             MemorySegment keyStr = createCFString(arena, qualifiedKey);
 
             MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, 2);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS.get(ValueLayout.ADDRESS, 0));
-            keysArray.setAtIndex(
-                    ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT.get(ValueLayout.ADDRESS, 0));
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS);
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT);
 
             MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, 2);
-            valuesArray.setAtIndex(
-                    ValueLayout.ADDRESS,
-                    0,
-                    K_SEC_CLASS_GENERIC_PASSWORD.get(ValueLayout.ADDRESS, 0));
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS_GENERIC_PASSWORD);
             valuesArray.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
 
             MemorySegment queryDict =
@@ -367,20 +354,14 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
             MemorySegment keyStr = createCFString(arena, qualifiedKey);
 
             MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, 3);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS.get(ValueLayout.ADDRESS, 0));
-            keysArray.setAtIndex(
-                    ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT.get(ValueLayout.ADDRESS, 0));
-            keysArray.setAtIndex(
-                    ValueLayout.ADDRESS, 2, K_SEC_MATCH_LIMIT.get(ValueLayout.ADDRESS, 0));
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS);
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT);
+            keysArray.setAtIndex(ValueLayout.ADDRESS, 2, K_SEC_MATCH_LIMIT);
 
             MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, 3);
-            valuesArray.setAtIndex(
-                    ValueLayout.ADDRESS,
-                    0,
-                    K_SEC_CLASS_GENERIC_PASSWORD.get(ValueLayout.ADDRESS, 0));
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS_GENERIC_PASSWORD);
             valuesArray.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
-            valuesArray.setAtIndex(
-                    ValueLayout.ADDRESS, 2, K_SEC_MATCH_LIMIT_ONE.get(ValueLayout.ADDRESS, 0));
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, 2, K_SEC_MATCH_LIMIT_ONE);
 
             MemorySegment queryDict =
                     (MemorySegment)

@@ -4,6 +4,14 @@
 ## Unreleased - 
 
 
+🐛 fix MacKeychainStrategy: Resolve JVM crash (SIGABRT/Exit Code 134) on macOS by replacing raw string pointers with CoreFoundation dictionaries.
+-MacKeychainStrategy:
+ -Update native FFM bindings to correctly construct CFDictionary for SecItemAdd, SecItemCopyMatching, SecItemDelete, and SecItemUpdate.
+ -Ensure explicit native resource release via CFRelease and prevent heap corruption.
+-Tests pass.
+
+([8e7067530bc432b](https://github.com/Lob2018/native-vault/commit/8e7067530bc432b91cbcae4085da8d3b69d24058))
+
 📚 docs Doxygen
 
 ([c2c1a40350d64cc](https://github.com/Lob2018/native-vault/commit/c2c1a40350d64ccc0b05031e9bb6c7361edc7681))
