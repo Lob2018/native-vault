@@ -1,11 +1,11 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html" title="Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper memory ..." alt="" coords="52,5,219,45"/>
-<area shape="rect" id="Node000001" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html" title="Sealed polymorphic strategy interface defining OS&#45;native credential store contracts using character a..." alt="" coords="313,69,480,109"/>
-<area shape="poly" id="edge2_Node000000_Node000001" title=" " alt="" coords="232,46,315,67,314,72,230,51"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html" title="macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper memory..." alt="" coords="528,69,695,109"/>
-<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="494,87,528,87,528,92,494,92"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="52,69,219,109"/>
-<area shape="poly" id="edge4_Node000003_Node000001" title=" " alt="" coords="232,87,313,87,313,92,232,92"/>
-<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html" title="Windows Credential Manager implementation of the VaultStrategy interface utilizing the FFM API with p..." alt="" coords="5,133,265,173"/>
-<area shape="poly" id="edge5_Node000004_Node000001" title=" " alt="" coords="230,127,314,107,315,112,232,133"/>
+<area shape="rect" id="Node000000" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html" title="Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper memory ..." alt="" coords="52,5,218,50"/>
+<area shape="rect" id="Node000001" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html" title="Sealed polymorphic strategy interface defining OS&#45;native credential store contracts using character a..." alt="" coords="313,75,479,119"/>
+<area shape="poly" id="edge2_Node000000_Node000001" title=" " alt="" coords="233,51,315,74,309,76,233,56"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html" title="macOS Keychain implementation utilizing FFM API with proper CoreFoundation dictionaries." alt="" coords="527,75,693,119"/>
+<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="494,94,529,97,524,97,495,100"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="52,75,218,119"/>
+<area shape="poly" id="edge4_Node000003_Node000001" title=" " alt="" coords="234,94,315,96,309,98,234,100"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html" title="Windows Credential Manager implementation of the VaultStrategy interface utilizing the FFM API with p..." alt="" coords="5,144,265,189"/>
+<area shape="poly" id="edge5_Node000004_Node000001" title=" " alt="" coords="236,137,310,120,315,119,237,142"/>
 </map>

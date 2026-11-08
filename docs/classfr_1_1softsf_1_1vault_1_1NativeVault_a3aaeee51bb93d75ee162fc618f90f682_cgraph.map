@@ -1,11 +1,12 @@
 <map id="fr.softsf.vault.NativeVault.NativeVault" name="fr.softsf.vault.NativeVault.NativeVault">
-<area shape="rect" id="Node000001" title="Initializes a new instance of the native vault facade with a custom namespace." alt="" coords="5,55,196,95"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ae902c95d7531746e89eaf4f53427c2d3" title="Detects and returns the appropriate native vault strategy based on the operating system." alt="" coords="249,5,481,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,53,243,41,289,31,290,36,245,46,191,58"/>
-<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a70a09e700fc761b5fb476840b7c85874" title="Ensures that a strategy is available before performing operations." alt="" coords="248,55,483,95"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,73,234,73,234,78,196,78"/>
-<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a1129581ab9d0c26021bf92f3eb1d0d9a" title="Executes the native vault integrity check sequence within a synchronized block to prevent race condit..." alt="" coords="244,119,487,159"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="185,93,270,114,268,119,184,98"/>
-<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ab3cecf7a5e3a06a1e9a6ddcde54ede61" title="Returns the integrity test key character array." alt="" coords="535,119,747,159"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="487,137,521,137,521,142,487,142"/>
+<area shape="rect" id="Node000001" title="Initializes a new instance of the native vault facade with a custom namespace." alt="" coords="5,57,196,102"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ae902c95d7531746e89eaf4f53427c2d3" title="Detects and returns the appropriate native vault strategy based on the operating system." alt="" coords="249,5,480,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,54,243,42,281,36,276,38,244,47,195,59"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a70a09e700fc761b5fb476840b7c85874" title="Ensures that a strategy is available before performing operations." alt="" coords="247,57,482,102"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,77,234,78,229,80,197,82"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a1129581ab9d0c26021bf92f3eb1d0d9a" title="Executes the native vault integrity check sequence within a synchronized block to prevent race condit..." alt="" coords="244,150,485,195"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="166,99,287,143,282,146,166,105"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="315,148,313,140,321,131,339,125,364,124,393,126,411,135,406,135,392,131,364,129,340,131,324,136,318,142,319,151"/>
+<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ab3cecf7a5e3a06a1e9a6ddcde54ede61" title="Returns the integrity test key character array." alt="" coords="533,150,744,195"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="486,170,520,172,515,173,486,175"/>
 </map>

@@ -1,0 +1,7 @@
+<map id="fr.softsf.vault.strategy.AbstractVaultStrategy.validateSecret" name="fr.softsf.vault.strategy.AbstractVaultStrategy.validateSecret">
+<area shape="rect" id="Node000001" title="Validates the secret constraints based on the specific platform strategy implementation." alt="" coords="5,48,224,110"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#ab1e1b9a7c246bff1469f472dfff24963" title="Initializes a new instance of the LinuxKeyringStrategy with a custom namespace." alt="" coords="279,5,526,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,60,266,56,261,57,225,65"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ad8c789c09a44fcd6f11803ed89c288be" title="Initializes a new instance of the WindowsCredentialManagerStrategy with a custom namespace." alt="" coords="272,91,533,152"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="224,92,259,100,254,100,224,98"/>
+</map>

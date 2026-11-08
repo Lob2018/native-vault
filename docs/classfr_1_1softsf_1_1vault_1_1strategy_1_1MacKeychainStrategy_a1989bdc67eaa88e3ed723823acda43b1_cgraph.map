@@ -1,12 +1,12 @@
 <map id="fr.softsf.vault.strategy.MacKeychainStrategy.delete" name="fr.softsf.vault.strategy.MacKeychainStrategy.delete">
-<area shape="rect" id="Node000001" title="Deletes a secret from the native credential store." alt="" coords="5,125,212,165"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ac6022f5fd880256ddca98a2bb6fd0ab6" title="Allocates and populates a memory segment for the given character data." alt="" coords="294,5,513,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,122,198,95,259,69,280,61,282,66,261,74,200,100,147,127"/>
-<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#aa27e89d7ef7b0a3aa531a551da6f1f50" title="Concatenates the namespace and the user key with an intermediate dot separator and validates all part..." alt="" coords="260,84,547,139"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,130,246,126,247,132,212,136"/>
-<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ad79e3b72d9781124fa48d0eecedaeae9" title="Validates the key constraints." alt="" coords="595,125,837,165"/>
-<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="212,146,260,147,547,147,581,147,581,152,547,153,260,153,212,151"/>
-<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a2200b8d2b52a72eaf03a8a650f3d10a2" title="Overwrites the specified memory segment with zeros to ensure security." alt="" coords="297,214,510,254"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="168,162,261,193,313,208,311,213,259,198,166,167"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="547,124,582,128,581,133,547,129"/>
+<area shape="rect" id="Node000001" title="Deletes a secret from the native credential store." alt="" coords="5,112,211,157"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#aa27e89d7ef7b0a3aa531a551da6f1f50" title="Concatenates the namespace and the user key with an intermediate dot separator and validates all part..." alt="" coords="259,5,544,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,110,295,71,291,74,178,114"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ad79e3b72d9781124fa48d0eecedaeae9" title="Validates the key constraints." alt="" coords="592,48,834,93"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="211,121,577,83,576,88,212,127"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#af6d81e4eaa5a8eb0ad47514fc79d1596" title=" " alt="" coords="272,142,531,186"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="211,142,259,149,254,150,211,148"/>
+<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a2200b8d2b52a72eaf03a8a650f3d10a2" title="Overwrites the specified memory segment with zeros to ensure security." alt="" coords="295,211,508,256"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="158,155,260,196,286,207,281,207,258,201,157,160"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="544,49,579,55,574,56,545,55"/>
 </map>

@@ -1,5 +1,25 @@
 <map id="src/main/java/fr/softsf/vault/strategy/MacKeychainStrategy.java" name="src/main/java/fr/softsf/vault/strategy/MacKeychainStrategy.java">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,297,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="64,93,239,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,46,154,79,149,79,149,46"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="1045,5,1336,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,106,179,134"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1042,33,871,42,658,54,424,73,191,101,162,105,161,100,190,95,424,68,657,49,871,37,1047,32"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="202,98,392,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1042,37,754,62,583,79,408,100,407,95,582,73,754,56,1047,37"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="416,98,605,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1047,43,848,69,621,100,621,95,847,63,1042,44"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="629,98,814,143"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1077,50,829,100,828,95,1072,51"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="838,106,1053,134"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1135,50,996,103,995,98,1129,51"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="1077,106,1304,134"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1193,48,1193,93,1189,89,1189,52"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="1328,106,1474,134"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1242,48,1359,100,1354,100,1241,53"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="1498,98,1686,143"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1287,48,1486,95,1480,94,1287,53"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="1709,106,1843,134"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1337,41,1510,64,1698,95,1719,102,1714,102,1697,101,1510,69,1337,47"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="1867,98,2045,143"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1337,37,1574,60,1854,98,1849,98,1574,65,1337,43"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="2069,98,2259,143"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="1337,33,1662,54,1856,72,2056,98,2051,98,1856,77,1661,59,1337,38"/>
 </map>

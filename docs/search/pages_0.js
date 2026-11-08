@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['nativevault_0',['🔐 NativeVault',['../index.html',1,'']]]
+  ['architecture_20uml_0',['Architecture (UML)',['../index.html#autotoc_md5',1,'']]],
+  ['available_20secure_20storage_20providers_3a_1',['Available Secure Storage Providers:',['../index.html#autotoc_md2',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🔐_20nativevault_0',['🔐 NativeVault',['../index.html',1,'']]]
+  ['build_0',['How to build',['../index.html#autotoc_md4',1,'']]]
 ];

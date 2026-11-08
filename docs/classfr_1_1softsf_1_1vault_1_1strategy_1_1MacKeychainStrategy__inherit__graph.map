@@ -1,11 +1,11 @@
 <map id="fr.softsf.vault.strategy.MacKeychainStrategy" name="fr.softsf.vault.strategy.MacKeychainStrategy">
-<area shape="rect" id="Node000001" title="macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper memory..." alt="" coords="351,1399,565,1929"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html" title="Sealed polymorphic strategy interface defining OS&#45;native credential store contracts using character a..." alt="" coords="323,752,593,1351"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="461,1364,461,1398,455,1398,455,1364"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,315,292,395"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="174,406,328,751,323,753,169,408"/>
-<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html" title="Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper memory ..." alt="" coords="317,55,599,655"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="461,668,461,752,455,752,455,668"/>
-<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html" title="Windows Credential Manager implementation of the VaultStrategy interface utilizing the FFM API with p..." alt="" coords="623,5,944,704"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="619,712,596,762,591,760,614,710"/>
+<area shape="rect" id="Node000001" title="macOS Keychain implementation utilizing FFM API with proper CoreFoundation dictionaries." alt="" coords="332,1574,572,2405"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html" title="Sealed polymorphic strategy interface defining OS&#45;native credential store contracts using character a..." alt="" coords="318,845,586,1526"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="453,1538,455,1574,449,1573,451,1543"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,357,288,446"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="169,457,302,796,322,845,316,846,298,798,169,463"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html" title="Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper memory ..." alt="" coords="312,62,592,741"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="452,753,455,846,449,845,452,759"/>
+<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html" title="Windows Credential Manager implementation of the VaultStrategy interface utilizing the FFM API with p..." alt="" coords="616,5,936,797"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="610,803,589,861,584,859,612,798"/>
 </map>

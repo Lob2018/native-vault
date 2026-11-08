@@ -4,6 +4,12 @@
 ## Unreleased - 
 
 
+♻️ refactor class.puml: Update MacKeychainStrategy class content
+-class.puml: Add missing static method handles, CoreFoundation function descriptors, and global segment constants for macOS Keychain strategy.
+-Tests pass.
+
+([1576ea07d32f9c7](https://github.com/Lob2018/native-vault/commit/1576ea07d32f9c770f43e869f25bdbf1451a6b8e))
+
 🐛 fix MacKeychainStrategy: Align CF_DICTIONARY_CREATE function descriptor with native signature
 -Changes CF_DICTIONARY_CREATE FunctionDescriptor argument types to match the expected parameter sequence of ADDRESS, ADDRESS, ADDRESS, JAVA_LONG, ADDRESS, ADDRESS.
 -Tests pass.

@@ -27,7 +27,7 @@ var NAVTREE =
   [ "NativeVault", "index.html", [
     [ "🔐 NativeVault", "index.html", "index" ],
     [ "Packages", "namespaces.html", [
-      [ "Package List", "namespaces.html", null ]
+      [ "Package List", "namespaces.html", "namespaces_dup" ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -51,8 +51,10 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"AbstractVaultStrategy_8java.html"
+"AbstractVaultStrategy_8java.html",
+"classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#aebf776b5428d7400b88980dd79746143"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';
+var LISTOFALLMEMBERS = 'List of all members';

@@ -1,5 +1,23 @@
 <map id="src/main/java/fr/softsf/vault/internal/CrossPlatformVaultLoader.java" name="src/main/java/fr/softsf/vault/internal/CrossPlatformVaultLoader.java">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,215,60"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="23,108,197,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,60,113,94,107,94,107,60"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="930,5,1139,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,124,179,151"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="928,44,600,70,396,91,191,118,164,122,162,117,190,112,395,85,600,65,933,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="202,115,392,160"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="928,48,696,78,408,117,407,112,695,72,933,48"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="417,124,591,151"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="933,55,603,118,579,123,578,117,602,112,928,55"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="615,115,804,160"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="938,67,796,113,794,107,933,68"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="828,115,1012,160"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1002,67,958,107,955,102,997,69"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="1036,124,1263,151"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1071,65,1125,114,1120,112,1069,70"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="1286,124,1407,151"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1130,65,1293,119,1288,118,1130,70"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="1431,124,1558,151"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1140,54,1273,80,1419,112,1438,119,1432,119,1418,118,1272,85,1139,59"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="1583,124,1716,151"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1139,46,1340,73,1571,112,1592,119,1587,119,1570,118,1339,78,1139,52"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="1740,115,1945,160"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1139,44,1401,71,1727,115,1722,115,1400,76,1139,50"/>
 </map>
