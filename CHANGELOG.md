@@ -4,6 +4,10 @@
 ## Unreleased - 
 
 
+📚 docs Doxygen
+
+([4bd62d1b17262b4](https://github.com/Lob2018/native-vault/commit/4bd62d1b17262b4b67d27c5aa86a10075a749d78))
+
 ♻️ refactor class.puml: Update MacKeychainStrategy class content
 -class.puml: Add missing static method handles, CoreFoundation function descriptors, and global segment constants for macOS Keychain strategy.
 -Tests pass.

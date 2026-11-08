@@ -78,6 +78,20 @@ try {
 }
 ```
 
+# Local quick test with JBang
+
+Before running the test script, ensure the project is built and verified:
+
+```bash
+mvn clean verify
+```
+
+You can then rapidly edit test and validate your vault operations using **JBang**:
+
+```bash
+jbang run .myresources/scripts/TestVault.java
+```
+
 # How to build
 
 1. JDK 25+ (required for the FFM API)
