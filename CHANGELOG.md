@@ -4,6 +4,12 @@
 ## Unreleased - 
 
 
+🐛 fix MacKeychainStrategy: Prevent IndexOutOfBoundsException on global native symbols by reinterpreting symbol segments before dereferencing
+-Apply&#x60;.reinterpret(8) on symbol lookup segments for global keychain constants and CoreFoundation objects prior to fetching their address.
+-Tests pass.
+
+([dad7018b66b3d69](https://github.com/Lob2018/native-vault/commit/dad7018b66b3d697042688f138c3a1e3c3d4bfea))
+
 🐛 fix MacKeychainStrategy: Fix native symbol resolution and prevent IndexOutOfBoundsException during static initialization
 - MacKeychainStrategy:
  -Directly dereference Security and CoreFoundation symbol segments using get(ValueLayout.ADDRESS, 0) during static lookup.

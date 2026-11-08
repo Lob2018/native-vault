@@ -44,6 +44,8 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
     private static final MemorySegment K_SEC_MATCH_LIMIT;
     private static final MemorySegment K_SEC_MATCH_LIMIT_ONE;
     private static final MemorySegment K_CF_BOOLEAN_TRUE;
+    private static final MemorySegment K_CF_TYPE_DICTIONARY_KEY_CALLBACKS;
+    private static final MemorySegment K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS;
 
     private final char[] namespace;
 
@@ -102,6 +104,7 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                             CF_LIB_PATH,
                             "CFDictionaryCreate",
                             FunctionDescriptor.of(
+                                    ValueLayout.ADDRESS,
                                     ValueLayout.ADDRESS,
                                     ValueLayout.ADDRESS,
                                     ValueLayout.ADDRESS,
@@ -175,6 +178,18 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                             .orElseThrow()
                             .reinterpret(8)
                             .get(ValueLayout.ADDRESS, 0);
+            K_CF_TYPE_DICTIONARY_KEY_CALLBACKS =
+                    cfudLookup
+                            .find("kCFTypeDictionaryKeyCallBacks")
+                            .orElseThrow()
+                            .reinterpret(8)
+                            .get(ValueLayout.ADDRESS, 0);
+            K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS =
+                    cfudLookup
+                            .find("kCFTypeDictionaryValueCallBacks")
+                            .orElseThrow()
+                            .reinterpret(8)
+                            .get(ValueLayout.ADDRESS, 0);
         } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
@@ -216,8 +231,8 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                                     keysArray,
                                     valuesArray,
                                     3L,
-                                    MemorySegment.NULL,
-                                    MemorySegment.NULL);
+                                    K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
+                                    K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
 
             int status = (int) SEC_ITEM_ADD.invokeExact(dict);
             if (status == -25299) { // errSecDuplicateItem
@@ -236,8 +251,8 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                                         updateQueryKeys,
                                         updateQueryVals,
                                         2L,
-                                        MemorySegment.NULL,
-                                        MemorySegment.NULL);
+                                        K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
+                                        K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
 
                 MemorySegment updateKeys = arena.allocate(ValueLayout.ADDRESS, 1);
                 updateKeys.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_VALUE_DATA);
@@ -252,8 +267,8 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                                         updateKeys,
                                         updateVals,
                                         1L,
-                                        MemorySegment.NULL,
-                                        MemorySegment.NULL);
+                                        K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
+                                        K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
 
                 status = (int) SEC_ITEM_UPDATE.invokeExact(queryDict, attributesToUpdate);
                 CF_RELEASE.invokeExact(queryDict);
@@ -299,8 +314,8 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                                     keysArray,
                                     valuesArray,
                                     4L,
-                                    MemorySegment.NULL,
-                                    MemorySegment.NULL);
+                                    K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
+                                    K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
 
             MemorySegment resultData = arena.allocate(ValueLayout.ADDRESS);
             int status = (int) SEC_ITEM_COPY_MATCHING.invokeExact(queryDict, resultData);
@@ -359,8 +374,8 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                                     keysArray,
                                     valuesArray,
                                     2L,
-                                    MemorySegment.NULL,
-                                    MemorySegment.NULL);
+                                    K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
+                                    K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
 
             int status = (int) SEC_ITEM_DELETE.invokeExact(queryDict);
             CF_RELEASE.invokeExact(queryDict);
@@ -400,8 +415,8 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                                     keysArray,
                                     valuesArray,
                                     3L,
-                                    MemorySegment.NULL,
-                                    MemorySegment.NULL);
+                                    K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
+                                    K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
 
             MemorySegment resultData = arena.allocate(ValueLayout.ADDRESS);
             int status = (int) SEC_ITEM_COPY_MATCHING.invokeExact(queryDict, resultData);
