@@ -4,6 +4,13 @@
 ## Unreleased - 
 
 
+🐛 fix MacKeychainStrategy: Correct CFDictionaryCreate native method handle signature and add missing dictionary callbacks
+-Update CF_DICTIONARY_CREATE function descriptor to match all 6 expected parameters (including key and value callback pointers).
+-Resolve WrongMethodTypeException by correctly loading and passing kCFTypeDictionaryKeyCallBacks and kCFTypeDictionaryValueCallBacks.
+-Tests pass.
+
+([a45e7e351828c44](https://github.com/Lob2018/native-vault/commit/a45e7e351828c443de016424e663ef6e86956c43))
+
 🐛 fix MacKeychainStrategy: Prevent IndexOutOfBoundsException on global native symbols by reinterpreting symbol segments before dereferencing
 -Apply&#x60;.reinterpret(8) on symbol lookup segments for global keychain constants and CoreFoundation objects prior to fetching their address.
 -Tests pass.

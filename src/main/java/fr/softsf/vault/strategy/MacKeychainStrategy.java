@@ -107,7 +107,6 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                                     ValueLayout.ADDRESS,
                                     ValueLayout.ADDRESS,
                                     ValueLayout.ADDRESS,
-                                    ValueLayout.ADDRESS,
                                     ValueLayout.JAVA_LONG,
                                     ValueLayout.ADDRESS,
                                     ValueLayout.ADDRESS));
@@ -234,7 +233,7 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
                                     K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
                                     K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
 
-            int status = (int) SEC_ITEM_ADD.invokeExact(dict);
+            int status = (int) SEC_ITEM_ADD.invokeExact(dict, MemorySegment.NULL);
             if (status == -25299) { // errSecDuplicateItem
                 MemorySegment updateQueryKeys = arena.allocate(ValueLayout.ADDRESS, 2);
                 updateQueryKeys.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS);
