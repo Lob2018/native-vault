@@ -4,6 +4,12 @@
 ## Unreleased - 
 
 
+🐛 fix MacKeychainStrategy: Align CF_DICTIONARY_CREATE function descriptor with native signature
+-Changes CF_DICTIONARY_CREATE FunctionDescriptor argument types to match the expected parameter sequence of ADDRESS, ADDRESS, ADDRESS, JAVA_LONG, ADDRESS, ADDRESS.
+-Tests pass.
+
+([cf361a45851745b](https://github.com/Lob2018/native-vault/commit/cf361a45851745bd418505e5ef13d34bdf1e646a))
+
 🐛 fix MacKeychainStrategy: Fix SecItemAdd native method call signature
 -MacKeychainStrategy: Update SEC_ITEM_ADD invocation to pass two arguments matching the native function descriptor.
 -Tests pass.

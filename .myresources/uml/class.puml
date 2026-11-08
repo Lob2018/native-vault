@@ -43,18 +43,34 @@ class LinuxKeyringStrategy {
 class MacKeychainStrategy {
     {static} - String LIB_PATH
     {static} - String CF_LIB_PATH
-    {static} - MethodHandle ADD_HANDLE
-    {static} - MethodHandle UPDATE_HANDLE
-    {static} - MethodHandle COPY_HANDLE
-    {static} - MethodHandle DELETE_HANDLE
-    {static} - MethodHandle CF_RELEASE_HANDLE
+    {static} - MethodHandle SEC_ITEM_ADD
+    {static} - MethodHandle SEC_ITEM_UPDATE
+    {static} - MethodHandle SEC_ITEM_COPY_MATCHING
+    {static} - MethodHandle SEC_ITEM_DELETE
+    {static} - MethodHandle CF_STRING_CREATE_WITH_C_STRING
+    {static} - MethodHandle CF_DATA_CREATE
+    {static} - MethodHandle CF_DICTIONARY_CREATE
+    {static} - MethodHandle CF_DATA_GET_BYTE_PTR
+    {static} - MethodHandle CF_DATA_GET_LENGTH
+    {static} - MethodHandle CF_RELEASE
+    {static} - MemorySegment K_SEC_CLASS
+    {static} - MemorySegment K_SEC_CLASS_GENERIC_PASSWORD
+    {static} - MemorySegment K_SEC_ATTR_ACCOUNT
+    {static} - MemorySegment K_SEC_VALUE_DATA
+    {static} - MemorySegment K_SEC_RETURN_DATA
+    {static} - MemorySegment K_SEC_MATCH_LIMIT
+    {static} - MemorySegment K_SEC_MATCH_LIMIT_ONE
+    {static} - MemorySegment K_CF_BOOLEAN_TRUE
+    {static} - MemorySegment K_CF_TYPE_DICTIONARY_KEY_CALLBACKS
+    {static} - MemorySegment K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS
     - char[] namespace
     + MacKeychainStrategy(char[] namespace)
     + boolean store(char[] key, char[] secret)
     + Optional<char[]> retrieve(char[] key)
-    - void freeNativePointer(MemorySegment nativePtr)
     + boolean delete(char[] key)
     + boolean exists(char[] key)
+    - MemorySegment createCFString(Arena arena, char[] chars)
+    - MemorySegment createCFData(Arena arena, char[] chars)
 }
 
 class WindowsCredentialManagerStrategy {
