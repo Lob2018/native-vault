@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 /** Unit tests for {@link NativeVaultException}. */
-class NativeVaultExceptionTest {
+class NativeVaultExceptionUTest {
 
     @Test
     void testExceptionConstructorAndProperties() {
