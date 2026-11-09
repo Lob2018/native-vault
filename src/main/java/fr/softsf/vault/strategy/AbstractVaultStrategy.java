@@ -33,7 +33,7 @@ public abstract sealed class AbstractVaultStrategy implements VaultStrategy
      * @param key the key to validate
      * @throws IllegalArgumentException if the key is null, empty, or exceeds size limits
      */
-    final void validateKey(char[] key) {
+    static void validateKey(char[] key) {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException("Key cannot be null or empty");
         }
@@ -70,7 +70,7 @@ public abstract sealed class AbstractVaultStrategy implements VaultStrategy
      *
      * @param segment the memory segment to clear
      */
-    final void zeroFill(MemorySegment segment) {
+    static void zeroFill(MemorySegment segment) {
         if (segment != null && segment.address() != 0 && !segment.equals(MemorySegment.NULL)) {
             segment.fill((byte) 0);
         }
@@ -81,7 +81,7 @@ public abstract sealed class AbstractVaultStrategy implements VaultStrategy
      *
      * @param array the character array to clear
      */
-    final void zeroFill(char[] array) {
+    static void zeroFill(char[] array) {
         if (array != null) {
             Arrays.fill(array, '\0');
         }
@@ -97,7 +97,7 @@ public abstract sealed class AbstractVaultStrategy implements VaultStrategy
      * @throws IllegalArgumentException if {@code arena}, {@code data}, or {@code charset} is null,
      *     or if {@code data} is empty
      */
-    final MemorySegment allocateSegment(Arena arena, char[] data, Charset charset) {
+    static MemorySegment allocateSegment(Arena arena, char[] data, Charset charset) {
         if (Objects.isNull(arena)) {
             throw new IllegalArgumentException("Arena cannot be null");
         }
@@ -128,7 +128,7 @@ public abstract sealed class AbstractVaultStrategy implements VaultStrategy
      * @throws IllegalArgumentException if namespace, key, or the resulting combined key violates
      *     validation rules (null, empty, or exceeds maximum allowed length)
      */
-    final char[] concatNamespaceAndKey(char[] namespace, char[] key) {
+    static char[] concatNamespaceAndKey(char[] namespace, char[] key) {
         validateKey(namespace);
         validateKey(key);
         char[] result = new char[namespace.length + 1 + key.length];

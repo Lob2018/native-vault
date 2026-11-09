@@ -13,12 +13,12 @@ abstract class AbstractVaultStrategy {
     {static} ~ long MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE
     {static} ~ long LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE
     {static} ~ int WINDOWS_CREDENTIAL_MANAGER_MAX_SECRET_BYTE_SIZE
-    ~ void validateKey(char[] key)
+    {static} ~ void validateKey(char[] key)
     ~ void validateSecret(char[] secret)
-    ~ void zeroFill(MemorySegment segment)
-    ~ void zeroFill(char[] array)
-    ~ MemorySegment allocateSegment(Arena arena, char[] data, Charset charset)
-    ~ char[] concatNamespaceAndKey(char[] namespace, char[] key)
+    {static} ~ void zeroFill(MemorySegment segment)
+    {static} ~ void zeroFill(char[] array)
+    {static} ~ MemorySegment allocateSegment(Arena arena, char[] data, Charset charset)
+    {static} ~ char[] concatNamespaceAndKey(char[] namespace, char[] key)
 }
 
 class LinuxKeyringStrategy {
@@ -43,6 +43,7 @@ class LinuxKeyringStrategy {
 class MacKeychainStrategy {
     {static} - String LIB_PATH
     {static} - String CF_LIB_PATH
+    {static} - int K_CF_STRING_ENCODING_UTF8
     {static} - MethodHandle SEC_ITEM_ADD
     {static} - MethodHandle SEC_ITEM_UPDATE
     {static} - MethodHandle SEC_ITEM_COPY_MATCHING
@@ -69,8 +70,12 @@ class MacKeychainStrategy {
     + Optional<char[]> retrieve(char[] key)
     + boolean delete(char[] key)
     + boolean exists(char[] key)
-    - MemorySegment createCFString(Arena arena, char[] chars)
-    - MemorySegment createCFData(Arena arena, char[] chars)
+    {static} - MemorySegment createDictionary(Arena arena, MemorySegment[] keys, MemorySegment[] values)
+    {static} - void releaseAll(MemorySegment[] segments)
+    {static} - ByteBuffer encodeUtf8(char[] chars)
+    {static} - MemorySegment createCFString(Arena arena, char[] chars)
+    {static} - MemorySegment createCFData(Arena arena, char[] chars)
+    {static} - void validateArena(Arena arena)
 }
 
 class WindowsCredentialManagerStrategy {
@@ -88,7 +93,7 @@ class WindowsCredentialManagerStrategy {
     + WindowsCredentialManagerStrategy(char[] namespace)
     + boolean store(char[] key, char[] secret)
     + Optional<char[]> retrieve(char[] key)
-    - void freeCredential(MemorySegment rawCredPtr)
+    {static} - void freeCredential(MemorySegment rawCredPtr)
     + boolean delete(char[] key)
     + boolean exists(char[] key)
 }

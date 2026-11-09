@@ -12,18 +12,29 @@ import java.lang.foreign.SymbolLookup;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Optional;
 
 import fr.softsf.vault.exception.NativeVaultException;
 import fr.softsf.vault.internal.CrossPlatformVaultLoader;
 
-/** macOS Keychain implementation utilizing FFM API with proper CoreFoundation dictionaries. */
+/**
+ * macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper
+ * CoreFoundation dictionary allocation, native resource release, and heap memory hygiene.
+ *
+ * @see <a href="https://developer.apple.com/documentation/security/keychain-services">Keychain
+ *     Services Reference</a>
+ * @see <a href="https://developer.apple.com/documentation/corefoundation">CoreFoundation
+ *     Reference</a>
+ */
 public final class MacKeychainStrategy extends AbstractVaultStrategy {
     private static final String LIB_PATH =
             "/System/Library/Frameworks/Security.framework/Security"; // NOSONAR
     private static final String CF_LIB_PATH =
             "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"; // NOSONAR
+    private static final int K_CF_STRING_ENCODING_UTF8 = 0x08000000;
 
     private static final MethodHandle SEC_ITEM_ADD;
     private static final MethodHandle SEC_ITEM_UPDATE;
@@ -199,6 +210,13 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
         }
     }
 
+    /**
+     * Initializes a new instance of the {@code MacKeychainStrategy} with a custom namespace.
+     *
+     * @param namespace the isolated namespace character array used as an account prefix for
+     *     Keychain items
+     * @throws IllegalArgumentException if {@code namespace} is null or empty
+     */
     public MacKeychainStrategy(char[] namespace) {
         if (namespace == null || namespace.length == 0) {
             throw new IllegalArgumentException("Namespace cannot be null or empty");
@@ -215,69 +233,30 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
             MemorySegment keyStr = createCFString(arena, qualifiedKey);
             MemorySegment dataVal = createCFData(arena, secret);
 
-            MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, 3);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 2, K_SEC_VALUE_DATA);
-
-            MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, 3);
-            valuesArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS_GENERIC_PASSWORD);
-            valuesArray.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
-            valuesArray.setAtIndex(ValueLayout.ADDRESS, 2, dataVal);
-
             MemorySegment dict =
-                    (MemorySegment)
-                            CF_DICTIONARY_CREATE.invokeExact(
-                                    MemorySegment.NULL,
-                                    keysArray,
-                                    valuesArray,
-                                    3L,
-                                    K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
-                                    K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
+                    createDictionary(
+                            arena,
+                            new MemorySegment[] {K_SEC_CLASS, K_SEC_ATTR_ACCOUNT, K_SEC_VALUE_DATA},
+                            new MemorySegment[] {K_SEC_CLASS_GENERIC_PASSWORD, keyStr, dataVal});
 
             int status = (int) SEC_ITEM_ADD.invokeExact(dict, MemorySegment.NULL);
             if (status == -25299) { // errSecDuplicateItem
-                MemorySegment updateQueryKeys = arena.allocate(ValueLayout.ADDRESS, 2);
-                updateQueryKeys.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS);
-                updateQueryKeys.setAtIndex(ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT);
-
-                MemorySegment updateQueryVals = arena.allocate(ValueLayout.ADDRESS, 2);
-                updateQueryVals.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS_GENERIC_PASSWORD);
-                updateQueryVals.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
-
                 MemorySegment queryDict =
-                        (MemorySegment)
-                                CF_DICTIONARY_CREATE.invokeExact(
-                                        MemorySegment.NULL,
-                                        updateQueryKeys,
-                                        updateQueryVals,
-                                        2L,
-                                        K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
-                                        K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
-
-                MemorySegment updateKeys = arena.allocate(ValueLayout.ADDRESS, 1);
-                updateKeys.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_VALUE_DATA);
-
-                MemorySegment updateVals = arena.allocate(ValueLayout.ADDRESS, 1);
-                updateVals.setAtIndex(ValueLayout.ADDRESS, 0, dataVal);
+                        createDictionary(
+                                arena,
+                                new MemorySegment[] {K_SEC_CLASS, K_SEC_ATTR_ACCOUNT},
+                                new MemorySegment[] {K_SEC_CLASS_GENERIC_PASSWORD, keyStr});
 
                 MemorySegment attributesToUpdate =
-                        (MemorySegment)
-                                CF_DICTIONARY_CREATE.invokeExact(
-                                        MemorySegment.NULL,
-                                        updateKeys,
-                                        updateVals,
-                                        1L,
-                                        K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
-                                        K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
+                        createDictionary(
+                                arena,
+                                new MemorySegment[] {K_SEC_VALUE_DATA},
+                                new MemorySegment[] {dataVal});
 
                 status = (int) SEC_ITEM_UPDATE.invokeExact(queryDict, attributesToUpdate);
-                CF_RELEASE.invokeExact(queryDict);
-                CF_RELEASE.invokeExact(attributesToUpdate);
+                releaseAll(queryDict, attributesToUpdate);
             }
-            CF_RELEASE.invokeExact(dict);
-            CF_RELEASE.invokeExact(keyStr);
-            CF_RELEASE.invokeExact(dataVal);
+            releaseAll(dict, keyStr, dataVal);
             return status == 0;
         } catch (Throwable t) {
             if (t instanceof Error error) {
@@ -296,32 +275,25 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment keyStr = createCFString(arena, qualifiedKey);
 
-            MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, 4);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 2, K_SEC_RETURN_DATA);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 3, K_SEC_MATCH_LIMIT);
-
-            MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, 4);
-            valuesArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS_GENERIC_PASSWORD);
-            valuesArray.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
-            valuesArray.setAtIndex(ValueLayout.ADDRESS, 2, K_CF_BOOLEAN_TRUE);
-            valuesArray.setAtIndex(ValueLayout.ADDRESS, 3, K_SEC_MATCH_LIMIT_ONE);
-
             MemorySegment queryDict =
-                    (MemorySegment)
-                            CF_DICTIONARY_CREATE.invokeExact(
-                                    MemorySegment.NULL,
-                                    keysArray,
-                                    valuesArray,
-                                    4L,
-                                    K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
-                                    K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
+                    createDictionary(
+                            arena,
+                            new MemorySegment[] {
+                                K_SEC_CLASS,
+                                K_SEC_ATTR_ACCOUNT,
+                                K_SEC_RETURN_DATA,
+                                K_SEC_MATCH_LIMIT
+                            },
+                            new MemorySegment[] {
+                                K_SEC_CLASS_GENERIC_PASSWORD,
+                                keyStr,
+                                K_CF_BOOLEAN_TRUE,
+                                K_SEC_MATCH_LIMIT_ONE
+                            });
 
             MemorySegment resultData = arena.allocate(ValueLayout.ADDRESS);
             int status = (int) SEC_ITEM_COPY_MATCHING.invokeExact(queryDict, resultData);
-            CF_RELEASE.invokeExact(queryDict);
-            CF_RELEASE.invokeExact(keyStr);
+            releaseAll(queryDict, keyStr);
 
             if (status != 0) {
                 return Optional.empty();
@@ -359,27 +331,14 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment keyStr = createCFString(arena, qualifiedKey);
 
-            MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, 2);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT);
-
-            MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, 2);
-            valuesArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS_GENERIC_PASSWORD);
-            valuesArray.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
-
             MemorySegment queryDict =
-                    (MemorySegment)
-                            CF_DICTIONARY_CREATE.invokeExact(
-                                    MemorySegment.NULL,
-                                    keysArray,
-                                    valuesArray,
-                                    2L,
-                                    K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
-                                    K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
+                    createDictionary(
+                            arena,
+                            new MemorySegment[] {K_SEC_CLASS, K_SEC_ATTR_ACCOUNT},
+                            new MemorySegment[] {K_SEC_CLASS_GENERIC_PASSWORD, keyStr});
 
             int status = (int) SEC_ITEM_DELETE.invokeExact(queryDict);
-            CF_RELEASE.invokeExact(queryDict);
-            CF_RELEASE.invokeExact(keyStr);
+            releaseAll(queryDict, keyStr);
             return status == 0;
         } catch (Throwable t) {
             if (t instanceof Error error) {
@@ -398,30 +357,19 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
         try (Arena arena = Arena.ofConfined()) {
             MemorySegment keyStr = createCFString(arena, qualifiedKey);
 
-            MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, 3);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 1, K_SEC_ATTR_ACCOUNT);
-            keysArray.setAtIndex(ValueLayout.ADDRESS, 2, K_SEC_MATCH_LIMIT);
-
-            MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, 3);
-            valuesArray.setAtIndex(ValueLayout.ADDRESS, 0, K_SEC_CLASS_GENERIC_PASSWORD);
-            valuesArray.setAtIndex(ValueLayout.ADDRESS, 1, keyStr);
-            valuesArray.setAtIndex(ValueLayout.ADDRESS, 2, K_SEC_MATCH_LIMIT_ONE);
-
             MemorySegment queryDict =
-                    (MemorySegment)
-                            CF_DICTIONARY_CREATE.invokeExact(
-                                    MemorySegment.NULL,
-                                    keysArray,
-                                    valuesArray,
-                                    3L,
-                                    K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
-                                    K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
+                    createDictionary(
+                            arena,
+                            new MemorySegment[] {
+                                K_SEC_CLASS, K_SEC_ATTR_ACCOUNT, K_SEC_MATCH_LIMIT
+                            },
+                            new MemorySegment[] {
+                                K_SEC_CLASS_GENERIC_PASSWORD, keyStr, K_SEC_MATCH_LIMIT_ONE
+                            });
 
             MemorySegment resultData = arena.allocate(ValueLayout.ADDRESS);
             int status = (int) SEC_ITEM_COPY_MATCHING.invokeExact(queryDict, resultData);
-            CF_RELEASE.invokeExact(queryDict);
-            CF_RELEASE.invokeExact(keyStr);
+            releaseAll(queryDict, keyStr);
 
             if (status == 0) {
                 MemorySegment dataRef = resultData.get(ValueLayout.ADDRESS, 0);
@@ -441,20 +389,119 @@ public final class MacKeychainStrategy extends AbstractVaultStrategy {
         }
     }
 
-    private MemorySegment createCFString(Arena arena, char[] chars) throws Throwable {
-        byte[] bytes = new String(chars).getBytes(StandardCharsets.UTF_8);
-        MemorySegment cStr = arena.allocate(bytes.length + 1L);
-        cStr.asByteBuffer().put(bytes).put((byte) 0);
+    /**
+     * Creates a CoreFoundation dictionary from the provided keys and values arrays.
+     *
+     * @param arena the memory arena used for allocations
+     * @param keys the array of memory segments representing dictionary keys
+     * @param values the array of memory segments representing dictionary values
+     * @return a memory segment pointing to the created CoreFoundation dictionary
+     * @throws Throwable if native method invocation fails
+     */
+    private static MemorySegment createDictionary(
+            Arena arena, MemorySegment[] keys, MemorySegment[] values) throws Throwable {
+        validateArena(arena);
+        if (keys == null || keys.length == 0) {
+            throw new IllegalArgumentException("Keys cannot be null or empty");
+        }
+        if (values == null || values.length == 0) {
+            throw new IllegalArgumentException("Values cannot be null or empty");
+        }
+        int size = keys.length;
+        MemorySegment keysArray = arena.allocate(ValueLayout.ADDRESS, size);
+        MemorySegment valuesArray = arena.allocate(ValueLayout.ADDRESS, size);
+
+        for (int i = 0; i < size; i++) {
+            keysArray.setAtIndex(ValueLayout.ADDRESS, i, keys[i]);
+            valuesArray.setAtIndex(ValueLayout.ADDRESS, i, values[i]);
+        }
+
         return (MemorySegment)
-                CF_STRING_CREATE_WITH_C_STRING.invokeExact(
-                        MemorySegment.NULL, cStr, 0x08000000 /* kCFStringEncodingUTF8 */);
+                CF_DICTIONARY_CREATE.invokeExact(
+                        MemorySegment.NULL,
+                        keysArray,
+                        valuesArray,
+                        (long) size,
+                        K_CF_TYPE_DICTIONARY_KEY_CALLBACKS,
+                        K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS);
     }
 
-    private MemorySegment createCFData(Arena arena, char[] chars) throws Throwable {
-        byte[] bytes = new String(chars).getBytes(StandardCharsets.UTF_8);
-        MemorySegment dataSeg = arena.allocate(bytes.length);
-        dataSeg.asByteBuffer().put(bytes);
+    /**
+     * Releases multiple CoreFoundation memory segments safely by invoking CFRelease.
+     *
+     * @param segments the array of memory segments to release
+     * @throws Throwable if native method invocation fails
+     */
+    private static void releaseAll(MemorySegment... segments) throws Throwable {
+        if (segments == null) {
+            throw new IllegalArgumentException("Segments array cannot be null");
+        }
+        for (MemorySegment segment : segments) {
+            if (segment != null && !MemorySegment.NULL.equals(segment) && segment.address() != 0) {
+                CF_RELEASE.invokeExact(segment);
+            }
+        }
+    }
+
+    /**
+     * Encodes character data into UTF-8 format using a ByteBuffer wrapper.
+     *
+     * @param chars the character array to encode
+     * @return the resulting ByteBuffer containing UTF-8 encoded bytes
+     */
+    private static ByteBuffer encodeUtf8(char[] chars) {
+        if (chars == null || chars.length == 0) {
+            throw new IllegalArgumentException("Chars cannot be null or empty");
+        }
+        return StandardCharsets.UTF_8.encode(CharBuffer.wrap(chars));
+    }
+
+    /**
+     * Creates a CoreFoundation string segment from the given character data.
+     *
+     * @param arena the memory arena used for allocations
+     * @param chars the character array data
+     * @return a memory segment representing the CoreFoundation string
+     * @throws Throwable if native method invocation fails
+     */
+    private static MemorySegment createCFString(Arena arena, char[] chars) throws Throwable {
+        validateArena(arena);
+        ByteBuffer byteBuffer = encodeUtf8(chars);
+        int limit = byteBuffer.remaining();
+        MemorySegment cStr = arena.allocate(limit + 1L);
+        cStr.asByteBuffer().put(byteBuffer);
+        cStr.set(ValueLayout.JAVA_BYTE, limit, (byte) 0);
         return (MemorySegment)
-                CF_DATA_CREATE.invokeExact(MemorySegment.NULL, dataSeg, (long) bytes.length);
+                CF_STRING_CREATE_WITH_C_STRING.invokeExact(
+                        MemorySegment.NULL, cStr, K_CF_STRING_ENCODING_UTF8);
+    }
+
+    /**
+     * Creates a CoreFoundation data segment from the given character data.
+     *
+     * @param arena the memory arena used for allocations
+     * @param chars the character array data
+     * @return a memory segment representing the CoreFoundation data
+     * @throws Throwable if native method invocation fails
+     */
+    private static MemorySegment createCFData(Arena arena, char[] chars) throws Throwable {
+        validateArena(arena);
+        ByteBuffer byteBuffer = encodeUtf8(chars);
+        long limit = byteBuffer.remaining();
+        MemorySegment dataSeg = arena.allocate(limit);
+        dataSeg.asByteBuffer().put(byteBuffer);
+        return (MemorySegment) CF_DATA_CREATE.invokeExact(MemorySegment.NULL, dataSeg, limit);
+    }
+
+    /**
+     * Validates that the provided Arena is not null.
+     *
+     * @param arena the arena to validate
+     * @throws IllegalArgumentException if the arena is null
+     */
+    private static void validateArena(Arena arena) {
+        if (Objects.isNull(arena)) {
+            throw new IllegalArgumentException("Arena cannot be null");
+        }
     }
 }
