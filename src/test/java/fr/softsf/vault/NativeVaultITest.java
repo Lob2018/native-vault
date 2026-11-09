@@ -19,8 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/** Unit tests for NativeVault lifecycle and CRUD operations using char[] buffers exclusively. */
-class NativeVaultTest {
+/**
+ * Integration tests for NativeVault lifecycle and CRUD operations using char[] buffers exclusively.
+ */
+class NativeVaultITest {
 
     private NativeVault vault;
 
@@ -53,7 +55,7 @@ class NativeVaultTest {
     void givenCharArrayKeyAndSecret_whenSetAndGetSecret_thenSecretIsRetrieved()
             throws NativeVaultException {
         char[] key = NativeVault.getIntegrityTestKey();
-        char[] secret = new char[] {'s', 'e', 'c', 'r', 'e', 't'};
+        char[] secret = {'s', 'e', 'c', 'r', 'e', 't'};
         try {
             assertTrue(vault.setSecret(key, secret));
             assertTrue(vault.hasSecret(key));
@@ -87,7 +89,7 @@ class NativeVaultTest {
     @Test
     void givenStoredSecret_whenRemoveSecret_thenSecretIsDeleted() throws NativeVaultException {
         char[] key = NativeVault.getIntegrityTestKey();
-        char[] secret = new char[] {'s', 'e', 'c', 'r', 'e', 't'};
+        char[] secret = {'s', 'e', 'c', 'r', 'e', 't'};
         try {
             assertTrue(vault.setSecret(key, secret));
             assertTrue(vault.hasSecret(key));
@@ -103,8 +105,8 @@ class NativeVaultTest {
     @Test
     void givenExistingSecret_whenUpdateSecret_thenSecretIsUpdated() throws NativeVaultException {
         char[] key = NativeVault.getIntegrityTestKey();
-        char[] initialSecret = new char[] {'i', 'n', 'i', 't'};
-        char[] updatedSecret = new char[] {'u', 'p', 'd', 'a', 't', 'e', 'd'};
+        char[] initialSecret = {'i', 'n', 'i', 't'};
+        char[] updatedSecret = {'u', 'p', 'd', 'a', 't', 'e', 'd'};
         try {
             assertTrue(vault.setSecret(key, initialSecret));
             assertTrue(vault.setSecret(key, updatedSecret));
@@ -158,7 +160,7 @@ class NativeVaultTest {
      */
     @Test
     void givenTooLargeSecret_whenSetSecret_thenIllegalArgumentExceptionIsThrown() {
-        char[] normalKey = new char[] {'k', 'e', 'y'};
+        char[] normalKey ={'k', 'e', 'y'};
         int size = System.getProperty("os.name").toLowerCase().contains("win") ? 3000 : 70000;
         char[] hugeSecret = new char[size];
         Arrays.fill(hugeSecret, 's');

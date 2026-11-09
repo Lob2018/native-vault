@@ -4,6 +4,14 @@
 ## Unreleased - 
 
 
+♻️ refactor AbstractVaultStrategy, MacKeychainStrategy, class.puml: Refactor strategy helper methods to static, optimize MacKeychain memory dictionaries, and enhance documentation
+-AbstractVaultStrategy: Converted validation, zero-filling, segment allocation, and key concatenation helper methods to static.
+-MacKeychainStrategy: Refactored CoreFoundation dictionary creation, string/data encoding, resource release, and arena validation helpers to static.
+-Uml: Updated class diagram to reflect static modifiers across strategy helpers and utility methods.
+-Tests pass.
+
+([703c17c56f9c7b7](https://github.com/Lob2018/native-vault/commit/703c17c56f9c7b7f830bd179af6771dfb5b0cd9f))
+
 📚 docs Doxygen
 
 ([b8680b2816b73fc](https://github.com/Lob2018/native-vault/commit/b8680b2816b73fca2e280058d8d3901902071f15))

@@ -7,13 +7,20 @@ package fr.softsf.vault.strategy;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
+import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 
 public abstract sealed class AbstractVaultStrategy implements VaultStrategy
         permits MacKeychainStrategy, LinuxKeyringStrategy, WindowsCredentialManagerStrategy {
+
+    /** Cached platform check to avoid redundant system property lookups and string allocations. */
+    private static final boolean IS_WINDOWS =
+            System.getProperty("os.name", "").toLowerCase(Locale.ROOT).contains("win");
 
     /** Maximum allowed size in bytes for the identifier key across all platform strategies. */
     static final int MAX_KEY_BYTE_SIZE = 256;
@@ -28,19 +35,38 @@ public abstract sealed class AbstractVaultStrategy implements VaultStrategy
     static final int WINDOWS_CREDENTIAL_MANAGER_MAX_SECRET_BYTE_SIZE = 2560;
 
     /**
+     * Validates data array size constraints against a specified byte limit.
+     *
+     * @param data the character array to validate
+     * @param limit the maximum allowed byte size
+     * @param errorMessage the exception message if limit is exceeded
+     */
+    private static void validateDataSize(char[] data, long limit, String errorMessage) {
+        if (data == null || data.length == 0) {
+            throw new IllegalArgumentException(errorMessage + " cannot be null or empty");
+        }
+        Charset charset = IS_WINDOWS ? StandardCharsets.UTF_16LE : StandardCharsets.UTF_8;
+        ByteBuffer byteBuffer = charset.encode(CharBuffer.wrap(data));
+        try {
+            if (byteBuffer.remaining() > limit) {
+                throw new IllegalArgumentException(
+                        errorMessage + " exceeds maximum allowed byte size of " + limit);
+            }
+        } finally {
+            while (byteBuffer.hasRemaining()) {
+                byteBuffer.put((byte) 0);
+            }
+        }
+    }
+
+    /**
      * Validates the key constraints.
      *
      * @param key the key to validate
      * @throws IllegalArgumentException if the key is null, empty, or exceeds size limits
      */
     static void validateKey(char[] key) {
-        if (key == null || key.length == 0) {
-            throw new IllegalArgumentException("Key cannot be null or empty");
-        }
-        if (key.length > MAX_KEY_BYTE_SIZE) {
-            throw new IllegalArgumentException(
-                    "Key exceeds maximum allowed length of " + MAX_KEY_BYTE_SIZE);
-        }
+        validateDataSize(key, MAX_KEY_BYTE_SIZE, "Key");
     }
 
     /**
@@ -50,9 +76,6 @@ public abstract sealed class AbstractVaultStrategy implements VaultStrategy
      * @throws IllegalArgumentException if the secret is null, empty, or exceeds platform limits
      */
     final void validateSecret(char[] secret) {
-        if (secret == null || secret.length == 0) {
-            throw new IllegalArgumentException("Secret cannot be null or empty");
-        }
         long limit =
                 switch (this) {
                     case WindowsCredentialManagerStrategy _ ->
@@ -60,9 +83,7 @@ public abstract sealed class AbstractVaultStrategy implements VaultStrategy
                     case MacKeychainStrategy _ -> MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE;
                     case LinuxKeyringStrategy _ -> LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE;
                 };
-        if (secret.length > limit) {
-            throw new IllegalArgumentException("Secret exceeds maximum allowed length of " + limit);
-        }
+        validateDataSize(secret, limit, "Secret");
     }
 
     /**
@@ -107,7 +128,7 @@ public abstract sealed class AbstractVaultStrategy implements VaultStrategy
         if (Objects.isNull(charset)) {
             throw new IllegalArgumentException("Charset cannot be null");
         }
-        java.nio.ByteBuffer byteBuffer = charset.encode(CharBuffer.wrap(data));
+        ByteBuffer byteBuffer = charset.encode(CharBuffer.wrap(data));
         MemorySegment segment = arena.allocate(byteBuffer.remaining());
         segment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
         byteBuffer.position(0);
