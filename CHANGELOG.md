@@ -4,6 +4,10 @@
 ## Unreleased - 
 
 
+📚 docs Doxygen
+
+([0882ff567d7ec20](https://github.com/Lob2018/native-vault/commit/0882ff567d7ec20c2505306f0e79a862cc3461c6))
+
 ♻️ refactor class.puml, LinuxKeyringStrategy, AbstractVaultStrategyBoundaryITest: Safely scan null-terminated strings, optimize cross-platform boundary tests, and update uml class diagram
 -LinuxKeyringStrategy: Prevent out-of-bounds reading during password length calculation by checking boundedResult size.
 -AbstractVaultStrategyBoundaryITest: Refactor platform identification constants, optimize max user key calculation for Linux, and share maxSecretSize initialization.

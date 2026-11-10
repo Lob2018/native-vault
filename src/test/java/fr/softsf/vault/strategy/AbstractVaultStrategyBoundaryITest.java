@@ -18,6 +18,7 @@ import fr.softsf.vault.exception.NativeVaultException;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -105,7 +106,10 @@ class AbstractVaultStrategyBoundaryITest {
                     assertThrows(
                             NativeVaultException.class,
                             () -> vault.setSecret(invalidKey, validSecret));
-            assertInstanceOf(IllegalArgumentException.class, ex.getCause());
+            Throwable cause = ex.getCause();
+            assertInstanceOf(IllegalArgumentException.class, cause);
+            assertNotNull(cause.getMessage());
+            assertTrue(cause.getMessage().contains("Key exceeds maximum allowed byte size"));
         } finally {
             Arrays.fill(invalidKey, '\0');
             Arrays.fill(validSecret, '\0');
@@ -124,7 +128,10 @@ class AbstractVaultStrategyBoundaryITest {
                     assertThrows(
                             NativeVaultException.class,
                             () -> vault.setSecret(normalKey, tooLargeSecret));
-            assertInstanceOf(IllegalArgumentException.class, ex.getCause());
+            Throwable cause = ex.getCause();
+            assertInstanceOf(IllegalArgumentException.class, cause);
+            assertNotNull(cause.getMessage());
+            assertTrue(cause.getMessage().contains("Secret exceeds maximum allowed byte size"));
         } finally {
             Arrays.fill(normalKey, '\0');
             Arrays.fill(tooLargeSecret, '\0');
