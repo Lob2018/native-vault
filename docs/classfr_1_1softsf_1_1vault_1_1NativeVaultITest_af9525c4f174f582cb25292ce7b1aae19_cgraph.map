@@ -1,0 +1,5 @@
+<map id="fr.softsf.vault.NativeVaultITest.givenExistingSecret_whenUpdateSecret_thenSecretIsUpdated" name="fr.softsf.vault.NativeVaultITest.givenExistingSecret_whenUpdateSecret_thenSecretIsUpdated">
+<area shape="rect" id="Node000001" title="Tests updating an existing secret successfully using character array parameters." alt="" coords="5,5,300,67"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ab3cecf7a5e3a06a1e9a6ddcde54ede61" title="Returns the integrity test key character array." alt="" coords="348,14,559,58"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="300,34,335,36,330,36,300,39"/>
+</map>

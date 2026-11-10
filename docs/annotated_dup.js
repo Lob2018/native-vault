@@ -11,13 +11,14 @@ var annotated_dup =
           ] ],
           [ "strategy", "namespacefr_1_1softsf_1_1vault_1_1strategy.html", [
             [ "AbstractVaultStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html", "classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" ],
+            [ "AbstractVaultStrategyBoundaryITest", "classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategyBoundaryITest.html", "classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategyBoundaryITest" ],
             [ "LinuxKeyringStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html", "classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy" ],
             [ "MacKeychainStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html", "classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy" ],
             [ "WindowsCredentialManagerStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html", "classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" ]
           ] ],
           [ "NativeVault", "classfr_1_1softsf_1_1vault_1_1NativeVault.html", "classfr_1_1softsf_1_1vault_1_1NativeVault" ],
-          [ "NativeVaultExceptionTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest.html", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest" ],
-          [ "NativeVaultTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html", "classfr_1_1softsf_1_1vault_1_1NativeVaultTest" ]
+          [ "NativeVaultExceptionUTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionUTest.html", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionUTest" ],
+          [ "NativeVaultITest", "classfr_1_1softsf_1_1vault_1_1NativeVaultITest.html", "classfr_1_1softsf_1_1vault_1_1NativeVaultITest" ]
         ] ]
       ] ]
     ] ]

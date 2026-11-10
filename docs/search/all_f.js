@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['providers_3a_0',['Available Secure Storage Providers:',['../index.html#autotoc_md2',1,'']]],
-  ['provides_1',['What this library provides',['../index.html#autotoc_md1',1,'']]]
+  ['os_5fname_0',['OS_NAME',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategyBoundaryITest.html#af03f6902b73a995740066596c07293f1',1,'fr::softsf::vault::strategy::AbstractVaultStrategyBoundaryITest']]]
 ];

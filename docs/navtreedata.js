@@ -51,8 +51,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"AbstractVaultStrategy_8java.html",
-"classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#aebf776b5428d7400b88980dd79746143"
+"AbstractVaultStrategyBoundaryITest_8java.html",
+"classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#aedb1a79bbedbdb571a533358bcab7261"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

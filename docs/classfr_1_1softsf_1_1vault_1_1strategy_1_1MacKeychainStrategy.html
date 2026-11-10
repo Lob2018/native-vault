@@ -106,7 +106,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>macOS Keychain implementation utilizing FFM API with proper CoreFoundation dictionaries.  
+<p>macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper CoreFoundation dictionary allocation, native resource release, and heap memory hygiene.  
  <a href="#details">More...</a></p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Inheritance diagram for fr.softsf.vault.strategy.MacKeychainStrategy:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -124,6 +124,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad6300fc42ce5563a4630a35fd8029e13" id="r_ad6300fc42ce5563a4630a35fd8029e13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6300fc42ce5563a4630a35fd8029e13">MacKeychainStrategy</a> (char[] <a class="el" href="#ad02c2feb4a29eabeab9f09b2edb709f6">namespace</a>)</td></tr>
+<tr class="memdesc:ad6300fc42ce5563a4630a35fd8029e13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <code class="JavaDocCode">MacKeychainStrategy</code> with a custom namespace.  <br /></td></tr>
 <tr class="memitem:a1989bdc67eaa88e3ed723823acda43b1" id="r_a1989bdc67eaa88e3ed723823acda43b1"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1989bdc67eaa88e3ed723823acda43b1">delete</a> (char[] key)  throws <a class="el" href="classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html">NativeVaultException</a> </td></tr>
 <tr class="memdesc:a1989bdc67eaa88e3ed723823acda43b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes a secret from the native credential store.  <br /></td></tr>
 <tr class="memitem:a7618d1ebe3f750802260f25d9a598cd6" id="r_a7618d1ebe3f750802260f25d9a598cd6"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7618d1ebe3f750802260f25d9a598cd6">exists</a> (char[] key)  throws <a class="el" href="classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html">NativeVaultException</a> </td></tr>
@@ -142,11 +143,32 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pac-static-methods" class="groupheader"><a id="pac-static-methods" name="pac-static-methods"></a>
 Static Package Functions</h2></td></tr>
 <tr class="memitem:a8c622f851f76282630c1171f44455045" id="r_a8c622f851f76282630c1171f44455045"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c622f851f76282630c1171f44455045">[static initializer]</a></td></tr>
+<tr class="inherit_header pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Static Package Functions inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html">fr.softsf.vault.strategy.AbstractVaultStrategy</a></td></tr>
+<tr class="memitem:a0a11bb7d7cca89f8ff9a55bcdbad689e inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a0a11bb7d7cca89f8ff9a55bcdbad689e"><td class="memItemLeft" align="right" valign="top">static MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a0a11bb7d7cca89f8ff9a55bcdbad689e">allocateSegment</a> (Arena arena, char[] data, Charset charset)</td></tr>
+<tr class="memdesc:a0a11bb7d7cca89f8ff9a55bcdbad689e inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates and populates a memory segment for the given character data.  <br /></td></tr>
+<tr class="memitem:a543875ecc8dcc3a0ac51130f316f1bfa inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a543875ecc8dcc3a0ac51130f316f1bfa"><td class="memItemLeft" align="right" valign="top">static char[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a543875ecc8dcc3a0ac51130f316f1bfa">concatNamespaceAndKey</a> (char[] <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a630e394e2f9a269565765c124e2eae08">namespace</a>, char[] key)</td></tr>
+<tr class="memdesc:a543875ecc8dcc3a0ac51130f316f1bfa inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenates the namespace and the user key with an intermediate dot separator and validates all parts.  <br /></td></tr>
+<tr class="memitem:a11400ec3200645dfc2fe1bbaa9cff623 inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a11400ec3200645dfc2fe1bbaa9cff623"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a11400ec3200645dfc2fe1bbaa9cff623">validateKey</a> (char[] key)</td></tr>
+<tr class="memdesc:a11400ec3200645dfc2fe1bbaa9cff623 inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the key constraints.  <br /></td></tr>
+<tr class="memitem:a4b05fdc0ed34baa8da979bb5330f0fba inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a4b05fdc0ed34baa8da979bb5330f0fba"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a4b05fdc0ed34baa8da979bb5330f0fba">zeroFill</a> (char[] array)</td></tr>
+<tr class="memdesc:a4b05fdc0ed34baa8da979bb5330f0fba inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the specified character array with zeros to ensure security.  <br /></td></tr>
+<tr class="memitem:a616807be3fb16da61f893b8344accd6d inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a616807be3fb16da61f893b8344accd6d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a616807be3fb16da61f893b8344accd6d">zeroFill</a> (MemorySegment segment)</td></tr>
+<tr class="memdesc:a616807be3fb16da61f893b8344accd6d inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the specified memory segment with zeros to ensure security.  <br /></td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a22a5f428d45d68f09b7b46dd61e63404" id="r_a22a5f428d45d68f09b7b46dd61e63404"><td class="memItemLeft" align="right" valign="top">MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a22a5f428d45d68f09b7b46dd61e63404">createCFData</a> (Arena arena, char[] chars)  throws Throwable </td></tr>
-<tr class="memitem:af6d81e4eaa5a8eb0ad47514fc79d1596" id="r_af6d81e4eaa5a8eb0ad47514fc79d1596"><td class="memItemLeft" align="right" valign="top">MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6d81e4eaa5a8eb0ad47514fc79d1596">createCFString</a> (Arena arena, char[] chars)  throws Throwable </td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a651a6b67eaf4c37e063b540121152710" id="r_a651a6b67eaf4c37e063b540121152710"><td class="memItemLeft" align="right" valign="top">static MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a651a6b67eaf4c37e063b540121152710">createCFData</a> (Arena arena, char[] chars)  throws Throwable </td></tr>
+<tr class="memdesc:a651a6b67eaf4c37e063b540121152710"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a CoreFoundation data segment from the given character data.  <br /></td></tr>
+<tr class="memitem:a108983ebcd0c69ea5642ae5de4378355" id="r_a108983ebcd0c69ea5642ae5de4378355"><td class="memItemLeft" align="right" valign="top">static MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a108983ebcd0c69ea5642ae5de4378355">createCFString</a> (Arena arena, char[] chars)  throws Throwable </td></tr>
+<tr class="memdesc:a108983ebcd0c69ea5642ae5de4378355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a CoreFoundation string segment from the given character data.  <br /></td></tr>
+<tr class="memitem:ad57b4ea9b41a70f21c2bbab678b31a99" id="r_ad57b4ea9b41a70f21c2bbab678b31a99"><td class="memItemLeft" align="right" valign="top">static MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad57b4ea9b41a70f21c2bbab678b31a99">createDictionary</a> (Arena arena, MemorySegment[] keys, MemorySegment[] values)  throws Throwable </td></tr>
+<tr class="memdesc:ad57b4ea9b41a70f21c2bbab678b31a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a CoreFoundation dictionary from the provided keys and values arrays.  <br /></td></tr>
+<tr class="memitem:a7d2c817b7ac15769804eef7329743bad" id="r_a7d2c817b7ac15769804eef7329743bad"><td class="memItemLeft" align="right" valign="top">static ByteBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d2c817b7ac15769804eef7329743bad">encodeUtf8</a> (char[] chars)</td></tr>
+<tr class="memdesc:a7d2c817b7ac15769804eef7329743bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encodes character data into UTF-8 format using a ByteBuffer wrapper.  <br /></td></tr>
+<tr class="memitem:aa07955e7ba8545a66a728204b3ac5998" id="r_aa07955e7ba8545a66a728204b3ac5998"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa07955e7ba8545a66a728204b3ac5998">releaseAll</a> (MemorySegment... segments)  throws Throwable </td></tr>
+<tr class="memdesc:aa07955e7ba8545a66a728204b3ac5998"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases multiple CoreFoundation memory segments safely by invoking CFRelease.  <br /></td></tr>
+<tr class="memitem:a08fcacfd926372fcc5f26fcfbbb009e4" id="r_a08fcacfd926372fcc5f26fcfbbb009e4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08fcacfd926372fcc5f26fcfbbb009e4">validateArena</a> (Arena arena)</td></tr>
+<tr class="memdesc:a08fcacfd926372fcc5f26fcfbbb009e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates that the provided Arena is not null.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -162,6 +184,7 @@ Static Private Attributes</h2></td></tr>
 <tr class="memitem:ad402ddd8490e45723afff955f3b11e68" id="r_ad402ddd8490e45723afff955f3b11e68"><td class="memItemLeft" align="right" valign="top">static final MethodHandle&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad402ddd8490e45723afff955f3b11e68">CF_RELEASE</a></td></tr>
 <tr class="memitem:abd83fe51e1c3096916fd5c3b8ae64b66" id="r_abd83fe51e1c3096916fd5c3b8ae64b66"><td class="memItemLeft" align="right" valign="top">static final MethodHandle&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd83fe51e1c3096916fd5c3b8ae64b66">CF_STRING_CREATE_WITH_C_STRING</a></td></tr>
 <tr class="memitem:a6502777deae3dff65353897bbd63417f" id="r_a6502777deae3dff65353897bbd63417f"><td class="memItemLeft" align="right" valign="top">static final MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6502777deae3dff65353897bbd63417f">K_CF_BOOLEAN_TRUE</a></td></tr>
+<tr class="memitem:ab97e875751dc8a73e5798bf76d67a96f" id="r_ab97e875751dc8a73e5798bf76d67a96f"><td class="memItemLeft" align="right" valign="top">static final int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab97e875751dc8a73e5798bf76d67a96f">K_CF_STRING_ENCODING_UTF8</a> = 0x08000000</td></tr>
 <tr class="memitem:a8d7a053bb163a9b89d1d324a7ecd8d14" id="r_a8d7a053bb163a9b89d1d324a7ecd8d14"><td class="memItemLeft" align="right" valign="top">static final MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d7a053bb163a9b89d1d324a7ecd8d14">K_CF_TYPE_DICTIONARY_KEY_CALLBACKS</a></td></tr>
 <tr class="memitem:ae28c2732430bd70d4939607e863432f2" id="r_ae28c2732430bd70d4939607e863432f2"><td class="memItemLeft" align="right" valign="top">static final MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae28c2732430bd70d4939607e863432f2">K_CF_TYPE_DICTIONARY_VALUE_CALLBACKS</a></td></tr>
 <tr class="memitem:aa704b582f3920da218483651ffffff1a" id="r_aa704b582f3920da218483651ffffff1a"><td class="memItemLeft" align="right" valign="top">static final MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa704b582f3920da218483651ffffff1a">K_SEC_ATTR_ACCOUNT</a></td></tr>
@@ -186,18 +209,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a1c841b3cd859af11dfa74e01eb2069fd inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" id="r_a1c841b3cd859af11dfa74e01eb2069fd"><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a1c841b3cd859af11dfa74e01eb2069fd">CREDENTIAL_BLOB</a> = &quot;CredentialBlob&quot;</td></tr>
 <tr class="memitem:ac6dd0b93f51c237a6743225132436d3f inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" id="r_ac6dd0b93f51c237a6743225132436d3f"><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ac6dd0b93f51c237a6743225132436d3f">CREDENTIAL_BLOB_SIZE</a> = &quot;CredentialBlobSize&quot;</td></tr>
 <tr class="inherit_header pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Package Functions inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html">fr.softsf.vault.strategy.AbstractVaultStrategy</a></td></tr>
-<tr class="memitem:ac6022f5fd880256ddca98a2bb6fd0ab6 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_ac6022f5fd880256ddca98a2bb6fd0ab6"><td class="memItemLeft" align="right" valign="top">final MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ac6022f5fd880256ddca98a2bb6fd0ab6">allocateSegment</a> (Arena arena, char[] data, Charset charset)</td></tr>
-<tr class="memdesc:ac6022f5fd880256ddca98a2bb6fd0ab6 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates and populates a memory segment for the given character data.  <br /></td></tr>
-<tr class="memitem:aa27e89d7ef7b0a3aa531a551da6f1f50 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_aa27e89d7ef7b0a3aa531a551da6f1f50"><td class="memItemLeft" align="right" valign="top">final char[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#aa27e89d7ef7b0a3aa531a551da6f1f50">concatNamespaceAndKey</a> (char[] <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a630e394e2f9a269565765c124e2eae08">namespace</a>, char[] key)</td></tr>
-<tr class="memdesc:aa27e89d7ef7b0a3aa531a551da6f1f50 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenates the namespace and the user key with an intermediate dot separator and validates all parts.  <br /></td></tr>
-<tr class="memitem:ad79e3b72d9781124fa48d0eecedaeae9 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_ad79e3b72d9781124fa48d0eecedaeae9"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ad79e3b72d9781124fa48d0eecedaeae9">validateKey</a> (char[] key)</td></tr>
-<tr class="memdesc:ad79e3b72d9781124fa48d0eecedaeae9 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the key constraints.  <br /></td></tr>
 <tr class="memitem:a8d4ad2ef26310f0e005024bdf1b256a8 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a8d4ad2ef26310f0e005024bdf1b256a8"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a8d4ad2ef26310f0e005024bdf1b256a8">validateSecret</a> (char[] secret)</td></tr>
 <tr class="memdesc:a8d4ad2ef26310f0e005024bdf1b256a8 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the secret constraints based on the specific platform strategy implementation.  <br /></td></tr>
-<tr class="memitem:ad3de61cded3f3045b80202dc016f8be0 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_ad3de61cded3f3045b80202dc016f8be0"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ad3de61cded3f3045b80202dc016f8be0">zeroFill</a> (char[] array)</td></tr>
-<tr class="memdesc:ad3de61cded3f3045b80202dc016f8be0 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the specified character array with zeros to ensure security.  <br /></td></tr>
-<tr class="memitem:a2200b8d2b52a72eaf03a8a650f3d10a2 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a2200b8d2b52a72eaf03a8a650f3d10a2"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a2200b8d2b52a72eaf03a8a650f3d10a2">zeroFill</a> (MemorySegment segment)</td></tr>
-<tr class="memdesc:a2200b8d2b52a72eaf03a8a650f3d10a2 inherit pac_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the specified memory segment with zeros to ensure security.  <br /></td></tr>
 <tr class="inherit_header pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Static Package Attributes inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html">fr.softsf.vault.strategy.AbstractVaultStrategy</a></td></tr>
 <tr class="memitem:a0a650196241473b4cbdac2a31b9d77a4 inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy" id="r_a0a650196241473b4cbdac2a31b9d77a4"><td class="memItemLeft" align="right" valign="top">static final long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a0a650196241473b4cbdac2a31b9d77a4">LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE</a> = 1024L * 64L</td></tr>
 <tr class="memdesc:a0a650196241473b4cbdac2a31b9d77a4 inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum allowed size in bytes for the Linux Secret Service DBus backend secret payload.  <br /></td></tr>
@@ -209,7 +222,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a06381b632fb5cf9ee755590466081507 inherit pac_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum allowed size in bytes imposed by the Win32 Credential Manager CredWrite API.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>macOS Keychain implementation utilizing FFM API with proper CoreFoundation dictionaries. </p>
+<div class="textblock"><p>macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper CoreFoundation dictionary allocation, native resource release, and heap memory hygiene. </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://developer.apple.com/documentation/security/keychain-services">Keychain Services Reference</a> </dd>
+<dd>
+<a href="https://developer.apple.com/documentation/corefoundation">CoreFoundation Reference</a> </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad6300fc42ce5563a4630a35fd8029e13" name="ad6300fc42ce5563a4630a35fd8029e13"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad6300fc42ce5563a4630a35fd8029e13">&#9670;&#160;</a></span>MacKeychainStrategy()</h2>
@@ -225,6 +241,20 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Initializes a new instance of the <code class="JavaDocCode">MacKeychainStrategy</code> with a custom namespace. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">namespace</td><td>the isolated namespace character array used as an account prefix for Keychain items </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IllegalArgumentException</td><td>if <code class="JavaDocCode">namespace</code> is null or empty </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -259,8 +289,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a22a5f428d45d68f09b7b46dd61e63404" name="a22a5f428d45d68f09b7b46dd61e63404"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22a5f428d45d68f09b7b46dd61e63404">&#9670;&#160;</a></span>createCFData()</h2>
+<a id="a651a6b67eaf4c37e063b540121152710" name="a651a6b67eaf4c37e063b540121152710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a651a6b67eaf4c37e063b540121152710">&#9670;&#160;</a></span>createCFData()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -281,15 +311,37 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Creates a CoreFoundation data segment from the given character data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">arena</td><td>the memory arena used for allocations </td></tr>
+    <tr><td class="paramname">chars</td><td>the character array data </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a memory segment representing the CoreFoundation data </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Throwable</td><td>if native method invocation fails </td></tr>
+  </table>
+  </dd>
+</dl>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_a651a6b67eaf4c37e063b540121152710_cgraph.svg" width="568" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
-<a id="af6d81e4eaa5a8eb0ad47514fc79d1596" name="af6d81e4eaa5a8eb0ad47514fc79d1596"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6d81e4eaa5a8eb0ad47514fc79d1596">&#9670;&#160;</a></span>createCFString()</h2>
+<a id="a108983ebcd0c69ea5642ae5de4378355" name="a108983ebcd0c69ea5642ae5de4378355"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a108983ebcd0c69ea5642ae5de4378355">&#9670;&#160;</a></span>createCFString()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -310,10 +362,89 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Creates a CoreFoundation string segment from the given character data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">arena</td><td>the memory arena used for allocations </td></tr>
+    <tr><td class="paramname">chars</td><td>the character array data </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a memory segment representing the CoreFoundation string </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Throwable</td><td>if native method invocation fails </td></tr>
+  </table>
+  </dd>
+</dl>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_a108983ebcd0c69ea5642ae5de4378355_cgraph.svg" width="574" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad57b4ea9b41a70f21c2bbab678b31a99" name="ad57b4ea9b41a70f21c2bbab678b31a99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad57b4ea9b41a70f21c2bbab678b31a99">&#9670;&#160;</a></span>createDictionary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MemorySegment fr.softsf.vault.strategy.MacKeychainStrategy.createDictionary </td>
+          <td>(</td>
+          <td class="paramtype">Arena</td>          <td class="paramname"><span class="paramname"><em>arena</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MemorySegment[]</td>          <td class="paramname"><span class="paramname"><em>keys</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MemorySegment[]</td>          <td class="paramname"><span class="paramname"><em>values</em></span>&#160;) throws Throwable</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a CoreFoundation dictionary from the provided keys and values arrays. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">arena</td><td>the memory arena used for allocations </td></tr>
+    <tr><td class="paramname">keys</td><td>the array of memory segments representing dictionary keys </td></tr>
+    <tr><td class="paramname">values</td><td>the array of memory segments representing dictionary values </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a memory segment pointing to the created CoreFoundation dictionary </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Throwable</td><td>if native method invocation fails </td></tr>
+  </table>
+  </dd>
+</dl>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_ad57b4ea9b41a70f21c2bbab678b31a99_cgraph.svg" width="587" height="56"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -349,12 +480,46 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 
 <p>Implements <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#abebb52a1712d14c68bad7e3a988d6810">fr.softsf.vault.strategy.AbstractVaultStrategy</a>.</p>
-<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_a1989bdc67eaa88e3ed723823acda43b1_cgraph.svg" width="100%" height="496"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_a1989bdc67eaa88e3ed723823acda43b1_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+
+</div>
+</div>
+<a id="a7d2c817b7ac15769804eef7329743bad" name="a7d2c817b7ac15769804eef7329743bad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d2c817b7ac15769804eef7329743bad">&#9670;&#160;</a></span>encodeUtf8()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ByteBuffer fr.softsf.vault.strategy.MacKeychainStrategy.encodeUtf8 </td>
+          <td>(</td>
+          <td class="paramtype">char[]</td>          <td class="paramname"><span class="paramname"><em>chars</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Encodes character data into UTF-8 format using a ByteBuffer wrapper. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">chars</td><td>the character array to encode </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the resulting ByteBuffer containing UTF-8 encoded bytes </dd></dl>
 
 </div>
 </div>
@@ -390,12 +555,51 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 
 <p>Implements <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#aa0f4d53166382c781b1969158c7b0d32">fr.softsf.vault.strategy.AbstractVaultStrategy</a>.</p>
-<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_a7618d1ebe3f750802260f25d9a598cd6_cgraph.svg" width="100%" height="496"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_a7618d1ebe3f750802260f25d9a598cd6_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+
+</div>
+</div>
+<a id="aa07955e7ba8545a66a728204b3ac5998" name="aa07955e7ba8545a66a728204b3ac5998"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa07955e7ba8545a66a728204b3ac5998">&#9670;&#160;</a></span>releaseAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fr.softsf.vault.strategy.MacKeychainStrategy.releaseAll </td>
+          <td>(</td>
+          <td class="paramtype">MemorySegment...</td>          <td class="paramname"><span class="paramname"><em>segments</em></span></td><td>)</td>
+          <td> throws Throwable</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Releases multiple CoreFoundation memory segments safely by invoking CFRelease. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">segments</td><td>the array of memory segments to release </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Throwable</td><td>if native method invocation fails </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -431,11 +635,11 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 
 <p>Implements <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a75302c380d7a799b892d49d3b81a79b3">fr.softsf.vault.strategy.AbstractVaultStrategy</a>.</p>
-<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_adf628ba9a0ca04954bbec04699fa7895_cgraph.svg" width="100%" height="496"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_adf628ba9a0ca04954bbec04699fa7895_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -477,12 +681,51 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 
 <p>Implements <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a15217f263bff77cbc489f884248e7863">fr.softsf.vault.strategy.AbstractVaultStrategy</a>.</p>
-<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy_adc566c61a21820c55f139965e9a5faf8_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+
+</div>
+</div>
+<a id="a08fcacfd926372fcc5f26fcfbbb009e4" name="a08fcacfd926372fcc5f26fcfbbb009e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08fcacfd926372fcc5f26fcfbbb009e4">&#9670;&#160;</a></span>validateArena()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fr.softsf.vault.strategy.MacKeychainStrategy.validateArena </td>
+          <td>(</td>
+          <td class="paramtype">Arena</td>          <td class="paramname"><span class="paramname"><em>arena</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Validates that the provided Arena is not null. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">arena</td><td>the arena to validate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IllegalArgumentException</td><td>if the arena is null </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -654,6 +897,28 @@ Additional Inherited Members</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">final MemorySegment fr.softsf.vault.strategy.MacKeychainStrategy.K_CF_BOOLEAN_TRUE</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab97e875751dc8a73e5798bf76d67a96f" name="ab97e875751dc8a73e5798bf76d67a96f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab97e875751dc8a73e5798bf76d67a96f">&#9670;&#160;</a></span>K_CF_STRING_ENCODING_UTF8</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">final int fr.softsf.vault.strategy.MacKeychainStrategy.K_CF_STRING_ENCODING_UTF8 = 0x08000000</td>
         </tr>
       </table>
   </td>

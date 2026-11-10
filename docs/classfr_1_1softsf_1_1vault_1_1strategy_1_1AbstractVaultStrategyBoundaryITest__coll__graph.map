@@ -1,0 +1,9 @@
+<map id="fr.softsf.vault.strategy.AbstractVaultStrategyBoundaryITest" name="fr.softsf.vault.strategy.AbstractVaultStrategyBoundaryITest">
+<area shape="rect" id="Node000001" title="Unit tests for strategy boundary conditions using package&#45;private constants." alt="" coords="5,941,313,1367"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html" title="Zero&#45;JNI/JNA facade class managing native credential operations via the Project Panama Foreign Functi..." alt="" coords="45,363,274,868"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,865,162,924,157,924,159,870"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html" title="Exception thrown when a native vault operation fails." alt="" coords="55,127,264,290"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="160,287,162,346,157,346,159,292"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="122,5,197,78"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="160,90,162,127,157,127,159,96"/>
+</map>

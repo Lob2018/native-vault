@@ -1,0 +1,9 @@
+<map id="fr.softsf.vault.NativeVaultITest" name="fr.softsf.vault.NativeVaultITest">
+<area shape="rect" id="Node000001" title="Integration tests for NativeVault lifecycle and CRUD operations using char[] buffers exclusively." alt="" coords="5,941,305,1447"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html" title="Zero&#45;JNI/JNA facade class managing native credential operations via the Project Panama Foreign Functi..." alt="" coords="41,363,270,868"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,865,158,924,153,923,155,870"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html" title="Exception thrown when a native vault operation fails." alt="" coords="51,127,260,290"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="156,287,158,346,153,346,155,292"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="118,5,193,78"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="155,90,158,127,153,127,155,96"/>
+</map>

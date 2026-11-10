@@ -160,7 +160,7 @@ class NativeVaultITest {
      */
     @Test
     void givenTooLargeSecret_whenSetSecret_thenIllegalArgumentExceptionIsThrown() {
-        char[] normalKey ={'k', 'e', 'y'};
+        char[] normalKey = {'k', 'e', 'y'};
         int size = System.getProperty("os.name").toLowerCase().contains("win") ? 3000 : 70000;
         char[] hugeSecret = new char[size];
         Arrays.fill(hugeSecret, 's');

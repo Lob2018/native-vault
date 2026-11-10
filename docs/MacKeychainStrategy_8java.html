@@ -112,7 +112,9 @@ $(function() {
 <code>import java.lang.foreign.ValueLayout;</code><br />
 <code>import java.lang.invoke.MethodHandle;</code><br />
 <code>import java.nio.ByteBuffer;</code><br />
+<code>import java.nio.CharBuffer;</code><br />
 <code>import java.nio.charset.StandardCharsets;</code><br />
+<code>import java.util.Objects;</code><br />
 <code>import java.util.Optional;</code><br />
 <code>import fr.softsf.vault.exception.NativeVaultException;</code><br />
 <code>import fr.softsf.vault.internal.CrossPlatformVaultLoader;</code><br />
@@ -126,7 +128,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:fr_2Esoftsf_2Evault_2Estrategy_2EMacKeychainStrategy" id="r_fr_2Esoftsf_2Evault_2Estrategy_2EMacKeychainStrategy"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html">fr.softsf.vault.strategy.MacKeychainStrategy</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">macOS Keychain implementation utilizing FFM API with proper CoreFoundation dictionaries.  <a href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper CoreFoundation dictionary allocation, native resource release, and heap memory hygiene.  <a href="classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Packages</h2></td></tr>

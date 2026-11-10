@@ -4,6 +4,14 @@
 ## Unreleased - 
 
 
+♻️ refactor class.puml, LinuxKeyringStrategy, AbstractVaultStrategyBoundaryITest: Safely scan null-terminated strings, optimize cross-platform boundary tests, and update uml class diagram
+-LinuxKeyringStrategy: Prevent out-of-bounds reading during password length calculation by checking boundedResult size.
+-AbstractVaultStrategyBoundaryITest: Refactor platform identification constants, optimize max user key calculation for Linux, and share maxSecretSize initialization.
+-class.puml: Update UML class diagram to reflect recent structural adjustments.
+-Tests pass.
+
+([4a016be5c419623](https://github.com/Lob2018/native-vault/commit/4a016be5c4196238c385df70ea7abadca9c65058))
+
 ♻️ refactor NativeVaultExceptionUTest: Specify unit test with UTests in the class name
 
 ([5820659f7444069](https://github.com/Lob2018/native-vault/commit/5820659f74440699ee29f4e49bc0377d83ee9995))

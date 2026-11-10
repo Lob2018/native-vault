@@ -140,18 +140,25 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pac-methods" class="groupheader"><a id="pac-methods" name="pac-methods"></a>
 Package Functions</h2></td></tr>
-<tr class="memitem:ac6022f5fd880256ddca98a2bb6fd0ab6" id="r_ac6022f5fd880256ddca98a2bb6fd0ab6"><td class="memItemLeft" align="right" valign="top">final MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6022f5fd880256ddca98a2bb6fd0ab6">allocateSegment</a> (Arena arena, char[] data, Charset charset)</td></tr>
-<tr class="memdesc:ac6022f5fd880256ddca98a2bb6fd0ab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates and populates a memory segment for the given character data.  <br /></td></tr>
-<tr class="memitem:aa27e89d7ef7b0a3aa531a551da6f1f50" id="r_aa27e89d7ef7b0a3aa531a551da6f1f50"><td class="memItemLeft" align="right" valign="top">final char[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa27e89d7ef7b0a3aa531a551da6f1f50">concatNamespaceAndKey</a> (char[] <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a630e394e2f9a269565765c124e2eae08">namespace</a>, char[] key)</td></tr>
-<tr class="memdesc:aa27e89d7ef7b0a3aa531a551da6f1f50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenates the namespace and the user key with an intermediate dot separator and validates all parts.  <br /></td></tr>
-<tr class="memitem:ad79e3b72d9781124fa48d0eecedaeae9" id="r_ad79e3b72d9781124fa48d0eecedaeae9"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad79e3b72d9781124fa48d0eecedaeae9">validateKey</a> (char[] key)</td></tr>
-<tr class="memdesc:ad79e3b72d9781124fa48d0eecedaeae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the key constraints.  <br /></td></tr>
 <tr class="memitem:a8d4ad2ef26310f0e005024bdf1b256a8" id="r_a8d4ad2ef26310f0e005024bdf1b256a8"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d4ad2ef26310f0e005024bdf1b256a8">validateSecret</a> (char[] secret)</td></tr>
 <tr class="memdesc:a8d4ad2ef26310f0e005024bdf1b256a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the secret constraints based on the specific platform strategy implementation.  <br /></td></tr>
-<tr class="memitem:ad3de61cded3f3045b80202dc016f8be0" id="r_ad3de61cded3f3045b80202dc016f8be0"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3de61cded3f3045b80202dc016f8be0">zeroFill</a> (char[] array)</td></tr>
-<tr class="memdesc:ad3de61cded3f3045b80202dc016f8be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the specified character array with zeros to ensure security.  <br /></td></tr>
-<tr class="memitem:a2200b8d2b52a72eaf03a8a650f3d10a2" id="r_a2200b8d2b52a72eaf03a8a650f3d10a2"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2200b8d2b52a72eaf03a8a650f3d10a2">zeroFill</a> (MemorySegment segment)</td></tr>
-<tr class="memdesc:a2200b8d2b52a72eaf03a8a650f3d10a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the specified memory segment with zeros to ensure security.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pac-static-methods" class="groupheader"><a id="pac-static-methods" name="pac-static-methods"></a>
+Static Package Functions</h2></td></tr>
+<tr class="memitem:a0a11bb7d7cca89f8ff9a55bcdbad689e" id="r_a0a11bb7d7cca89f8ff9a55bcdbad689e"><td class="memItemLeft" align="right" valign="top">static MemorySegment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a11bb7d7cca89f8ff9a55bcdbad689e">allocateSegment</a> (Arena arena, char[] data, Charset charset)</td></tr>
+<tr class="memdesc:a0a11bb7d7cca89f8ff9a55bcdbad689e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates and populates a memory segment for the given character data.  <br /></td></tr>
+<tr class="memitem:a543875ecc8dcc3a0ac51130f316f1bfa" id="r_a543875ecc8dcc3a0ac51130f316f1bfa"><td class="memItemLeft" align="right" valign="top">static char[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a543875ecc8dcc3a0ac51130f316f1bfa">concatNamespaceAndKey</a> (char[] <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a630e394e2f9a269565765c124e2eae08">namespace</a>, char[] key)</td></tr>
+<tr class="memdesc:a543875ecc8dcc3a0ac51130f316f1bfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenates the namespace and the user key with an intermediate dot separator and validates all parts.  <br /></td></tr>
+<tr class="memitem:a11400ec3200645dfc2fe1bbaa9cff623" id="r_a11400ec3200645dfc2fe1bbaa9cff623"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11400ec3200645dfc2fe1bbaa9cff623">validateKey</a> (char[] key)</td></tr>
+<tr class="memdesc:a11400ec3200645dfc2fe1bbaa9cff623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the key constraints.  <br /></td></tr>
+<tr class="memitem:a4b05fdc0ed34baa8da979bb5330f0fba" id="r_a4b05fdc0ed34baa8da979bb5330f0fba"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b05fdc0ed34baa8da979bb5330f0fba">zeroFill</a> (char[] array)</td></tr>
+<tr class="memdesc:a4b05fdc0ed34baa8da979bb5330f0fba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the specified character array with zeros to ensure security.  <br /></td></tr>
+<tr class="memitem:a616807be3fb16da61f893b8344accd6d" id="r_a616807be3fb16da61f893b8344accd6d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a616807be3fb16da61f893b8344accd6d">zeroFill</a> (MemorySegment segment)</td></tr>
+<tr class="memdesc:a616807be3fb16da61f893b8344accd6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the specified memory segment with zeros to ensure security.  <br /></td></tr>
+<tr class="inherit_header pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Static Package Functions inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html">fr.softsf.vault.strategy.LinuxKeyringStrategy</a></td></tr>
+<tr class="memitem:a4620da192c164f8fe6e1f2726816843d inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy" id="r_a4620da192c164f8fe6e1f2726816843d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a4620da192c164f8fe6e1f2726816843d">[static initializer]</a></td></tr>
+<tr class="inherit_header pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Static Package Functions inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html">fr.softsf.vault.strategy.WindowsCredentialManagerStrategy</a></td></tr>
+<tr class="memitem:ac30fd5614fdee5fa926c5690e980c120 inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" id="r_ac30fd5614fdee5fa926c5690e980c120"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ac30fd5614fdee5fa926c5690e980c120">[static initializer]</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pac-static-attribs" class="groupheader"><a id="pac-static-attribs" name="pac-static-attribs"></a>
 Static Package Attributes</h2></td></tr>
@@ -164,6 +171,16 @@ Static Package Attributes</h2></td></tr>
 <tr class="memitem:a06381b632fb5cf9ee755590466081507" id="r_a06381b632fb5cf9ee755590466081507"><td class="memItemLeft" align="right" valign="top">static final int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06381b632fb5cf9ee755590466081507">WINDOWS_CREDENTIAL_MANAGER_MAX_SECRET_BYTE_SIZE</a> = 2560</td></tr>
 <tr class="memdesc:a06381b632fb5cf9ee755590466081507"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum allowed size in bytes imposed by the Win32 Credential Manager CredWrite API.  <br /></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a38730ba2f94b64a08b4a555ed12ac3aa" id="r_a38730ba2f94b64a08b4a555ed12ac3aa"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38730ba2f94b64a08b4a555ed12ac3aa">validateDataSize</a> (char[] data, long limit, String errorMessage)</td></tr>
+<tr class="memdesc:a38730ba2f94b64a08b4a555ed12ac3aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates data array size constraints against a specified byte limit.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-static-attribs" class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a905db2a5630d8ee57e266bca2568b770" id="r_a905db2a5630d8ee57e266bca2568b770"><td class="memItemLeft" align="right" valign="top">static final boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a905db2a5630d8ee57e266bca2568b770">IS_WINDOWS</a></td></tr>
+<tr class="memdesc:a905db2a5630d8ee57e266bca2568b770"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cached platform check to avoid redundant system property lookups and string allocations.  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-inherited" class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Static Public Attributes inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html">fr.softsf.vault.strategy.LinuxKeyringStrategy</a></td></tr>
@@ -172,17 +189,13 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Static Public Attributes inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html">fr.softsf.vault.strategy.WindowsCredentialManagerStrategy</a></td></tr>
 <tr class="memitem:a1c841b3cd859af11dfa74e01eb2069fd inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" id="r_a1c841b3cd859af11dfa74e01eb2069fd"><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#a1c841b3cd859af11dfa74e01eb2069fd">CREDENTIAL_BLOB</a> = &quot;CredentialBlob&quot;</td></tr>
 <tr class="memitem:ac6dd0b93f51c237a6743225132436d3f inherit pub_static_attribs_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" id="r_ac6dd0b93f51c237a6743225132436d3f"><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ac6dd0b93f51c237a6743225132436d3f">CREDENTIAL_BLOB_SIZE</a> = &quot;CredentialBlobSize&quot;</td></tr>
-<tr class="inherit_header pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Static Package Functions inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html">fr.softsf.vault.strategy.LinuxKeyringStrategy</a></td></tr>
-<tr class="memitem:a4620da192c164f8fe6e1f2726816843d inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy" id="r_a4620da192c164f8fe6e1f2726816843d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#a4620da192c164f8fe6e1f2726816843d">[static initializer]</a></td></tr>
-<tr class="inherit_header pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Static Package Functions inherited from <a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html">fr.softsf.vault.strategy.WindowsCredentialManagerStrategy</a></td></tr>
-<tr class="memitem:ac30fd5614fdee5fa926c5690e980c120 inherit pac_static_methods_classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy" id="r_ac30fd5614fdee5fa926c5690e980c120"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ac30fd5614fdee5fa926c5690e980c120">[static initializer]</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sealed polymorphic strategy interface defining OS-native credential store contracts using character arrays for keys and secrets. </p>
 <p>Permitted exclusively for implementation by <code><a class="el" href="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html">AbstractVaultStrategy</a></code>. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="ac6022f5fd880256ddca98a2bb6fd0ab6" name="ac6022f5fd880256ddca98a2bb6fd0ab6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6022f5fd880256ddca98a2bb6fd0ab6">&#9670;&#160;</a></span>allocateSegment()</h2>
+<a id="a0a11bb7d7cca89f8ff9a55bcdbad689e" name="a0a11bb7d7cca89f8ff9a55bcdbad689e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a11bb7d7cca89f8ff9a55bcdbad689e">&#9670;&#160;</a></span>allocateSegment()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,7 +204,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final MemorySegment fr.softsf.vault.strategy.AbstractVaultStrategy.allocateSegment </td>
+          <td class="memname">MemorySegment fr.softsf.vault.strategy.AbstractVaultStrategy.allocateSegment </td>
           <td>(</td>
           <td class="paramtype">Arena</td>          <td class="paramname"><span class="paramname"><em>arena</em></span>, </td>
         </tr>
@@ -208,7 +221,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel package">package</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel package">package</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -232,8 +245,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aa27e89d7ef7b0a3aa531a551da6f1f50" name="aa27e89d7ef7b0a3aa531a551da6f1f50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa27e89d7ef7b0a3aa531a551da6f1f50">&#9670;&#160;</a></span>concatNamespaceAndKey()</h2>
+<a id="a543875ecc8dcc3a0ac51130f316f1bfa" name="a543875ecc8dcc3a0ac51130f316f1bfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a543875ecc8dcc3a0ac51130f316f1bfa">&#9670;&#160;</a></span>concatNamespaceAndKey()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -242,7 +255,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final char[] fr.softsf.vault.strategy.AbstractVaultStrategy.concatNamespaceAndKey </td>
+          <td class="memname">char[] fr.softsf.vault.strategy.AbstractVaultStrategy.concatNamespaceAndKey </td>
           <td>(</td>
           <td class="paramtype">char[]</td>          <td class="paramname"><span class="paramname"><em>namespace</em></span>, </td>
         </tr>
@@ -254,7 +267,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel package">package</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel package">package</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -279,7 +292,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy_aa27e89d7ef7b0a3aa531a551da6f1f50_cgraph.svg" width="588" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy_a543875ecc8dcc3a0ac51130f316f1bfa_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -437,8 +450,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ad79e3b72d9781124fa48d0eecedaeae9" name="ad79e3b72d9781124fa48d0eecedaeae9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad79e3b72d9781124fa48d0eecedaeae9">&#9670;&#160;</a></span>validateKey()</h2>
+<a id="a38730ba2f94b64a08b4a555ed12ac3aa" name="a38730ba2f94b64a08b4a555ed12ac3aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38730ba2f94b64a08b4a555ed12ac3aa">&#9670;&#160;</a></span>validateDataSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -447,7 +460,51 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final void fr.softsf.vault.strategy.AbstractVaultStrategy.validateKey </td>
+          <td class="memname">void fr.softsf.vault.strategy.AbstractVaultStrategy.validateDataSize </td>
+          <td>(</td>
+          <td class="paramtype">char[]</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long</td>          <td class="paramname"><span class="paramname"><em>limit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>errorMessage</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Validates data array size constraints against a specified byte limit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>the character array to validate </td></tr>
+    <tr><td class="paramname">limit</td><td>the maximum allowed byte size </td></tr>
+    <tr><td class="paramname">errorMessage</td><td>the exception message if limit is exceeded </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a11400ec3200645dfc2fe1bbaa9cff623" name="a11400ec3200645dfc2fe1bbaa9cff623"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11400ec3200645dfc2fe1bbaa9cff623">&#9670;&#160;</a></span>validateKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fr.softsf.vault.strategy.AbstractVaultStrategy.validateKey </td>
           <td>(</td>
           <td class="paramtype">char[]</td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
           <td></td>
@@ -455,7 +512,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel package">package</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel package">package</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -473,6 +530,12 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy_a11400ec3200645dfc2fe1bbaa9cff623_cgraph.svg" width="520" height="72"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -512,17 +575,17 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy_a8d4ad2ef26310f0e005024bdf1b256a8_cgraph.svg" width="539" height="158"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy_a8d4ad2ef26310f0e005024bdf1b256a8_cgraph.svg" width="539" height="243"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="ad3de61cded3f3045b80202dc016f8be0" name="ad3de61cded3f3045b80202dc016f8be0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3de61cded3f3045b80202dc016f8be0">&#9670;&#160;</a></span>zeroFill() <span class="overload">[1/2]</span></h2>
+<a id="a4b05fdc0ed34baa8da979bb5330f0fba" name="a4b05fdc0ed34baa8da979bb5330f0fba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b05fdc0ed34baa8da979bb5330f0fba">&#9670;&#160;</a></span>zeroFill() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -531,7 +594,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final void fr.softsf.vault.strategy.AbstractVaultStrategy.zeroFill </td>
+          <td class="memname">void fr.softsf.vault.strategy.AbstractVaultStrategy.zeroFill </td>
           <td>(</td>
           <td class="paramtype">char[]</td>          <td class="paramname"><span class="paramname"><em>array</em></span></td><td>)</td>
           <td></td>
@@ -539,7 +602,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel package">package</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel package">package</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -554,8 +617,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a2200b8d2b52a72eaf03a8a650f3d10a2" name="a2200b8d2b52a72eaf03a8a650f3d10a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2200b8d2b52a72eaf03a8a650f3d10a2">&#9670;&#160;</a></span>zeroFill() <span class="overload">[2/2]</span></h2>
+<a id="a616807be3fb16da61f893b8344accd6d" name="a616807be3fb16da61f893b8344accd6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a616807be3fb16da61f893b8344accd6d">&#9670;&#160;</a></span>zeroFill() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -564,7 +627,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final void fr.softsf.vault.strategy.AbstractVaultStrategy.zeroFill </td>
+          <td class="memname">void fr.softsf.vault.strategy.AbstractVaultStrategy.zeroFill </td>
           <td>(</td>
           <td class="paramtype">MemorySegment</td>          <td class="paramname"><span class="paramname"><em>segment</em></span></td><td>)</td>
           <td></td>
@@ -572,7 +635,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel package">package</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel package">package</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -588,6 +651,32 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a905db2a5630d8ee57e266bca2568b770" name="a905db2a5630d8ee57e266bca2568b770"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a905db2a5630d8ee57e266bca2568b770">&#9670;&#160;</a></span>IS_WINDOWS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">final boolean fr.softsf.vault.strategy.AbstractVaultStrategy.IS_WINDOWS</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">            System.getProperty(<span class="stringliteral">&quot;os.name&quot;</span>, <span class="stringliteral">&quot;&quot;</span>).toLowerCase(Locale.ROOT).contains(<span class="stringliteral">&quot;win&quot;</span>)</div>
+</div><!-- fragment -->
+<p>Cached platform check to avoid redundant system property lookups and string allocations. </p>
+
+</div>
+</div>
 <a id="a0a650196241473b4cbdac2a31b9d77a4" name="a0a650196241473b4cbdac2a31b9d77a4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0a650196241473b4cbdac2a31b9d77a4">&#9670;&#160;</a></span>LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE</h2>
 

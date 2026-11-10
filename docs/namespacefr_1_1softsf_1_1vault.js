@@ -4,6 +4,6 @@ var namespacefr_1_1softsf_1_1vault =
     [ "internal", "namespacefr_1_1softsf_1_1vault_1_1internal.html", "namespacefr_1_1softsf_1_1vault_1_1internal" ],
     [ "strategy", "namespacefr_1_1softsf_1_1vault_1_1strategy.html", "namespacefr_1_1softsf_1_1vault_1_1strategy" ],
     [ "NativeVault", "classfr_1_1softsf_1_1vault_1_1NativeVault.html", "classfr_1_1softsf_1_1vault_1_1NativeVault" ],
-    [ "NativeVaultExceptionTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest.html", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest" ],
-    [ "NativeVaultTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html", "classfr_1_1softsf_1_1vault_1_1NativeVaultTest" ]
+    [ "NativeVaultExceptionUTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionUTest.html", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionUTest" ],
+    [ "NativeVaultITest", "classfr_1_1softsf_1_1vault_1_1NativeVaultITest.html", "classfr_1_1softsf_1_1vault_1_1NativeVaultITest" ]
 ];

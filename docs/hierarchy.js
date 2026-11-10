@@ -1,5 +1,6 @@
 var hierarchy =
 [
+    [ "fr.softsf.vault.strategy.AbstractVaultStrategyBoundaryITest", "classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategyBoundaryITest.html", null ],
     [ "fr.softsf.vault.internal.CrossPlatformVaultLoader", "classfr_1_1softsf_1_1vault_1_1internal_1_1CrossPlatformVaultLoader.html", null ],
     [ "Exception", null, [
       [ "fr.softsf.vault.exception.NativeVaultException", "classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html", null ]
@@ -10,8 +11,8 @@ var hierarchy =
       ] ]
     ] ],
     [ "fr.softsf.vault.NativeVault", "classfr_1_1softsf_1_1vault_1_1NativeVault.html", null ],
-    [ "fr.softsf.vault.NativeVaultExceptionTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest.html", null ],
-    [ "fr.softsf.vault.NativeVaultTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html", null ],
+    [ "fr.softsf.vault.NativeVaultExceptionUTest", "classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionUTest.html", null ],
+    [ "fr.softsf.vault.NativeVaultITest", "classfr_1_1softsf_1_1vault_1_1NativeVaultITest.html", null ],
     [ "VaultStrategy permits MacKeychainStrategy", null, [
       [ "fr.softsf.vault.strategy.AbstractVaultStrategy", "classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html", null ]
     ] ],

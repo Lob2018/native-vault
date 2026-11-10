@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['quick_20test_20with_20jbang_0',['Local quick test with JBang',['../index.html#autotoc_md4',1,'']]]
+  ['providers_3a_0',['Available Secure Storage Providers:',['../index.html#autotoc_md2',1,'']]],
+  ['provides_1',['What this library provides',['../index.html#autotoc_md1',1,'']]]
 ];

@@ -1,0 +1,7 @@
+<map id="fr.softsf.vault.strategy.MacKeychainStrategy.createCFString" name="fr.softsf.vault.strategy.MacKeychainStrategy.createCFString">
+<area shape="rect" id="Node000001" title="Creates a CoreFoundation string segment from the given character data." alt="" coords="5,40,265,85"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a7d2c817b7ac15769804eef7329743bad" title="Encodes character data into UTF&#45;8 format using a ByteBuffer wrapper." alt="" coords="321,5,560,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="265,45,308,42,303,44,266,50"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a08fcacfd926372fcc5f26fcfbbb009e4" title="Validates that the provided Arena is not null." alt="" coords="313,75,568,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="265,74,300,81,295,81,265,80"/>
+</map>

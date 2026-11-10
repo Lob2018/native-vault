@@ -1,11 +1,11 @@
 <map id="fr.softsf.vault.strategy.AbstractVaultStrategy" name="fr.softsf.vault.strategy.AbstractVaultStrategy">
-<area shape="rect" id="Node000001" title="Sealed polymorphic strategy interface defining OS&#45;native credential store contracts using character a..." alt="" coords="318,845,586,1526"/>
-<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html" title="macOS Keychain implementation utilizing FFM API with proper CoreFoundation dictionaries." alt="" coords="332,1574,572,2405"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="453,1538,455,1574,449,1573,451,1543"/>
+<area shape="rect" id="Node000001" title="Sealed polymorphic strategy interface defining OS&#45;native credential store contracts using character a..." alt="" coords="318,845,586,1621"/>
+<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html" title="macOS Keychain implementation of the VaultStrategy interface utilizing the FFM API with proper CoreFo..." alt="" coords="330,1669,574,2709"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="453,1634,455,1670,449,1669,451,1639"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,357,288,446"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,457,302,796,322,845,316,846,298,798,169,463"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,457,320,866,315,867,168,463"/>
 <area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html" title="Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper memory ..." alt="" coords="312,62,592,741"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="452,753,455,846,449,845,452,759"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="452,753,455,846,449,845,452,758"/>
 <area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html" title="Windows Credential Manager implementation of the VaultStrategy interface utilizing the FFM API with p..." alt="" coords="616,5,936,797"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="610,803,589,861,584,859,612,798"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="615,814,589,889,584,887,617,809"/>
 </map>

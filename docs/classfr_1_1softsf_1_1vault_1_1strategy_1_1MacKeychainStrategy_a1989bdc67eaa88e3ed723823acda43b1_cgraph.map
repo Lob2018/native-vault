@@ -1,12 +1,23 @@
 <map id="fr.softsf.vault.strategy.MacKeychainStrategy.delete" name="fr.softsf.vault.strategy.MacKeychainStrategy.delete">
-<area shape="rect" id="Node000001" title="Deletes a secret from the native credential store." alt="" coords="5,112,211,157"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#aa27e89d7ef7b0a3aa531a551da6f1f50" title="Concatenates the namespace and the user key with an intermediate dot separator and validates all part..." alt="" coords="259,5,544,67"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,110,295,71,291,74,178,114"/>
-<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#ad79e3b72d9781124fa48d0eecedaeae9" title="Validates the key constraints." alt="" coords="592,48,834,93"/>
-<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="211,121,577,83,576,88,212,127"/>
-<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#af6d81e4eaa5a8eb0ad47514fc79d1596" title=" " alt="" coords="272,142,531,186"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="211,142,259,149,254,150,211,148"/>
-<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a2200b8d2b52a72eaf03a8a650f3d10a2" title="Overwrites the specified memory segment with zeros to ensure security." alt="" coords="295,211,508,256"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="158,155,260,196,286,207,281,207,258,201,157,160"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="544,49,579,55,574,56,545,55"/>
+<area shape="rect" id="Node000001" title="Deletes a secret from the native credential store." alt="" coords="5,176,211,221"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a543875ecc8dcc3a0ac51130f316f1bfa" title="Concatenates the namespace and the user key with an intermediate dot separator and validates all part..." alt="" coords="259,5,544,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,174,188,129,257,83,286,72,282,75,260,88,191,133,136,178"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a11400ec3200645dfc2fe1bbaa9cff623" title="Validates the key constraints." alt="" coords="598,43,841,88"/>
+<area shape="poly" id="edge10_Node000001_Node000003" title=" " alt="" coords="148,174,200,149,258,127,318,114,400,100,585,79,581,81,401,106,319,119,259,132,202,154,151,178"/>
+<area shape="rect" id="Node000005" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a108983ebcd0c69ea5642ae5de4378355" title="Creates a CoreFoundation string segment from the given character data." alt="" coords="272,142,531,186"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="210,184,258,180,254,183,212,189"/>
+<area shape="rect" id="Node000008" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ad57b4ea9b41a70f21c2bbab678b31a99" title="Creates a CoreFoundation dictionary from the provided keys and values arrays." alt="" coords="265,211,538,256"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="210,208,252,215,247,217,212,214"/>
+<area shape="rect" id="Node000009" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#aa07955e7ba8545a66a728204b3ac5998" title="Releases multiple CoreFoundation memory segments safely by invoking CFRelease." alt="" coords="287,280,516,325"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="153,219,204,243,260,266,285,275,279,276,258,271,202,248,153,224"/>
+<area shape="rect" id="Node000010" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a616807be3fb16da61f893b8344accd6d" title="Overwrites the specified memory segment with zeros to ensure security." alt="" coords="295,350,508,394"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="128,219,184,278,220,309,260,335,283,348,278,347,257,340,217,313,180,282,127,224"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="544,47,586,52,580,54,545,52"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a38730ba2f94b64a08b4a555ed12ac3aa" title="Validates data array size constraints against a specified byte limit." alt="" coords="895,35,1114,96"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="841,63,882,65,877,66,842,68"/>
+<area shape="rect" id="Node000006" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a7d2c817b7ac15769804eef7329743bad" title="Encodes character data into UTF&#45;8 format using a ByteBuffer wrapper." alt="" coords="600,142,839,186"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="531,162,587,164,582,165,532,167"/>
+<area shape="rect" id="Node000007" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a08fcacfd926372fcc5f26fcfbbb009e4" title="Validates that the provided Arena is not null." alt="" coords="592,211,847,256"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="507,184,602,207,597,208,507,190"/>
+<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="538,231,579,233,574,234,538,236"/>
 </map>

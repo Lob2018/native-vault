@@ -1,6 +1,6 @@
 var searchData=
 [
   ['setsecret_0',['setSecret',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#ae8e94d0dcf1d55a0072197025e127972',1,'fr::softsf::vault::NativeVault']]],
-  ['setup_1',['setUp',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html#a76abe5df5e26a047676b4f305c760348',1,'fr::softsf::vault::NativeVaultTest']]],
+  ['setup_1',['setUp',['../classfr_1_1softsf_1_1vault_1_1NativeVaultITest.html#a83d5dd4f2de63ca28b79473d69498b1c',1,'fr.softsf.vault.NativeVaultITest.setUp()'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategyBoundaryITest.html#a2f14cc5b2618446f4b3a83c7ccb09ded',1,'fr.softsf.vault.strategy.AbstractVaultStrategyBoundaryITest.setUp()']]],
   ['store_2',['store',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html#af05331da149ba9e778224fa87e536223',1,'fr.softsf.vault.strategy.LinuxKeyringStrategy.store()'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#adc566c61a21820c55f139965e9a5faf8',1,'fr.softsf.vault.strategy.MacKeychainStrategy.store()'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a15217f263bff77cbc489f884248e7863',1,'fr.softsf.vault.strategy.AbstractVaultStrategy.store()'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#aaeaaf1eb0b4b2b15a8fba88765ae02b3',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.store()']]]
 ];

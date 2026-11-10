@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['what_20this_20library_20provides_0',['What this library provides',['../index.html#autotoc_md1',1,'']]],
-  ['windows_5fcredential_5fmanager_5fmax_5fsecret_5fbyte_5fsize_1',['WINDOWS_CREDENTIAL_MANAGER_MAX_SECRET_BYTE_SIZE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a06381b632fb5cf9ee755590466081507',1,'fr::softsf::vault::strategy::AbstractVaultStrategy']]],
-  ['windowscredentialmanagerstrategy_2',['WindowsCredentialManagerStrategy',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#ad8c789c09a44fcd6f11803ed89c288be',1,'fr.softsf.vault.strategy.WindowsCredentialManagerStrategy.WindowsCredentialManagerStrategy()']]],
-  ['windowscredentialmanagerstrategy_2ejava_3',['WindowsCredentialManagerStrategy.java',['../WindowsCredentialManagerStrategy_8java.html',1,'']]],
-  ['with_20jbang_4',['Local quick test with JBang',['../index.html#autotoc_md4',1,'']]],
-  ['write_5fhandle_5',['WRITE_HANDLE',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html#aebf776b5428d7400b88980dd79746143',1,'fr::softsf::vault::strategy::WindowsCredentialManagerStrategy']]]
+  ['validatearena_0',['validateArena',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#a08fcacfd926372fcc5f26fcfbbb009e4',1,'fr::softsf::vault::strategy::MacKeychainStrategy']]],
+  ['validatedatasize_1',['validateDataSize',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a38730ba2f94b64a08b4a555ed12ac3aa',1,'fr::softsf::vault::strategy::AbstractVaultStrategy']]],
+  ['validatekey_2',['validateKey',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a11400ec3200645dfc2fe1bbaa9cff623',1,'fr::softsf::vault::strategy::AbstractVaultStrategy']]],
+  ['validatesecret_3',['validateSecret',['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategy.html#a8d4ad2ef26310f0e005024bdf1b256a8',1,'fr::softsf::vault::strategy::AbstractVaultStrategy']]],
+  ['vault_4',['vault',['../classfr_1_1softsf_1_1vault_1_1NativeVaultITest.html#a0f5c1473c2a873021119bcd6c2fe3ba0',1,'fr.softsf.vault.NativeVaultITest.vault'],['../classfr_1_1softsf_1_1vault_1_1strategy_1_1AbstractVaultStrategyBoundaryITest.html#a9714a76fd08ba6070fb01028cdb01048',1,'fr.softsf.vault.strategy.AbstractVaultStrategyBoundaryITest.vault'],['../module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd',1,'vault:&#160;module-info.java']]],
+  ['vaultstrategy_2ejava_5',['VaultStrategy.java',['../VaultStrategy_8java.html',1,'']]],
+  ['verified_6',['verified',['../classfr_1_1softsf_1_1vault_1_1NativeVault.html#a5666796175b24c6f6560919645b6382f',1,'fr::softsf::vault::NativeVault']]]
 ];

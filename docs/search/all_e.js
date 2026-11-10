@@ -6,8 +6,8 @@ var searchData=
   ['nativevault_2ejava_3',['NativeVault.java',['../NativeVault_8java.html',1,'']]],
   ['nativevaultexception_4',['NativeVaultException',['../classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html',1,'fr.softsf.vault.exception.NativeVaultException'],['../classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html#a56f714bfcb1b5e1ae2ad8134aa0364fe',1,'fr.softsf.vault.exception.NativeVaultException.NativeVaultException(String message)'],['../classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html#a594fb584d4010147c70fb0e60159c2fb',1,'fr.softsf.vault.exception.NativeVaultException.NativeVaultException(String message, Throwable cause)']]],
   ['nativevaultexception_2ejava_5',['NativeVaultException.java',['../NativeVaultException_8java.html',1,'']]],
-  ['nativevaultexceptiontest_6',['NativeVaultExceptionTest',['../classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionTest.html',1,'fr::softsf::vault']]],
-  ['nativevaultexceptiontest_2ejava_7',['NativeVaultExceptionTest.java',['../NativeVaultExceptionTest_8java.html',1,'']]],
-  ['nativevaulttest_8',['NativeVaultTest',['../classfr_1_1softsf_1_1vault_1_1NativeVaultTest.html',1,'fr::softsf::vault']]],
-  ['nativevaulttest_2ejava_9',['NativeVaultTest.java',['../NativeVaultTest_8java.html',1,'']]]
+  ['nativevaultexceptionutest_6',['NativeVaultExceptionUTest',['../classfr_1_1softsf_1_1vault_1_1NativeVaultExceptionUTest.html',1,'fr::softsf::vault']]],
+  ['nativevaultexceptionutest_2ejava_7',['NativeVaultExceptionUTest.java',['../NativeVaultExceptionUTest_8java.html',1,'']]],
+  ['nativevaultitest_8',['NativeVaultITest',['../classfr_1_1softsf_1_1vault_1_1NativeVaultITest.html',1,'fr::softsf::vault']]],
+  ['nativevaultitest_2ejava_9',['NativeVaultITest.java',['../NativeVaultITest_8java.html',1,'']]]
 ];

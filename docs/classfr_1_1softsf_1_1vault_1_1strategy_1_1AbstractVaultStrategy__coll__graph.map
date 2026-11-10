@@ -1,9 +1,9 @@
 <map id="fr.softsf.vault.strategy.AbstractVaultStrategy" name="fr.softsf.vault.strategy.AbstractVaultStrategy">
-<area shape="rect" id="Node000001" title="Sealed polymorphic strategy interface defining OS&#45;native credential store contracts using character a..." alt="" coords="323,752,593,1351"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,315,292,395"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,406,328,751,323,753,169,408"/>
-<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html" title="Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper memory ..." alt="" coords="317,55,599,655"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="461,668,461,752,455,752,455,668"/>
-<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html" title="Windows Credential Manager implementation of the VaultStrategy interface utilizing the FFM API with p..." alt="" coords="623,5,944,704"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="619,712,596,762,591,760,614,710"/>
+<area shape="rect" id="Node000001" title="Sealed polymorphic strategy interface defining OS&#45;native credential store contracts using character a..." alt="" coords="318,845,586,1621"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,357,288,446"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,457,320,866,315,867,167,462"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1LinuxKeyringStrategy.html" title="Linux Keyring implementation of the VaultStrategy interface utilizing the FFM API with proper memory ..." alt="" coords="312,62,592,741"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="453,753,455,846,449,845,451,758"/>
+<area shape="rect" id="Node000004" href="$classfr_1_1softsf_1_1vault_1_1strategy_1_1WindowsCredentialManagerStrategy.html" title="Windows Credential Manager implementation of the VaultStrategy interface utilizing the FFM API with p..." alt="" coords="616,5,936,797"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="618,809,589,889,584,887,615,814"/>
 </map>
