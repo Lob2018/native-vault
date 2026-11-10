@@ -4,6 +4,18 @@
 ## Unreleased - 
 
 
+♻️ refactor NativeVaultExceptionUTest: Specify unit test with UTests in the class name
+
+([5820659f7444069](https://github.com/Lob2018/native-vault/commit/5820659f74440699ee29f4e49bc0377d83ee9995))
+
+♻️ refactor AbstractVaultStrategy, NativeVaultITest, AbstractVaultStrategyBoundaryITest: Optimize platform-aware byte-size validation and add boundary integration tests
+-AbstractVaultStrategy: Introduce IS_WINDOWS constant with Locale.ROOT and extract validateDataSize utility for secure and reusable buffer validation.
+-Rename NativeVaultTest to NativeVaultITest to reflect integration test nature.
+-AbstractVaultStrategyBoundaryITest: to validate platform-specific key and secret boundary size limits.
+-Tests pass.
+
+([53bdf3d037cac1c](https://github.com/Lob2018/native-vault/commit/53bdf3d037cac1c5befe56f08c2b45ebcb282b1b))
+
 ♻️ refactor AbstractVaultStrategy, MacKeychainStrategy, class.puml: Refactor strategy helper methods to static, optimize MacKeychain memory dictionaries, and enhance documentation
 -AbstractVaultStrategy: Converted validation, zero-filling, segment allocation, and key concatenation helper methods to static.
 -MacKeychainStrategy: Refactored CoreFoundation dictionary creation, string/data encoding, resource release, and arena validation helpers to static.

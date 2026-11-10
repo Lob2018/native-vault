@@ -24,33 +24,43 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /** Unit tests for strategy boundary conditions using package-private constants. */
 class AbstractVaultStrategyBoundaryITest {
 
+    private static final String OS_NAME = System.getProperty("os.name").toLowerCase(Locale.ROOT);
+    private static final boolean IS_WINDOWS = OS_NAME.contains("win");
+    private static final boolean IS_MAC = OS_NAME.contains("mac");
+    private static final boolean IS_LINUX = OS_NAME.contains("lin");
+
     private NativeVault vault;
-    private char[] namespace;
     private char[] maxKey;
+    private long maxSecretSize;
 
     /** Sets up the test environment before each test execution. */
     @BeforeEach
     void setUp() throws NativeVaultException {
-        namespace =
-                new char[] {
-                    'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.', 'm', 'y', 'a', 'p', 'p'
-                };
+        char[] namespace = {
+            'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.', 'm', 'y', 'a', 'p', 'p'
+        };
         vault = new NativeVault(namespace);
 
-        boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
         int maxKeyChars =
-                isWindows
+                IS_WINDOWS
                         ? AbstractVaultStrategy.MAX_KEY_BYTE_SIZE / 2
                         : AbstractVaultStrategy.MAX_KEY_BYTE_SIZE;
-        int maxUserKeyLength = maxKeyChars - namespace.length - 1;
+        int maxUserKeyLength = maxKeyChars - (IS_LINUX ? 0 : (namespace.length + 1));
 
         maxKey = new char[maxUserKeyLength];
         Arrays.fill(maxKey, 'k');
 
+        maxSecretSize =
+                IS_WINDOWS
+                        ? AbstractVaultStrategy.WINDOWS_CREDENTIAL_MANAGER_MAX_SECRET_BYTE_SIZE / 2
+                        : IS_MAC
+                                ? AbstractVaultStrategy.MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE
+                                : AbstractVaultStrategy.LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE;
+
         try {
             vault.removeSecret(maxKey);
         } catch (Exception _) {
-            // Ignore if secret does not exist yet
+            // Ignored because the secret may not exist yet during initial setup
         }
     }
 
@@ -69,14 +79,6 @@ class AbstractVaultStrategyBoundaryITest {
     /** Tests boundary conditions for maximum exact valid key and secret sizes across platforms. */
     @Test
     void givenMaxExactValidKeyAndSecret_whenSetSecret_thenSuccess() throws NativeVaultException {
-        String os = System.getProperty("os.name").toLowerCase(Locale.ROOT);
-        long maxSecretSize =
-                os.contains("win")
-                        ? AbstractVaultStrategy.WINDOWS_CREDENTIAL_MANAGER_MAX_SECRET_BYTE_SIZE / 2
-                        : os.contains("mac")
-                                ? AbstractVaultStrategy.MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE
-                                : AbstractVaultStrategy.LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE;
-
         char[] maxSecret = new char[(int) maxSecretSize];
         Arrays.fill(maxSecret, 's');
 
@@ -94,8 +96,7 @@ class AbstractVaultStrategyBoundaryITest {
     /** Tests that exceeding the maximum valid key boundary throws NativeVaultException. */
     @Test
     void givenExceedingMaxKeySize_whenSetSecret_thenThrowException() {
-        int invalidKeyLength = AbstractVaultStrategy.MAX_KEY_BYTE_SIZE - namespace.length;
-        char[] invalidKey = new char[invalidKeyLength];
+        char[] invalidKey = new char[maxKey.length + 1];
         Arrays.fill(invalidKey, 'k');
         char[] validSecret = {'s'};
 
@@ -114,14 +115,6 @@ class AbstractVaultStrategyBoundaryITest {
     /** Tests that exceeding the platform maximum secret boundary throws NativeVaultException. */
     @Test
     void givenExceedingMaxSecretSize_whenSetSecret_thenThrowException() {
-        String os = System.getProperty("os.name").toLowerCase(Locale.ROOT);
-        long maxSecretSize =
-                os.contains("win")
-                        ? AbstractVaultStrategy.WINDOWS_CREDENTIAL_MANAGER_MAX_SECRET_BYTE_SIZE
-                        : os.contains("mac")
-                                ? AbstractVaultStrategy.MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE
-                                : AbstractVaultStrategy.LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE;
-
         char[] normalKey = {'k'};
         char[] tooLargeSecret = new char[(int) maxSecretSize + 1];
         Arrays.fill(tooLargeSecret, 's');

@@ -215,7 +215,8 @@ public final class LinuxKeyringStrategy extends AbstractVaultStrategy {
                 }
                 MemorySegment boundedResult =
                         result.reinterpret(LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE);
-                while (boundedResult.get(ValueLayout.JAVA_BYTE, passwordLength) != 0) {
+                while (passwordLength < boundedResult.byteSize()
+                        && boundedResult.get(ValueLayout.JAVA_BYTE, passwordLength) != 0) {
                     passwordLength++;
                 }
                 MemorySegment passwordSegment = boundedResult.asSlice(0, passwordLength);
@@ -292,7 +293,8 @@ public final class LinuxKeyringStrategy extends AbstractVaultStrategy {
                 }
                 MemorySegment boundedResult =
                         result.reinterpret(LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE);
-                while (boundedResult.get(ValueLayout.JAVA_BYTE, passwordLength) != 0) {
+                while (passwordLength < boundedResult.byteSize()
+                        && boundedResult.get(ValueLayout.JAVA_BYTE, passwordLength) != 0) {
                     passwordLength++;
                 }
                 return true;

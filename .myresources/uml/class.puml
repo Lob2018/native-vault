@@ -9,10 +9,12 @@ interface VaultStrategy {
 }
 
 abstract class AbstractVaultStrategy {
+    {static} - boolean IS_WINDOWS
     {static} ~ int MAX_KEY_BYTE_SIZE
     {static} ~ long MACOS_KEYCHAIN_MAX_SECRET_BYTE_SIZE
     {static} ~ long LINUX_SECRET_SERVICE_MAX_SECRET_BYTE_SIZE
     {static} ~ int WINDOWS_CREDENTIAL_MANAGER_MAX_SECRET_BYTE_SIZE
+    {static} - void validateDataSize(char[] data, long limit, String errorMessage)
     {static} ~ void validateKey(char[] key)
     ~ void validateSecret(char[] secret)
     {static} ~ void zeroFill(MemorySegment segment)
