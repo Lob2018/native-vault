@@ -2,6 +2,29 @@
 skinparam classAttributeIconSize 0
 
 package "fr.softsf.vault" {
+    class NativeVault {
+        {static} - Object INTEGRITY_CHECK_LOCK
+        {static} ~ String RESERVED_KEY_PREFIX
+        {static} ~ String INTEGRITY_TEST_KEY
+        - VaultStrategy strategy
+        - boolean verified
+        - NativeVaultException initializationException
+        - volatile boolean allowReservedKeys
+        {static} ~ char[] getIntegrityTestKey()
+        + NativeVault(char[] namespace)
+        ~ void setAllowReservedKeysForTest(boolean allowReservedKeys)
+        {static} - VaultStrategy detect(char[] namespace)
+        {static} - boolean executeIntegrityCheck(VaultStrategy strategy)
+        - void ensureUsable()
+        + boolean setSecret(char[] key, char[] secret)
+        - void checkReservedKey(String keyStr)
+        + Optional<char[]> getSecret(char[] key)
+        + boolean removeSecret(char[] key)
+        + boolean hasSecret(char[] key)
+    }
+}
+
+package "fr.softsf.vault.strategy" {
     interface VaultStrategy {
         + boolean store(char[] key, char[] secret)
         + Optional<char[]> retrieve(char[] key)
@@ -120,27 +143,6 @@ package "fr.softsf.vault" {
         {static} - VarHandle TARGET_ALIAS_HANDLE
         {static} - VarHandle USER_NAME_HANDLE
         {static} + NativeCredentialRecord fromSegment(MemorySegment segment)
-    }
-
-    class NativeVault {
-        {static} - Object INTEGRITY_CHECK_LOCK
-        {static} ~ String RESERVED_KEY_PREFIX
-        {static} ~ String INTEGRITY_TEST_KEY
-        - VaultStrategy strategy
-        - boolean verified
-        - NativeVaultException initializationException
-        - volatile boolean allowReservedKeys
-        {static} ~ char[] getIntegrityTestKey()
-        + NativeVault(char[] namespace)
-        ~ void setAllowReservedKeysForTest(boolean allowReservedKeys)
-        {static} - VaultStrategy detect(char[] namespace)
-        {static} - boolean executeIntegrityCheck(VaultStrategy strategy)
-        - void ensureUsable()
-        + boolean setSecret(char[] key, char[] secret)
-        - void checkReservedKey(String keyStr)
-        + Optional<char[]> getSecret(char[] key)
-        + boolean removeSecret(char[] key)
-        + boolean hasSecret(char[] key)
     }
 }
 

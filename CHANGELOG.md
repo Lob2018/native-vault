@@ -4,6 +4,10 @@
 ## Unreleased - 
 
 
+📚 docs Doxygen with updated UML class diagram
+
+([5131358c596f338](https://github.com/Lob2018/native-vault/commit/5131358c596f338148eba5a0e2de545a7de2ae0c))
+
 📚 docs Doxygen
 
 ([4805a36ac9188e8](https://github.com/Lob2018/native-vault/commit/4805a36ac9188e8e517a98ee2c9e025546c12530))
