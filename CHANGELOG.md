@@ -4,6 +4,10 @@
 ## Unreleased - 
 
 
+📚 docs Doxygen
+
+([4805a36ac9188e8](https://github.com/Lob2018/native-vault/commit/4805a36ac9188e8e517a98ee2c9e025546c12530))
+
 ✨ feat NativeVault: enforce reserved key prefix protection with test bypass mechanism
 -Add __nv_ reserved key prefix check across all public CRUD operations (&#x60;setSecret&#x60;, &#x60;getSecret&#x60;, &#x60;removeSecret&#x60;, &#x60;hasSecret&#x60;) to protect internal integrity mechanisms.
 -Introduce package-private &#x60;setAllowReservedKeysForTest&#x60; method supported by a &#x60;volatile boolean&#x60; flag to safely enable reserved key usage in integration tests.
