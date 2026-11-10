@@ -75,7 +75,7 @@ public final class CrossPlatformVaultLoader {
                 || libraryName.toLowerCase(Locale.ROOT).endsWith(".dll")) {
             return SymbolLookup.libraryLookup(libraryName, Arena.global());
         }
-        if (libraryName.equalsIgnoreCase("Advapi32")) {
+        if (libraryName.equalsIgnoreCase("Advapi32") || libraryName.equalsIgnoreCase("Kernel32")) {
             return SymbolLookup.libraryLookup(libraryName + ".dll", Arena.global());
         }
         return LINKER.defaultLookup();

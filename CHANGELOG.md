@@ -6,6 +6,10 @@
 
 📚 docs Doxygen with updated UML class diagram
 
+([14f5fd6f81aaa5a](https://github.com/Lob2018/native-vault/commit/14f5fd6f81aaa5a2b4c1741d5f612f8e37e1f3f9))
+
+📚 docs Doxygen with updated UML class diagram
+
 ([5131358c596f338](https://github.com/Lob2018/native-vault/commit/5131358c596f338148eba5a0e2de545a7de2ae0c))
 
 📚 docs Doxygen

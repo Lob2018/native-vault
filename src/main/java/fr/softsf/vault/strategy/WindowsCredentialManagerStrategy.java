@@ -13,8 +13,10 @@ import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.VarHandle;
+import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Optional;
 
 import fr.softsf.vault.exception.NativeVaultException;
@@ -33,6 +35,7 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
     private static final int CRED_PERSIST_LOCAL_MACHINE = 2;
     public static final String CREDENTIAL_BLOB_SIZE = "CredentialBlobSize";
     public static final String CREDENTIAL_BLOB = "CredentialBlob";
+    private static final MethodHandle GET_LAST_ERROR_HANDLE;
     private static final GroupLayout CREDENTIAL_LAYOUT =
             MemoryLayout.structLayout(
                     ValueLayout.JAVA_INT.withName("Flags"),
@@ -138,6 +141,11 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
             CRED_FREE_HANDLE =
                     CrossPlatformVaultLoader.loadNativeFunction(
                             LIB_NAME, "CredFree", FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
+            GET_LAST_ERROR_HANDLE =
+                    CrossPlatformVaultLoader.loadNativeFunction(
+                            "Kernel32",
+                            "GetLastError",
+                            FunctionDescriptor.of(ValueLayout.JAVA_INT));
         } catch (Throwable t) { // NOSONAR
             if (t instanceof Error error) {
                 throw error;
@@ -161,6 +169,32 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
         this.namespace = namespace.clone();
     }
 
+    /**
+     * Allocates a null-terminated UTF-16LE string for Win32 LPWSTR parameters.
+     *
+     * @param arena the allocation arena
+     * @param data the character data to encode
+     * @return the allocated memory segment
+     */
+    private static MemorySegment allocateWideString(Arena arena, char[] data) {
+        if (arena == null) {
+            throw new IllegalArgumentException("Arena cannot be null");
+        }
+        if (data == null || data.length == 0) {
+            throw new IllegalArgumentException("Data cannot be null or empty");
+        }
+        char[] terminated = Arrays.copyOf(data, data.length + 1);
+        ByteBuffer byteBuffer = StandardCharsets.UTF_16LE.encode(CharBuffer.wrap(terminated));
+        MemorySegment segment = arena.allocate(byteBuffer.remaining());
+        segment.copyFrom(MemorySegment.ofBuffer(byteBuffer));
+        byteBuffer.position(0);
+        while (byteBuffer.hasRemaining()) {
+            byteBuffer.put((byte) 0);
+        }
+        Arrays.fill(terminated, '\0');
+        return segment;
+    }
+
     @Override
     public boolean store(char[] key, char[] secret) throws NativeVaultException {
         validateKey(key);
@@ -173,8 +207,7 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
             char[] namespacedKey = null;
             try {
                 namespacedKey = concatNamespaceAndKey(namespace, key);
-                targetNameSegment =
-                        allocateSegment(arena, namespacedKey, StandardCharsets.UTF_16LE);
+                targetNameSegment = allocateWideString(arena, namespacedKey);
                 credentialSegment = arena.allocate(CREDENTIAL_LAYOUT);
                 NativeCredentialRecord.FLAGS_HANDLE.set(credentialSegment, 0L, 0);
                 NativeCredentialRecord.TYPE_HANDLE.set(credentialSegment, 0L, CRED_TYPE_GENERIC);
@@ -199,7 +232,16 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
                 NativeCredentialRecord.USER_NAME_HANDLE.set(
                         credentialSegment, 0L, MemorySegment.NULL);
                 int status = (int) WRITE_HANDLE.invokeExact(credentialSegment, 0);
-                return status != 0;
+                if (status == 0) {
+                    int error = (int) GET_LAST_ERROR_HANDLE.invokeExact();
+                    throw new NativeVaultException(
+                            "CredWriteW failed. "
+                                    + "CredentialBlobSize="
+                                    + secretBytesSize
+                                    + ", GetLastError="
+                                    + error);
+                }
+                return true;
             } finally {
                 zeroFill(nativePassword);
                 zeroFill(secretSeg);
@@ -225,8 +267,7 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
             char[] namespacedKey = null;
             try {
                 namespacedKey = concatNamespaceAndKey(namespace, key);
-                targetNameSegment =
-                        allocateSegment(arena, namespacedKey, StandardCharsets.UTF_16LE);
+                targetNameSegment = allocateWideString(arena, namespacedKey);
                 outCredPtr = arena.allocate(ValueLayout.ADDRESS);
                 int status =
                         (int)
@@ -305,8 +346,7 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
             char[] namespacedKey = null;
             try {
                 namespacedKey = concatNamespaceAndKey(namespace, key);
-                targetNameSegment =
-                        allocateSegment(arena, namespacedKey, StandardCharsets.UTF_16LE);
+                targetNameSegment = allocateWideString(arena, namespacedKey);
                 int status =
                         (int) DELETE_HANDLE.invokeExact(targetNameSegment, CRED_TYPE_GENERIC, 0);
                 return status != 0;
@@ -333,8 +373,7 @@ public final class WindowsCredentialManagerStrategy extends AbstractVaultStrateg
             char[] namespacedKey = null;
             try {
                 namespacedKey = concatNamespaceAndKey(namespace, key);
-                targetNameSegment =
-                        allocateSegment(arena, namespacedKey, StandardCharsets.UTF_16LE);
+                targetNameSegment = allocateWideString(arena, namespacedKey);
                 outCredPtr = arena.allocate(ValueLayout.ADDRESS);
                 int status =
                         (int)
