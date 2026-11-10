@@ -1,7 +1,7 @@
 <map id="fr.softsf.vault.NativeVault" name="fr.softsf.vault.NativeVault">
-<area shape="rect" id="Node000001" title="Zero&#45;JNI/JNA facade class managing native credential operations via the Project Panama Foreign Functi..." alt="" coords="5,363,234,868"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html" title="Exception thrown when a native vault operation fails." alt="" coords="15,127,224,290"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,287,122,346,117,346,120,292"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="82,5,157,78"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="120,90,122,128,117,127,120,96"/>
+<area shape="rect" id="Node000001" title="Zero&#45;JNI/JNA facade class managing native credential operations via the Project Panama Foreign Functi..." alt="" coords="5,363,271,1008"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1exception_1_1NativeVaultException.html" title="Exception thrown when a native vault operation fails." alt="" coords="34,127,243,290"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,287,141,346,136,346,138,292"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="101,5,176,78"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="139,90,141,127,136,127,138,96"/>
 </map>

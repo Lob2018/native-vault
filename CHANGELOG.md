@@ -4,6 +4,15 @@
 ## Unreleased - 
 
 
+✨ feat NativeVault: enforce reserved key prefix protection with test bypass mechanism
+-Add __nv_ reserved key prefix check across all public CRUD operations (&#x60;setSecret&#x60;, &#x60;getSecret&#x60;, &#x60;removeSecret&#x60;, &#x60;hasSecret&#x60;) to protect internal integrity mechanisms.
+-Introduce package-private &#x60;setAllowReservedKeysForTest&#x60; method supported by a &#x60;volatile boolean&#x60; flag to safely enable reserved key usage in integration tests.
+-Update &#x60;NativeVaultITest&#x60; with proper lifecycle hooks to toggle and clean up the bypass flag.
+-Improve documentation and build instructions in README.md.
+-Tests pass.
+
+([82715b9e81c2cdf](https://github.com/Lob2018/native-vault/commit/82715b9e81c2cdfab6c14d52ff6669ce3fd967a6))
+
 ✅ test AbstractVaultStrategyBoundaryITest: Enhance exception validation by asserting precise error messages in boundary tests
 -AbstractVaultStrategyBoundaryITest : Assert exact exception messages for key and secret size boundary violations.
 -Tests pass.

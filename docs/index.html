@@ -127,16 +127,20 @@ Available Secure Storage Providers:</h3>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
 How to use this library</h1>
 <dl class="section attention"><dt>Attention</dt><dd>OS key stores lack native isolation for cross-application keys:<ul>
-<li>NativeVault prevents key collisions by concatenating the key with the namespace defined at instantiation (e.g., <span class="tt">fr.softsf.myapp.thekey</span>).</li>
-<li>Linux &amp; macOS: NativeVault also uses the namespace as the isolated schema name.</li>
+<li>NativeVault prevents key collisions:<ul>
+<li><b>Windows &amp; macOS</b>: concatenating the key with the namespace defined at instantiation.</li>
+<li><b>Linux</b>: isolating keys using the namespace as a distinct schema name/attribute group.</li>
 </ul>
-</dd></dl>
-<div class="fragment"><div class="line">&lt;<span class="keywordtype">dependency</span>&gt;</div>
+</li>
+<li><b>Reserved Keys</b>: Keys starting with <b><span class="tt">__nv_</span></b> are reserved for internal mechanisms (such as integrity checks) and throw an <span class="tt">IllegalArgumentException</span> if used. <div class="fragment"><div class="line">&lt;<span class="keywordtype">dependency</span>&gt;</div>
 <div class="line">    &lt;<span class="keywordtype">groupId</span>&gt;<span class="keyword">fr.softsf</span>&lt;/<span class="keywordtype">groupId</span>&gt;</div>
 <div class="line">    &lt;<span class="keywordtype">artifactId</span>&gt;<span class="keyword">native-vault</span>&lt;/<span class="keywordtype">artifactId</span>&gt;</div>
 <div class="line">    &lt;<span class="keywordtype">version</span>&gt;1.0.0&lt;/<span class="keywordtype">version</span>&gt;</div>
 <div class="line">&lt;/<span class="keywordtype">dependency</span>&gt;</div>
-</div><!-- fragment --><p>Here is sample code showing how to use the vault:</p>
+</div><!-- fragment --></li>
+</ul>
+</dd></dl>
+<p>Here is sample code showing how to use the vault:</p>
 <div class="fragment"><div class="line"><span class="comment">// Unique namespace to avoid OS keychain collisions</span></div>
 <div class="line"><span class="keywordtype">char</span>[] <span class="keyword">namespace </span>= {<span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;o&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;.&#39;</span>,</div>
 <div class="line">    <span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;y&#39;</span>, <span class="charliteral">&#39;a&#39;</span>, <span class="charliteral">&#39;p&#39;</span>, <span class="charliteral">&#39;p&#39;</span>};</div>
@@ -171,20 +175,20 @@ How to use this library</h1>
 <div class="line">    Arrays.fill(secret, <span class="charliteral">&#39;\0&#39;</span>); <span class="comment">// Mandatory cleanup for secret buffer</span></div>
 <div class="line">}</div>
 <div class="ttc" id="amodule-info_8java_html_ae3ed66f35d55de965e4dd7bc5d7fddfd"><div class="ttname"><a href="module-info_8java.html#ae3ed66f35d55de965e4dd7bc5d7fddfd">vault</a></div><div class="ttdeci">module fr.softsf. vault</div><div class="ttdef"><b>Definition</b> module-info.java:1</div></div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Local quick test with JBang</h1>
-<p>Before running the test script, ensure the project is built and verified:</p>
-<div class="fragment"><div class="line">mvn clean verify</div>
-</div><!-- fragment --><p>You can then rapidly edit test and validate your vault operations using <b>JBang</b>:</p>
-<div class="fragment"><div class="line">jbang run .myresources/scripts/TestVault.java</div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+</div><!-- fragment --> <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
 How to build</h1>
 <ol type="1">
 <li>JDK 25+ (required for the FFM API)</li>
 <li>Maven 3.8+</li>
 <li><span class="tt">mvn clean verify</span></li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+Local quick test with JBang</h1>
+<p>Before running the test script, ensure the project is built and verified:</p>
+<div class="fragment"><div class="line">mvn clean verify</div>
+</div><!-- fragment --><p>You can then rapidly edit test and validate your vault operations using <b>JBang</b>:</p>
+<div class="fragment"><div class="line">jbang run .myresources/scripts/TestVault.java</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
 Architecture (UML)</h1>
 <p><b>Use case diagram</b></p>
 <p><img src="https://raw.githubusercontent.com/Lob2018/native-vault/master/.myresources/uml/usecase.svg" alt="Use Case Diagram" style="pointer-events: none;" class="inline"/></p>

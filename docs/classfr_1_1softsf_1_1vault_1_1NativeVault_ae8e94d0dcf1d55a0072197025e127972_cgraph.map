@@ -1,6 +1,8 @@
 <map id="fr.softsf.vault.NativeVault.setSecret" name="fr.softsf.vault.NativeVault.setSecret">
-<area shape="rect" id="Node000001" title="Stores or updates a secret securely in the native credential store using character array parameters." alt="" coords="5,29,216,74"/>
-<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="59,28,58,19,66,10,84,5,111,3,139,5,158,14,153,14,138,10,110,8,85,10,69,15,63,21,64,29"/>
-<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a70a09e700fc761b5fb476840b7c85874" title="Ensures that a strategy is available before performing operations." alt="" coords="264,29,498,74"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,49,251,52,245,52,216,54"/>
+<area shape="rect" id="Node000001" title="Stores or updates a secret securely in the native credential store using character array parameters." alt="" coords="5,40,216,85"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="59,39,58,30,66,21,84,15,111,13,139,16,158,24,153,25,138,21,110,19,85,21,69,25,63,31,65,40"/>
+<area shape="rect" id="Node000002" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#ac55e8b386876fbcea7fd9c56d2cc376b" title="Checks whether the given key starts with the reserved library prefix." alt="" coords="267,5,495,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,46,254,44,249,45,217,51"/>
+<area shape="rect" id="Node000003" href="$classfr_1_1softsf_1_1vault_1_1NativeVault.html#a70a09e700fc761b5fb476840b7c85874" title="Ensures that a strategy is available before performing operations." alt="" coords="264,75,498,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="216,73,251,80,245,80,216,79"/>
 </map>

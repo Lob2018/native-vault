@@ -1,5 +1,13 @@
 var NAVTREEINDEX1 =
 {
+"classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#adc566c61a21820c55f139965e9a5faf8":[2,0,0,0,0,2,3,10],
+"classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#adf628ba9a0ca04954bbec04699fa7895":[1,0,0,0,0,2,3,9],
+"classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#adf628ba9a0ca04954bbec04699fa7895":[2,0,0,0,0,2,3,9],
+"classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ae11922b14bb68b58432ceff8d5498ef7":[1,0,0,0,0,2,3,35],
+"classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ae11922b14bb68b58432ceff8d5498ef7":[2,0,0,0,0,2,3,35],
+"classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ae28c2732430bd70d4939607e863432f2":[1,0,0,0,0,2,3,22],
+"classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#ae28c2732430bd70d4939607e863432f2":[2,0,0,0,0,2,3,22],
+"classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#aedb1a79bbedbdb571a533358bcab7261":[1,0,0,0,0,2,3,14],
 "classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#aedb1a79bbedbdb571a533358bcab7261":[2,0,0,0,0,2,3,14],
 "classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#af02ebb31ba64f08e68adc92fbd5f59b7":[1,0,0,0,0,2,3,27],
 "classfr_1_1softsf_1_1vault_1_1strategy_1_1MacKeychainStrategy.html#af02ebb31ba64f08e68adc92fbd5f59b7":[2,0,0,0,0,2,3,27],
