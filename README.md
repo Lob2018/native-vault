@@ -29,9 +29,10 @@ Powered by the Foreign Function & Memory (FFM) API (**Project Panama**), this li
 
 > [!CAUTION]
 > OS key stores lack native isolation for cross-application keys:
-> * NativeVault prevents key collisions by concatenating the key with the namespace defined at instantiation (e.g., `fr.softsf.myapp.thekey`).
-> * Linux & macOS: NativeVault also uses the namespace as the isolated schema name.
-
+> * NativeVault prevents key collisions:
+>   * **Windows & macOS**: concatenating the key with the namespace defined at instantiation.
+>   * **Linux**: isolating keys using the namespace as a distinct schema name/attribute group.
+> * **Reserved Keys**: Keys starting with **`__nv_`** are reserved for internal mechanisms (such as integrity checks) and throw an `IllegalArgumentException` if used.
 ```xml
 <dependency>
     <groupId>fr.softsf</groupId>
@@ -77,6 +78,11 @@ try {
     Arrays.fill(secret, '\0'); // Mandatory cleanup for secret buffer
 }
 ```
+# How to build
+
+1. JDK 25+ (required for the FFM API)
+2. Maven 3.8+
+3. `mvn clean verify`
 
 # Local quick test with JBang
 
@@ -91,12 +97,6 @@ You can then rapidly edit test and validate your vault operations using **JBang*
 ```bash
 jbang run .myresources/scripts/TestVault.java
 ```
-
-# How to build
-
-1. JDK 25+ (required for the FFM API)
-2. Maven 3.8+
-3. `mvn clean verify`
 
 # Architecture (UML)
 

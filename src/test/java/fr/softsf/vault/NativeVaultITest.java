@@ -35,6 +35,7 @@ class NativeVaultITest {
                             'f', 'r', '.', 's', 'o', 'f', 't', 's', 'f', '.', 'm', 'y', 'a', 'p',
                             'p'
                         });
+        vault.setAllowReservedKeysForTest(true);
     }
 
     /** Cleans up the test environment after each test execution. */
@@ -46,6 +47,7 @@ class NativeVaultITest {
                 vault.removeSecret(key);
             } finally {
                 Arrays.fill(key, '\0');
+                vault.setAllowReservedKeysForTest(false);
             }
         }
     }

@@ -4,6 +4,12 @@
 ## Unreleased - 
 
 
+✅ test AbstractVaultStrategyBoundaryITest: Enhance exception validation by asserting precise error messages in boundary tests
+-AbstractVaultStrategyBoundaryITest : Assert exact exception messages for key and secret size boundary violations.
+-Tests pass.
+
+([38687f383f2ffd8](https://github.com/Lob2018/native-vault/commit/38687f383f2ffd8c91738b800f08bc40a5493a51))
+
 📚 docs Doxygen
 
 ([0882ff567d7ec20](https://github.com/Lob2018/native-vault/commit/0882ff567d7ec20c2505306f0e79a862cc3461c6))

@@ -67,7 +67,14 @@ import fr.softsf.vault.strategy.WindowsCredentialManagerStrategy;
 public final class NativeVault {
     private static final Object INTEGRITY_CHECK_LOCK = new Object();
 
-    static final String INTEGRITY_TEST_KEY = "key";
+    /** Prefix reserved for the library: user keys starting with it are rejected. */
+    static final String RESERVED_KEY_PREFIX = "__nv_";
+
+    /**
+     * Fixed key of the self-test entry. Being fixed, a leftover (process killed mid-test) is simply
+     * overwritten then removed by the next run.
+     */
+    private static final String INTEGRITY_TEST_KEY = RESERVED_KEY_PREFIX + "selftest__";
 
     /**
      * Returns the integrity test key character array.
@@ -81,6 +88,7 @@ public final class NativeVault {
     private final VaultStrategy strategy;
     private final boolean verified;
     private final NativeVaultException initializationException;
+    private volatile boolean allowReservedKeys;
 
     /**
      * Initializes a new instance of the native vault facade with a custom namespace.
@@ -101,16 +109,29 @@ public final class NativeVault {
         NativeVaultException initEx = null;
         try {
             detectedStrategy = detect(namespace);
+            this.allowReservedKeys = true;
             isVerified = executeIntegrityCheck(detectedStrategy);
         } catch (NativeVaultException e) {
             initEx = e;
         } catch (Exception e) {
             initEx = new NativeVaultException("Failed to initialize native vault strategy", e);
+        } finally {
+            this.allowReservedKeys = false;
         }
         this.strategy = detectedStrategy;
         this.verified = isVerified;
         this.initializationException = initEx;
         ensureUsable();
+    }
+
+    /**
+     * Package-private setter intended exclusively for testing purposes, allowing internal test
+     * suites to bypass the reserved key prefix restriction.
+     *
+     * @param allowReservedKeys true to permit reserved key prefixes, false otherwise
+     */
+    void setAllowReservedKeysForTest(boolean allowReservedKeys) {
+        this.allowReservedKeys = allowReservedKeys;
     }
 
     /**
@@ -200,7 +221,8 @@ public final class NativeVault {
      * @param key the credential identifier character array
      * @param secret the secret value character array to store
      * @return true if the secret was successfully stored, false otherwise
-     * @throws IllegalArgumentException if {@code key} or {@code secret} is null or empty
+     * @throws IllegalArgumentException if {@code key} or {@code secret} is null or empty, or if key
+     *     starts with reserved prefix
      * @throws NativeVaultException if an error occurs while storing the secret
      */
     @SuppressWarnings("java:S1181")
@@ -208,6 +230,7 @@ public final class NativeVault {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException("Key cannot be null or empty");
         }
+        checkReservedKey(new String(key));
         if (secret == null || secret.length == 0) {
             throw new IllegalArgumentException("Secret cannot be null or empty");
         }
@@ -226,11 +249,26 @@ public final class NativeVault {
     }
 
     /**
+     * Checks whether the given key starts with the reserved library prefix.
+     *
+     * @param keyStr the key string to check
+     * @throws IllegalArgumentException if the key starts with the reserved prefix and reserved keys
+     *     are not allowed
+     */
+    private void checkReservedKey(String keyStr) {
+        if (!allowReservedKeys && keyStr.startsWith(RESERVED_KEY_PREFIX)) {
+            throw new IllegalArgumentException(
+                    "Key cannot start with reserved prefix: " + RESERVED_KEY_PREFIX);
+        }
+    }
+
+    /**
      * Retrieves a secret from the native credential store using a character array key.
      *
      * @param key the credential identifier character array
      * @return an optional containing the secret character array if found
-     * @throws IllegalArgumentException if {@code key} is null or empty
+     * @throws IllegalArgumentException if {@code key} is null or empty, or if key starts with
+     *     reserved prefix
      * @throws NativeVaultException if an error occurs while retrieving the secret
      */
     @SuppressWarnings("java:S1181")
@@ -238,6 +276,7 @@ public final class NativeVault {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException("Key cannot be null or empty");
         }
+        checkReservedKey(new String(key));
         ensureUsable();
         try {
             return strategy.retrieve(key);
@@ -257,7 +296,8 @@ public final class NativeVault {
      *
      * @param key the credential identifier character array
      * @return true if the secret was successfully removed, false otherwise
-     * @throws IllegalArgumentException if {@code key} is null or empty
+     * @throws IllegalArgumentException if {@code key} is null or empty, or if key starts with
+     *     reserved prefix
      * @throws NativeVaultException if an error occurs while removing the secret
      */
     @SuppressWarnings("java:S1181")
@@ -265,6 +305,7 @@ public final class NativeVault {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException("Key cannot be null or empty");
         }
+        checkReservedKey(new String(key));
         ensureUsable();
         try {
             return strategy.delete(key);
@@ -284,7 +325,8 @@ public final class NativeVault {
      *
      * @param key the credential identifier character array
      * @return true if the secret exists, false otherwise
-     * @throws IllegalArgumentException if {@code key} is null or empty
+     * @throws IllegalArgumentException if {@code key} is null or empty, or if key starts with
+     *     reserved prefix
      * @throws NativeVaultException if an error occurs while checking existence
      */
     @SuppressWarnings("java:S1181")
@@ -292,6 +334,7 @@ public final class NativeVault {
         if (key == null || key.length == 0) {
             throw new IllegalArgumentException("Key cannot be null or empty");
         }
+        checkReservedKey(new String(key));
         ensureUsable();
         try {
             return strategy.exists(key);
